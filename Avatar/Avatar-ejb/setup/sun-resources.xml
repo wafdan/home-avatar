@@ -5,8 +5,8 @@
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="avatar"/>
-        <property name="User" value="root"/>
-        <property name="Password" value=""/>
+        <property name="User" value="avatar"/>
+        <property name="Password" value="avatar"/>
         <property name="URL" value="jdbc:mysql://localhost:3306/avatar"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
@@ -20,6 +20,5 @@
         <property name="URL" value="jdbc:mysql://localhost:3306/avatar"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" pool-name="mysql_avatar_avatarPool" jndi-name="AvatarJNDi"  object-type="user"/>
     <jdbc-resource enabled="true" pool-name="mysql_avatar_avatarPool" jndi-name="Avatar"  object-type="user"/>
 </resources>
