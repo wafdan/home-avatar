@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package MengelolaPengguna;
+package AvatarEntity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;

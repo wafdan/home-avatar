@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package MengelolaPengguna;
+package AvatarEntity;
 
 import java.util.List;
 import javax.ejb.Stateless;
@@ -15,38 +15,38 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author zulfikar
+ * @author Christian
  */
 @Stateless
-public class AvatarUserFacade {
+public class CustomerFacade {
     @PersistenceContext(unitName = "AvatarPersistenceUnit")
     private EntityManager em;
 
-    public void create(AvatarUser avatarUser) {
-        em.persist(avatarUser);
+    public void create(Customer customer) {
+        em.persist(customer);
     }
 
-    public void edit(AvatarUser avatarUser) {
-        em.merge(avatarUser);
+    public void edit(Customer customer) {
+        em.merge(customer);
     }
 
-    public void remove(AvatarUser avatarUser) {
-        em.remove(em.merge(avatarUser));
+    public void remove(Customer customer) {
+        em.remove(em.merge(customer));
     }
 
-    public AvatarUser find(Object id) {
-        return em.find(AvatarUser.class, id);
+    public Customer find(Object id) {
+        return em.find(Customer.class, id);
     }
 
-    public List<AvatarUser> findAll() {
+    public List<Customer> findAll() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(AvatarUser.class));
+        cq.select(cq.from(Customer.class));
         return em.createQuery(cq).getResultList();
     }
 
-    public List<AvatarUser> findRange(int[] range) {
+    public List<Customer> findRange(int[] range) {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(AvatarUser.class));
+        cq.select(cq.from(Customer.class));
         Query q = em.createQuery(cq);
         q.setMaxResults(range[1] - range[0]);
         q.setFirstResult(range[0]);
@@ -55,7 +55,7 @@ public class AvatarUserFacade {
 
     public int count() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<AvatarUser> rt = cq.from(AvatarUser.class);
+        Root<Customer> rt = cq.from(Customer.class);
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();

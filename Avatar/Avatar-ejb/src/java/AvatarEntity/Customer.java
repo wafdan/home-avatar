@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package MengelolaPengguna;
+package AvatarEntity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author zulfikar
+ * @author Christian
  */
 @Entity
 @Table(name = "customer")
@@ -27,7 +27,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Customer.findByIdentityNumber", query = "SELECT c FROM Customer c WHERE c.identityNumber = :identityNumber"),
     @NamedQuery(name = "Customer.findByAddress1", query = "SELECT c FROM Customer c WHERE c.address1 = :address1"),
     @NamedQuery(name = "Customer.findByAddress2", query = "SELECT c FROM Customer c WHERE c.address2 = :address2"),
-    @NamedQuery(name = "Customer.findByCityId", query = "SELECT c FROM Customer c WHERE c.cityId = :cityId"),
+    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city"),
+    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country"),
     @NamedQuery(name = "Customer.findByTelephone", query = "SELECT c FROM Customer c WHERE c.telephone = :telephone")})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,8 +48,11 @@ public class Customer implements Serializable {
     @Column(name = "address2")
     private String address2;
     @Basic(optional = false)
-    @Column(name = "city_id")
-    private int cityId;
+    @Column(name = "city")
+    private String city;
+    @Basic(optional = false)
+    @Column(name = "country")
+    private String country;
     @Column(name = "telephone")
     private String telephone;
 
@@ -59,12 +63,13 @@ public class Customer implements Serializable {
         this.username = username;
     }
 
-    public Customer(String username, String identityType, String identityNumber, String address1, int cityId) {
+    public Customer(String username, String identityType, String identityNumber, String address1, String city, String country) {
         this.username = username;
         this.identityType = identityType;
         this.identityNumber = identityNumber;
         this.address1 = address1;
-        this.cityId = cityId;
+        this.city = city;
+        this.country = country;
     }
 
     public String getUsername() {
@@ -107,12 +112,20 @@ public class Customer implements Serializable {
         this.address2 = address2;
     }
 
-    public int getCityId() {
-        return cityId;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getTelephone() {
@@ -145,7 +158,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "MengelolaPengguna.Customer[username=" + username + "]";
+        return "AvatarEntity.Customer[username=" + username + "]";
     }
 
 }
