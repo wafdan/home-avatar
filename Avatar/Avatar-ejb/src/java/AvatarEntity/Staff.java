@@ -10,19 +10,21 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author Christian
+ * @author zulfikar
  */
 @Entity
 @Table(name = "staff")
 @NamedQueries({
     @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s"),
     @NamedQuery(name = "Staff.findByUsername", query = "SELECT s FROM Staff s WHERE s.username = :username"),
+    @NamedQuery(name = "Staff.findByName", query = "SELECT s FROM Staff s WHERE s.name = :name"),
     @NamedQuery(name = "Staff.findByEmploymentId", query = "SELECT s FROM Staff s WHERE s.employmentId = :employmentId"),
     @NamedQuery(name = "Staff.findByPosition", query = "SELECT s FROM Staff s WHERE s.position = :position")})
 public class Staff implements Serializable {
@@ -31,6 +33,17 @@ public class Staff implements Serializable {
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
+    @Basic(optional = false)
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "password")
+    private String password;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "email")
+    private String email;
     @Basic(optional = false)
     @Column(name = "employment_id")
     private String employmentId;
@@ -45,8 +58,11 @@ public class Staff implements Serializable {
         this.username = username;
     }
 
-    public Staff(String username, String employmentId, short position) {
+    public Staff(String username, String name, String password, String email, String employmentId, short position) {
         this.username = username;
+        this.name = name;
+        this.password = password;
+        this.email = email;
         this.employmentId = employmentId;
         this.position = position;
     }
@@ -57,6 +73,30 @@ public class Staff implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEmploymentId() {
@@ -97,7 +137,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "AvatarEntity.Staff[username=" + username + "]";
+        return "MengelolaPengguna.Staff[username=" + username + "]";
     }
 
 }
