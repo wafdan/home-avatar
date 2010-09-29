@@ -5,6 +5,7 @@
 package MengelolaPengguna;
 
 
+import KelolaPengguna.MengelolaPenggunaController;
 import AvatarEntity.Staff;
 import AvatarEntity.StaffJpaController;
 import java.io.IOException;
@@ -36,35 +37,21 @@ public class TambahStaf extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //TODO output your page here
-            /*out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet TambahStaf</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet TambahStaf at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");*/
             String fullname = request.getParameter("fullname");
             String EmployeeID = request.getParameter("employmentID");
             String email = request.getParameter("email");
             short position = Short.parseShort(request.getParameter("position"));
-            //KelolaPenggunaController k = new KelolaPenggunaController();
-            //String username = k.GenerateUsername(fullname, EmployeeID);
-            //String password = k.GeneratePassword();
-            //String EncryptedPassword = k.MD5(password);
+            MengelolaPenggunaController k = new MengelolaPenggunaController();
+            String username = k.generateUsername(fullname, EmployeeID);
+            String password = k.generatePassword();
+            String EncryptedPassword = k.getHashedPassword(password);
 
-            Staff s = new Staff("Tes Username", fullname, "fdafjslfkas", email, EmployeeID, position);
+            Staff s = new Staff(username, fullname, EncryptedPassword, email, EmployeeID, position);
             StaffJpaController sjc=new StaffJpaController();
             sjc.create(s);
-            //out.println(username + "<br>");
-            //out.println(fullname + "<br>");
-            //StaffJpaController sj = new StaffJpaController();
-            //sj.create(s);
 
-        } /*catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
-        } */catch (NoSuchAlgorithmException ex) {
+
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
