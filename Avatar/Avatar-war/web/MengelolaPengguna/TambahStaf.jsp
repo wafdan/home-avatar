@@ -21,12 +21,13 @@
             var CekInput=function()
             {
                 //alert('tes');
-                var usernameText=document.getElementById('username').value;
+                var usernameText=document.getElementById('fullname').value;
                 var employmentIDText=document.getElementById('employmentID').value;
+                var emailText=document.getElementById('email').value;
 
 
                 //alert(employmentIDText.length);
-                if(usernameText.length==0 || employmentIDText.length==0){
+                if(usernameText.length==0 || employmentIDText.length==0 || emailText.length==0){
                     alert('Required Field Can Not Be Left Blank');
                     return false;
                 }
@@ -74,8 +75,13 @@
 
                         <form action="TambahStaf" method="get">
                             <ul>
-                                <li><label for="username">Username : </label><input type="text" name="username" id="username"></li>
+                                <li><label for="fullname">Full Name: </label><input type="text" name="fullname" id="fullname"></li>
+                                <li>
+                                  <label for="email">EmailL </label>
+                                  <input type="text" name="email" id="email">
+                                </li>
                                 <li><label for="employmentID">Employment ID: </label><input type="text" name="employmentID" id="employmentID"></li>
+                                
                                 <li>
                                     <label for="position">position</label>
                                     <select name="position" id="position">

@@ -4,8 +4,15 @@
  */
 package MengelolaPengguna;
 
+
+import AvatarEntity.Staff;
+import AvatarEntity.StaffJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +45,31 @@ public class TambahStaf extends HttpServlet {
             out.println("<h1>Servlet TambahStaf at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");*/
-            String username=request.getParameter("username");
-            String EmployeeID=request.getParameter("employmentID");
+            String fullname = request.getParameter("fullname");
+            String EmployeeID = request.getParameter("employmentID");
+            String email = request.getParameter("email");
+            short position = Short.parseShort(request.getParameter("position"));
+            //KelolaPenggunaController k = new KelolaPenggunaController();
+            //String username = k.GenerateUsername(fullname, EmployeeID);
+            //String password = k.GeneratePassword();
+            //String EncryptedPassword = k.MD5(password);
 
+            Staff s = new Staff("Tes Username", fullname, "fdafjslfkas", email, EmployeeID, position);
+            StaffJpaController sjc=new StaffJpaController();
+            sjc.create(s);
+            //out.println(username + "<br>");
+            //out.println(fullname + "<br>");
+            //StaffJpaController sj = new StaffJpaController();
+            //sj.create(s);
 
-
+        } /*catch (PreexistingEntityException ex) {
+            Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+        } */catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }
