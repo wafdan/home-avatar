@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author zulfikar
+ * @author Christian
  */
 @Entity
 @Table(name = "staff")
@@ -97,7 +97,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "MengelolaPengguna.Staff[username=" + username + "]";
+        return "AvatarEntity.Staff[username=" + username + "]";
     }
 
 }
