@@ -97,8 +97,8 @@ border:1px solid #262626;
                                     <h2>Hotel Profile</h2>
                                 </div>
                                 <ul>
-                                    <li><a href="../MengelolaPengguna/TambahStaf.jsp">Show Profile</a></li>
-                                    <li><a href="#">Edit Profile</a></li>
+                                    <li><a href="Profil.jsp">Show Profile</a></li>
+                                    <li><a href="EditProfil.jsp">Edit Profile</a></li>
                                 </ul>
                             </li>
                         </ul>
