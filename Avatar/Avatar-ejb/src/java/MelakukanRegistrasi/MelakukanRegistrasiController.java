@@ -55,9 +55,9 @@ public class MelakukanRegistrasiController implements MelakukanRegistrasiControl
         } // akhir: temp berisi jumlah
         enddigit[3] = (char) (temp % 10);
         if (arrnama.length > 1) {
-            return arrnama[0]+"."+arrnama[1].substring(0, 1)+enddigit[0]+enddigit[1]+enddigit[2]+enddigit[3];
+            return arrnama[0].toLowerCase()+"."+(arrnama[1].substring(0, 1)).toLowerCase()+enddigit[0]+enddigit[1]+enddigit[2]+enddigit[3];
         } else {
-            return arrnama[0]+enddigit[0]+enddigit[1]+enddigit[2]+enddigit[3];
+            return arrnama[0].toLowerCase()+enddigit[0]+enddigit[1]+enddigit[2]+enddigit[3];
         }
     }
 
