@@ -13,8 +13,8 @@
 <title>Domesticated by Free CSS Templates</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="jquery.slidertron-0.1.js"></script>
+<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="jquery/jquery.slidertron-0.1.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <style type="text/css">
     @import "slidertron.css";
@@ -31,8 +31,8 @@
 			<li class="current_page_item"><a href="index.jsp">Overview</a></li>
                         <li><a href="reservation.jsp" class="first">Reservation</a></li>
 			<li><a href="rooms.jsp">Rooms</a></li>
-			<li><a href="services.jsp">Services</a></li>
-			<li><a href="resto.jsp">Restaurant & Meeting Room</a></li>
+                        <li><a href="hall.jsp">Meeting & Events</a></li>
+			<li><a href="services.jsp">Other Services</a></li>
                         <li><a href="contactus.jsp">Contact Us</a></li>
 		</ul>
 	</div>

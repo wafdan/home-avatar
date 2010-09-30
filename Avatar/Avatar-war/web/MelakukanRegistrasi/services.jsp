@@ -38,12 +38,12 @@ Released   : 20100701
 	</div>
 	<div id="menu">
 		<ul>
-			<li><a href="index.html">Overview</a></li>
-            <li><a href="reservation.html" class="first">Reservation</a></li>
-			<li><a href="rooms.html">Rooms</a></li>
-			<li class="current_page_item"><a href="services.html">Services</a></li>
-			<li><a href="resto.html">Restaurant & Meeting Room</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
+                        <li><a href="index.jsp">Overview</a></li>
+                        <li><a href="reservation.jsp" class="first">Reservation</a></li>
+			<li><a href="rooms.jsp">Rooms</a></li>
+                        <li><a href="hall.jsp">Meeting & Events</a></li>
+			<li class="current_page_item"><a href="services.jsp">Other Services</a></li>
+                        <li><a href="contactus.jsp">Contact Us</a></li>
 		</ul>
 	</div>
 	<!-- end #menu -->

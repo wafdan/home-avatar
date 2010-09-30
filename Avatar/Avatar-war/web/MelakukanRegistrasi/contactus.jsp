@@ -1,6 +1,6 @@
 <%-- 
-    Document   : hall
-    Created on : 30 Sep 10, 21:45:28
+    Document   : contactus
+    Created on : 30 Sep 10, 22:37:44
     Author     : kamoe
 --%>
 
@@ -38,12 +38,12 @@ Released   : 20100701
 	</div>
 	<div id="menu">
 		<ul>
-                        <li><a href="index.jsp">Overview</a></li>
+			<li><a href="index.jsp">Overview</a></li>
                         <li><a href="reservation.jsp" class="first">Reservation</a></li>
 			<li><a href="rooms.jsp">Rooms</a></li>
-                        <li class="current_page_item"><a href="hall.jsp">Meeting & Events</a></li>
+                        <li><a href="hall.jsp">Meeting & Events</a></li>
 			<li><a href="services.jsp">Other Services</a></li>
-                        <li><a href="contactus.jsp">Contact Us</a></li>
+                        <li class="current_page_item"><a href="contactus.jsp">Contact Us</a></li>
 		</ul>
 	</div>
 	<!-- end #menu -->
@@ -54,43 +54,16 @@ Released   : 20100701
   <div id="page-bgtop">
 		<div id="content">
 			<div class="post">
-    <h2 class="title">&nbsp;</h2>
+    <h2 class="title">Contact information</h2>
 				<div class="entry">
-					<p>&nbsp;</p>
-</div>
+					<p>Spons Bandung Hotel</p>
+					<p>Jl. Cisitu Lama IX</p>
+              </div>
 			</div>
 </div>
 		<!-- end #content -->
-		<div id="sidebar">
-			<ul>
-				<li>
-					<h2>VENUE TYPE</h2>
-					<ul>
-					  <li><a href="spa.html">In-Room Spa</a></li>
-					  <li><a href="#">Fitness</a></li>
-					  <li><a href="#">Laundry & Travelite</a></li>
-					  <li><a href="#">Room Service</a></li>
-					  <li><a href="#">Parking</a></li>
-                      <li><a href="#">WiFi/High Speed Internet Access</a></li>
-                      <li><a href="#">24h security</a></li>
-				  </ul>
-			  </li>
-                            <li>
-					<h2>PACKAGE TYPE</h2>
-					<ul>
-					  <li><a href="spa.html">In-Room Spa</a></li>
-					  <li><a href="#">Fitness</a></li>
-					  <li><a href="#">Laundry & Travelite</a></li>
-					  <li><a href="#">Room Service</a></li>
-					  <li><a href="#">Parking</a></li>
-                      <li><a href="#">WiFi/High Speed Internet Access</a></li>
-                      <li><a href="#">24h security</a></li>
-				  </ul>
-			  </li>
-			</ul>
-	  </div>
 		<!-- end #sidebar -->
-	  <div style="clear: both;">&nbsp;</div>
+    <div style="clear: both;">&nbsp;</div>
 	</div>
 	<!-- end #page -->
 </div>
