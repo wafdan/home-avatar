@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.sql.*" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -57,15 +58,18 @@
                             <th bgcolor="#262626" width="96">Position</th>
                             
                           </tr>
+                          <% int no=1;
+						  		while(no<=10){%>
                           <tr>
-                            <td>&nbsp;</td>
-                            <td><div style="overflow:auto">asfasfafafa&nbsp;</div></td>
-                            <td><div style="overflow:auto">&nbsp;knights_of_kangouw@yahoo.com</div></td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td><%=no%>&nbsp;</td>
+                            <td><div style="overflow:auto"><%=no%> asfasfafafa&nbsp;</div></td>
+                            <td><div style="overflow:auto">&nbsp;<%=no%> knights_of_kangouw@yahoo.com</div></td>
+                            <td><%=no%>&nbsp;</td>
+                            <td><%=no%>&nbsp;</td>
                             <td><a href="#">edit</a></td>
                             <td><a href="#">delete</a></td>
                           </tr>
+                          <%	no++;} %>
                         </table>
                         <h2 class="title">&nbsp;</h2>
                         <div class="post"></div>
