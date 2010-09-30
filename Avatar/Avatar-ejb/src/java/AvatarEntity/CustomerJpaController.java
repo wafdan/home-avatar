@@ -20,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author zulfikar
  */
-public class StaffJpaController {
+public class CustomerJpaController {
 
-    public StaffJpaController() {
+    public CustomerJpaController() {
         emf = Persistence.createEntityManagerFactory("AvatarPersistenceUnit");
     }
     private EntityManagerFactory emf = null;
@@ -31,16 +31,16 @@ public class StaffJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Staff staff) throws PreexistingEntityException, Exception {
+    public void create(Customer customer) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(staff);
+            em.persist(customer);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findStaff(staff.getUsername()) != null) {
-                throw new PreexistingEntityException("Staff " + staff + " already exists.", ex);
+            if (findCustomer(customer.getUsername()) != null) {
+                throw new PreexistingEntityException("Customer " + customer + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -50,19 +50,19 @@ public class StaffJpaController {
         }
     }
 
-    public void edit(Staff staff) throws NonexistentEntityException, Exception {
+    public void edit(Customer customer) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            staff = em.merge(staff);
+            customer = em.merge(customer);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = staff.getUsername();
-                if (findStaff(id) == null) {
-                    throw new NonexistentEntityException("The staff with id " + id + " no longer exists.");
+                String id = customer.getUsername();
+                if (findCustomer(id) == null) {
+                    throw new NonexistentEntityException("The customer with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -78,14 +78,14 @@ public class StaffJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Staff staff;
+            Customer customer;
             try {
-                staff = em.getReference(Staff.class, id);
-                staff.getUsername();
+                customer = em.getReference(Customer.class, id);
+                customer.getUsername();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The staff with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The customer with id " + id + " no longer exists.", enfe);
             }
-            em.remove(staff);
+            em.remove(customer);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +94,19 @@ public class StaffJpaController {
         }
     }
 
-    public List<Staff> findStaffEntities() {
-        return findStaffEntities(true, -1, -1);
+    public List<Customer> findCustomerEntities() {
+        return findCustomerEntities(true, -1, -1);
     }
 
-    public List<Staff> findStaffEntities(int maxResults, int firstResult) {
-        return findStaffEntities(false, maxResults, firstResult);
+    public List<Customer> findCustomerEntities(int maxResults, int firstResult) {
+        return findCustomerEntities(false, maxResults, firstResult);
     }
 
-    private List<Staff> findStaffEntities(boolean all, int maxResults, int firstResult) {
+    private List<Customer> findCustomerEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Staff.class));
+            cq.select(cq.from(Customer.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +118,20 @@ public class StaffJpaController {
         }
     }
 
-    public Staff findStaff(String id) {
+    public Customer findCustomer(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Staff.class, id);
+            return em.find(Customer.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getStaffCount() {
+    public int getCustomerCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Staff> rt = cq.from(Staff.class);
+            Root<Customer> rt = cq.from(Customer.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
