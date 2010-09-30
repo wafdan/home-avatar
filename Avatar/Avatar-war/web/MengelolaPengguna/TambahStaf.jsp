@@ -15,8 +15,19 @@
         <title>BackEnd Avatar</title>
         <link href="../default.css" rel="stylesheet" type="text/css" />
 
+    <style type="text/css">
+<!--
+div.box1 {margin:0 auto;
+width:500px;
+background:#222;
+position:relative;
+top:50px;
+border:1px solid #262626;
+}
+-->
+    </style>
     </head>
-    <body>
+<body>
         <script type="text/javascript">
             var CekInput=function()
             {
@@ -63,19 +74,32 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <!--<h1 class="title">Add New Facilities</h1>
-
+                      <div class="post">
+                        <div class="box">
+                          <h1>tambah staff</h1>
+                          <label> <span>Full name</span>
+                            <input class="input_text" name="name" id="name" type="text" />
+                          </label>
+                          <label> <span>Email</span>
+                            <input class="input_text" name="email" id="email" type="text" />
+                          </label>
+                          <label> <span>Employment ID</span>
+                            <input class="input_text" name="subject" id="subject" type="text" />
+                          </label>
+                          <label> <span>Position</span>
+                            <select name="position" id="position">
+                              <option value="0">Administrator</option>
+                              <option value="1">Receptionis</option>
+                              <option value="2">Manager</option>
+                            </select>
+                          </label>
+                          <label>
+                            <input class="button" value="Add" type="submit" />
+                          </label>
+                        </div>
+                        <h2 class="title">&nbsp;</h2>
                         <div class="post">
-                            <h2 class="title">Lorem Ipsum Dolor Volutpat</h2>
-                            <div class="post">
-                                <p>Curabitur tellus. Phasellus tellus turpis, iaculis in, faucibus lobortis, posuere in, lorem. Donec a ante. Donec neque purus, adipiscing id, eleifend a, cursus vel, odio. Vivamus varius justo sit amet leo. Morbi sed libero. Vestibulum blandit augue at mi. Praesent fermentum lectus eget diam. Nam cursus, orci sit amet porttitor iaculis, ipsum massa aliquet nulla, non elementum mi elit a mauris. In hac habitasse platea.</p>
-                                <p>Vestibulum blandit augue at mi. Praesent fermentum lectus eget diam. Nam cursus, orci sit amet porttitor iaculis, ipsum massa aliquet nulla, non elementum mi elit a mauris. In hac habitasse platea.</p>
-                            </div>
-                        </div> -->
-
-
-                        <div id="info">
-                            <%
+                          <%
                                         try {
                                             if (request == null) {
                                             } else {
@@ -91,33 +115,14 @@
                                         } catch (NullPointerException ex) {
                                         }
 
-                            %> 
+                            %>
+                          <p>&nbsp;</p>
                         </div>
-                        <form action="TambahStaf" method="get">
-                            <ul>
-                                <li><label for="fullname">Full Name: </label><input type="text" name="fullname" id="fullname"></li>
-                                <li>
-                                  <label for="email">Email </label>
-                                  <input type="text" name="email" id="email">
-                                </li>
-                                <li><label for="employmentID">Employment ID: </label><input type="text" name="employmentID" id="employmentID"></li>
-
-                                <li>
-                                    <label for="position">position</label>
-                                    <select name="position" id="position">
-                                        <option value="0">Administrator</option>
-                                        <option value="1">Receptionis</option>
-                                        <option value="2">Manager</option>
-                                    </select>
-                                </li>
-                                <input type="submit" value="Submit" onclick="return CekInput();">
-                            </ul>
-                        </form>
-
+                      </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-                    <div id="sidebar">
+              <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">
