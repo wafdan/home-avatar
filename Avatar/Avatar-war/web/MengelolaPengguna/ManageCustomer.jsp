@@ -46,8 +46,28 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <h1 class="title">Daftar Staff</h1>
+                      <h1 class="title">Daftar Customer</h1>
                       <div class="post">
+                        <table width="603" border="1" style="table-layout:fixed">
+                          <tr>
+                            <td bgcolor="#262626" width="29">No.</td>
+                            <td bgcolor="#262626" width="179">Nama</td>
+                            <td bgcolor="#262626" width="89">Email</td>
+                            <td bgcolor="#262626" width="77">ID Number</td>
+                            <td bgcolor="#262626" width="96">ID Type</td>
+                            <td width="36">&nbsp;</td>
+                            <td width="51">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td><div style="overflow:auto">asfasfafafa&nbsp;</div></td>
+                            <td><div style="overflow:auto">&nbsp;knights_of_kangouw@yahoo.com</div></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td><a href="#">edit</a></td>
+                            <td><a href="#">delete</a></td>
+                          </tr>
+                        </table>
                         <h2 class="title">&nbsp;</h2>
                         <div class="post"></div>
                       </div>
