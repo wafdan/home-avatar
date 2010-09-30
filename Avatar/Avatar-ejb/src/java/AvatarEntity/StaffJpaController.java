@@ -121,6 +121,7 @@ public class StaffJpaController {
     public Staff findStaff(String id) {
         EntityManager em = getEntityManager();
         try {
+            
             return em.find(Staff.class, id);
         } finally {
             em.close();
