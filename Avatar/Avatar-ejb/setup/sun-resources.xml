@@ -21,4 +21,5 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" pool-name="mysql_avatar_avatarPool" jndi-name="Avatar"  object-type="user"/>
+    <jdbc-resource enabled="true" pool-name="mysql_avatar_avatarPool" jndi-name="Avatarlagi"  object-type="user"/>
 </resources>

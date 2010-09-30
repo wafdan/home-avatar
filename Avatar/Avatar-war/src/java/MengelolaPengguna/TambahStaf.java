@@ -38,8 +38,8 @@ public class TambahStaf extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String fullname = request.getParameter("fullname");
-            String EmployeeID = request.getParameter("employmentID");
+            String fullname = request.getParameter("name");
+            String EmployeeID = request.getParameter("subject");
             String email = request.getParameter("email");
             short position = Short.parseShort(request.getParameter("position"));
             MengelolaPenggunaController k = new MengelolaPenggunaController();
@@ -86,13 +86,13 @@ public class TambahStaf extends HttpServlet {
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
+            //response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
+          //  response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } catch (Exception ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
+            //response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } finally {
             out.close();
         }

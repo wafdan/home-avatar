@@ -137,7 +137,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "MengelolaPengguna.Staff[username=" + username + "]";
+        return "AvatarEntity.Staff[username=" + username + "]";
     }
 
 }
