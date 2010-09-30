@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>TambahAkun</servlet-name>
-        <servlet-class>MelakukanPendaftaran.TambahAkun</servlet-class>
+        <servlet-class>MelakukanRegistrasi.TambahAkun</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
@@ -22,7 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
-        <url-pattern>/MelakukanPendaftaran/TambahAkun</url-pattern>
+        <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

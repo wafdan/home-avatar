@@ -73,7 +73,7 @@ public class TambahAkun extends HttpServlet {
             out.println("<body>");
             out.println("\t<h1>Pendaftaran Akun Avatar</h1>");
             out.println("\t<p>Username: "+uname+"</p>");
-            out.println("\t<p>Username: "+pass+"</p>");
+            out.println("\t<p>Password: "+pass+"</p>");
             out.println("</body>");
             out.println("</html>");
         } catch (PreexistingEntityException ex) {
