@@ -49,7 +49,7 @@
                       <div class="post">
                         <div class="box">
                           <h1>tambah CUSTOMER</h1>
-                          <label> <span>Name</span>
+                          <form method="post"><label> <span>Name</span>
                             <input class="input_text" name="name" id="name" type="text" />
                           </label>
                           <label> <span>Email</span>
@@ -84,11 +84,10 @@
                           <label>
                             <input class="button" value="Add" type="submit" />
                           </label>
+                          </form>
                         </div>
                         <h2 class="title">&nbsp;</h2>
-                        <div class="post">
-                          <p>&nbsp;</p>
-                        </div>
+                        <div class="post"></div>
                       </div>
                     </div>
                     <!-- end content -->
