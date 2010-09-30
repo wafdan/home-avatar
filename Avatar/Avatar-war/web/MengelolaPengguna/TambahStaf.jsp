@@ -15,19 +15,19 @@
         <title>BackEnd Avatar</title>
         <link href="../default.css" rel="stylesheet" type="text/css" />
 
-    <style type="text/css">
-<!--
-div.box1 {margin:0 auto;
-width:500px;
-background:#222;
-position:relative;
-top:50px;
-border:1px solid #262626;
-}
--->
-    </style>
+        <style type="text/css">
+            <!--
+            div.box1 {margin:0 auto;
+                      width:500px;
+                      background:#222;
+                      position:relative;
+                      top:50px;
+                      border:1px solid #262626;
+            }
+            -->
+        </style>
     </head>
-<body>
+    <body>
         <script type="text/javascript">
             var CekInput=function()
             {
@@ -74,55 +74,57 @@ border:1px solid #262626;
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <div class="post">
-                        <div class="box">
-                          <h1>tambah staff</h1>
-                          <label> <span>Full name</span>
-                            <input class="input_text" name="name" id="name" type="text" />
-                          </label>
-                          <label> <span>Email</span>
-                            <input class="input_text" name="email" id="email" type="text" />
-                          </label>
-                          <label> <span>Employment ID</span>
-                            <input class="input_text" name="subject" id="subject" type="text" />
-                          </label>
-                          <label> <span>Position</span>
-                            <select name="position" id="position">
-                              <option value="0">Administrator</option>
-                              <option value="1">Receptionis</option>
-                              <option value="2">Manager</option>
-                            </select>
-                          </label>
-                          <label>
-                            <input class="button" value="Add" type="submit" />
-                          </label>
-                        </div>
-                        <h2 class="title">&nbsp;</h2>
                         <div class="post">
-                          <%
-                                        try {
-                                            if (request == null) {
-                                            } else {
-                                                String param = request.getParameter("status");
-                                                if (param.equals("success")) {
-                                                    out.write("Add staff success");
-                                                } else if (param.equals("alreadyexist")) {
-                                                    out.write("Staff with that username and 4-first-digit Employment ID is already exist");
-                                                } else if (param.equals("unexpectedfailure")) {
-                                                    out.write("Unexpected Failure Happened");
+                            <div class="box">
+                                <h1>tambah staff</h1>
+                                <form action="TambahStaf" method="get">
+                                    <label> <span>Full name</span>
+                                        <input class="input_text" name="name" id="name" type="text" />
+                                    </label>
+                                    <label> <span>Email</span>
+                                        <input class="input_text" name="email" id="email" type="text" />
+                                    </label>
+                                    <label> <span>Employment ID</span>
+                                        <input class="input_text" name="subject" id="subject" type="text" />
+                                    </label>
+                                    <label> <span>Position</span>
+                                        <select name="position" id="position">
+                                            <option value="0">Administrator</option>
+                                            <option value="1">Receptionis</option>
+                                            <option value="2">Manager</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        <input class="button" value="Add" type="submit" />
+                                    </label>
+                                </form>
+                            </div>
+                            <h2 class="title">&nbsp;</h2>
+                            <div class="post">
+                                <%
+                                            try {
+                                                if (request == null) {
+                                                } else {
+                                                    String param = request.getParameter("status");
+                                                    if (param.equals("success")) {
+                                                        out.write("Add staff success");
+                                                    } else if (param.equals("alreadyexist")) {
+                                                        out.write("Staff with that username and 4-first-digit Employment ID is already exist");
+                                                    } else if (param.equals("unexpectedfailure")) {
+                                                        out.write("Unexpected Failure Happened");
+                                                    }
                                                 }
+                                            } catch (NullPointerException ex) {
                                             }
-                                        } catch (NullPointerException ex) {
-                                        }
 
-                            %>
-                          <p>&nbsp;</p>
+                                %>
+                                <p>&nbsp;</p>
+                            </div>
                         </div>
-                      </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-              <div id="sidebar">
+                    <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">
