@@ -97,8 +97,8 @@
                             <ul>
                                 <li><label for="fullname">Full Name: </label><input type="text" name="fullname" id="fullname"></li>
                                 <li>
-                                    <label for="email">EmailL </label>
-                                    <input type="text" name="email" id="email">
+                                  <label for="email">Email </label>
+                                  <input type="text" name="email" id="email">
                                 </li>
                                 <li><label for="employmentID">Employment ID: </label><input type="text" name="employmentID" id="employmentID"></li>
 
