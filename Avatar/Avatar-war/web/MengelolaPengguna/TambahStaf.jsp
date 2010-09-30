@@ -73,15 +73,35 @@
                             </div>
                         </div> -->
 
+
+                        <div id="info">
+                            <%
+                                        try {
+                                            if (request == null) {
+                                            } else {
+                                                String param = request.getParameter("status");
+                                                if (param.equals("success")) {
+                                                    out.write("Add staff success");
+                                                } else if (param.equals("alreadyexist")) {
+                                                    out.write("Staff with that username and 4-first-digit Employment ID is already exist");
+                                                } else if (param.equals("unexpectedfailure")) {
+                                                    out.write("Unexpected Failure Happened");
+                                                }
+                                            }
+                                        } catch (NullPointerException ex) {
+                                        }
+
+                            %> 
+                        </div>
                         <form action="TambahStaf" method="get">
                             <ul>
                                 <li><label for="fullname">Full Name: </label><input type="text" name="fullname" id="fullname"></li>
                                 <li>
-                                  <label for="email">EmailL </label>
-                                  <input type="text" name="email" id="email">
+                                    <label for="email">EmailL </label>
+                                    <input type="text" name="email" id="email">
                                 </li>
                                 <li><label for="employmentID">Employment ID: </label><input type="text" name="employmentID" id="employmentID"></li>
-                                
+
                                 <li>
                                     <label for="position">position</label>
                                     <select name="position" id="position">
@@ -98,8 +118,8 @@
                     <!-- end content -->
                     <!-- start sidebar -->
                     <div id="sidebar">
-                      <ul>
-                      <li>
+                        <ul>
+                            <li>
                                 <div id="sidebar-title">
                                     <h2>User Management</h2>
                                 </div>

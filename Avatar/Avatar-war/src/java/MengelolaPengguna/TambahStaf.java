@@ -8,6 +8,7 @@ package MengelolaPengguna;
 import KelolaPengguna.MengelolaPenggunaController;
 import AvatarEntity.Staff;
 import AvatarEntity.StaffJpaController;
+import AvatarEntity.exceptions.PreexistingEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -46,17 +47,52 @@ public class TambahStaf extends HttpServlet {
             String password = k.generatePassword();
             String EncryptedPassword = k.getHashedPassword(password);
 
+            
             Staff s = new Staff(username, fullname, EncryptedPassword, email, EmployeeID, position);
             StaffJpaController sjc=new StaffJpaController();
             sjc.create(s);
+            //Mengecek user udah ada atau belum
+            
+
+        } catch(PreexistingEntityException ex){
+            String fullname = request.getParameter("fullname");
+            String EmployeeID = request.getParameter("employmentID");
+            String email = request.getParameter("email");
+            short position = Short.parseShort(request.getParameter("position"));
+            MengelolaPenggunaController k = new MengelolaPenggunaController();
+            String username = k.generateUsername(fullname, EmployeeID, 4);
+            String password = k.generatePassword();
+            String EncryptedPassword=null;
+            try {
+                EncryptedPassword = k.getHashedPassword(password);
+            } catch (NoSuchAlgorithmException ex1) {
+                Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
+            } catch (UnsupportedEncodingException ex1) {
+                Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
+            }
 
 
+            Staff s = new Staff(username, fullname, EncryptedPassword, email, EmployeeID, position);
+            StaffJpaController sjc=new StaffJpaController();
+            try {
+                sjc.create(s);
+                response.sendRedirect("TambahStaf.jsp?status=success");
+            } catch (PreexistingEntityException ex1) {
+                Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
+                response.sendRedirect("TambahStaf.jsp?status=alreadyexist");
+            } catch (Exception ex1) {
+                Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
+                response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
+            }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } catch (Exception ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } finally {
             out.close();
         }
