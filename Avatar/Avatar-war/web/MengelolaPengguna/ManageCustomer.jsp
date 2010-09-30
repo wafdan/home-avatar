@@ -50,13 +50,12 @@
                       <div class="post">
                         <table width="603" border="1" style="table-layout:fixed">
                           <tr>
-                            <td bgcolor="#262626" width="29">No.</td>
-                            <td bgcolor="#262626" width="179">Nama</td>
-                            <td bgcolor="#262626" width="89">Email</td>
-                            <td bgcolor="#262626" width="77">ID Number</td>
-                            <td bgcolor="#262626" width="96">ID Type</td>
-                            <td width="36">&nbsp;</td>
-                            <td width="51">&nbsp;</td>
+                            <th bgcolor="#262626" width="29">No.</th>
+                            <th bgcolor="#262626" width="179">Nama</th>
+                            <th bgcolor="#262626" width="89">Email</th>
+                            <th bgcolor="#262626" width="77">ID Number</th>
+                            <th bgcolor="#262626" width="96">ID Type</th>
+                            
                           </tr>
                           <tr>
                             <td>&nbsp;</td>
