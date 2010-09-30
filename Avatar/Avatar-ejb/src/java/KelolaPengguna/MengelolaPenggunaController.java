@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.Stateless;
 import java.security.SecureRandom;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -21,13 +22,13 @@ public class MengelolaPenggunaController implements MengelolaPenggunaControllerL
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    public String generateUsername(String fullname, String EmploymentID)
+    public String generateStaffUsername(String fullname, String EmploymentID)
     {
         String[] nama=fullname.split(" ");
         return nama[0]+EmploymentID.substring(0, 2);
     }
 
-    public String generateUsername(String fullname, String EmploymentID, int subset)
+    public String generateStaffUsername(String fullname, String EmploymentID, int subset)
     {
         String[] nama=fullname.split(" ");
         return nama[0]+EmploymentID.substring(0, subset);
@@ -35,7 +36,19 @@ public class MengelolaPenggunaController implements MengelolaPenggunaControllerL
 
     public String generatePassword()
     {
-        return new BigInteger(130, new SecureRandom()).toString(32);
+        return new BigInteger(55, new SecureRandom()).toString(32);
+    }
+
+    public String generateCustomerUsername(String fullname)
+    {
+        int indexHurufTengah=fullname.length()/2;
+        char pertama=fullname.charAt(0);
+        char kedua=fullname.charAt(indexHurufTengah);
+        int ASCIIpertama=(int) pertama;
+        int ASCIIkedua=(int) kedua;
+
+        String[] splittedName=fullname.split(" ");
+        return splittedName[0]+Integer.toString(ASCIIpertama)+Integer.toString(ASCIIkedua);
     }
 
     private static String convertToHex(byte[] data) {

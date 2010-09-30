@@ -15,7 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface MengelolaPenggunaControllerLocal {
-    public String generateUsername(String fullname, String EmploymentID);
+    public String generateStaffUsername(String fullname, String EmploymentID);
     public String generatePassword();
     public String getHashedPassword(String text) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 }
