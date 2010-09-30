@@ -46,28 +46,63 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Add New Facilities</h1>
-
-                        <div class="post">
-                            <h2 class="title">Lorem Ipsum Dolor Volutpat</h2>
-                            <div class="post">
-                                <p>Curabitur tellus. Phasellus tellus turpis, iaculis in, faucibus lobortis, posuere in, lorem. Donec a ante. Donec neque purus, adipiscing id, eleifend a, cursus vel, odio. Vivamus varius justo sit amet leo. Morbi sed libero. Vestibulum blandit augue at mi. Praesent fermentum lectus eget diam. Nam cursus, orci sit amet porttitor iaculis, ipsum massa aliquet nulla, non elementum mi elit a mauris. In hac habitasse platea.</p>
-                                <p>Vestibulum blandit augue at mi. Praesent fermentum lectus eget diam. Nam cursus, orci sit amet porttitor iaculis, ipsum massa aliquet nulla, non elementum mi elit a mauris. In hac habitasse platea.</p>
-                            </div>
+                      <div class="post">
+                        <div class="box">
+                          <h1>tambah CUSTOMER</h1>
+                          <label> <span>Name</span>
+                            <input class="input_text" name="name" id="name" type="text" />
+                          </label>
+                          <label> <span>Email</span>
+                            <input class="input_text" name="email" id="email" type="text" />
+                          </label>
+                          <label> <span>ID Type</span>
+                          	<select name="idtype" id="idtype">
+                              <option value="KTP">KTP</option>
+                              <option value="SIM">SIM</option>
+                              <option value="Passport">Passport</option>
+                            </select>
+                            
+                          </label>
+                          <label> <span>ID Number</span>
+                            <input class="input_text" name="idnumber" id="idnumber" type="text" />
+                          </label>
+                          <label> <span>Address 1</span>
+                            <input class="input_text" name="address1" id="address1" type="text" />
+                          </label>
+                          <label> <span>Address 2</span>
+                            <input class="input_text" name="address2" id="address2" type="text" />
+                          </label>
+                          <label> <span>City</span>
+                            <input class="input_text" name="city" id="city" type="text" />
+                          </label>
+                          <label> <span>Country</span>
+                            <input class="input_text" name="country" id="country" type="text" />
+                          </label>
+                          <label> <span>Telephone</span>
+                            <input class="input_text" name="phone" id="phone" type="text" />
+                          </label>
+                          <label>
+                            <input class="button" value="Add" type="submit" />
+                          </label>
                         </div>
+                        <h2 class="title">&nbsp;</h2>
+                        <div class="post">
+                          <p>&nbsp;</p>
+                        </div>
+                      </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-                    <div id="sidebar">
+              <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">
                                     <h2>User Management</h2>
                                 </div>
                                 <ul>
-                                    <li><a href="#">Add New Staff</a></li>
+                                    <li><a href="TambahStaf.jsp">Add New Staff</a></li>
                                     <li><a href="#">Add New Customer</a></li>
-                                    <li><a href="#">Manage Staff</a></li>
+                                    <li><a href="ManageStaff.jsp">Manage Staff</a></li>
                                     <li><a href="#">Manage Customer</a></li>
                                 </ul>
                             </li>
