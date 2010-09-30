@@ -3,6 +3,7 @@
   <persistence-unit name="AvatarPersistenceUnit" transaction-type="JTA">
     <jta-data-source>Avatar</jta-data-source>
     <class>AvatarEntity.Staff</class>
+    <class>AvatarEntity.Customer</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

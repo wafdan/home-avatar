@@ -9,6 +9,8 @@ package Support;
  *
  * @author Christian
  */
+/* Source: AnyExample.com, 2010
+   (URL: http://www.anyexample.com/programming/java/java_simple_class_to_compute_md5_hash.xml) */
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
