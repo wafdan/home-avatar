@@ -579,3 +579,38 @@ hr {
 	margin: 0 auto;
 	padding-top: 10px;
 }
+
+#page .book {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 17px;
+	font-weight: bold;
+	color: #000000;
+	background-color: #FF9900;
+	padding: 5px;
+}
+
+#page #page-bgtop #content .post .entry img {
+	margin: 5px;
+	padding: 2px;
+	float: left;
+}
+
+#page #page-bgtop #content .post .entry .book_s {
+	background-color: #FF9900;
+	float: right;
+	border: 1px solid #FF0000;
+	font-weight: bold;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+.entry img {
+	border: 1px solid #333333;
+	margin: 2px;
+	padding: 1px;
+	float: left;
+}
+.entry li {
+	border: 1px solid #666666;
+	list-style-type: none;
+	padding: 3px;
+}
