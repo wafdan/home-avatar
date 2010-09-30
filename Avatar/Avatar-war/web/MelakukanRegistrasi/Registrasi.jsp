@@ -53,6 +53,11 @@
                                     <label class="description" for="fullname">Full Name </label>
                                     <div>
                                             <input id="fullname" name="fullname" class="element text medium" type="text" maxlength="30" value=""/>
+                                            <% if (request.getParameter("name") == null) {
+out.println("Please enter your name.");
+} else {
+out.println("Hello "+request.getParameter("name")+"!");
+} %>
                                     </div>
                             </li>
 
@@ -329,7 +334,6 @@
                 <div style="clear: both;">&nbsp;</div>
               </div>
                     <!-- end #page -->
-            </div>
             <div id="footer">
                     <p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">CSS Templates</a>.</p>
             </div>
