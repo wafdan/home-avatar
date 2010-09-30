@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Christian
+ * @author kamoe
  */
 @Entity
 @Table(name = "hall")
@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Hall.findByProductType", query = "SELECT h FROM Hall h WHERE h.productType = :productType"),
     @NamedQuery(name = "Hall.findByNormalRate", query = "SELECT h FROM Hall h WHERE h.normalRate = :normalRate"),
     @NamedQuery(name = "Hall.findByNormalRateUnit", query = "SELECT h FROM Hall h WHERE h.normalRateUnit = :normalRateUnit"),
-    @NamedQuery(name = "Hall.findByStart", query = "SELECT h FROM Hall h WHERE h.start = :start"),
+    @NamedQuery(name = "Hall.findByStartTime", query = "SELECT h FROM Hall h WHERE h.startTime = :startTime"),
     @NamedQuery(name = "Hall.findByEndTime", query = "SELECT h FROM Hall h WHERE h.endTime = :endTime"),
     @NamedQuery(name = "Hall.findByOverchargeUnit", query = "SELECT h FROM Hall h WHERE h.overchargeUnit = :overchargeUnit"),
     @NamedQuery(name = "Hall.findByOverchargeRate", query = "SELECT h FROM Hall h WHERE h.overchargeRate = :overchargeRate")})
@@ -53,9 +53,9 @@ public class Hall implements Serializable {
     @Column(name = "normal_rate_unit")
     private String normalRateUnit;
     @Basic(optional = false)
-    @Column(name = "start")
+    @Column(name = "start_time")
     @Temporal(TemporalType.TIME)
-    private Date start;
+    private Date startTime;
     @Basic(optional = false)
     @Column(name = "end_time")
     @Temporal(TemporalType.TIME)
@@ -74,12 +74,12 @@ public class Hall implements Serializable {
         this.productId = productId;
     }
 
-    public Hall(String productId, String productType, double normalRate, String normalRateUnit, Date start, Date endTime, String overchargeUnit, double overchargeRate) {
+    public Hall(String productId, String productType, double normalRate, String normalRateUnit, Date startTime, Date endTime, String overchargeUnit, double overchargeRate) {
         this.productId = productId;
         this.productType = productType;
         this.normalRate = normalRate;
         this.normalRateUnit = normalRateUnit;
-        this.start = start;
+        this.startTime = startTime;
         this.endTime = endTime;
         this.overchargeUnit = overchargeUnit;
         this.overchargeRate = overchargeRate;
@@ -125,12 +125,12 @@ public class Hall implements Serializable {
         this.normalRateUnit = normalRateUnit;
     }
 
-    public Date getStart() {
-        return start;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public Date getEndTime() {

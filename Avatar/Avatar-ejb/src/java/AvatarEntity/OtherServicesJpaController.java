@@ -118,6 +118,30 @@ public class OtherServicesJpaController {
         }
     }
 
+    public List<OtherServices> findPublishedOtherServicesEntities() {
+        return findOtherServicesEntities(true, -1, -1);
+    }
+
+    public List<OtherServices> findPublishedOtherServicesEntities(int maxResults, int firstResult) {
+        return findOtherServicesEntities(false, maxResults, firstResult);
+    }
+
+    private List<OtherServices> findPublishedOtherServicesEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(OtherServices.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public OtherServices findOtherServices(String id) {
         EntityManager em = getEntityManager();
         try {

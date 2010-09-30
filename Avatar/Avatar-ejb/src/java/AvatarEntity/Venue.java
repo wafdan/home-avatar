@@ -10,6 +10,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,19 +24,22 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Venue.findAll", query = "SELECT v FROM Venue v"),
     @NamedQuery(name = "Venue.findByVenueNo", query = "SELECT v FROM Venue v WHERE v.venueNo = :venueNo"),
-    @NamedQuery(name = "Venue.findByVenueName", query = "SELECT v FROM Venue v WHERE v.venueName = :venueName"),
-    @NamedQuery(name = "Venue.findByCapacity", query = "SELECT v FROM Venue v WHERE v.capacity = :capacity")})
+    @NamedQuery(name = "Venue.findByVenueName", query = "SELECT v FROM Venue v WHERE v.venueName = :venueName")})
 public class Venue implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "venue_no")
     private String venueNo;
+    @Basic(optional = false)
     @Column(name = "venue_name")
     private String venueName;
-    @Basic(optional = false)
-    @Column(name = "capacity")
-    private int capacity;
+    @Lob
+    @Column(name = "description")
+    private String description;
+    @Lob
+    @Column(name = "image")
+    private String image;
 
     public Venue() {
     }
@@ -44,9 +48,9 @@ public class Venue implements Serializable {
         this.venueNo = venueNo;
     }
 
-    public Venue(String venueNo, int capacity) {
+    public Venue(String venueNo, String venueName) {
         this.venueNo = venueNo;
-        this.capacity = capacity;
+        this.venueName = venueName;
     }
 
     public String getVenueNo() {
@@ -65,12 +69,20 @@ public class Venue implements Serializable {
         this.venueName = venueName;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Christian
+ * @author kamoe
  */
 @Entity
 @Table(name = "other_services")
@@ -26,7 +26,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "OtherServices.findByProductId", query = "SELECT o FROM OtherServices o WHERE o.productId = :productId"),
     @NamedQuery(name = "OtherServices.findByProductType", query = "SELECT o FROM OtherServices o WHERE o.productType = :productType"),
     @NamedQuery(name = "OtherServices.findByPricingUnit", query = "SELECT o FROM OtherServices o WHERE o.pricingUnit = :pricingUnit"),
-    @NamedQuery(name = "OtherServices.findByUnitPrice", query = "SELECT o FROM OtherServices o WHERE o.unitPrice = :unitPrice")})
+    @NamedQuery(name = "OtherServices.findByUnitPrice", query = "SELECT o FROM OtherServices o WHERE o.unitPrice = :unitPrice"),
+    @NamedQuery(name = "OtherServices.findByPublished", query = "SELECT o FROM OtherServices o WHERE o.published = :published")})
 public class OtherServices implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,12 +40,18 @@ public class OtherServices implements Serializable {
     @Lob
     @Column(name = "description")
     private String description;
+    @Lob
+    @Column(name = "image")
+    private String image;
     @Basic(optional = false)
     @Column(name = "pricing_unit")
     private String pricingUnit;
     @Basic(optional = false)
     @Column(name = "unit_price")
     private double unitPrice;
+    @Basic(optional = false)
+    @Column(name = "published")
+    private boolean published;
 
     public OtherServices() {
     }
@@ -53,11 +60,12 @@ public class OtherServices implements Serializable {
         this.productId = productId;
     }
 
-    public OtherServices(String productId, String productType, String pricingUnit, double unitPrice) {
+    public OtherServices(String productId, String productType, String pricingUnit, double unitPrice, boolean published) {
         this.productId = productId;
         this.productType = productType;
         this.pricingUnit = pricingUnit;
         this.unitPrice = unitPrice;
+        this.published = published;
     }
 
     public String getProductId() {
@@ -84,6 +92,14 @@ public class OtherServices implements Serializable {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getPricingUnit() {
         return pricingUnit;
     }
@@ -98,6 +114,14 @@ public class OtherServices implements Serializable {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 
     @Override

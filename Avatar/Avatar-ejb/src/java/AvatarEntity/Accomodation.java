@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Christian
+ * @author kamoe
  */
 @Entity
 @Table(name = "accomodation")
@@ -47,6 +47,9 @@ public class Accomodation implements Serializable {
     @Lob
     @Column(name = "description")
     private String description;
+    @Lob
+    @Column(name = "image")
+    private String image;
     @Basic(optional = false)
     @Column(name = "max_pax")
     private int maxPax;
@@ -114,6 +117,14 @@ public class Accomodation implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getMaxPax() {
