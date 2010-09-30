@@ -27,6 +27,12 @@ public class MengelolaPenggunaController implements MengelolaPenggunaControllerL
         return nama[0]+EmploymentID.substring(0, 2);
     }
 
+    public String generateUsername(String fullname, String EmploymentID, int subset)
+    {
+        String[] nama=fullname.split(" ");
+        return nama[0]+EmploymentID.substring(0, subset);
+    }
+
     public String generatePassword()
     {
         return new BigInteger(130, new SecureRandom()).toString(32);
