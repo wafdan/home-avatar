@@ -4,9 +4,17 @@
         <servlet-name>TambahStaf</servlet-name>
         <servlet-class>MengelolaPengguna.TambahStaf</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TambahCustomer</servlet-name>
+        <servlet-class>MengelolaPengguna.TambahCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahCustomer</servlet-name>
+        <url-pattern>/MengelolaPengguna/TambahCustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -46,53 +46,53 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <div class="post">
-                        <div class="box">
-                          <h1>tambah CUSTOMER</h1>
-                          <form method="post"><label> <span>Name</span>
-                            <input class="input_text" name="name" id="name" type="text" />
-                          </label>
-                          <label> <span>Email</span>
-                            <input class="input_text" name="email" id="email" type="text" />
-                          </label>
-                          <label> <span>ID Type</span>
-                          	<select name="idtype" id="idtype">
-                              <option value="KTP">KTP</option>
-                              <option value="SIM">SIM</option>
-                              <option value="Passport">Passport</option>
-                            </select>
-                            
-                          </label>
-                          <label> <span>ID Number</span>
-                            <input class="input_text" name="idnumber" id="idnumber" type="text" />
-                          </label>
-                          <label> <span>Address 1</span>
-                            <input class="input_text" name="address1" id="address1" type="text" />
-                          </label>
-                          <label> <span>Address 2</span>
-                            <input class="input_text" name="address2" id="address2" type="text" />
-                          </label>
-                          <label> <span>City</span>
-                            <input class="input_text" name="city" id="city" type="text" />
-                          </label>
-                          <label> <span>Country</span>
-                            <input class="input_text" name="country" id="country" type="text" />
-                          </label>
-                          <label> <span>Telephone</span>
-                            <input class="input_text" name="phone" id="phone" type="text" />
-                          </label>
-                          <label>
-                            <input class="button" value="Add" type="submit" />
-                          </label>
-                          </form>
+                        <div class="post">
+                            <div class="box">
+                                <h1>tambah CUSTOMER</h1>
+                                <form method="post" action="TambahCustomer"><label> <span>Name</span>
+                                        <input class="input_text" name="name" id="name" type="text" />
+                                    </label>
+                                    <label> <span>Email</span>
+                                        <input class="input_text" name="email" id="email" type="text" />
+                                    </label>
+                                    <label> <span>ID Type</span>
+                                        <select name="idtype" id="idtype">
+                                            <option value="KTP">KTP</option>
+                                            <option value="SIM">SIM</option>
+                                            <option value="Passport">Passport</option>
+                                        </select>
+
+                                    </label>
+                                    <label> <span>ID Number</span>
+                                        <input class="input_text" name="idnumber" id="idnumber" type="text" />
+                                    </label>
+                                    <label> <span>Address 1</span>
+                                        <input class="input_text" name="address1" id="address1" type="text" />
+                                    </label>
+                                    <label> <span>Address 2</span>
+                                        <input class="input_text" name="address2" id="address2" type="text" />
+                                    </label>
+                                    <label> <span>City</span>
+                                        <input class="input_text" name="city" id="city" type="text" />
+                                    </label>
+                                    <label> <span>Country</span>
+                                        <input class="input_text" name="country" id="country" type="text" />
+                                    </label>
+                                    <label> <span>Telephone</span>
+                                        <input class="input_text" name="phone" id="phone" type="text" />
+                                    </label>
+                                    <label>
+                                        <input class="button" value="Add" type="submit" />
+                                    </label>
+                                </form>
+                            </div>
+                            <h2 class="title">&nbsp;</h2>
+                            <div class="post"></div>
                         </div>
-                        <h2 class="title">&nbsp;</h2>
-                        <div class="post"></div>
-                      </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-              <div id="sidebar">
+                    <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">

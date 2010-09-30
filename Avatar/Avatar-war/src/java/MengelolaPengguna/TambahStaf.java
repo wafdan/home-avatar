@@ -43,7 +43,7 @@ public class TambahStaf extends HttpServlet {
             String email = request.getParameter("email");
             short position = Short.parseShort(request.getParameter("position"));
             MengelolaPenggunaController k = new MengelolaPenggunaController();
-            String username = k.generateUsername(fullname, EmployeeID);
+            String username = k.generateStaffUsername(fullname, EmployeeID);
             String password = k.generatePassword();
             String EncryptedPassword = k.getHashedPassword(password);
 
@@ -60,7 +60,7 @@ public class TambahStaf extends HttpServlet {
             String email = request.getParameter("email");
             short position = Short.parseShort(request.getParameter("position"));
             MengelolaPenggunaController k = new MengelolaPenggunaController();
-            String username = k.generateUsername(fullname, EmployeeID, 4);
+            String username = k.generateStaffUsername(fullname, EmployeeID, 4);
             String password = k.generatePassword();
             String EncryptedPassword=null;
             try {
