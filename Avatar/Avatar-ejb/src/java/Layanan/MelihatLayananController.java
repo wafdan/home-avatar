@@ -24,12 +24,15 @@ public class MelihatLayananController {
     HallJpaController hjc;
     OtherServicesJpaController osjc;
     VenueJpaController vjc;
+
+    public static Cart c;
     
     public MelihatLayananController() {
         ajc = new AccomodationJpaController();
         hjc = new HallJpaController();
         osjc = new OtherServicesJpaController();
         vjc = new VenueJpaController();
+        c = new Cart();
     }
 
     public List<Accomodation> getAccomodationList() {
