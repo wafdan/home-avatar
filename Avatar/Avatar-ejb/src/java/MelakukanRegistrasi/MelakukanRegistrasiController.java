@@ -7,6 +7,7 @@ package MelakukanRegistrasi;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.util.Random;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Date;
@@ -27,11 +28,11 @@ public class MelakukanRegistrasiController implements MelakukanRegistrasiControl
         //throw new UnsupportedOperationException("Not supported yet.");
         int i; /* traversal */
         int temp; /* temporer untuk simpan penjumlahan angka */
-        String enddigit; /* digit-digit akhir username */
-
+        //String enddigit; /* digit-digit akhir username */
+        Random rand = new Random();
         String[] arrnama=fullname.split(" ");
         // digit suffix pertama dibangkitkan dari nama depan
-        temp = 0;
+        /*temp = 0;
         for (i = 0; i < arrnama[0].length(); i++) {
             temp += (int) arrnama[0].charAt(i); // jadikan urutan ASCII
         } // akhir: temp berisi jumlah
@@ -42,7 +43,7 @@ public class MelakukanRegistrasiController implements MelakukanRegistrasiControl
         for (i = 0; i < email.length(); i++) {
             temp += (int) email.charAt(i); // jadikan urutan ASCII
         } // akhir: temp berisi jumlah
-        enddigit = enddigit + (temp % 100);
+        enddigit = enddigit + String.format("%02d", temp % 100);
 
         // digit suffix ke-4 dibangkitkan dari tanggal hari ini
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -52,11 +53,11 @@ public class MelakukanRegistrasiController implements MelakukanRegistrasiControl
         for (i = 0; i < dateString.length(); i++) {
             temp += (int) dateString.charAt(i); // jadikan urutan ASCII
         } // akhir: temp berisi jumlah
-        enddigit = enddigit + (temp % 10);
+        enddigit = enddigit + (temp % 10);*/
         if (arrnama.length > 1) {
-            return arrnama[0].toLowerCase()+"."+(arrnama[1].substring(0, 1)).toLowerCase()+enddigit;
+            return arrnama[0].toLowerCase()+"."+(arrnama[1].substring(0, 1)).toLowerCase()+String.format("%04d", rand.nextInt(10000));
         } else {
-            return arrnama[0].toLowerCase()+enddigit;
+            return arrnama[0].toLowerCase()+String.format("%04d", rand.nextInt(10000));
         }
     }
 
