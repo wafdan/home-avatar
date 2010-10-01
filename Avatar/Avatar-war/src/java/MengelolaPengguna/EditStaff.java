@@ -5,13 +5,19 @@
 
 package MengelolaPengguna;
 
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import AvatarEntity.Staff;
+import AvatarEntity.StaffJpaController;
 
 /**
  *
@@ -32,16 +38,28 @@ public class EditStaff extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditStaff</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditStaff at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
+            //?username=+Restya19+&nama=+Restya+Winda+A.+&emID=+198806032010092001+&position=1
+            String username=request.getParameter("username");
+            String name=request.getParameter("nama");
+            String ID=request.getParameter("emID");
+            short position=Short.parseShort(request.getParameter("position"));
+
+            Staff s=new Staff();
+            StaffJpaController sj=new StaffJpaController();
+            s=sj.findStaff(username);
+            out.write("Username="+username);
+            s.setName(name);
+            s.setEmploymentId(ID);
+            s.setPosition(position);
+            //sj.getEntityManager().getTransaction().commit();
+            sj.edit(s);
+
+            response.sendRedirect("ManageStaff.jsp");
+            
+        } /*catch (NonexistentEntityException ex) {
+            Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
+        } */catch (Exception ex) {
+            Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
         }

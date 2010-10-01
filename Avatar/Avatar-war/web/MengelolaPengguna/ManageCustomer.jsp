@@ -5,9 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="AvatarEntity.CustomerJpaController" %>
+<%@ page import="AvatarEntity.Customer" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
+<%! CustomerJpaController c = new CustomerJpaController();
+    List<Customer> l=null;
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -46,37 +53,43 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <h1 class="title">Daftar Customer</h1>
-                      <div class="post">
-                        <table width="603" border="1" style="table-layout:fixed">
-                          <tr>
-                            <th bgcolor="#262626" width="29">No.</th>
-                            <th bgcolor="#262626" width="179">Nama</th>
-                            <th bgcolor="#262626" width="89">Username</th>
-                            <th bgcolor="#262626" width="77">Employment ID</th>
-                            <th bgcolor="#262626" width="96">Email</th>
-                            
-                          </tr>
-                          <% int no=1;
-						  		while(no<=10){%>
-                          <tr>
-                            <td><%=no%>&nbsp;</td>
-                            <td><div style="overflow:auto"><%=no%> asfasfafafa&nbsp;</div></td>
-                            <td><div style="overflow:auto">&nbsp;<%=no%> knights_of_kangouw@yahoo.com</div></td>
-                            <td><%=no%>&nbsp;</td>
-                            <td><%=no%>&nbsp;</td>
-                            <td><a href="#">edit</a></td>
-                            <td><a href="#">delete</a></td>
-                          </tr>
-                          <%	no++;} %>
-                        </table>
-                        <h2 class="title">&nbsp;</h2>
-                        <div class="post"></div>
-                      </div>
+                        <h1 class="title">Daftar Customer</h1>
+                        <div class="post">
+                            <table width="603" border="1" style="table-layout:fixed">
+                                <tr>
+                                    <th bgcolor="#262626" width="29">No.</th>
+                                    <th bgcolor="#262626" width="179">Username</th>
+                                    <th bgcolor="#262626" width="89">Name</th>
+                                    <th bgcolor="#262626" width="77">Identity Type</th>
+                                    <th bgcolor="#262626" width="96">Identity Number</th>
+
+                                </tr>
+
+                                <%
+                                l=c.findCustomerEntities();
+                                            for (Iterator<Customer> i =  l.iterator(); i.hasNext();) {
+                                                Customer temp = i.next();
+                                                
+                                %>
+                                <tr>
+                                    <td></td>
+                                    <td><div style="overflow:auto"><%= temp.getUsername() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getName() %></div></td>
+                                    <td> <%= temp.getIdentityType() %> </td>
+                                    <td> <%= temp.getIdentityNumber() %> </td>
+                                    <td><a href="#">edit</a></td>
+                                    <td><a href="#">delete</a></td>
+                                </tr>
+                                <% }%>
+
+                            </table>
+                            <h2 class="title">&nbsp;</h2>
+                            <div class="post"></div>
+                        </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-<div id="sidebar">
+                    <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">
