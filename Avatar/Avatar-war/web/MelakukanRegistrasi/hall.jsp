@@ -20,6 +20,7 @@ Released   : 20100701
 <%@ page import="AvatarEntity.Venue" %>
 <%@ page import="AvatarEntity.Hall" %>
 <%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 
@@ -101,9 +102,14 @@ Released   : 20100701
                                 } else {
                                     out.println("<br />");
                                     if (!isLogin) {
-                                        out.println("<a class='book' href='index.jsp'>Book Now!</a>");
+                                        out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
                                     } else {
-                                        out.println("<a class='book' href='#'>Book Now!</a>");
+                                        //if (ctrl.c.isOnCart((Object) cur)) {
+                                            //out.println("<a class='book' href='cart.jsp?add=-1&type=2&id="+((Hall) cur).getProductId()+"'>Remove from Cart</a>");
+                                        //} else {
+                                            out.println("<a class='book' href='cart.jsp?add=1&type=2&id="+((Hall) cur).getProductId()+"'>Add to Cart</a>");
+                                            //System.out.println(ctrl.c.count());
+                                        }
                                     }
                                     out.println("<div class='entry'>");
                                     out.println("<p>"+((Hall) cur).getDescription()+"</p>");

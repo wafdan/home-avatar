@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author kamoe
  */
 @WebServlet(name="MelihatLayanan", urlPatterns={"/MelihatLayanan"})
-public class MelihatLayanan extends HttpServlet {
+public class Cart extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +35,10 @@ public class MelihatLayanan extends HttpServlet {
             /* TODO output your page here
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet MelihatLayanan</title>");  
+            out.println("<title>Servlet Cart</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet MelihatLayanan at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Cart at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
             */

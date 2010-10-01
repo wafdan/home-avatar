@@ -19,6 +19,7 @@ Released   : 20100701
 -->
 <%@ page import="AvatarEntity.OtherServices" %>
 <%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 
@@ -78,9 +79,9 @@ Released   : 20100701
                         <%  out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
                             out.println("<br />");
                             /*if (!isLogin) {
-                                out.println("<a class='book' href='index.jsp'>Book Now!</a>");
+                                out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
                             } else {
-                                out.println("<a class='book' href='#'>Book Now!</a>");
+                                out.println("<a class='book' href='#'>Add to Cart</a>");
                             }*/
                                 out.println("<div class='entry'>");
                                     out.println("<p><img src='"+cur.getImage()+"' />"+cur.getDescription()+"</p>");

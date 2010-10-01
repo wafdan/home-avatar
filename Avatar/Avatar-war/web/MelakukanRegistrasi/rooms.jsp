@@ -19,6 +19,7 @@ Released   : 20100701
 -->
 <%@ page import="AvatarEntity.Accomodation" %>
 <%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 
@@ -77,20 +78,20 @@ Released   : 20100701
 			<div class="post">
                             <%
                                 out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
-                            %>
-                            <br />
-                            <%
+                                out.println("<br />");
                                 if (!isLogin) {
-                                    out.println("<a class='book' href='index.jsp'>Book Now!</a>");
+                                    out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
                                 } else {
-                                    out.println("<a class='book' href='#'>Book Now!</a>");
+                                    //if (ctrl.c.isOnCart((Object)cur)) {
+                                    //    out.println("<a class='book' href='cart.jsp?add=-1&type=1&id="+cur.getProductId()+"'>Remove from Cart</a>");
+                                    //} else {
+                                        out.println("<a class='book' href='cart.jsp?add=1&type=1&id="+cur.getProductId()+"'>Add to Cart</a>");
+                                    //}
                                 }
-                            %>
-                            <div class="entry">
-                                <%
+                            out.println("<div class='entry'>");
                                     out.println("<p><img src='"+cur.getImage()+"' />"+cur.getDescription()+"</p>");
-                                %>
-                            </div>
+                            out.println("</div>");
+                            %>
 			</div>
                 </div>
 		<!-- end #content -->
