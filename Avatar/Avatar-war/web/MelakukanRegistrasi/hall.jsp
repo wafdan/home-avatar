@@ -83,7 +83,7 @@ Released   : 20100701
 <div id="page">
   <div id="page-bgtop">
 		<div id="content">
-        <div class="cartbox">CART di sini</div>
+        <div class="cartbox">In your cart</div>
 			<div class="post">
                             <%
                                 if (type == null) {

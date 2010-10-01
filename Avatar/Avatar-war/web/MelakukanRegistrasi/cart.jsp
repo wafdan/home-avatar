@@ -13,7 +13,7 @@
     int type = Integer.parseInt(request.getParameter("type"));
     String id = request.getParameter("id");
 
-    if (add.equals("1")) {
+    /*if (add.equals("1")) {
         if (type == 1) {
             ctrl.c.addCart(type, (Object) ctrl.getAccomodation(id));
         } else {
@@ -25,11 +25,11 @@
         } else {
             ctrl.c.deleteCart((Object) ctrl.getHall(id));
         }
-    }
+    }*/
 
-    if (type == 1) { 
-        out.print("<jsp:forward page='rooms.jsp?id="+id+"' />");
-    } else { 
-        out.print("<jsp:forward page='hall.jsp?type=2&id="+id+"' />");
-    }
+    if (type == 1) { %>
+        <jsp:forward page="rooms.jsp?id=<=%id%>" />
+    <% } else { %>
+        <jsp:forward page="hall.jsp?type=2&id=<=%id%>" />
+    <%}
 %>
