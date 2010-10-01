@@ -94,8 +94,8 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                    <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="#">delete</a></td>
+                                    <td><a href="ManageStaf.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
 
                                 <%
@@ -125,8 +125,8 @@
 
 
                                             %></div></td>
-                                    <td><a href="#">save</a></td>
-                                    <td><a href="#">delete</a></td>
+                                    <td><a href="#">save</a><br /> <a href="#"> cancel </a></td>
+                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                     <% } else {%>
                                     <td><%;
                                                                                                                                                                 out.write(Integer.toString(index));
@@ -135,8 +135,8 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                    <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="#">delete</a></td>
+                                    <td><a href="ManageStaf.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
                                 <%              }
                                                 }
@@ -165,7 +165,7 @@
                                 <ul>
                                     <li><a href="TambahStaf.jsp">Add New Staff</a></li>
                                     <li><a href="TambahCustomer.jsp">Add New Customer</a></li>
-                                    <li><a href="ManageStaff.jsp">Manage Staff</a></li>
+                                    <li><a href="ManageStaf.jsp">Manage Staff</a></li>
                                     <li><a href="ManageCustomer.jsp">Manage Customer</a></li>
                                 </ul>
                             </li>

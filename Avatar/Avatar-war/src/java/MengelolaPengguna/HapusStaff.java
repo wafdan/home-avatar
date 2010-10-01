@@ -5,8 +5,12 @@
 
 package MengelolaPengguna;
 
+import AvatarEntity.StaffJpaController;
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,16 +36,14 @@ public class HapusStaff extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HapusStaff</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet HapusStaff at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
+            String primaryKey=request.getParameter("delete");
+            out.write(primaryKey);
+            StaffJpaController sjc=new StaffJpaController();
+            sjc.destroy(primaryKey);
+            response.sendRedirect("ManageStaff.jsp");
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HapusStaff.class.getName()).log(Level.SEVERE, null, ex);
+
         } finally { 
             out.close();
         }

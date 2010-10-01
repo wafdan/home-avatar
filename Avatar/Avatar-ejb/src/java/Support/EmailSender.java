@@ -47,7 +47,7 @@ public class EmailSender implements EmailSenderLocal {
                 msg.setText(body);
 
                 // -- Set informasi header --
-                msg.setHeader("X-Mailer", "AVATAR Email");
+                msg.setHeader("X-Mailer", "AVATAR Email Service");
                 msg.setSentDate(new Date());
 
                 // -- Kirim pesan --
