@@ -11,6 +11,7 @@
     <class>AvatarEntity.Room</class>
     <class>AvatarEntity.Telephone</class>
     <class>AvatarEntity.Venue</class>
+    <class>AvatarEntity.Country</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
