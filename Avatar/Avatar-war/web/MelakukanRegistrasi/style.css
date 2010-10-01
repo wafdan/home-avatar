@@ -633,3 +633,13 @@ hr {
 	color: #FFFFFF;
 	line-height: 20px;
 }
+.cartbox {
+	margin: 3px;
+	padding: 3px;
+	float: right;
+	border: 1px solid #FF6600;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+}
