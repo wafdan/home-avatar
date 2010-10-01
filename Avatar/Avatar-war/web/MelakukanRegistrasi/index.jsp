@@ -22,6 +22,12 @@
 </head>
 <body>
 <!-- end #header-wrapper -->
+<%
+    Boolean isLogin = false;
+    if (session.getAttribute("uname") != null) {
+        isLogin = true;
+    }
+%>
 <div id="header">
 	<div id="logo">
 		<h1><a href="#">Spons Hotel</a></h1>
@@ -69,16 +75,22 @@
 					</script>
 		</div>
 		<div class="col2">
-			Login <br/>
-            <form name="login" action="" method="get" style=" font-size:18px">
-            	User name: <input size="10" type="text" name="username" /><br />
-            	Password  :&nbsp; <input size="10" type="password" name="pass" /><br/>
-                <input type="submit" value="Login" /><br/><br/>
-                Belum terdaftar? <br/>Registrasi di &nbsp;&nbsp;
-                <a href="register.html">SINI</a>
-
-			</form>
-         </div>
+                    <% if (!isLogin) {
+                            out.println("Login <br/>");
+                            out.println("<form name='login' action='../Login' method='post' style=' font-size:18px'>");
+                            out.println("<label for='username'>User name: </label>");
+                            out.println("<input size='10' type='text' name='username' id='username' value='' /><br />");
+                            out.println("<label for='password'>Password  : </label>");
+                            out.println("<input size='10' type='password' name='pass' id='password' value='' /><br/>");
+                            out.println("<input type='submit' value='Login' /><br/><br/>");
+                            out.println("Belum terdaftar? <br/>Registrasi di &nbsp;&nbsp;");
+                            out.println("<a href='register.jsp'>SINI</a>");
+                            out.println("</form>");
+                       } else {
+                            out.println("<form method='post' action='../Logout'><input type='submit' value='Logout' /></form>");
+                       }
+                    %>
+                </div>
   </div>
 </div>
 <div id="page">

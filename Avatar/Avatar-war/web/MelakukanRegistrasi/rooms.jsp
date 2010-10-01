@@ -1,6 +1,6 @@
 <%-- 
-    Document   : services
-    Created on : 30 Sep 10, 21:44:44
+    Document   : rooms
+    Created on : 30 Sep 10, 21:42:30
     Author     : kamoe
 --%>
 
@@ -17,7 +17,7 @@ Version    : 1.0
 Released   : 20100701
 
 -->
-<%@ page import="AvatarEntity.OtherServices" %>
+<%@ page import="AvatarEntity.Accomodation" %>
 <%@ page import="Layanan.MelihatLayananController" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
@@ -39,13 +39,13 @@ Released   : 20100701
 <!-- end #header-wrapper -->
 <%
     MelihatLayananController ctrl = new MelihatLayananController();
-    List<OtherServices> services = ctrl.getPublishedOtherServicesList();
-    OtherServices cur;
+    List<Accomodation> rooms = ctrl.getAccomodationList();
+    Accomodation cur;
     String pid = request.getParameter("id");
     if (pid == null) {
-        cur = services.get(0);
+        cur = rooms.get(0);
     } else {
-        cur = ctrl.getOtherServices(pid);
+        cur = ctrl.getAccomodation(pid);
     }
 
     Boolean isLogin = false;
@@ -59,11 +59,11 @@ Released   : 20100701
 	</div>
 	<div id="menu">
 		<ul>
-                        <li><a href="index.jsp">Overview</a></li>
+			<li><a href="index.jsp">Overview</a></li>
                         <li><a href="reservation.jsp" class="first">Reservation</a></li>
-			<li><a href="rooms.jsp">Rooms</a></li>
+			<li class="current_page_item"><a href="rooms.jsp">Rooms</a></li>
                         <li><a href="hall.jsp">Meeting & Events</a></li>
-			<li class="current_page_item"><a href="services.jsp">Other Services</a></li>
+			<li><a href="services.jsp">Other Services</a></li>
                         <li><a href="contactus.jsp">Contact Us</a></li>
 		</ul>
 	</div>
@@ -72,42 +72,47 @@ Released   : 20100701
 <!-- end #header -->
 <hr />
 <div id="page">
-  <div id="page-bgtop">
-            <div id="content">
-                    <div class="post">
-                        <%  out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
-                            out.println("<br />");
-                            /*if (!isLogin) {
-                                out.println("<a class='book' href='index.jsp'>Book Now!</a>");
-                            } else {
-                                out.println("<a class='book' href='#'>Book Now!</a>");
-                            }*/
-                                out.println("<div class='entry'>");
+    <div id="page-bgtop">
+		<div id="content">
+			<div class="post">
+                            <%
+                                out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
+                            %>
+                            <br />
+                            <%
+                                if (!isLogin) {
+                                    out.println("<a class='book' href='index.jsp'>Book Now!</a>");
+                                } else {
+                                    out.println("<a class='book' href='#'>Book Now!</a>");
+                                }
+                            %>
+                            <div class="entry">
+                                <%
                                     out.println("<p><img src='"+cur.getImage()+"' />"+cur.getDescription()+"</p>");
-                                out.println("</div>");
-                        %>
-                    </div>
-            </div>
-            <!-- end #content -->
-            <div id="sidebar">
+                                %>
+                            </div>
+			</div>
+                </div>
+		<!-- end #content -->
+		<div id="sidebar">
                     <ul>
                         <li>
-                            <h2>SERVICE TYPE</h2>
+                            <h2>ROOM TYPE</h2>
                                 <ul>
-                                  <%
-                                    Iterator Iter = services.iterator();
-                                    while (Iter.hasNext()) {
-                                        OtherServices srv = (OtherServices) Iter.next();
-                                        out.println("<li><a href='services.jsp?id="+srv.getProductId()+"'>"+srv.getProductType()+"</a></li>");
-                                    }
-                                  %>
+                                      <%
+                                        Iterator Iter = rooms.iterator();
+                                        while (Iter.hasNext()) {
+                                            Accomodation acc = (Accomodation) Iter.next();
+                                            out.println("<li><a href='rooms.jsp?id="+acc.getProductId()+"'>"+acc.getProductType()+"</a></li>");
+                                        }
+                                      %>
                                 </ul>
                         </li>
                     </ul>
-            </div>
+                </div>
 		<!-- end #sidebar -->
 	  <div style="clear: both;">&nbsp;</div>
-	</div>
+    </div>
 	<!-- end #page -->
 </div>
 <div id="footer">
