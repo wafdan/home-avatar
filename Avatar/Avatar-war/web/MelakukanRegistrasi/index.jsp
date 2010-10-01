@@ -84,7 +84,7 @@
                             out.println("<input size='10' type='password' name='pass' id='password' value='' /><br/>");
                             out.println("<input type='submit' value='Login' /><br/><br/>");
                             out.println("Belum terdaftar? <br/>Registrasi di &nbsp;&nbsp;");
-                            out.println("<a href='register.jsp'>SINI</a>");
+                            out.println("<a href='Registrasi.jsp'>SINI</a>");
                             out.println("</form>");
                        } else {
                             out.println("<form method='post' action='../Logout'><input type='submit' value='Logout' /></form>");

@@ -21,6 +21,10 @@ import AvatarEntity.Customer;
 import AvatarEntity.CustomerJpaController;
 import MelakukanRegistrasi.MelakukanRegistrasiController;
 import Support.EncMd5;
+import Support.EmailSender;
+import java.util.Iterator;
+import java.util.List;
+import Support.FormValidator;
 
 /**
  *
@@ -37,7 +41,7 @@ public class TambahAkun extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
         try {
             MelakukanRegistrasiController control = new MelakukanRegistrasiController();
@@ -52,30 +56,67 @@ public class TambahAkun extends HttpServlet {
             String country = request.getParameter("country");
             String uname;
             String pass = control.generatePassword();
+            String redirparam = "";
             CustomerJpaController custJC = new CustomerJpaController();
-            Customer cust = null;
-            do {
-                uname = control.generateUsername(name, email);
-                try {
-                    cust = custJC.findCustomer(uname);
-                } finally {
-                    cust = null;
+            List<Customer> listCust = custJC.findCustomerEntities();
+            Iterator<Customer> iter = listCust.iterator();
+            Customer cust;
+            boolean found = false;
+            while (iter.hasNext() && !found) {
+                cust = iter.next();
+                if (email.equals(cust.getEmail())) {
+                    found = true;
                 }
-            } while (cust != null);
-            cust = new Customer(uname, name, EncMd5.MD5(pass), email, identityType, identityNumber, address1, city, country);
-            if (!address2.equals("")) cust.setTelephone(address2);
-            if (!telephone.equals("")) cust.setTelephone(telephone);
-            custJC.create(cust);
-            out.println("<html>");
-            out.println("<head>");
-            out.println("\t<title>Servlet TambahAkun</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("\t<h1>Pendaftaran Akun Avatar</h1>");
-            out.println("\t<p>Username: "+uname+"</p>");
-            out.println("\t<p>Password: "+pass+"</p>");
-            out.println("</body>");
-            out.println("</html>");
+            }
+            if (found) {
+                redirparam = redirparam + "duplicate=1";
+            }
+            if (!FormValidator.validateEmail(email)) {
+                if (!redirparam.equals("")) redirparam = redirparam + "&";
+                redirparam = redirparam + "email=1";
+            }
+            if (!FormValidator.validateName(name)) {
+                if (!redirparam.equals("")) redirparam = redirparam + "&";
+                redirparam = redirparam + "name=1";
+            }
+            if (!telephone.equals("") && !FormValidator.validatePhone(telephone)) {
+                if (!redirparam.equals("")) redirparam = redirparam + "&";
+                redirparam = redirparam + "phone=1";
+            }
+            if (redirparam.equals("")) {
+                cust = null;
+                do {
+                    uname = control.generateUsername(name, email);
+                    try {
+                        cust = custJC.findCustomer(uname);
+                    } finally {
+                        cust = null;
+                    }
+                } while (cust != null);
+                cust = new Customer(uname, name, EncMd5.MD5(pass), email, identityType, identityNumber, address1, city, country);
+                if (!address2.equals("")) cust.setTelephone(address2);
+                if (!telephone.equals("")) cust.setTelephone(telephone);
+                custJC.create(cust);
+                response.setContentType("text/html;charset=UTF-8");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("\t<title>Servlet TambahAkun</title>");
+                out.println("</head>");
+                out.println("<body>");
+                out.println("\t<h1>Pendaftaran Akun Avatar</h1>");
+                out.println("<p>Akun anda telah sukses dibuat. Kami telah mengirimkannya ke email Anda.</p>");
+                out.println("\t<p>Username: "+uname+"<br />");
+                out.println("\tPassword: "+pass+"</p>");
+                out.println("<a href=\"index.jsp\">Kembali ke halaman awal</a>");
+                out.println("</body>");
+                out.println("</html>");
+                String body = "Your Hotel Reservation System Account has been successfully made.\n\n" +
+                        "Please take note your username and password to access our system.\n" +
+                        "Username: " + uname + "\n" + "Password: " + pass + "\n";
+                EmailSender.sendEmail(email, "chrhad081@gmail.com", "", "Hotel Reservation Registration", body);
+            } else {
+                response.sendRedirect("Registrasi.jsp?" + redirparam);
+            }
         } catch (PreexistingEntityException ex) {
             out.println("Internal Error: Data already existed");
             Logger.getLogger(TambahAkun.class.getName()).log(Level.SEVERE, null, ex);

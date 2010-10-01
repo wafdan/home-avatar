@@ -53,11 +53,7 @@
                                     <label class="description" for="fullname">Full Name </label>
                                     <div>
                                             <input id="fullname" name="fullname" class="element text medium" type="text" maxlength="30" value=""/>
-                                            <% if (request.getParameter("name") == null) {
-out.println("Please enter your name.");
-} else {
-out.println("Hello "+request.getParameter("name")+"!");
-} %>
+                                            <% if (request.getParameter("name") != null) out.println("<div style=\"color:#ff00ff\">Invalid name format</div>"); %>
                                     </div>
                             </li>
 
@@ -82,6 +78,7 @@ out.println("Hello "+request.getParameter("name")+"!");
                                     <label class="description" for="telephone">Phone Number </label>
                                     <div>
                                             <input id="telephone" name="telephone" class="element text medium" type="text" maxlength="15" value=""/>
+                                            <% if (request.getParameter("phone") != null) out.println("<div style=\"color:#ff00ff\">Invalid phone number format</div>"); %>
                                     </div>
                             </li>
 
@@ -89,6 +86,8 @@ out.println("Hello "+request.getParameter("name")+"!");
                             <label class="description" for="email">Email </label>
                             <div>
                                     <input id="email" name="email" class="element text medium" type="text" maxlength="255" value=""/>
+                                    <% if (request.getParameter("email") != null) out.println("<div style=\"color:#ff00ff\">Invalid email format</div>"); %>
+                                    <% if (request.getParameter("duplicate") != null) out.println("<div style=\"color:#ff00ff\">Email address already in use</div>"); %>
                             </div>
                             </li>
 
