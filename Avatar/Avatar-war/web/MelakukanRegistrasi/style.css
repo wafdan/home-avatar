@@ -612,6 +612,7 @@ hr {
 	border: 1px solid #666666;
 	list-style-type: none;
 	padding: 3px;
+	color: #FFFFFF;
 }#page #page-bgtop #sidebar a {
 	color: #FFFFFF;
 	font-weight: bold;
@@ -627,4 +628,8 @@ hr {
 	font-weight: bold;
 	padding: 4px;
 	margin: 4px;
+}
+#page #page-bgtop #content .post .entry p {
+	color: #FFFFFF;
+	line-height: 20px;
 }
