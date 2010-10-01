@@ -4,6 +4,13 @@
     <jta-data-source>Avatar</jta-data-source>
     <class>AvatarEntity.Staff</class>
     <class>AvatarEntity.Customer</class>
+    <class>AvatarEntity.Accomodation</class>
+    <class>AvatarEntity.Hall</class>
+    <class>AvatarEntity.OtherServices</class>
+    <class>AvatarEntity.Profile</class>
+    <class>AvatarEntity.Room</class>
+    <class>AvatarEntity.Telephone</class>
+    <class>AvatarEntity.Venue</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

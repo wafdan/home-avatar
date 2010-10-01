@@ -20,25 +20,47 @@ import java.util.List;
  * @author kamoe
  */
 public class MelihatLayananController {
-    int n = 5;
-    AccomodationJpaController ajc = new AccomodationJpaController();
-    HallJpaController hjc = new HallJpaController();
-    OtherServicesJpaController osjc = new OtherServicesJpaController();
-    VenueJpaController vjc = new VenueJpaController();
-
-    List getAccomodationList(int page) {
-        return ajc.findAccomodationEntities(n,(page-1)*n);
+    AccomodationJpaController ajc;
+    HallJpaController hjc;
+    OtherServicesJpaController osjc;
+    VenueJpaController vjc;
+    
+    public MelihatLayananController() {
+        ajc = new AccomodationJpaController();
+        hjc = new HallJpaController();
+        osjc = new OtherServicesJpaController();
+        vjc = new VenueJpaController();
     }
 
-    List getHallList(int page) {
-        return hjc.findHallEntities(n, (page-1)*n);
+    public List<Accomodation> getAccomodationList() {
+        return ajc.findAccomodationEntities();
     }
 
-    List getPublishedOtherServicesList(int page) {
-        return osjc.findPublishedOtherServicesEntities(n, (page-1)*n);
+    public List<Hall> getHallList() {
+        return hjc.findHallEntities();
     }
 
-    List getVenueList(int page) {
-        return vjc.findVenueEntities(n, (page-1)*n);
+    public List<OtherServices> getPublishedOtherServicesList() {
+        return osjc.findPublishedOtherServicesEntities();
+    }
+
+    public List<Venue> getVenueList() {
+        return vjc.findVenueEntities();
+    }
+
+    public Accomodation getAccomodation(String id) {
+        return ajc.findAccomodation(id);
+    }
+
+    public Hall getHall(String id) {
+        return hjc.findHall(id);
+    }
+
+    public OtherServices getOtherServices(String id) {
+        return osjc.findOtherServices(id);
+    }
+
+    public Venue getVenue(String id) {
+        return vjc.findVenue(id);
     }
 }

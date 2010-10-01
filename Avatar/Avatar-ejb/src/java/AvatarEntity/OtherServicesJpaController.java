@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -107,23 +108,24 @@ public class OtherServicesJpaController {
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(OtherServices.class));
-            Query q = em.createQuery(cq);
+            TypedQuery<OtherServices> q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
-            return q.getResultList();
+            List<OtherServices> results = q.getResultList();
+            return results;
         } finally {
             em.close();
         }
     }
 
     public List<OtherServices> findPublishedOtherServicesEntities() {
-        return findOtherServicesEntities(true, -1, -1);
+        return findPublishedOtherServicesEntities(true, -1, -1);
     }
 
     public List<OtherServices> findPublishedOtherServicesEntities(int maxResults, int firstResult) {
-        return findOtherServicesEntities(false, maxResults, firstResult);
+        return findPublishedOtherServicesEntities(false, maxResults, firstResult);
     }
 
     private List<OtherServices> findPublishedOtherServicesEntities(boolean all, int maxResults, int firstResult) {
@@ -131,12 +133,13 @@ public class OtherServicesJpaController {
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
             cq.select(cq.from(OtherServices.class));
-            Query q = em.createQuery(cq);
+            TypedQuery<OtherServices> q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
-            return q.getResultList();
+            List<OtherServices> results = q.getResultList();
+            return results;
         } finally {
             em.close();
         }
