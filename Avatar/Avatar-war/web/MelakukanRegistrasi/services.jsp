@@ -75,6 +75,7 @@ Released   : 20100701
 <div id="page">
   <div id="page-bgtop">
             <div id="content">
+            <div class="cartbox">CART di sini</div>
                     <div class="post">
                         <%  out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
                             out.println("<br />");
