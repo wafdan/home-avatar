@@ -5,7 +5,7 @@
 
 package Layanan;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +17,9 @@ public class Cart {
     List<Object> obj;
 
     public Cart() {
-        
+        type = new ArrayList<Integer>();
+        obj = new ArrayList<Object>();
+        System.out.println(count());
     }
 
     public void addCart(int _type, Object _obj) {
