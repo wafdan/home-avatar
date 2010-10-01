@@ -17,6 +17,11 @@ Version    : 1.0
 Released   : 20100701
 
 -->
+<%@ page import="AvatarEntity.Accomodation" %>
+<%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -32,6 +37,17 @@ Released   : 20100701
 </head>
 <body>
 <!-- end #header-wrapper -->
+<%
+    MelihatLayananController ctrl = new MelihatLayananController();
+    List<Accomodation> rooms = ctrl.getAccomodationList();
+    Accomodation cur;
+    String pid = request.getParameter("id");
+    if (pid == null) {
+        cur = rooms.get(0);
+    } else {
+        cur = ctrl.getAccomodation(pid);
+    }
+%>
 <div id="header">
 	<div id="logo">
 		<h1><a href="#">Spons Hotel</a></h1>
@@ -54,23 +70,15 @@ Released   : 20100701
   <div id="page-bgtop">
 		<div id="content">
 			<div class="post">
-    <h2 class="title">classic room style</h2>
+    <%
+        out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
+    %>
     <br />
     <a class="book" href="">Book Now!</a></p>
 			  <div class="entry">
-				  <p><img src="images/classic.jpg" />Experience tranquility at the Spons Hotel with one of our <strong>fabulous Classic Rooms</strong>.  They are some of the most spacious standard rooms in the city, offering  an unparalleled comfort and quiet. Each of our 200 Classic Rooms  features the legendary <strong>Spons Sweet Sleeper Bed</strong>,  taking sleep to a whole new level of pleasure. The Spons Sweet  Sleeper Bed is a custom designed plush top mattress set, a cozy  blanket, a plump duvet and five cushy pillows, setting a new standard  for hotel beds around the world!</p>
-                <p><strong>Additionally, enjoy the five-star amenities we provide at the Spons Hotel</strong> </p>
-                    <ul>
-                      <li>A large flat screen TV</li>
-                      <li>Coffee and tea maker</li>
-                      <li>Air Conditioning</li>
-                      <li>Iron and ironing board</li>
-                      <li>Bathrobes and Slippers</li>
-                      <li>Bliss Bathroom Amenities</li>
-                      <li>Safe</li>
-                      <li>Complimentary access to the gym</li>
-                    </ul>
-                    <p>Discover our fantastic Classic Rooms with five-star amenities and  sink into the cozy comfort of the Spons Sweet Sleeper Bed, simply  reserve to enjoy!</p>
+                              <%
+				  out.println("<p><img src='"+cur.getImage()+"' />"+cur.getDescription()+"</p>");
+                              %>
                     <p><br />
                     <a class="book" href="">Book Now!</a></p>
 				</div>
@@ -82,14 +90,15 @@ Released   : 20100701
 				<li>
 					<h2>ROOM TYPE</h2>
 					<ul>
-					  <li><a href="#">Classic Room</a></li>
-					  <li><a href="#">Superior Room</a></li>
-					  <li><a href="#">Club Room</a></li>
-					  <li><a href="#">Junior Suites</a></li>
-					  <li><a href="#">Superior Suites</a></li>
-                      <li><a href="#">Presidential Suites</a></li>
-				  </ul>
-			  </li>
+                                          <%
+                                            Iterator Iter = rooms.iterator();
+                                            while (Iter.hasNext()) {
+                                                Accomodation acc = (Accomodation) Iter.next();
+                                                out.println("<li><a href='rooms.jsp?id="+acc.getProductId()+"'>"+acc.getProductType()+"</a></li>");
+                                            }
+                                          %>
+                                        </ul>
+                                </li>
 			</ul>
 	  </div>
 		<!-- end #sidebar -->

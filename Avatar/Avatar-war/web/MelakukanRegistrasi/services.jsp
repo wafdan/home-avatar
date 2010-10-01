@@ -17,6 +17,11 @@ Version    : 1.0
 Released   : 20100701
 
 -->
+<%@ page import="AvatarEntity.OtherServices" %>
+<%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -32,6 +37,10 @@ Released   : 20100701
 </head>
 <body>
 <!-- end #header-wrapper -->
+<%
+    MelihatLayananController ctrl = new MelihatLayananController();
+    List<OtherServices> services = ctrl.getPublishedOtherServicesList();
+%>
 <div id="header">
 	<div id="logo">
 		<h1><a href="#">Spons Hotel</a></h1>
@@ -81,15 +90,15 @@ Released   : 20100701
 				<li>
 					<h2>SERVICE TYPE</h2>
 					<ul>
-					  <li><a href="spa.html">In-Room Spa</a></li>
-					  <li><a href="#">Fitness</a></li>
-					  <li><a href="#">Laundry & Travelite</a></li>
-					  <li><a href="#">Room Service</a></li>
-					  <li><a href="#">Parking</a></li>
-                      <li><a href="#">WiFi/High Speed Internet Access</a></li>
-                      <li><a href="#">24h security</a></li>
-				  </ul>
-			  </li>
+					  <%
+                                            Iterator Iter = services.iterator();
+                                            while (Iter.hasNext()) {
+                                                OtherServices srv = (OtherServices) Iter.next();
+                                                out.println("<li><a href='MelihatLayanan'>"+srv.getProductType()+"</a></li>");
+                                            }
+                                          %>
+                                        </ul>
+                                </li>
 			</ul>
 	  </div>
 		<!-- end #sidebar -->
