@@ -63,7 +63,7 @@ public class TambahAkun extends HttpServlet {
                 }
             } while (cust != null);
             cust = new Customer(uname, name, EncMd5.MD5(pass), email, identityType, identityNumber, address1, city, country);
-            if (!address2.equals("")) cust.setTelephone(telephone);
+            if (!address2.equals("")) cust.setTelephone(address2);
             if (!telephone.equals("")) cust.setTelephone(telephone);
             custJC.create(cust);
             out.println("<html>");
