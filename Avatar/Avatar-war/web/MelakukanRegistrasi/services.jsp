@@ -75,7 +75,7 @@ Released   : 20100701
 <div id="page">
   <div id="page-bgtop">
             <div id="content">
-            <div class="cartbox">In Your Cart</div>
+            <div class="cartbox"><% out.println(ctrl.c.count()+" Items"); %>In Your Cart</div>
                     <div class="post">
                         <%  out.println("<h2 class='title'>"+cur.getProductType()+"</h2>");
                             out.println("<br />");

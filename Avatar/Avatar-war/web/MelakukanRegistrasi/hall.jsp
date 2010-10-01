@@ -83,7 +83,7 @@ Released   : 20100701
 <div id="page">
   <div id="page-bgtop">
 		<div id="content">
-        <div class="cartbox">In your cart</div>
+        <div class="cartbox"><% out.println(ctrl.c.count()+" Items"); %>In Your Cart</div>
 			<div class="post">
                             <%
                                 if (type == null) {
@@ -105,11 +105,11 @@ Released   : 20100701
                                     if (!isLogin) {
                                         out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
                                     } else {
-                                        //if (ctrl.c.isOnCart((Object) cur)) {
-                                            //out.println("<a class='book' href='cart.jsp?add=-1&type=2&id="+((Hall) cur).getProductId()+"'>Remove from Cart</a>");
-                                        //} else {
+                                        if (ctrl.c.isOnCart((Object) cur)) {
+                                            out.println("<a class='book' href='cart.jsp?add=2&type=2&id="+((Hall) cur).getProductId()+"'>Remove from Cart</a>");
+                                        } else {
                                             out.println("<a class='book' href='cart.jsp?add=1&type=2&id="+((Hall) cur).getProductId()+"'>Add to Cart</a>");
-                                            //System.out.println(ctrl.c.count());
+                                            System.out.println(ctrl.c.count());
                                         }
                                     }
                                     out.println("<div class='entry'>");
