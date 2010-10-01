@@ -52,9 +52,9 @@
                           <tr>
                             <th bgcolor="#262626" width="29">No.</th>
                             <th bgcolor="#262626" width="179">Nama</th>
-                            <th bgcolor="#262626" width="89">Email</th>
-                            <th bgcolor="#262626" width="77">ID Number</th>
-                            <th bgcolor="#262626" width="96">ID Type</th>
+                            <th bgcolor="#262626" width="89">Username</th>
+                            <th bgcolor="#262626" width="77">Employment ID</th>
+                            <th bgcolor="#262626" width="96">Email</th>
                             
                           </tr>
                           <% int no=1;

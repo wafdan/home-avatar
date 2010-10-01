@@ -6,9 +6,17 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %>
+<%@ page import="AvatarEntity.StaffJpaController" %>
+<%@ page import="AvatarEntity.Staff" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
+    "http://www.w3.org/TR/html4/loose.dtd">
+<%!    String option0 = "<select> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\">Manager</option></select>";
+    String option1 = "<select> <option value=\"0\">Administartor</option><option value=\"1\" selected=\"true \">Receptionis</option> <option value=\"2\">Manager</option></select>";
+    String option2 = "<select> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\" selected=\"true\">Manager</option></select>";
+    StaffJpaController s=new StaffJpaController();
+    %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -47,37 +55,108 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <h1 class="title">Daftar Staff</h1>
-                      <div class="post">
-                        <table width="603" border="1" style="table-layout:fixed">
-                          <tr>
-                            <th bgcolor="#262626" width="29">No.</th>
-                            <th bgcolor="#262626" width="179">Nama</th>
-                            <th bgcolor="#262626" width="89">Email</th>
-                            <th bgcolor="#262626" width="77">ID</th>
-                            <th bgcolor="#262626" width="96">Position</th>
-                            
-                          </tr>
-                          <% int no=1;
-						  		while(no<=10){%>
-                          <tr>
-                            <td><%=no%>&nbsp;</td>
-                            <td><div style="overflow:auto"><%=no%> asfasfafafa&nbsp;</div></td>
-                            <td><div style="overflow:auto">&nbsp;<%=no%> knights_of_kangouw@yahoo.com</div></td>
-                            <td><%=no%>&nbsp;</td>
-                            <td><%=no%>&nbsp;</td>
-                            <td><a href="#">edit</a></td>
-                            <td><a href="#">delete</a></td>
-                          </tr>
-                          <%	no++;} %>
-                        </table>
-                        <h2 class="title">&nbsp;</h2>
-                        <div class="post"></div>
-                      </div>
+                        <h1 class="title">Daftar Staff</h1>
+                        <div class="post">
+                            <table width="603" border="1" style="table-layout:fixed">
+                                <tr>
+                                    <th bgcolor="#262626" width="29">No.</th>
+                                    <th bgcolor="#262626" width="179">Nama</th>
+                                    <th bgcolor="#262626" width="89">Email</th>
+                                    <th bgcolor="#262626" width="77">ID</th>
+                                    <th bgcolor="#262626" width="96">Position</th>
+
+                                </tr>
+
+                                <%
+                                            int editIndex = 0;
+                                            try {
+                                                String Index = request.getParameter("edit");
+                                                editIndex = Integer.parseInt(Index);
+                                            } catch (NullPointerException ex) {
+                                                editIndex = -1;
+                                            } catch (NumberFormatException ex) {
+                                                editIndex = -1;
+                                            }
+
+                                            int index = 0;
+                                            StaffJpaController jpa = new StaffJpaController();
+                                            List<Staff> staffList = jpa.findStaffEntities();
+                                            if (editIndex == -1) {
+                                                for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
+                                                    Staff temp = i.next();
+                                %>
+                                <tr>
+                                    <td><%index++;
+                                                                                    out.write(Integer.toString(index));
+                                        %></td>
+
+                                    <td><div style="overflow:auto"> <% out.write(temp.getName());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
+                                    <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="#">delete</a></td>
+                                </tr>
+
+                                <%
+                                                                            }
+                                                                        } else {
+                                                                            int iterator = 0;
+                                                                            for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
+                                                                                Staff temp = i.next();
+                                                                                iterator++;
+                                %>
+                                <tr>
+                                    <% index++;
+                                                                                                                                if (iterator == editIndex) {%>
+                                    <td><%out.write(Integer.toString(index));
+                                        %></td>
+                                    <td><div style="overflow:auto"> <% out.write("<input type=\"text\" value=\" " + temp.getName() + " \"></input>");%></div></td>
+                                    <td><div style="overflow:auto"><% out.write("<input type=\"text\" value=\" " + temp.getUsername() + " \"></input>");%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write("<input type=\"text\" value=\" " + temp.getEmploymentId() + " \"></input>");%></div></td>
+                                    <td><div style="overflow:auto"> <% 
+                                     if (temp.getPosition()==0) {
+                                         out.write(option0);
+                                    } else if (temp.getPosition()==1) {
+                                        out.write(option1);
+                                    } else {
+                                        out.write(option2);
+                                    }
+
+
+                                            %></div></td>
+                                    <td><a href="#">save</a></td>
+                                    <td><a href="#">delete</a></td>
+                                    <% } else {%>
+                                    <td><%;
+                                                                                                                                                                out.write(Integer.toString(index));
+                                        %></td>
+                                    <td><div style="overflow:auto"> <% out.write(temp.getName());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
+                                    <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="#">delete</a></td>
+                                </tr>
+                                <%              }
+                                                }
+                                            }%>
+                                <!--<tr>
+                                    <td>&nbsp;</td>
+                                    <td><div style="overflow:auto"> asfasfafafa&nbsp;</div></td>
+                                    <td><div style="overflow:auto">&nbsp; knights_of_kangouw@yahoo.com</div></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><a href="#">edit</a></td>
+                                    <td><a href="#">delete</a></td>
+                                </tr>   -->                     </table>
+                            <h2 class="title">&nbsp;</h2>
+                            <div class="post"></div>
+                        </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-<div id="sidebar">
+                    <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">

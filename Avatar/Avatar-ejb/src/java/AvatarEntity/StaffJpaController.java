@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package AvatarEntity;
 
 import AvatarEntity.exceptions.NonexistentEntityException;
@@ -140,4 +139,17 @@ public class StaffJpaController {
         }
     }
 
+    public String translatePosition(int input) {
+        if (input==0) {
+            return "Administrator";
+        } else if (input==1) {
+            return "Receptionist";
+        } else if (input==2) {
+            return "Manager";
+        }
+        return "Error";
+
+
+
+    }
 }
