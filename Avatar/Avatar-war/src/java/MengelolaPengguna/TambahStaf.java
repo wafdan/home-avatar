@@ -52,6 +52,7 @@ public class TambahStaf extends HttpServlet {
             StaffJpaController sjc=new StaffJpaController();
             sjc.create(s);
             //Mengecek user udah ada atau belum
+            response.sendRedirect("TambahStaf.jsp");
             
 
         } catch(PreexistingEntityException ex){

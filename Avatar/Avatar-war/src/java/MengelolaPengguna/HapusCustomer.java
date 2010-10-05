@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package MengelolaPengguna;
 
-import AvatarEntity.Customer;
 import AvatarEntity.CustomerJpaController;
-import AvatarEntity.exceptions.PreexistingEntityException;
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -15,14 +15,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import KelolaPengguna.MengelolaPenggunaController;
 
 /**
  *
  * @author zulfikar
  */
-public class TambahCustomer extends HttpServlet {
-
+public class HapusCustomer extends HttpServlet {
+   
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -31,52 +30,21 @@ public class TambahCustomer extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here */
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String idtype = request.getParameter("idtype");
-            String idnumber = request.getParameter("idnumber");
-            String address1 = request.getParameter("address1");
-            String address2 = request.getParameter("address2");
-            String city = request.getParameter("city");
-            String country = request.getParameter("country");
-            String telephone = request.getParameter("telephone");
-
-            MengelolaPenggunaController m = new MengelolaPenggunaController();
-            String username = m.generateCustomerUsername(name);
-            String password = m.generatePassword();
-            Customer c = new Customer();
-            c.setUsername(username);
-            c.setPassword(password);
-            c.setName(name);
-            c.setEmail(email);
-            c.setIdentityNumber(idnumber);
-            c.setIdentityType(idtype);
-            c.setAddress1(address1);
-            c.setAddress2(address2);
-            c.setCity(city);
-            c.setCountry(country);
-            c.setTelephone(telephone);
-
-            CustomerJpaController cjc = new CustomerJpaController();
-            cjc.create(c);
-            response.sendRedirect("TambahCustomer.jsp?status=success");
-            //success
-            //unexpectedfailure
-            //alreadyexist
-
-        } catch (PreexistingEntityException ex) {
-            response.sendRedirect("TambahCustomer.jsp?status=alreadyexist");
-        } catch (Exception ex) {
-            response.sendRedirect("TambahCustomer.jsp?status=unexpectedfailure");
-        } finally {
+            String primaryKey=request.getParameter("delete");
+            out.write(primaryKey);
+            CustomerJpaController cjc=new CustomerJpaController();
+            cjc.destroy(primaryKey);
+            response.sendRedirect("ManageCustomer.jsp");
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HapusCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } finally { 
             out.close();
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -88,9 +56,9 @@ public class TambahCustomer extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -101,7 +69,7 @@ public class TambahCustomer extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -113,4 +81,5 @@ public class TambahCustomer extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

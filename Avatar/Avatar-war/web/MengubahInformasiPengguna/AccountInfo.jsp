@@ -9,7 +9,7 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 <%@page import = "java.util.List,java.util.Iterator,AvatarEntity.Customer,AvatarEntity.CustomerJpaController,AvatarEntity.Country,AvatarEntity.CountryJpaController" %>
 <%
-    session.setAttribute("username","dwinanto.c7317");
+    session.setAttribute("username","alvin3763");
     //TODO: ganti dengan session beneran
     String username = String.valueOf(session.getAttribute("username"));
     Customer cust = new Customer(username);

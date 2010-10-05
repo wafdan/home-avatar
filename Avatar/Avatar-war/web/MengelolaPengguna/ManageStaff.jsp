@@ -90,12 +90,12 @@
                                                                                         out.write(Integer.toString(index));
                                         %></td>
 
-                                    <td><div style="overflow:auto"> <% out.write(temp.getName());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
                                     <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
 
                                 <%
@@ -130,7 +130,7 @@
 
                                             %></td>
                                     <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
-                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                     <td><a href="ManageStaff.jsp"> cancel </a></td>
                                     
                                 </form>
@@ -138,12 +138,12 @@
                                     <td><%
                                                                                                                                                             out.write(Integer.toString(index));
                                         %></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getName());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
                                     <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
                                 <%              }
                                                 }

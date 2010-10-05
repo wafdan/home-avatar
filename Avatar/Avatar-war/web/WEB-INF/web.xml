@@ -20,6 +20,14 @@
         <servlet-name>HapusStaf</servlet-name>
         <servlet-class>MengelolaPengguna.HapusStaff</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditCustomer</servlet-name>
+        <servlet-class>MengelolaPengguna.EditCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusCustomer</servlet-name>
+        <servlet-class>MengelolaPengguna.HapusCustomer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>HapusStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/HapusStaf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCustomer</servlet-name>
+        <url-pattern>/MengelolaPengguna/EditCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusCustomer</servlet-name>
+        <url-pattern>/MengelolaPengguna/HapusCustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
