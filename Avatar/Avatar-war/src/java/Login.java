@@ -45,14 +45,17 @@ public class Login extends HttpServlet {
             Staff u = sjpa.findStaff(Username.toString());
 
             Customer c = cjpa.findCustomer(Username.toString());
-            if (u != null) {//if yg login adalah staff
+            if (u != null && c == null) {//if yg login adalah staff
                 if (Password.equals(u.getPassword())) { // if password staff benar
                     if (u.getPosition() == 0) { //if admin
                         out.println("ADMIN");
+                        response.sendRedirect(request.getContextPath() +"/index.jsp");
                     } else if (u.getPosition() == 1) { //if receptionist
                         out.println("RESEPSIONIS");
+                        response.sendRedirect(request.getContextPath() +"/index.jsp");
                     } else if (u.getPosition() == 2) { //if manager
                         out.println("MANAGER!");
+                        response.sendRedirect(request.getContextPath() +"/index.jsp");
                     }
                     session.setAttribute("username", u.getUsername());
                     session.setAttribute("name", u.getName());
@@ -60,10 +63,9 @@ public class Login extends HttpServlet {
                     out.println("Selamat Datang " + u.getName() + "");
                 } else {
                     out.println("STAFF GAGAL!");
+                    response.sendRedirect(request.getContextPath() +"/index.jsp");
                 }
-            }
-
-            if (c != null) { // if yang login adalah customer //if ditemukan customer yang login tersebut
+            } else if (c != null && u == null) { // if yang login adalah customer //if ditemukan customer yang login tersebut
                 if (Password.equals(c.getPassword())) { // if password customer benar
 
                     out.println("CUSTOMER!");
@@ -76,8 +78,12 @@ public class Login extends HttpServlet {
                     response.sendRedirect(request.getContextPath() +"/index.jsp");
                     out.println("CUSTOMER GAGAL!");
                 }
+            } else {
+                response.sendRedirect(request.getContextPath() +"/index.jsp");
             }
 
+            //response.sendRedirect(request.getContextPath() +"/index.jsp");
+            
             //else { //if gagal login
             //  response.sendRedirect(request.getContextPath() + "/index.jsp");
             //}

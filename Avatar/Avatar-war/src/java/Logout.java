@@ -31,7 +31,7 @@ public class Logout extends HttpServlet {
         
         try {
             request.getSession().invalidate();
-            response.sendRedirect("MelakukanRegistrasi/index.jsp");
+            response.sendRedirect(request.getContextPath() +"/index.jsp");
         } catch (Exception e) {
             e.printStackTrace();
         }

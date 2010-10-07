@@ -10,7 +10,7 @@
         <meta name="description" content="" />
         <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="jquery/jquery.slidertron-0.1.js"></script>
-        <script type="text/javascript" src="jquery/jquery.slidertron-0.1.js"></script>
+        <script type="text/javascript" src="jquery/mainscript.js"></script>
         <link href="styles/style.css" rel="stylesheet" type="text/css" media="screen" />
         <style type="text/css">
             @import "styles/slidertron.css";
@@ -34,7 +34,12 @@
             </div>
             <!-- end #menu -->
         </div>
+        <%
+            if ((session.getAttribute("name"))!=null){
+        %>
         Selamat Datang, <%=session.getAttribute("name")%>
+        <a href="Logout">Logout</a>
+        <%}%>
         <!-- end #header -->
         <hr />
         <div id="container">
