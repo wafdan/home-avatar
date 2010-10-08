@@ -654,3 +654,12 @@ hr {
 	position: relative;
 	top: 30px;
 }
+form {
+	padding: 15px;
+}
+#page #page-bgtop #centerside #wrap #accountform label {
+	text-transform: uppercase;
+	color: #FFFFFF;
+	float: left;
+	width: 150px;
+}
