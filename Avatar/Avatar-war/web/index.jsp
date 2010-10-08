@@ -24,7 +24,7 @@
             </div>
             <div id="menu"> 
                 <ul>
-                    <li class="current_page_item"><a href="index.jsp">Overview</a></li>
+                    <li class="current_page_item"><a href="index.jsp">Home</a></li>
                     <li><a href="reservation.jsp" class="first">Reservation</a></li>
                     <li><a href="rooms.jsp">Rooms</a></li>
                     <li><a href="hall.jsp">Meeting & Events</a></li>

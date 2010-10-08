@@ -60,7 +60,7 @@ Released   : 20100701
             </div>
             <div id="menu">
                 <ul>
-                    <li><a href="index.jsp">Overview</a></li>
+                    <li><a href="index.jsp">Home</a></li>
                     <li><a href="reservation.jsp" class="first">Reservation</a></li>
                     <li><a href="rooms.jsp">Rooms</a></li>
                     <li><a href="hall.jsp">Meeting & Events</a></li>
