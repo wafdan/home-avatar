@@ -44,7 +44,7 @@
             <!-- end #menu -->
         </div>
         <%
-        if ((session.getAttribute("name")) != null) {
+                    if ((session.getAttribute("name")) != null) {
         %>
         <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
             <a href="Logout">Logout</a>
@@ -56,74 +56,26 @@
             <div id="page-bgtop">
                 <div id="centerside">
                     <div id="wrap">
-                        <form id="form_20674" class="appnitro"  method="post" action="TambahAkun">
+                        <form id="accountform" method="post" action="TambahAkun">
 
-                            <div class="form_description">
-                                <h2>User Account Information</h2>
-                            </div>
+                            <h2>User Account Information</h2>
 
-                            <ul id="list_field">
-                                <li id="li_0" >
-                                    <label class="description" for="fullname">Username </label>
-                                    <div>
-                                        <%= cust.getUsername()%>
-                                    </div>
-                                </li>
-                                <li id="li_1" >
-                                    <label class="description" for="fullname">Full Name </label>
-                                    <div>
-                                        <%= cust.getName()%>
-                                    </div>
-                                </li>
+                            <label for="username">Username : </label><div class="accountinfo"><%= cust.getUsername()%></div>
+                      <br /><br />
+                            <label for="name">Name : </label><%= cust.getName()%><br /><br />
+                            <label for="identity_type">Identity Type : </label><%= cust.getIdentityType()%><br /><br />
+                            <label for="identity_number">Identity Number : </label><%= cust.getIdentityNumber()%><br /><br />
+                            <label for="telephone">Telephone : </label><%= cust.getTelephone()%><br /><br />
+                            <label for="email">Email : </label><<%= cust.getEmail()%><br /><br />
+                            <label for="address1">Address : </label><%= cust.getAddress1()%><br /><br />
+                            <% if (cust.getAddress2() != null) {
+                                            out.println(cust.getAddress2() + "<br />");
+                                        } else {
+                                            out.println("");
+                                        }%>
+                            <%= cust.getCity()%>, <%= cust.getCountry()%>
 
-                                <li id="li_2" >
-                                    <label class="description" for="identity_type">ID Type </label>
-                                    <div>
-                                        <%= cust.getIdentityType()%>
-                                    </div>
-                                </li>
-
-                                <li id="li_3" >
-                                    <label class="description" for="identity_number">ID Number </label>
-                                    <div>
-                                        <%= cust.getIdentityNumber()%>
-                                    </div>
-                                </li>
-
-                                <li id="li_4" >
-                                    <label class="description" for="telephone">Phone Number </label>
-                                    <div>
-                                        <%= cust.getTelephone()%>
-                                    </div>
-                                </li>
-
-                                <li id="li_5" >
-                                    <label class="description" for="email">Email </label>
-                                    <div>
-                                        <%= cust.getEmail()%>
-                                    </div>
-                                </li>
-
-                                <li id="li_6" >
-                                    <label for="address1">Street Address</label>
-
-                                    <div>
-                                        <%= cust.getAddress1()%><br />
-                                        <% if (cust.getAddress2() != null) {
-                                                    out.println(cust.getAddress2() + "<br />");
-                                                } else {
-                                                    out.println("");
-                                                }%>
-                                        <%= cust.getCity()%>, <%= cust.getCountry()%>
-                                    </div>
-                                </li>
-
-                                <li class="buttons">
-                                    <input type="hidden" name="form_id" value="20674" />
-
-                                    <a href="Edit.jsp">Edit</a>
-                                </li>
-                            </ul>
+                            <br /><a href="Edit.jsp">Edit</a>
                         </form>
                     </div>
                     <!--END wrap register-->
