@@ -17,18 +17,25 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Christian
+ * @author zulfikar
  */
 @Entity
 @Table(name = "profile")
 @NamedQueries({
     @NamedQuery(name = "Profile.findAll", query = "SELECT p FROM Profile p"),
+    @NamedQuery(name = "Profile.findById", query = "SELECT p FROM Profile p WHERE p.id = :id"),
     @NamedQuery(name = "Profile.findByHotelName", query = "SELECT p FROM Profile p WHERE p.hotelName = :hotelName"),
     @NamedQuery(name = "Profile.findByHotelAddress1", query = "SELECT p FROM Profile p WHERE p.hotelAddress1 = :hotelAddress1"),
-    @NamedQuery(name = "Profile.findByHotelAddress2", query = "SELECT p FROM Profile p WHERE p.hotelAddress2 = :hotelAddress2")})
+    @NamedQuery(name = "Profile.findByHotelAddress2", query = "SELECT p FROM Profile p WHERE p.hotelAddress2 = :hotelAddress2"),
+    @NamedQuery(name = "Profile.findByHotelCity", query = "SELECT p FROM Profile p WHERE p.hotelCity = :hotelCity"),
+    @NamedQuery(name = "Profile.findByHotelCountry", query = "SELECT p FROM Profile p WHERE p.hotelCountry = :hotelCountry"),
+    @NamedQuery(name = "Profile.findByHotelPhone", query = "SELECT p FROM Profile p WHERE p.hotelPhone = :hotelPhone")})
 public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Boolean id;
     @Basic(optional = false)
     @Column(name = "hotel_name")
     private String hotelName;
@@ -37,26 +44,44 @@ public class Profile implements Serializable {
     private String hotelAddress1;
     @Column(name = "hotel_address2")
     private String hotelAddress2;
+    @Basic(optional = false)
+    @Column(name = "hotel_city")
+    private String hotelCity;
+    @Basic(optional = false)
+    @Column(name = "hotel_country")
+    private String hotelCountry;
     @Lob
     @Column(name = "hotel_email")
     private String hotelEmail;
     @Lob
     @Column(name = "hotel_description")
     private String hotelDescription;
-    @Lob
-    @Column(name = "hotel_logo")
-    private String hotelLogo;
+    @Basic(optional = false)
+    @Column(name = "hotel_phone")
+    private String hotelPhone;
 
     public Profile() {
     }
 
-    public Profile(String hotelName) {
-        this.hotelName = hotelName;
+    public Profile(Boolean id) {
+        this.id = id;
     }
 
-    public Profile(String hotelName, String hotelAddress1) {
+    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone) {
+        this.id = id;
         this.hotelName = hotelName;
         this.hotelAddress1 = hotelAddress1;
+        this.hotelCity = hotelCity;
+        this.hotelCountry = hotelCountry;
+        this.hotelPhone = hotelPhone;
+    }
+
+    public Boolean getId() {
+        return id;
+    }
+
+    public void setId(Boolean id) {
+        this.id = id;
     }
 
     public String getHotelName() {
@@ -83,6 +108,22 @@ public class Profile implements Serializable {
         this.hotelAddress2 = hotelAddress2;
     }
 
+    public String getHotelCity() {
+        return hotelCity;
+    }
+
+    public void setHotelCity(String hotelCity) {
+        this.hotelCity = hotelCity;
+    }
+
+    public String getHotelCountry() {
+        return hotelCountry;
+    }
+
+    public void setHotelCountry(String hotelCountry) {
+        this.hotelCountry = hotelCountry;
+    }
+
     public String getHotelEmail() {
         return hotelEmail;
     }
@@ -99,18 +140,18 @@ public class Profile implements Serializable {
         this.hotelDescription = hotelDescription;
     }
 
-    public String getHotelLogo() {
-        return hotelLogo;
+    public String getHotelPhone() {
+        return hotelPhone;
     }
 
-    public void setHotelLogo(String hotelLogo) {
-        this.hotelLogo = hotelLogo;
+    public void setHotelPhone(String hotelPhone) {
+        this.hotelPhone = hotelPhone;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (hotelName != null ? hotelName.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -121,7 +162,7 @@ public class Profile implements Serializable {
             return false;
         }
         Profile other = (Profile) object;
-        if ((this.hotelName == null && other.hotelName != null) || (this.hotelName != null && !this.hotelName.equals(other.hotelName))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -129,7 +170,7 @@ public class Profile implements Serializable {
 
     @Override
     public String toString() {
-        return "AvatarEntity.Profile[hotelName=" + hotelName + "]";
+        return "AvatarEntity.Profile[id=" + id + "]";
     }
 
 }

@@ -20,9 +20,9 @@ import javax.persistence.criteria.Root;
  *
  * @author zulfikar
  */
-public class HotelInfoJpaController {
+public class ProfileJpaController {
 
-    public HotelInfoJpaController() {
+    public ProfileJpaController() {
         emf = Persistence.createEntityManagerFactory("AvatarPersistenceUnit");
     }
     private EntityManagerFactory emf = null;
@@ -31,16 +31,16 @@ public class HotelInfoJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(HotelInfo hotelInfo) throws PreexistingEntityException, Exception {
+    public void create(Profile profile) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(hotelInfo);
+            em.persist(profile);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findHotelInfo(hotelInfo.getId()) != null) {
-                throw new PreexistingEntityException("HotelInfo " + hotelInfo + " already exists.", ex);
+            if (findProfile(profile.getId()) != null) {
+                throw new PreexistingEntityException("Profile " + profile + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -50,19 +50,19 @@ public class HotelInfoJpaController {
         }
     }
 
-    public void edit(HotelInfo hotelInfo) throws NonexistentEntityException, Exception {
+    public void edit(Profile profile) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            hotelInfo = em.merge(hotelInfo);
+            profile = em.merge(profile);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                Short id = hotelInfo.getId();
-                if (findHotelInfo(id) == null) {
-                    throw new NonexistentEntityException("The hotelInfo with id " + id + " no longer exists.");
+                Boolean id = profile.getId();
+                if (findProfile(id) == null) {
+                    throw new NonexistentEntityException("The profile with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -73,19 +73,19 @@ public class HotelInfoJpaController {
         }
     }
 
-    public void destroy(Short id) throws NonexistentEntityException {
+    public void destroy(Boolean id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            HotelInfo hotelInfo;
+            Profile profile;
             try {
-                hotelInfo = em.getReference(HotelInfo.class, id);
-                hotelInfo.getId();
+                profile = em.getReference(Profile.class, id);
+                profile.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The hotelInfo with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The profile with id " + id + " no longer exists.", enfe);
             }
-            em.remove(hotelInfo);
+            em.remove(profile);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -94,19 +94,19 @@ public class HotelInfoJpaController {
         }
     }
 
-    public List<HotelInfo> findHotelInfoEntities() {
-        return findHotelInfoEntities(true, -1, -1);
+    public List<Profile> findProfileEntities() {
+        return findProfileEntities(true, -1, -1);
     }
 
-    public List<HotelInfo> findHotelInfoEntities(int maxResults, int firstResult) {
-        return findHotelInfoEntities(false, maxResults, firstResult);
+    public List<Profile> findProfileEntities(int maxResults, int firstResult) {
+        return findProfileEntities(false, maxResults, firstResult);
     }
 
-    private List<HotelInfo> findHotelInfoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Profile> findProfileEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(HotelInfo.class));
+            cq.select(cq.from(Profile.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -118,20 +118,20 @@ public class HotelInfoJpaController {
         }
     }
 
-    public HotelInfo findHotelInfo(Short id) {
+    public Profile findProfile(Boolean id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(HotelInfo.class, id);
+            return em.find(Profile.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getHotelInfoCount() {
+    public int getProfileCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<HotelInfo> rt = cq.from(HotelInfo.class);
+            Root<Profile> rt = cq.from(Profile.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
