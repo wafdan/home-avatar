@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2010 at 02:43 PM
+-- Generation Time: Oct 08, 2010 at 03:18 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`username`, `name`, `password`, `email`, `identity_type`, `identity_number`, `address1`, `address2`, `city`, `country`, `telephone`) VALUES
 ('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL),
-('customer', 'Customero Banykodwito', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', NULL, '', NULL, '', '', NULL);
+('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', NULL, '', NULL, '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -214,6 +214,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 --
 
 CREATE TABLE IF NOT EXISTS `profile` (
+  `id` tinyint(1) NOT NULL,
   `hotel_name` varchar(50) NOT NULL,
   `hotel_address1` varchar(75) NOT NULL,
   `hotel_address2` varchar(75) DEFAULT NULL,
@@ -222,15 +223,15 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `hotel_email` text,
   `hotel_description` text,
   `hotel_phone` varchar(15) NOT NULL,
-  PRIMARY KEY (`hotel_name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_phone`) VALUES
-('Spons Hotel', 'Jalan Spons 112', 'Kelurahan Ceu Kecamatan Ceuceu', 'Jakarta', 'Indonesia', 'contact@sponshotel.co.id', 'Hotel ini berada di kawasan elit jakarta, terbebas dari semrawut dan kemacetan kota Jakarta', '085220280021');
+INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_phone`) VALUES
+(1, 'Spons Hotel', 'Jalan Spons 112', 'Kelurahan Ceu Kecamatan Ceuceu', 'Jakarta', 'Indonesia', 'contact@sponshotel.co.id', 'Hotel ini berada di kawasan elit jakarta, terbebas dari semrawut dan kemacetan kota Jakarta', '085220280021');
 
 -- --------------------------------------------------------
 
@@ -337,8 +338,8 @@ CREATE TABLE IF NOT EXISTS `staff` (
 INSERT INTO `staff` (`username`, `name`, `password`, `email`, `employment_id`, `position`) VALUES
 ('Zulfikar19', 'Zulfikar Hakim', '94167761e0943c3c8ffc8142698857df', 'zulfikar_165@students.itb.ac.id', '199002192010091001', 0),
 ('Restya19', 'Restya Winda A.', 'defe1ef55f723634cc31f440ad6abeda', 'restya_wa@yahoo.co.id', '198806032010092001', 1),
-('manager', 'Managero Bijaksono', '1d0258c2440a8d19e716292b231e3190', 'manager@man.com', '2', 2),
-('admin', 'Admino Penguaso', '21232f297a57a5a743894a0e4a801fc3', '', '', 0),
+('manager', 'Manager', '1d0258c2440a8d19e716292b231e3190', 'manager@man.com', '2', 2),
+('admin', 'Admin', '21232f297a57a5a743894a0e4a801fc3', '', '', 0),
 ('aaaaaa', 'Ahmad Dodolin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'aaa@aaa.a', '78070987', 1),
 ('bbbbbb', 'Bambang Burangrang', '875f26fdb1cecf20ceb4ca028263dec6', '', '', 0);
 
