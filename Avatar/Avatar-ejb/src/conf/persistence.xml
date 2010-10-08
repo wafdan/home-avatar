@@ -12,6 +12,7 @@
     <class>AvatarEntity.Telephone</class>
     <class>AvatarEntity.Venue</class>
     <class>AvatarEntity.Country</class>
+    <class>AvatarEntity.HotelInfo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
