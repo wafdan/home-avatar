@@ -70,7 +70,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditProfilHotel</servlet-name>
-        <url-pattern>/MengubahProfilHotel/EditProfilHotel</url-pattern>
+        <url-pattern>/backend/EditProfilHotel</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

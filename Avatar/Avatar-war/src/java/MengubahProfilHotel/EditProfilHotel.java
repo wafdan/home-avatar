@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package MengubahProfilHotel;
 
 import AvatarEntity.Profile;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author zulfikar
  */
 public class EditProfilHotel extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -31,36 +30,36 @@ public class EditProfilHotel extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String hotelname=request.getParameter("hotelname");
-            String hoteldesc=request.getParameter("hoteldesc");
-            String imagedirectory=request.getParameter("imagedirectory");
-            String city=request.getParameter("city");
-            String phonenumber=request.getParameter("phonenumber");
-            String email=request.getParameter("email");
-            String address=request.getParameter("address");
-            String address2=request.getParameter("address2");
-            String country=request.getParameter("country");
+            String hotelname = request.getParameter("hotelname");
+            String hoteldesc = request.getParameter("hoteldesc");
+            String imagedirectory = request.getParameter("imagedirectory");
+            String city = request.getParameter("city");
+            String phonenumber = request.getParameter("phonenumber");
+            String email = request.getParameter("email");
+            String address = request.getParameter("address");
+            String address2 = request.getParameter("address2");
+            String country = request.getParameter("country");
 
-            Profile p=new Profile(Boolean.TRUE, hotelname, address, city, country, phonenumber);
+            ProfileJpaController pjc = new ProfileJpaController();
+            Profile p = new Profile(Boolean.TRUE, hotelname, address, city, country, phonenumber);
             p.setHotelDescription(hoteldesc);
             p.setHotelAddress2(address2);
             p.setHotelEmail(email);
-            p.setHotelAddress2(hoteldesc);
-            ProfileJpaController pjc=new ProfileJpaController();
+            p.setHotelDescription(hoteldesc);
             pjc.edit(p);
 
         } catch (NonexistentEntityException ex) {
-            Logger.getLogger(EditProfilHotel.class.getName()).log(Level.SEVERE, null, ex);
+            out.write(ex.getMessage());
         } catch (Exception ex) {
-            Logger.getLogger(EditProfilHotel.class.getName()).log(Level.SEVERE, null, ex);
-        } finally { 
+            out.write(ex.getMessage());
+        } finally {
             out.close();
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -72,9 +71,9 @@ public class EditProfilHotel extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -85,7 +84,7 @@ public class EditProfilHotel extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -97,5 +96,4 @@ public class EditProfilHotel extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

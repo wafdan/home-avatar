@@ -34,6 +34,7 @@ public class EditCustomer extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             //?username=+Restya19+&nama=+Restya+Winda+A.+&emID=+198806032010092001+&inumber=1
+
             String username=request.getParameter("username");
             String name=request.getParameter("name");
             String itype=request.getParameter("itype");
