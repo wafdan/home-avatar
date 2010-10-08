@@ -643,3 +643,14 @@ hr {
 	font-size: 14px;
 	font-weight: bold;
 }
+#loginstatus {
+	clear: both;
+	float: none;
+	text-align: right;
+	margin: 0 auto;
+	width: 960px;
+}
+#container {
+	position: relative;
+	top: 30px;
+}
