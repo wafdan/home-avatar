@@ -58,15 +58,14 @@
                     <div id="wrap">
                         <form id="accountform" method="post" action="TambahAkun">
 
-                            <h2>User Account Information</h2>
-
-                            <label for="username">Username : </label><%= cust.getUsername()%><br /><br />
-                            <label for="name">Name : </label><%= cust.getName()%><br /><br />
+                            <h2>User Account Information</h2><br />
+                            <label for="username">Username : </label> <%= cust.getUsername()%><br /><br />
+                            <label for="name">Name : </label> <%= cust.getName()%><br /><br />
                             <label for="identity_type">Identity Type : </label><%= cust.getIdentityType()%><br /><br />
-                            <label for="identity_number">Identity Number : </label><%= cust.getIdentityNumber()%><br /><br />
-                            <label for="telephone">Telephone : </label><%= cust.getTelephone()%><br /><br />
-                            <label for="email">Email : </label><<%= cust.getEmail()%><br /><br />
-                            <label for="address1">Address : </label><%= cust.getAddress1()%><br /><br />
+                            <label for="identity_number">Identity Number : </label> <%= cust.getIdentityNumber()%><br /><br />
+                            <label for="telephone">Telephone : </label> <%= cust.getTelephone()%><br /><br />
+                            <label for="email">Email : </label> <%= cust.getEmail()%><br /><br />
+                            <label for="address1">Address : </label> <%= cust.getAddress1()%><br /><br />
                             <% if (cust.getAddress2() != null) {
                                             out.println(cust.getAddress2() + "<br />");
                                         } else {
@@ -74,7 +73,7 @@
                                         }%>
                             <%= cust.getCity()%>, <%= cust.getCountry()%>
 
-                            <br /><a href="Edit.jsp">Edit</a>
+                            <br /><a href="editprofile.jsp">Edit</a>
                         </form>
                     </div>
                     <!--END wrap register-->

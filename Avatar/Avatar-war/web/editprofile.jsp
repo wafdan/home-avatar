@@ -21,17 +21,24 @@
             </div>
             <div id="menu">
                 <ul>
-                    <li><a href="index.html">Overview</a></li>
-                    <li><a href="reservation.html" class="first">Reservation</a></li>
-                    <li><a href="rooms.html">Rooms</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="resto.html">Restaurant & Meeting Room</a></li>
-                    <li><a href="contactus.html">Contact Us</a></li>
+                    <li><a href="index.jsp">Home</a></li>
+                    <li><a href="reservation.jsp" class="first">Reservation</a></li>
+                    <li><a href="rooms.jsp">Rooms</a></li>
+                    <li><a href="hall.jsp">Meeting & Events</a></li>
+                    <li><a href="services.jsp">Other Services</a></li>
+                    <li><a href="contactus.jsp">Contact Us</a></li>
                 </ul>
             </div>
             <!-- end #menu -->
         </div>
         <!-- end #header -->
+        <%
+                    if ((session.getAttribute("name")) != null) {
+        %>
+        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
+            <a href="Logout">Logout</a>
+        </div>
+        <%}%>
         <hr />
         <div id="page">
             <div id="page-bgtop">

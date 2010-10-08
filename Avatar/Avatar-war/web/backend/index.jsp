@@ -39,7 +39,7 @@
             <%}%>
             <div id="menu">
                 <ul>
-                    <li class="current_page_item"><a href="profile_manage.jsp">Profile</a></li>
+                    <li><a href="profile_manage.jsp">Profile</a></li>
                     <li><a href="staff_manage.jsp">User</a></li>
                     <li><a href="#">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>

@@ -11,6 +11,8 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #919191;
+	font: normal 90% "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	;
 }
 
 h1, h2, h3 {
@@ -656,10 +658,12 @@ hr {
 }
 form {
 	padding: 15px;
-}
-#page #page-bgtop #centerside #wrap #accountform label {
-	text-transform: uppercase;
 	color: #FFFFFF;
+	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+}label {
+	color: #CCCCCC;
+	text-transform: capitalize;
 	float: left;
-	width: 150px;
+	font-size: 16px;
 }
