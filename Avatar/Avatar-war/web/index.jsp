@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Domesticated by Free CSS Templates</title>
+        <title>Spons Hotel</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
@@ -22,7 +22,7 @@
             <div id="logo">
                 <h1>Spons Hotel</h1>
             </div>
-            <div id="menu">
+            <div id="menu"> 
                 <ul>
                     <li class="current_page_item"><a href="index.jsp">Overview</a></li>
                     <li><a href="reservation.jsp" class="first">Reservation</a></li>
@@ -35,10 +35,11 @@
             <!-- end #menu -->
         </div>
         <%
-            if ((session.getAttribute("name"))!=null){
+        if ((session.getAttribute("name")) != null) {
         %>
-        Selamat Datang, <%=session.getAttribute("name")%>
-        <a href="Logout">Logout</a>
+        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
+            <a href="Logout">Logout</a>
+        </div>
         <%}%>
         <!-- end #header -->
         <hr />
@@ -71,6 +72,7 @@
 
                         </script>
                     </div>
+                    <%if ((session.getAttribute("name")) == null) {%>
                     <div class="col2">
                         <form name='login' action='Login' method='post' style=' font-size:18px'>
                             <label for='username'>User name: </label>
@@ -79,9 +81,14 @@
                             <input size='10' type='password' name='password' id='password' value='' /><br/>
                             <input type='submit' value='Login' /><br/>
                             Not a member yet? Become our special guest :
-                            <a href='Registrasi.jsp'>Register</a>
+                            <a href='register.jsp'>Register</a>
                         </form>
                     </div>
+                    <%} else {%>
+                    <div class="col2">
+                        Selamat Datang, member kami: <%= session.getAttribute("name")%>
+                    </div>
+                    <%}%>
                 </div>
             </div>
             <div id="page">
