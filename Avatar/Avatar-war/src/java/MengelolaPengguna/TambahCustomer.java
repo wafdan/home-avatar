@@ -64,15 +64,15 @@ public class TambahCustomer extends HttpServlet {
 
             CustomerJpaController cjc = new CustomerJpaController();
             cjc.create(c);
-            response.sendRedirect("TambahCustomer.jsp?status=success");
+            response.sendRedirect("../backend/customer_add.jsp?status=success");
             //success
             //unexpectedfailure
             //alreadyexist
 
         } catch (PreexistingEntityException ex) {
-            response.sendRedirect("TambahCustomer.jsp?status=alreadyexist");
+            response.sendRedirect("../backend/customer_add.jsp?status=alreadyexist");
         } catch (Exception ex) {
-            response.sendRedirect("TambahCustomer.jsp?status=unexpectedfailure");
+            response.sendRedirect("../backend/customer_add.jsp?status=unexpectedfailure");
         } finally {
             out.close();
         }

@@ -40,7 +40,7 @@ public class HapusStaff extends HttpServlet {
             out.write(primaryKey);
             StaffJpaController sjc=new StaffJpaController();
             sjc.destroy(primaryKey);
-            response.sendRedirect("ManageStaff.jsp");
+            response.sendRedirect("../backend/staff_manage.jsp");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusStaff.class.getName()).log(Level.SEVERE, null, ex);
 

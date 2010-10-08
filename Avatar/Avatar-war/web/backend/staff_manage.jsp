@@ -101,8 +101,8 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                    <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
 
                                 <%
@@ -119,7 +119,7 @@
                                     <td><%out.write(Integer.toString(index));
                                         %></td>
 
-                                <form action="EditStaff?username=<%= temp.getUsername()%>" method="get">
+                                <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
                                     <td><% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"username\" name=\"username\" disabled=\"true\"></input>");%></td>
                                     <td> <% out.write("<input type=\"text\" value=\"" + temp.getName() + "\" id=\"nama\" name=\"nama\"></input>");%></td>
 
@@ -137,8 +137,8 @@
 
                                         %></td>
                                     <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
-                                    <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
-                                    <td><a href="ManageStaff.jsp"> cancel </a></td>
+                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="staff_manage.jsp"> cancel </a></td>
 
                                 </form>
                                 <% } else {%>
@@ -149,8 +149,8 @@
                                 <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                <td><a href="ManageStaff.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                <td><a href="HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
                                 <%              }
                                                 }
