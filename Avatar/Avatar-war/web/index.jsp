@@ -24,7 +24,11 @@
             </div>
             <div id="menu"> 
                 <ul>
+                    <%if ((session.getAttribute("name")) != null) {%>
+                    <li><a href="myprofile.jsp">My Profile</a></li>
+                    <%}else{%>
                     <li class="current_page_item"><a href="index.jsp">Home</a></li>
+                    <%}%>
                     <li><a href="reservation.jsp" class="first">Reservation</a></li>
                     <li><a href="rooms.jsp">Rooms</a></li>
                     <li><a href="hall.jsp">Meeting & Events</a></li>
