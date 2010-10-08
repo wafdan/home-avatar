@@ -49,13 +49,13 @@ public class Login extends HttpServlet {
                 if (Password.equals(u.getPassword())) { // if password staff benar
                     if (u.getPosition() == 0) { //if admin
                         out.println("ADMIN");
-                        response.sendRedirect(request.getContextPath() +"/index.jsp");
+                        response.sendRedirect(request.getContextPath() +"/backend/");
                     } else if (u.getPosition() == 1) { //if receptionist
                         out.println("RESEPSIONIS");
-                        response.sendRedirect(request.getContextPath() +"/index.jsp");
+                        response.sendRedirect(request.getContextPath() +"/backend/");
                     } else if (u.getPosition() == 2) { //if manager
                         out.println("MANAGER!");
-                        response.sendRedirect(request.getContextPath() +"/index.jsp");
+                        response.sendRedirect(request.getContextPath() +"/backend/");
                     }
                     session.setAttribute("username", u.getUsername());
                     session.setAttribute("name", u.getName());
