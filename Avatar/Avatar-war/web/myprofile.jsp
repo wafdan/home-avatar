@@ -60,8 +60,7 @@
 
                             <h2>User Account Information</h2>
 
-                            <label for="username">Username : </label><div class="accountinfo"><%= cust.getUsername()%></div>
-                      <br /><br />
+                            <label for="username">Username : </label><%= cust.getUsername()%><br /><br />
                             <label for="name">Name : </label><%= cust.getName()%><br /><br />
                             <label for="identity_type">Identity Type : </label><%= cust.getIdentityType()%><br /><br />
                             <label for="identity_number">Identity Number : </label><%= cust.getIdentityNumber()%><br /><br />
