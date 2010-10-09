@@ -8,27 +8,102 @@
 <%@page import="AvatarEntity.Profile" %>
 <%@page import="AvatarEntity.ProfileJpaController" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-<!--
-div.box1 {margin:0 auto;
-width:500px;
-background:#222;
-position:relative;
-top:50px;
-border:1px solid #262626;
-}
--->
-    </style>
-    </head>
-<body>
+        <style type="text/css">
+            <!--
+            div.box1 {margin:0 auto;
+                      width:500px;
+                      background:#222;
+                      position:relative;
+                      top:50px;
+                      border:1px solid #262626;
+            }
+            -->
+        </style>
+        <script language="javascript" type="text/javascript" >
+            var validateHotelName=function()
+            {
+                var textfieldlength=document.getElementById("hotelname").value.length;
+                if(textfieldlength==0 || textfieldlength>50){
+                    document.getElementById("lhotelname").innerHTML='<em>Must be between 1 and 50 characters</em>';
+                    return false;
+                }
+                else{
+                    document.getElementById("lhotelname").innerHTML='';
+                    return true;
+                }
+                
 
+            }
+
+            var validateHotelAddress=function(idx)
+            {
+                var textfieldlength=document.getElementById("address").value.length;
+                var textfieldlength2=document.getElementById("address2").value.length;
+                if(textfieldlength>=1 && textfieldlength<=75 && textfieldlength2>=1 && textfieldlength2<=75){
+                    document.getElementById("laddress").innerHTML='';
+                    return true;
+                }
+                else{
+                    if(idx==1)
+                        document.getElementById("laddress").innerHTML='<em>Address line 1 must be between 1 and 75 characters</em>';
+                    else
+                        document.getElementById("laddress2").innerHTML='<em>Address line 2 must be between 1 and 75 characters</em>';
+                    return false;
+                }
+
+            }
+
+            var validateCity=function()
+            {
+                var textfieldlength=document.getElementById("city").value.length;
+                if(textfieldlength>=1 && textfieldlength<=25){
+                    document.getElementById("lcity").innerHTML='';
+                    return true;
+                }
+                else{
+                    document.getElementById("lcity").innerHTML='<em>Must be between 1 and 25 characters</em>';
+                    return false;
+                }
+            }
+
+            var validateEmail=function()
+            {
+                target = document.getElementById("email").value;
+                regex = /^[A-Za-z0-9._]+@[A-Za-z0-9._]+\.[A-Za-z]{2,4}$/;
+                if(!regex.test(target)) {
+                    document.getElementById("lemail").innerHTML='<em>Your email is not in valid format</em>';
+                    return false;
+                } else {
+                    document.getElementById("lemail").innerHTML='';
+                    return true;
+                }
+
+            }
+
+            var validatePhoneNumber=function()
+            {
+                target=document.getElementById("phonenumber").value;
+                regex = /^\+[0-9]{1,14}$/;
+                if(!regex.test(target)){
+                    document.getElementById("lphonenumber").innerHTML='<em>Must between 1 and 15 character and start with "+"</em>'
+                    return false;
+                }
+                else {
+                    document.getElementById("lphonenumber").innerHTML='';
+                    return true;
+                }
+            }
+
+        </script>
+    </head>
+    <body>
         <div id="logo-wrap">
             <div id="logo">
                 <h1><a href="#">AVATAR</a></h1>
@@ -36,15 +111,15 @@ border:1px solid #262626;
             </div>
         </div>
         <%
-            Profile p;
-            ProfileJpaController pjc=new ProfileJpaController();
-            p=pjc.findProfile(Boolean.TRUE);
+                    Profile p;
+                    ProfileJpaController pjc = new ProfileJpaController();
+                    p = pjc.findProfile(Boolean.TRUE);
         %>
 
         <!-- start header -->
         <div id="header">
             <%
-            if ((session.getAttribute("name")) != null) {
+                        if ((session.getAttribute("name")) != null) {
             %>
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
@@ -71,33 +146,33 @@ border:1px solid #262626;
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                      <div class="post">
-                        <div class="box">
-                          <h1>edit profil hotel</h1>
-                          <form method="get" action="EditProfilHotel">
-                          <label> <span>Hotel name</span>
-                            <input class="input_text" name="hotelname" id="hotelname" type="text" value="<%= p.getHotelName()%>"/>
-                          </label>
-                          <label> <span>Hotel Address</span>
-                            <input class="input_text" name="address" id="address" type="text" value="<%=p.getHotelAddress1() %>"/>
-                          </label>
-                          <label> <span>&nbsp;</span>
-                              <input class="input_text" name="address2" id="address2" type="text" value="<%=p.getHotelAddress2() %>"/>
-                          </label>
-                          
-                          <label>
-                          	<span>City</span>
-                            <input class="input_text" name="city" id="city" type="text" value="<%=p.getHotelCity() %>"/>
-                          </label>
-                          <label>
-                          	<span>Phone Number </span>
-                            <input class="input_text" name="phonenumber" id="phonenumber" type="text" value="<%=p.getHotelPhone() %>"/>
-                          </label>
-                          <label> <span>Email</span>
-                            <input class="input_text" name="email" id="email" type="text" value="<%=p.getHotelEmail() %>"/>
-                          </label>
-                          <label> <span>Country</span>
-                            <select class="element select medium" id="country" name="country">
+                        <div class="post">
+                            <div class="box">
+                                <h1>edit profil hotel</h1>
+                                <form method="get" action="EditProfilHotel">
+                                    <label> <span>Hotel name</span>
+                                        <input onblur="validateHotelName();" class="input_text" name="hotelname" id="hotelname" type="text" value="<%= p.getHotelName()%>"/>
+                                    </label><span id="lhotelname"></span>
+                                    <label> <span>Hotel Address</span>
+                                        <input onblur="validateHotelAddress(1);" class="input_text" name="address" id="address" type="text" value="<%=p.getHotelAddress1()%>"/>
+                                    </label> <span id="laddress"></span>
+                                    <label> <span>&nbsp;</span>
+                                        <input onblur="validateHotelAddress(2);" class="input_text" name="address2" id="address2" type="text" value="<%=p.getHotelAddress2()%>"/>
+                                    </label> <span id="laddress2"></span>
+
+                                    <label>
+                                        <span>City</span>
+                                        <input onblur="validateCity();" class="input_text" name="city" id="city" type="text" value="<%=p.getHotelCity()%>"/>
+                                    </label> <span id="lcity"></span>
+                                    <label>
+                                        <span>Phone Number </span>
+                                        <input onblur="validatePhoneNumber();" class="input_text" name="phonenumber" id="phonenumber" type="text" value="<%=p.getHotelPhone()%>"/>
+                                    </label> <span id="lphonenumber"></span>
+                                    <label> <span>Email</span>
+                                        <input onblur="validateEmail();" class="input_text" name="email" id="email" type="text" value="<%=p.getHotelEmail()%>"/>
+                                    </label> <span id="lemail"></span>
+                                    <label> <span>Country</span>
+                                        <select class="element select medium" id="country" name="country">
                                             <option value="" selected="selected">Choose one...</option>
                                             <option value="Afghanistan" >Afghanistan</option>
                                             <option value="Albania" >Albania</option>
@@ -295,27 +370,27 @@ border:1px solid #262626;
                                             <option value="Zambia" >Zambia</option>
                                             <option value="Zimbabwe" >Zimbabwe</option>
                                         </select>
-                          </label>
-                          
-                          <label> <span>Hotel Logo </span>
-                            <input class="input_text" name="imagedirectory" id="imagedirectory" type="file" value=""/>
-                            <!--input class="button" type="file" name="browse" value="browse..." style="width:75px" /-->
-                          </label>
-                          <label> <span> Hotel Description</span>
-                              <textarea class="message" name="hoteldesc" id="hoteldesc"><%=p.getHotelDescription() %></textarea>
-                            <input class="button" value="Simpan" type="submit" />
-                          </label>
-                          </form>
+                                    </label>
+
+                                    <label> <span>Hotel Logo </span>
+                                        <input class="input_text" name="imagedirectory" id="imagedirectory" type="file" value=""/>
+                                        <!--input class="button" type="file" name="browse" value="browse..." style="width:75px" /-->
+                                    </label>
+                                    <label> <span> Hotel Description</span>
+                                        <textarea class="message" name="hoteldesc" id="hoteldesc"><%=p.getHotelDescription()%></textarea>
+                                        <input class="button" value="Simpan" type="submit" />
+                                    </label>
+                                </form>
+                            </div>
+                            <h2 class="title">&nbsp;</h2>
+                            <div class="post">
+                                <p>&nbsp;</p>
+                            </div>
                         </div>
-                        <h2 class="title">&nbsp;</h2>
-                        <div class="post">
-                          <p>&nbsp;</p>
-                        </div>
-                      </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-<div id="sidebar">
+                    <div id="sidebar">
                         <ul>
                             <li>
                                 <div id="sidebar-title">

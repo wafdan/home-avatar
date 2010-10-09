@@ -5,7 +5,6 @@
 
 package MengelolaPengguna;
 
-import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -38,7 +37,6 @@ public class EditStaff extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            //?username=+Restya19+&nama=+Restya+Winda+A.+&emID=+198806032010092001+&position=1
             String username=request.getParameter("username");
             String name=request.getParameter("nama");
             String ID=request.getParameter("emID");
