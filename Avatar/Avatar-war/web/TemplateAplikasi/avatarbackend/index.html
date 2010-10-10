@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AVATAR ADMIN PANEL</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="ddaccordion.js"></script>
+
+<script type="text/javascript">
+ddaccordion.init({
+	headerclass: "submenuheader", //Shared CSS class name of headers group
+	contentclass: "submenu", //Shared CSS class name of contents group
+	revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+	mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+	collapseprev: true, //Collapse previous content (so only one open at any time)? true/false 
+	defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+	animatedefault: false, //Should contents open by default be animated into view?
+	persiststate: true, //persist state of opened contents within browser session?
+	toggleclass: ["", ""], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+	togglehtml: ["suffix", "<img src='images/plus.gif' class='statusicon' />", "<img src='images/minus.gif' class='statusicon' />"], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+	animatespeed: "fast", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+	oninit:function(headers, expandedindices){ //custom code to run when headers have initalized
+		//do nothing
+	},
+	onopenclose:function(header, index, state, isuseractivated){ //custom code to run whenever a header is opened or closed
+		//do nothing
+	}
+})
+
+function showConfirm(){
+	var r=confirm("Are You Sure?");
+	if (r==true)
+  	{
+  		alert("User Deleted!");
+  	}
+}
+</script>
+<script type="text/javascript" src="jconfirmaction.jquery.js"></script>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+		$('.ask').jConfirmAction();
+	});
+	
+</script>
+
+<script language="javascript" type="text/javascript" src="niceforms.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="niceforms-default.css" />
+
+</head>
+<body>
+<div id="main_container">
+	<div class="header">
+    	<div class="logo"><a href="#"><img src="images/avatarlogo.png" alt="" title="" border="0" /></a></div>
+    	<div class="right_header">Welcome, Admin | <a href="login.html" class="logout">Logout</a></div>
+    </div>
+    
+    <div class="main_content">
+    	<div class="menu">
+                    <ul>
+                    <li><a class="current" href="index.html">Profiles</a></li>
+                    <li><a href="list.html">Facilities and Services<!--[if IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]-->
+                        <ul>
+                        	<li><a href="facilities.html" title="">Manage Facilities</a></li>
+	                        <li><a href="services.html" title="">Manage Services</a></li>
+                        </ul>
+                    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                    </li>
+                    <li><a href="user.html">Users<!--[if IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]-->
+                        <ul>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a class="sub1" href="" title="">sublevel2<!--[if IE 7]><!--></a><!--<![endif]-->
+                        <!--[if lte IE 6]><table><tr><td><![endif]-->
+                            <ul>
+                                <li><a href="" title="">sublevel link</a></li>
+                                <li><a href="" title="">sulevel link</a></li>
+                                <li><a class="sub2" href="#nogo">sublevel3<!--[if IE 7]><!--></a><!--<![endif]-->
+                        
+                                <!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul>
+                                        <li><a href="#nogo">Third level-1</a></li>
+                                        <li><a href="#nogo">Third level-2</a></li>
+                                        <li><a href="#nogo">Third level-3</a></li>
+                                        <li><a href="#nogo">Third level-4</a></li>
+                                    </ul>
+                        
+                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>
+                                <li><a href="" title="">sulevel link</a></li>
+                            </ul>
+                        <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                        </li>
+                    	<li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        </ul>
+                    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                    </li>
+                    
+                    <li><a href="login.html">Reservations<!--[if IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]-->
+                        <ul>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a class="sub1" href="" title="">sublevel2<!--[if IE 7]><!--></a><!--<![endif]-->
+                        <!--[if lte IE 6]><table><tr><td><![endif]-->
+                            <ul>
+                                <li><a href="" title="">sublevel link</a></li>
+                                <li><a href="" title="">sulevel link</a></li>
+                                <li><a class="sub2" href="#nogo">sublevel3<!--[if IE 7]><!--></a><!--<![endif]-->
+                        
+                                <!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul>
+                                        <li><a href="#nogo">Third level-1</a></li>
+                                        <li><a href="#nogo">Third level-2</a></li>
+                                        <li><a href="#nogo">Third level-3</a></li>
+                                        <li><a href="#nogo">Third level-4</a></li>
+                                    </ul>
+                        
+                                <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>
+                                <li><a href="" title="">sulevel link</a></li>
+                            </ul>
+                        <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                        </li>
+                    
+                         <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        </ul>
+                    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                    </li>
+                    
+                    <li><a href="login.html">Payment<!--[if IE 7]><!--></a><!--<![endif]-->
+                    <!--[if lte IE 6]><table><tr><td><![endif]-->
+                        <ul>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        <li><a class="sub1" href="" title="">sublevel2<!--[if IE 7]><!--></a><!--<![endif]--><!--[if lte IE 6]><table><tr><td><![endif]-->
+                            <ul>
+                                <li><a href="" title="">sublevel link</a></li>
+                                <li><a href="" title="">sulevel link</a></li>
+                                <li><a class="sub2" href="#nogo">sublevel3<!--[if IE 7]><!--></a><!--<![endif]--><!--[if lte IE 6]><table><tr><td><![endif]-->
+                                    <ul>
+                                        <li><a href="#nogo">Third level-1</a></li>
+                                        <li><a href="#nogo">Third level-2</a></li>
+                                        <li><a href="#nogo">Third level-3</a></li>
+                                        <li><a href="#nogo">Third level-4</a></li>
+                                    </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                                </li>
+                                <li><a href="" title="">sulevel link</a></li>
+                            </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                        </li>
+                    
+                        <li><a href="" title="">Lorem ipsum dolor sit amet</a></li>
+                        </ul><!--[if lte IE 6]></td></tr></table></a><![endif]-->
+                    	</li>
+                   		<li><a href="">Statistic</a></li>
+                    </ul>
+    			</div> 
+	<div class="center_content">  
+        
+    <div class="left_content">
+    	<div class="sidebar_search">
+            <form>
+            <input type="text" name="" class="search_input" value="search keyword" onclick="this.value=''" />
+            <input type="image" class="search_submit" src="images/search.png" />
+            </form>            
+            </div>
+    
+            <div class="sidebarmenu">
+            
+                <a class="menuitem submenuheader" href="">Profiles</a>
+                <div class="submenu">
+                    <ul>
+                    <li><a href="">Sidebar submenu</a></li>
+                    <li><a href="">Sidebar submenu</a></li>
+                    <li><a href="">Sidebar submenu</a></li>
+                    <li><a href="">Sidebar submenu</a></li>
+                    <li><a href="">Sidebar submenu</a></li>
+                    </ul>
+                </div>
+                             
+            </div>
+            
+            
+    </div>  
+    
+    <div class="right_content">            
+    <h2>Warning Box examples</h2>
+      
+    <div class="warning_box">
+		Ini Contoh Warning.
+    </div>
+    
+	<div class="valid_box">
+        Ini Contoh OK.
+    </div>
+    
+	<div class="error_box">
+        Ini Contoh Nggak OK.
+    </div>   
+    
+	<h2>Users of "Orange" Hotel</h2> 
+              
+                    
+<table id="rounded-corner" summary="UserTable">
+    <thead>
+    	<tr>
+        	<th scope="col" class="rounded-company"></th>
+            <th scope="col" class="rounded">Name</th>
+            <th scope="col" class="rounded">Username</th>
+            <th scope="col" class="rounded">Address</th>
+            <th scope="col" class="rounded">Phone Number</th>
+            <th scope="col" class="rounded">email</th>
+            <th scope="col" class="rounded">Edit</th>
+            <th scope="col" class="rounded-q4">Delete</th>
+        </tr>
+    </thead>
+        <tfoot>
+    	<tr>
+        	<td colspan="7" class="rounded-foot-left"><em>To delete more than one user simultaneously, mark the checkbox besides users and press Delete Users</em></td>
+        	<td class="rounded-foot-right">&nbsp;</td>
+
+        </tr>
+    </tfoot>
+    <tbody>
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Zulfikar Hakim</td>
+            <td>zulfikar</td>
+            <td>Jalan Burangrang, Bandung</td>
+            <td>+628123456789</td>
+            <td>zulfikar@kabayanit.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr>
+        
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Christian Hadiwinoto</td>
+            <td>chrhad</td>
+            <td>Jalan Bogor, Bandung</td>
+            <td>+628122221212</td>
+            <td>chrhad@gmail.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr> 
+        
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Wafdan Musa N.</td>
+            <td>wafdan</td>
+            <td>Jalan Margaasih, Bandung</td>
+            <td>+62812210988</td>
+            <td>wafdan@kabayanit.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr>
+        
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Alvin Andhika Zulen</td>
+            <td>apien</td>
+            <td>Jalan Sumatera, Bandung</td>
+            <td>+628123456789</td>
+            <td>alvin@gmail.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr>  
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Andara Livia</td>
+            <td>daralivia</td>
+            <td>Jalan Dago Pojok, Bandung</td>
+            <td>+628123456789</td>
+            <td>andara@gmail.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr>
+        
+    	<tr>
+        	<td><input type="checkbox" name="" /></td>
+            <td>Eka Mukti Arifah</td>
+            <td>kamoe</td>
+            <td>Jalan Lampung, Bandung</td>
+            <td>+628123456789</td>
+            <td>ekamoe@koprol.com</td>
+            <td><a href="#"><img src="images/user_edit.png" alt="" title="" border="0" /></a></td>
+            <td><a href="#" class="ask"><img src="images/trash.png" alt="" title="" border="0" /></a></td>
+        </tr>    
+        
+    </tbody>
+</table>
+	 <a href="#" class="bt_green"><span class="bt_green_lft" onclick="showAlert()"></span><strong>Add new user</strong><span class="bt_green_r"></span></a>
+     <a href="#" class="bt_red"><span class="bt_red_lft"></span><strong>Delete Users</strong><span class="bt_red_r"></span></a> 
+     
+     
+        <div class="pagination">
+        <span class="disabled"><< prev</span>
+		<span class="current">1</span>
+		<a href="">2</a>
+		<a href="">3</a>
+		<a href="">4</a>
+		<a href="">5</a> 	... 	<a href="">100</a><a href="">101</a><a href="">next >></a>
+        </div> 
+     
+    
+           
+     <h2>Contoh Form</h2>
+     
+         <div class="form">
+         <form action="" method="post" class="niceform">
+         
+                <fieldset>
+                    <dl>
+                        <dt><label for="email">Email Address:</label></dt>
+                        <dd><input type="text" name="" id="" size="54" /></dd>
+                    </dl>
+                    <dl>
+                        <dt><label for="password">Password:</label></dt>
+                        <dd><input type="text" name="" id="" size="54" /></dd>
+                    </dl>
+                    
+                    
+                    <dl>
+                        <dt><label for="gender">Select categories:</label></dt>
+                        <dd>
+                            <select size="1" name="gender" id="">
+                                <option value="">Select option 1</option>
+                                <option value="">Select option 2</option>
+                                <option value="">Select option 3</option>
+                                <option value="">Select option 4</option>
+                                <option value="">Select option 5</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><label for="interests">Select tags:</label></dt>
+                        <dd>
+                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Web design</label>
+                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Business</label>
+                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Simple</label>
+                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">Clean</label>
+                        </dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt><label for="color">Select type</label></dt>
+                        <dd>
+                            <input type="radio" name="type" id="" value="" /><label class="check_label">Basic</label>
+                            <input type="radio" name="type" id="" value="" /><label class="check_label">Medium</label>
+                            <input type="radio" name="type" id="" value="" /><label class="check_label">Premium</label>
+                        </dd>
+                    </dl>
+                    
+                    
+                    
+                    <dl>
+                        <dt><label for="upload">Upload a File:</label></dt>
+                        <dd><input type="file" name="upload" id="upload" /></dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt><label for="comments">Message:</label></dt>
+                        <dd><textarea name="comments" id="comments" rows="5" cols="36"></textarea></dd>
+                    </dl>
+                    
+                    <dl>
+                        <dt><label></label></dt>
+                        <dd>
+                            <input type="checkbox" name="interests[]" id="" value="" /><label class="check_label">I agree to the <a href="#">terms &amp; conditions</a></label>
+                        </dd>
+                    </dl>
+                    
+                     <dl class="submit">
+                    	<input type="submit" name="submit" id="submit" value="Submit" />
+                     </dl>
+           
+                    
+                </fieldset>
+                
+         </form>
+         </div>  
+  </div><!-- end of right content-->
+  </div>   <!--end of center content -->               
+                    
+                    
+    
+    
+    <div class="clear"></div>
+    </div> <!--end of main content-->
+	
+    
+    <div class="footer">
+       	<div class="left_footer">AVATAR BackEnd Panel | 2010 <a href="http://hakunamatata.com"> HakunaMatata</a></div>
+    	<div class="right_footer"><a href="http://www.hakunamata.com"><img src="images/avatarlogofooter.png" alt="" title="" border="0" /></a></div>
+    </div>
+
+</div>		
+</body>
+</html>
