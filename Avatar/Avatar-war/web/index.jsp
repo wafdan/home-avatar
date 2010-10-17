@@ -24,7 +24,7 @@
     </form>
     <%} else {%>
         <ul>
-            <li>Welcome, <%= session.getAttribute("name")%></li>
+            <li>Welcome, <a href="myprofile.jsp"><%= session.getAttribute("name")%></a></li>
             <li class="last"><a href="Logout">Logout</a></li>
     	</ul>
     <%}%>
@@ -38,9 +38,9 @@
     <div id="topnav">
       <ul>
         <li class="last"><a href="reservations.html">Reservation</a><span>make an order</span></li>
-        <li><a href="services.html">Services</a><span>Our best services</span></li>
-        <li><a href="hall.html">Events</a><span>Meeting and Conference</span></li>
-        <li><a href="rooms.html">Rooms</a><span>Rooms and Facilities</span></li>
+        <li><a href="services.jsp">Services</a><span>Our best services</span></li>
+        <li><a href="hall.jsp">Events</a><span>Meeting and Conference</span></li>
+        <li><a href="rooms.jsp">Rooms</a><span>Rooms and Facilities</span></li>
         <li class="active"><a href="index.html">Home</a><span></span></li>
       </ul>
     </div>
