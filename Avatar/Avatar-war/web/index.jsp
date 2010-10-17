@@ -1,136 +1,127 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.*,java.sql.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <title>Spons Hotel</title>
-        <meta name="keywords" content="" />
-        <meta name="description" content="" />
-        <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="jquery/jquery.slidertron-0.1.js"></script>
-        <script type="text/javascript" src="jquery/mainscript.js"></script>
-        <link href="styles/style.css" rel="stylesheet" type="text/css" media="screen" />
-        <style type="text/css">
-            @import "styles/slidertron.css";
-        </style>
-    </head>
-    <body>
-        <!-- end #header-wrapper -->
-        <div id="header">
-            <div id="logo">
-                <h1>Spons Hotel</h1>
-            </div>
-            <div id="menu"> 
-                <ul>
-                    <%if ((session.getAttribute("name")) != null) {%>
-                    <li><a href="myprofile.jsp">My Profile</a></li>
-                    <%}else{%>
-                    <li class="current_page_item"><a href="index.jsp">Home</a></li>
-                    <%}%>
-                    <li><a href="reservation.jsp" class="first">Reservation</a></li>
-                    <li><a href="rooms.jsp">Rooms</a></li>
-                    <li><a href="hall.jsp">Meeting & Events</a></li>
-                    <li><a href="services.jsp">Other Services</a></li>
-                    <li><a href="contactus.jsp">Contact Us</a></li>
-                </ul>
-            </div>
-            <!-- end #menu -->
-        </div>
-        <%
-        if ((session.getAttribute("name")) != null) {
-        %>
-        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
-            <a href="Logout">Logout</a>
-        </div>
-        <%}%>
-        <!-- end #header -->
-        <hr />
-        <div id="container">
-            <div id="wrapper">
-                <!-- end #logo -->
-                <div id="two-columns">
-                    <div class="col1">
-                        <div id="foobar">
-                            <div class="navigation"> <a href="#" class="first">[ &lt;&lt; ]</a> &nbsp; <a href="#" class="previous">[ &lt; ]</a> &nbsp; <a href="#" class="next">[ &gt; ]</a> &nbsp; <a href="#" class="last">[ &gt;&gt; ]</a> </div>
-                            <div class="viewer">
-                                <div class="reel">
-                                    <div class="slide"> <img src="images/1.jpg" alt=""/> <span>Kamar Hotel</span> </div>
-                                    <div class="slide"> <img src="images/2.jpg" alt=""/> <span>Aula Hotel</span> </div>
-                                    <div class="slide"> <img src="images/3.jpg" alt=""/> <span>Fasilitas Kolam Renang Hotel</span> </div>
-                                </div>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+<title>Hotel Graha Bandung - The Best Luxury Hotel in Bandung</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="imagetoolbar" content="no" />
+<link rel="stylesheet" href="styles/layout.css" type="text/css" />
+</head>
 
-                            $('#foobar').slidertron({
-                                viewerSelector:			'.viewer',
-                                reelSelector:			'.viewer .reel',
-                                slidesSelector:			'.viewer .reel .slide',
-                                navPreviousSelector:	'.previous',
-                                navNextSelector:		'.next',
-                                navFirstSelector:		'.first',
-                                navLastSelector:		'.last'
-                            });
+<body id="top">
+<div class="wrapper col1">
+  <div id="topbar">
+    <%if ((session.getAttribute("name")) == null) {%>
+    <form name="login" action="Login" method="post">
+        <fieldset>
+        <ul>
+            <li>Username <input name="username" id="username" type="text" /> Password <input name="password" id="password" type="password" /></li>
+      	<li class="last"><input class="button_top" type="submit" name="loginbutton" id="news_go" value="Login" /></li>
+    	</ul>
+        </fieldset>
+    </form>
+    <%} else {%>
+        <ul>
+            <li>Welcome, <%= session.getAttribute("name")%></li>
+            <li class="last"><a href="Logout">Logout</a></li>
+    	</ul>
+    <%}%>
+    <br class="clear" />
+  </div>
+</div>
 
-                        </script>
-                    </div>
-                    <%if ((session.getAttribute("name")) == null) {%>
-                    <div class="col2">
-                        <form name='login' action='Login' method='post' style=' font-size:18px'>
-                            <label for='username'>User name: </label>
-                            <input size='10' type='text' name='username' id='username' value='' /><br />
-                            <label for='password'>Password  : </label>
-                            <input size='10' type='password' name='password' id='password' value='' /><br/>
-                            <input type='submit' value='Login' /><br/>
-                            Not a member yet? Become our special guest :
-                            <a href='register.jsp'>Register</a>
-                        </form>
-                    </div>
-                    <%} else {%>
-                    <div class="col2">
-                        Selamat Datang, member kami: <%= session.getAttribute("name")%>
-                    </div>
-                    <%}%>
-                </div>
-            </div>
-            <div id="page">
-                <div id="page-bgtop">
-                    <div id="content">
-                        <div class="post">
-                            <h2 class="title"><a href="#">Welcome to Spons Hotel</a></h2>
-                            <div class="entry">
-                                <p><strong>A warm welcome awaits you</strong> at the Spons Hotel. Located in the very heart of Bandung's central business district, our great location allows you to explore and connect to our wonderful city. You can stroll  out of our doors and enjoy the surrounding shopping area, stunning  views of Mt.Tangkuban Perahu, the City Hall, and the Old Town.</p>
-                                <p>We look forward to welcoming you</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end #content -->
-                    <div id="sidebar">
-                        <ul>
-                            <li>
-                                <h2>LINKS</h2>
-                                <ul>
-                                    <li><a href="#">Link 1</a></li>
-                                    <li><a href="#">Link 2</a></li>
-                                    <li><a href="#">Link 3</a></li>
-                                    <li><a href="#">Link 4</a></li>
-                                    <li><a href="#">Link 5</a></li>
-                                    <li><a href="#">Link 6</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- end #sidebar -->
-                    <div style="clear: both;">&nbsp;</div>
-                </div>
-                <!-- end #page -->
-            </div>
+<div class="wrapper col2">
+  <div id="header">
+
+    <div id="topnav">
+      <ul>
+        <li class="last"><a href="reservations.html">Reservation</a><span>make an order</span></li>
+        <li><a href="services.html">Services</a><span>Our best services</span></li>
+        <li><a href="hall.html">Events</a><span>Meeting and Conference</span></li>
+        <li><a href="rooms.html">Rooms</a><span>Rooms and Facilities</span></li>
+        <li class="active"><a href="index.html">Home</a><span></span></li>
+      </ul>
+    </div>
+
+    <div id="logo">
+    	<div id="logokiri">
+        	<img class="imglogo" src="images/demo/logohotelgrahamini.png" alt="" />
         </div>
-        <div id="footer">
-            <p>Copyright (c) 2010 AVATAR. All rights reserved. Design by <a href="#/">Hakuna Matata</a>.</p>
+        <div id="logokanan">
+        	<h1><a href="index.html">Hotel Graha</a></h1>
+      		<p>The Best Luxury Hotel in Bandung</p>
         </div>
-        <!-- end #footer -->
-    </body>
+    </div>
+
+    <br class="clear" />
+  </div>
+</div>
+
+<div class="wrapper col3">
+  <div id="intro">
+    <ul>
+      <li><img src="images/demo/steak.png" alt="" /> <a href="services.html">Five Star Restaurant &raquo;</a></li>
+      <li><img src="images/demo/pool.png" alt="" /> <a href="services.html">Sport and Leisure &raquo;</a></li>
+      <li><img src="images/demo/meeting.png" alt="" /> <a href="hall.html">Conference and Meeting &raquo;</a></li>
+      <li class="last"><img src="images/demo/room.png" alt="" /> <a href="rooms.html">Rooms and Suites &raquo;</a></li>
+    </ul>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col4">
+  <div id="container">
+    <div id="content">
+      <h2>About Us</h2>
+      <img class="imgl" src="images/demo/logohotelgraha.png" alt="" width="125" height="125" />
+      <p><strong>Hotel Graha Bandung</strong></p>
+      <p>Welcome to Hotel Graha Bandung, a five star luxury hotel in Bandung, West Java. Located in the heart of Bandung, we provide a superior level of service to satisfy the needs of our global guests. As a member of the "Hotel Graha" group, the Hotel Graha Bandung offers an extraordinary level of service and coordinated interior designs. Restored to its original opulence, Hotel Graha Bandung sets the standard for elegance. From the magnificent columned lobby with its marble floors and stained-glass dome to the classic décor of the 250 guestrooms and suites, we ensures that every stay is a memorable one.</p>
+  	</div>
+    <div id="column">
+      <div class="holder">
+        <h2>Promotion</h2>
+        <ul id="latestnews">
+          <li><img class="imgl" src="images/demo/dinner.png" alt="" />
+            <p><strong>Celebration Package</strong></p>
+            <p>Celebrate with us! With all ingredients to a lifelong memorable celebration.</p>
+            <p class="readmore"><a href="services.html">Continue Reading &raquo;</a></p>
+          </li>
+          <li class="last"><img class="imgl" src="images/demo/newyear.png" alt="" />
+            <p><strong>Special Offer</strong></p>
+            <p>Make your new year's party unforgetable with our special package.</p>
+            <p class="readmore"><a href="event.html">Continue Reading &raquo;</a></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col5">
+  <div id="footer">
+    <div id="newsletter">
+      <h2>Don't Have an Account?</h2>
+      <p>Join us to be the first to know about our special promotion !</p>
+      <p><br/></p>
+      <p>Sign Up <a href="#">Here &raquo;</a>!</p>
+    </div>
+    <div class="footbox">
+      <h2>Contact Us</h2>
+         <p>Hotel Graha Bandung</p>
+          <p>Jalan Pahlawan 123, Bandung, </p>
+          <p>West Java, Indonesia</p>
+          <p>ZIP code : 40123</p>
+          <p>Phone : +6222 254123 | Fax : +6222 254124</p>
+    </div>
+    <br class="clear" />
+  </div>
+</div>
+<div class="wrapper col6">
+  <div id="copyright">
+    <p class="fl_left">Avatar &copy; 2010 - All Rights Reserved - <a href="www.hakunamatata.com"> Hakuna Matata </a></p>
+    <br class="clear" />
+  </div>
+</div>
+</body>
 </html>
