@@ -62,10 +62,10 @@
 <div class="wrapper col3">
   <div id="intro">
     <ul>
-      <li><img src="images/demo/steak.png" alt="" /> <a href="services.html">Five Star Restaurant &raquo;</a></li>
-      <li><img src="images/demo/pool.png" alt="" /> <a href="services.html">Sport and Leisure &raquo;</a></li>
-      <li><img src="images/demo/meeting.png" alt="" /> <a href="hall.html">Conference and Meeting &raquo;</a></li>
-      <li class="last"><img src="images/demo/room.png" alt="" /> <a href="rooms.html">Rooms and Suites &raquo;</a></li>
+      <li><img src="images/demo/steak.png" alt="" /> <a href="services.jsp">Five Star Restaurant &raquo;</a></li>
+      <li><img src="images/demo/pool.png" alt="" /> <a href="services.jsp">Sport and Leisure &raquo;</a></li>
+      <li><img src="images/demo/meeting.png" alt="" /> <a href="hall.jsp">Conference and Meeting &raquo;</a></li>
+      <li class="last"><img src="images/demo/room.png" alt="" /> <a href="rooms.jsp">Rooms and Suites &raquo;</a></li>
     </ul>
     <br class="clear" />
   </div>
@@ -85,12 +85,12 @@
           <li><img class="imgl" src="images/demo/dinner.png" alt="" />
             <p><strong>Celebration Package</strong></p>
             <p>Celebrate with us! With all ingredients to a lifelong memorable celebration.</p>
-            <p class="readmore"><a href="services.html">Continue Reading &raquo;</a></p>
+            <p class="readmore"><a href="services.jsp">Continue Reading &raquo;</a></p>
           </li>
           <li class="last"><img class="imgl" src="images/demo/newyear.png" alt="" />
             <p><strong>Special Offer</strong></p>
             <p>Make your new year's party unforgetable with our special package.</p>
-            <p class="readmore"><a href="event.html">Continue Reading &raquo;</a></p>
+            <p class="readmore"><a href="hall.jsp">Continue Reading &raquo;</a></p>
           </li>
         </ul>
       </div>
@@ -101,10 +101,16 @@
 <div class="wrapper col5">
   <div id="footer">
     <div id="newsletter">
-      <h2>Don't Have an Account?</h2>
-      <p>Join us to be the first to know about our special promotion !</p>
-      <p><br/></p>
-      <p>Sign Up <a href="#">Here &raquo;</a>!</p>
+      <%if ((session.getAttribute("name")) == null) {%>
+          <h2>Don't Have an Account?</h2>
+          <p>Join us to be the first to know about our special promotion !</p>
+          <p><br/></p>
+          <p>Sign Up <a href="register.jsp">Here &raquo;</a>!</p>
+      <%} else {%>
+        <h2>Something Change?</h2>
+        <p>Please, let us know!</p>
+        <p>Edit Your Profile <a href="myprofile.jsp">Here &raquo;</a>!</p>
+      <%}%>
     </div>
     <div class="footbox">
       <h2>Contact Us</h2>
