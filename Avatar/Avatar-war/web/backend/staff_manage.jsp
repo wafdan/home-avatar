@@ -45,7 +45,7 @@
                 <ul>
                     <li><a href="profile_manage.jsp">Profile</a></li>
                     <li class="current_page_item"><a href="#">User</a></li>
-                    <li><a href="#">Facilities</a></li>
+                    <li><a href="facilities_manage.jsp">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>
