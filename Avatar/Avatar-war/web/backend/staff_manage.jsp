@@ -71,31 +71,31 @@
                                     <th bgcolor="#262626" width="89">Nama</th>
                                     <th bgcolor="#262626" width="77">ID</th>
                                     <th bgcolor="#262626" width="96">Position</th>
-
                                 </tr>
-
                                 <%
-                                            int editIndex = 0;
-                                            try {
-                                                String Index = request.getParameter("edit");
-                                                editIndex = Integer.parseInt(Index);
-                                            } catch (NullPointerException ex) {
-                                                editIndex = -1;
-                                            } catch (NumberFormatException ex) {
-                                                editIndex = -1;
-                                            }
+                                    int editIndex = 0;
+                                    try {
+                                        String Index = request.getParameter("edit");
+                                        editIndex = Integer.parseInt(Index);
+                                    } catch (NullPointerException ex) {
+                                        editIndex = -1;
+                                    } catch (NumberFormatException ex) {
+                                        editIndex = -1;
+                                    }
 
-                                            int index = 0;
-                                            StaffJpaController jpa = new StaffJpaController();
-                                            List<Staff> staffList = jpa.findStaffEntities();
-                                            if (editIndex == -1) {
-                                                for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
-                                                    Staff temp = i.next();
+                                    int index = 0;
+                                    StaffJpaController jpa = new StaffJpaController();
+                                    List<Staff> staffList = jpa.findStaffEntities();
+                                    if (editIndex == -1) {
+                                        for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
+                                            Staff temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%index++;
-                                                                                        out.write(Integer.toString(index));
-                                        %></td>
+                                    <td>
+                                    <%index++;
+                                    out.write(Integer.toString(index));
+                                    %>
+                                    </td>
 
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
@@ -106,45 +106,39 @@
                                 </tr>
 
                                 <%
-                                                                                }
-                                                                            } else {
-                                                                                int iterator = 0;
-                                                                                for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
-                                                                                    Staff temp = i.next();
-                                                                                    iterator++;
+                                        }
+                                    } else {
+                                        int iterator = 0;
+                                        for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
+                                            Staff temp = i.next();
+                                            iterator++;
                                 %>
                                 <tr>
                                     <% index++;
-                                                                                                                        if (iterator == editIndex) {%>
-                                    <td><%out.write(Integer.toString(index));
-                                        %></td>
-
+                                    if (iterator == editIndex) {%>
+                                    <td>
+                                        <%out.write(Integer.toString(index));%>
+                                    </td>
                                 <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
                                     <td><% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"username\" name=\"username\" disabled=\"true\"></input>");%></td>
-                                    <td> <% out.write("<input type=\"text\" value=\"" + temp.getName() + "\" id=\"nama\" name=\"nama\"></input>");%></td>
-
+                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getName() + "\" id=\"nama\" name=\"nama\"></input>");%></td>
                                     <td><% out.write("<input type=\"text\" value=\"" + temp.getEmploymentId() + "\" id=\"emID\" name=\"emID\"></input>");%></td>
                                     <td>
                                         <%
-                                                                                                                                                                    if (temp.getPosition() == 0) {
-                                                                                                                                                                        out.write(option0);
-                                                                                                                                                                    } else if (temp.getPosition() == 1) {
-                                                                                                                                                                        out.write(option1);
-                                                                                                                                                                    } else {
-                                                                                                                                                                        out.write(option2);
-                                                                                                                                                                    }
-
-
-                                        %></td>
+                                        if (temp.getPosition() == 0)
+                                        {out.write(option0);}
+                                        else if (temp.getPosition() == 1)
+                                        {out.write(option1);}
+                                        else
+                                        {out.write(option2);}
+                                        %>
+                                    </td>
                                     <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
                                     <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                     <td><a href="staff_manage.jsp"> cancel </a></td>
-
                                 </form>
                                 <% } else {%>
-                                <td><%
-                                                                                                                                                            out.write(Integer.toString(index));
-                                    %></td>
+                                <td><%%></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                 <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
@@ -152,9 +146,9 @@
                                 <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
                                 <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
-                                <%              }
-                                                }
-                                            }%>
+                                <%      }
+                                    }
+                                }%>
                                 <!--<tr>
                                     <td>&nbsp;</td>
                                     <td><div style="overflow:auto"> asfasfafafa&nbsp;</div></td>
@@ -163,9 +157,8 @@
                                     <td>&nbsp;</td>
                                     <td><a href="#">edit</a></td>
                                     <td><a href="#">delete</a></td>
-                                </tr>   -->                     </table>
-                            <h2 class="title">&nbsp;</h2>
-                            <div class="post"></div>
+                                </tr>   -->        
+                            </table>
                         </div>
                     </div>
                     <!-- end content -->
