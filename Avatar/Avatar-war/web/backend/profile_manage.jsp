@@ -49,7 +49,7 @@ border:1px solid #262626;
                 <ul>
                     <li class="current_page_item"><a href="#">Profile</a></li>
                     <li><a href="staff_manage.jsp">User</a></li>
-                    <li><a href="#">Facilities</a></li>
+                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>

@@ -41,7 +41,7 @@
                 <ul>
                     <li><a href="profile_manage.jsp">Profile</a></li>
                     <li><a href="staff_manage.jsp">User</a></li>
-                    <li><a href="#">Facilities</a></li>
+                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>

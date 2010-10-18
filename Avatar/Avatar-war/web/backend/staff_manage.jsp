@@ -45,7 +45,7 @@
                 <ul>
                     <li><a href="profile_manage.jsp">Profile</a></li>
                     <li class="current_page_item"><a href="#">User</a></li>
-                    <li><a href="facilities_manage.jsp">Facilities</a></li>
+                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>
@@ -167,9 +167,8 @@
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>User Management</h2>
+                                    <h2>User Management</h2><br />
                                 </div>
-                                <hr />
                                 <ul>
                                     <li>STAFF
                                         <ul>
@@ -177,7 +176,6 @@
                                             <li><a href="staff_manage.jsp">Manage Staff</a></li>
                                         </ul>
                                     </li>
-                                    <hr />
                                     <li>CUSTOMER
                                         <ul>
                                             <li><a href="customer_add.jsp">Add New Customer</a></li>
@@ -185,7 +183,6 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <hr />
                             </li>
                         </ul>
                     </div>
