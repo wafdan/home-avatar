@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +24,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "hall_reservation")
+@SecondaryTable(name = "reservation")
 @NamedQueries({
     @NamedQuery(name = "HallReservation.findAll", query = "SELECT h FROM HallReservation h"),
     @NamedQuery(name = "HallReservation.findByReservationTime", query = "SELECT h FROM HallReservation h WHERE h.reservationTime = :reservationTime"),
@@ -59,6 +61,11 @@ public class HallReservation implements Serializable {
     private int attendees;
     @Column(name = "venue_no")
     private String venueNo;
+    @Basic(optional = false)
+    @Column(table = "reservation", name = "username")
+    private String username;
+    @Column(table = "reservation", name = "sta_username")
+    private String staUsername;
 
     public HallReservation() {
     }
@@ -67,13 +74,14 @@ public class HallReservation implements Serializable {
         this.reservationTime = reservationTime;
     }
 
-    public HallReservation(Date reservationTime, String productId, Date beginTime, Date endTime, Date useDate, int attendees) {
+    public HallReservation(Date reservationTime, String productId, Date beginTime, Date endTime, Date useDate, int attendees, String username) {
         this.reservationTime = reservationTime;
         this.productId = productId;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.useDate = useDate;
         this.attendees = attendees;
+        this.username = username;
     }
 
     public Date getReservationTime() {
@@ -130,6 +138,22 @@ public class HallReservation implements Serializable {
 
     public void setVenueNo(String venueNo) {
         this.venueNo = venueNo;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getStaUsername() {
+        return staUsername;
+    }
+
+    public void setStaUsername(String staUsername) {
+        this.staUsername = staUsername;
     }
 
     @Override

@@ -9,6 +9,8 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 
 /**
  *
