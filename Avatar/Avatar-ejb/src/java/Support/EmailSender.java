@@ -19,7 +19,7 @@ public class EmailSender implements EmailSenderLocal {
         //Atribut
         //SmtpServer : tergantung dari apa yang dipakai, jika di kampus maka pakai smtp.gmail.com.
 	//Jika di rumah/kosan pakai speedy, smtp yang digunakan  adalah smtp.telkom.net
-	static String smtpServer = "smtp.gmail.com";
+	private static final String smtpServer = "smtp.gmail.com";
 
         public static void sendEmail(String to, String from , String cc, String subject, String body) throws Exception
         {
