@@ -43,7 +43,7 @@
             <div id="page-bgtop">
                 <div id="centerside">
                     <div id="wrap">
-                        <form id="form_20674" class="appnitro"  method="post" action="TambahAkun">
+                        <form id="form_20674" class="appnitro"  method="post" action="MelakukanRegistrasi/TambahAkun">
 
                             <div class="form_description">
                                 <h2>Registration Form</h2>

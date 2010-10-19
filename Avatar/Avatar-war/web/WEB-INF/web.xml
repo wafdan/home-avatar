@@ -36,6 +36,10 @@
         <servlet-name>EditProfilHotel</servlet-name>
         <servlet-class>MengubahProfilHotel.EditProfilHotel</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>TestReservasi.TestServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>EditProfilHotel</servlet-name>
         <url-pattern>/backend/EditProfilHotel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestReservasi/TestServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

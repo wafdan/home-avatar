@@ -103,15 +103,15 @@ public class TambahAkun extends HttpServlet {
                 out.println("\t<title>Servlet TambahAkun</title>");
                 out.println("</head>");
                 out.println("<body>");
-                out.println("\t<h1>Pendaftaran Akun Avatar</h1>");
-                out.println("<p>Akun anda telah sukses dibuat. Kami telah mengirimkannya ke email Anda.</p>");
+                out.println("\t<h1>Account Registration</h1>");
+                out.println("<p>Your account has been successfully created. We have notified through your email.</p>");
                 out.println("\t<p>Username: "+uname+"<br />");
                 out.println("\tPassword: "+pass+"</p>");
-                out.println("<a href=\"index.jsp\">Kembali ke halaman awal</a>");
+                out.println("<a href=\"../index.jsp\">Back to main page</a>");
                 out.println("</body>");
                 out.println("</html>");
                 String body = "Your Hotel Reservation System Account has been successfully made.\n\n" +
-                        "Please take note your username and password to access our system.\n" +
+                        "Please take note of your username and password to access our system.\n" +
                         "Username: " + uname + "\n" + "Password: " + pass + "\n";
                 EmailSender.sendEmail(email, "chrhad081@gmail.com", "", "Hotel Reservation Registration", body);
             } else {
