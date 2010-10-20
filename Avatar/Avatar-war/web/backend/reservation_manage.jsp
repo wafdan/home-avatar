@@ -21,7 +21,7 @@
 <%!    String option0 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\">Manager</option></select>";
     String option1 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\" selected=\"true \">Receptionis</option> <option value=\"2\">Manager</option></select>";
     String option2 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\" selected=\"true\">Manager</option></select>";
-    ReservationJpaController s = new ReservationJpaController();
+    //ReservationJpaController s = new ReservationJpaController();
     //RoomJpaController r = new RoomJpaController();
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
