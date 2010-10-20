@@ -77,8 +77,16 @@
         <url-pattern>/backend/EditProfilHotel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestReservasi/TestServlet</url-pattern>
+        <servlet-name>EditAcco</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditAcco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditHall</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditHall</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServ</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditServ</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
