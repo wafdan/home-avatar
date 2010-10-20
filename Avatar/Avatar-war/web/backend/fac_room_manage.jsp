@@ -167,7 +167,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Image        :</td>
-                                                    <td><input type="file" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
+                                                    <td><input type="text" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
                                                 </tr>
                                                 <tr>
                                                     <td>

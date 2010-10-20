@@ -2,10 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package MengelolaLayanan;
 
-import AvatarEntity.AccomodationJpaController;
+import AvatarEntity.OtherServicesJpaController;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,11 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author zulfikar
+ * @author TOSHIBA
  */
-@WebServlet(name="HapusAcco", urlPatterns={"/MengelolaLayanan/HapusAcco"})
-public class HapusAcco extends HttpServlet {
-   
+@WebServlet(name = "HapusServ", urlPatterns = {"/MengelolaLayanan/HapusServ"})
+public class HapusServ extends HttpServlet {
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -32,21 +31,21 @@ public class HapusAcco extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String primaryKey=request.getParameter("delete");
+            String primaryKey = request.getParameter("delete");
             out.write(primaryKey);
-            AccomodationJpaController sjc=new AccomodationJpaController();
+            OtherServicesJpaController sjc = new OtherServicesJpaController();
             sjc.destroy(primaryKey);
-            response.sendRedirect("../backend/fac_room_manage.jsp");
+            response.sendRedirect("../backend/fac_serv_manage.jsp");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
-        } finally { 
+        } finally {
             out.close();
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -58,9 +57,9 @@ public class HapusAcco extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -71,7 +70,7 @@ public class HapusAcco extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -83,5 +82,4 @@ public class HapusAcco extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

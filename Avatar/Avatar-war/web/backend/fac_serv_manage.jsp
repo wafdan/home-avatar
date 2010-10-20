@@ -3,8 +3,8 @@
 <%@page language="java" import="java.sql.*" %>
 <%@page import="AvatarEntity.Accomodation" %>
 <%@page import="AvatarEntity.AccomodationJpaController" %>
-<%@page import="AvatarEntity.Hall" %>
-<%@page import="AvatarEntity.HallJpaController" %>
+<%@page import="AvatarEntity.OtherServices" %>
+<%@page import="AvatarEntity.OtherServicesJpaController" %>
 <%@page import="AvatarEntity.OtherServices" %>
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
 <%@page import="java.util.List" %>
@@ -50,7 +50,17 @@
             #fmenu a:hover {
                 color: #ff0;
             }
+            #sidebar .curtab a{
+                background: #666;
+                padding: 5px;
+                font-weight: bold;
+                font-size: large;
+            }
         </style>
+        <script type="text/javascript">
+            function confirmAction()
+            {return confirm("Do you really want to delete?")}
+        </script>
     </head>
     <body>
         <div id="logo-wrap">
@@ -97,33 +107,22 @@
                         <div class="post">
                             <div class="fac1">
                             Other Services
-                            <table width="603" border="1" style="table-layout:fixed">
+                            <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
                                 int editIndex=0;
-                                //int fac=0;
                                 String Fac = request.getParameter("Fac");
                                 try {
                                     String Index = request.getParameter("edit");
                                     editIndex = Integer.parseInt(Index);
-                                    //fac = Integer.parseInt(Fac);
                                 } catch (NullPointerException ex) {
                                     editIndex = -1;
-                                    //fac = 0;
                                 } catch (NumberFormatException ex) {
                                     editIndex = -1;
-                                    //fac = 0;
                                 }
 
                                 int index = 0;
-                                OtherServicesJpaController jpa = new OtherServicesJpaController();
-                                List<OtherServices> accList = jpa.findOtherServicesEntities();
-
-                                HallJpaController jpah = new HallJpaController();
-                                List<Hall> hList = jpah.findHallEntities();
-
-                                OtherServicesJpaController jpas = new OtherServicesJpaController();
-                                List<OtherServices> oList = jpas.findOtherServicesEntities();
-
+                                OtherServicesJpaController jpah = new OtherServicesJpaController();
+                                List<OtherServices> hList = jpah.findOtherServicesEntities();
                                 if (editIndex == -1) {
                                     %>
                                 <tr>
@@ -133,17 +132,62 @@
                                     <th bgcolor="#262626" width="100">Description</th>
                                     <th bgcolor="#262626" width="96">Image</th>
                                 </tr>
-                                <%for (Iterator<OtherServices> i = accList.iterator(); i.hasNext();) {
+                                <%for (Iterator<OtherServices> i = hList.iterator(); i.hasNext();) {
                                             OtherServices temp = i.next();
                                 %>
                                 <tr>
                                     <td><%index++;out.write(Integer.toString(index));%></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getProductId());%></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getProductType());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getProductId());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getProductType());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getImage());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(temp.getImage());%></div></td>
+                                    <td align="center"><div style="overflow:auto"><a href="fac_serv_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></div></td>
+                                    <td align="center"><div style="overflow:auto"><a onclick="return confirmAction()" href="../MengelolaLayanan/HapusServ?delete=<% out.write(temp.getProductId());%>">delete</a></div></td>
                                 </tr>
                                 <%}
+                                } else {
+                                    int iterator = 0;
+                                    for (Iterator<OtherServices> i = hList.iterator(); i.hasNext();) {
+                                        OtherServices temp = i.next();
+                                        iterator++;
+                                        index++;
+                                        if(iterator == editIndex){%>
+                                        <form action="../MengelolaLayanan/EditServ" method="post">
+                                            <tr>
+                                                <th bgcolor="#262626" width="20%">No</th>
+                                                <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Id   :</td>
+                                                <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Product Type :</td>
+                                                <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Description  :</td>
+                                                <td><textarea id="desc" name="desc" cols=80% rows=3><%= temp.getDescription()%></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Image  :</td>
+                                                <td><input type="text" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="save" onclick="this.form.pid.disabled=false;" />
+                                                    <a onclick="return confirmAction()" href="../MengelolaLayanan/HapusServ?delete=%3C%%20out.write(temp.getProductId());%%3E">
+                                                        delete</a>
+                                                    <a href="fac_serv_manage.jsp">
+                                                        cancel</a>
+                                                </td>
+                                            </tr>
+                                        </form>
+
+                                       <%}
+                                    }
                                 }%>
                             </table>
                             </div>

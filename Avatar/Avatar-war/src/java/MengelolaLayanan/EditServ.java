@@ -5,8 +5,8 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.AccomodationJpaController;
-import AvatarEntity.exceptions.NonexistentEntityException;
+import AvatarEntity.OtherServices;
+import AvatarEntity.OtherServicesJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author zulfikar
+ * @author TOSHIBA
  */
-@WebServlet(name="HapusAcco", urlPatterns={"/MengelolaLayanan/HapusAcco"})
-public class HapusAcco extends HttpServlet {
+@WebServlet(name="EditServ", urlPatterns={"/MengelolaLayanan/EditServ"})
+public class EditServ extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,14 +36,27 @@ public class HapusAcco extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String primaryKey=request.getParameter("delete");
-            out.write(primaryKey);
-            AccomodationJpaController sjc=new AccomodationJpaController();
-            sjc.destroy(primaryKey);
-            response.sendRedirect("../backend/fac_room_manage.jsp");
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
-        } finally { 
+            String id = request.getParameter("pid");
+            String type = request.getParameter("type");
+            String desc = request.getParameter("desc");
+            String img = request.getParameter("img");
+
+            out.println(id + "///" + type + "///" + desc + "///" + img + "///");
+
+            OtherServicesJpaController sj = new OtherServicesJpaController();
+            OtherServices s = new OtherServices();
+            s = sj.findOtherServices(id);
+            //out.write("productId="+id);
+            s.setProductType(type);
+            s.setDescription(desc);
+            s.setImage(img);
+            //sj.getEntityManager().getTransaction().commit();
+            sj.edit(s);
+            response.sendRedirect("../backend/fac_serv_manage.jsp");
+
+        } catch (Exception ex) {
+            Logger.getLogger(EditAcco.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             out.close();
         }
     } 
