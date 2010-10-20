@@ -161,9 +161,9 @@
                                         %>">edit</a></td>
                                 <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
-<<<<<<< .mine
-                                <%
 
+                                <%
+                                    }
                                             %>
                                 <!--<tr>
                                     <td>&nbsp;</td>
@@ -193,40 +193,19 @@
                                 </label>
                               </form>
                           </div>
-                                <% }} else if(editIndex == 2) {
-                                                                                int iterator = 0;
-                                                                                for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
-                                                                                    Reservation temp = i.next();
-                                                                                    iterator++;
+                                <% } else if(editIndex == 2) {
+                                                                            int iterator = 0;
+                                                                            for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
+                                                                                Reservation temp = i.next();
+                                                                                iterator++;
                                 %>
                                 <tr>
                                         <% index++;
                                                                                            %>
-=======
-                                <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
-                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"username\" name=\"username\" disabled=\"true\"></input>");%></td>
-                                    <td> <% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"nama\" name=\"nama\"></input>");%></td>
 
-                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"emID\" name=\"emID\"></input>");%></td>
-                                    <td>
-                                        <%
-                                                                                                                                                                   /* if (temp.getPosition() == 0) {
-                                                                                                                                                                        out.write(option0);
-                                                                                                                                                                    } else if (temp.getPosition() == 1) {
-                                                                                                                                                                        out.write(option1);
-                                                                                                                                                                    } else {
-                                                                                                                                                                        out.write(option2);
-                                                                                                                                                                    } */
+                                
+                                <% %>
 
-
-                                        %></td>
-                                    <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
-                                    <td><a href="reservation_manage.jsp"> cancel </a></td>
-
-                                </form>
-                                <% } else {%>
->>>>>>> .r149
                                 <td><%
                                                                                                                                                             out.write(Integer.toString(index));
                                     %></td>
@@ -246,18 +225,18 @@
                                         %></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
-<<<<<<< .mine
+
                                 <td><a href="reservation_manage.jsp?edit=<%
                                         if(tp.equals("room"))
                                         {out.write(Integer.toString(1));} else {out.write(Integer.toString(2));} ;
                                         %>">edit</a></td>
-=======
+
                                 <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
->>>>>>> .r149
+
                                 <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
                                 <%
-
+                                    }
                                             %>
                                 <!--<tr>
                                     <td>&nbsp;</td>
@@ -290,7 +269,7 @@
                                 </label>
                               </form>
                             </div>
-                                <%}}%>
+                                <% } %>
                             <p>&nbsp;</p>
                             <div class="post"></div>
                         </div>
