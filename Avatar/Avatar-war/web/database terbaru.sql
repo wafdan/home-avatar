@@ -3,11 +3,17 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 08, 2010 at 03:18 PM
+-- Generation Time: Oct 19, 2010 at 05:27 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `avatar`
@@ -76,7 +82,8 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`username`, `name`, `password`, `email`, `identity_type`, `identity_number`, `address1`, `address2`, `city`, `country`, `telephone`) VALUES
 ('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL),
-('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', NULL, '', NULL, '', '', NULL);
+('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', NULL, '', NULL, '', '', NULL),
+('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'nch048@yahoo.com', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607');
 
 -- --------------------------------------------------------
 
@@ -252,6 +259,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 -- Dumping data for table `reservation`
 --
 
+INSERT INTO `reservation` (`reservation_time`, `username`, `sta_username`) VALUES
+('2010-10-19 09:28:47', 'christian.h6191', NULL),
+('2010-10-19 12:56:47', 'christian.h6191', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,28 +282,20 @@ CREATE TABLE IF NOT EXISTS `room` (
 -- Dumping data for table `room`
 --
 
-
--- --------------------------------------------------------
-
---
--- Table structure for table `room_occupancy`
---
-
-CREATE TABLE IF NOT EXISTS `room_occupancy` (
-  `reservation_time` datetime NOT NULL,
-  `room_no` varchar(6) NOT NULL,
-  `occupant_no` int(11) NOT NULL,
-  `occupant_name` varchar(30) NOT NULL,
-  `occupant_identity_type` varchar(10) NOT NULL,
-  `occupant_identity_number` varchar(25) NOT NULL,
-  PRIMARY KEY (`reservation_time`,`room_no`,`occupant_no`),
-  KEY `fk_is_occupied_by` (`room_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `room_occupancy`
---
-
+INSERT INTO `room` (`room_no`, `product_id`, `room_name`, `floor`) VALUES
+('101', 'AC001', NULL, 1),
+('102', 'AC001', NULL, 1),
+('103', 'AC001', NULL, 1),
+('104', 'AC001', NULL, 1),
+('105', 'AC001', NULL, 1),
+('106', 'AC001', NULL, 1),
+('107', 'AC001', NULL, 1),
+('108', 'AC001', NULL, 1),
+('109', 'AC001', NULL, 1),
+('110', 'AC001', NULL, 1),
+('111', 'AC001', NULL, 1),
+('112', 'AC002', NULL, 1),
+('113', 'AC002', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -303,15 +305,32 @@ CREATE TABLE IF NOT EXISTS `room_occupancy` (
 
 CREATE TABLE IF NOT EXISTS `room_reservation` (
   `reservation_time` datetime NOT NULL,
-  `product_id` varchar(6) NOT NULL,
   `entry_date` date NOT NULL,
   `exit_date` date NOT NULL,
-  PRIMARY KEY (`reservation_time`),
-  KEY `fk_room_ordered_in` (`product_id`)
+  PRIMARY KEY (`reservation_time`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_reservation`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room_usage`
+--
+
+CREATE TABLE IF NOT EXISTS `room_usage` (
+  `reservation_time` datetime NOT NULL,
+  `room_no` varchar(6) NOT NULL,
+  `actual_entry` datetime DEFAULT NULL,
+  `actual_exit` datetime DEFAULT NULL,
+  PRIMARY KEY (`reservation_time`,`room_no`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room_usage`
 --
 
 
@@ -415,3 +434,7 @@ INSERT INTO `venue_layout` (`venue_no`, `layout_no`, `capacity`) VALUES
 ('7602', 3, 100),
 ('7602', 4, 150),
 ('7602', 5, 250);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
