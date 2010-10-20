@@ -6,59 +6,74 @@
 package AvatarEntity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "reservation")
 @NamedQueries({
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
-    @NamedQuery(name = "Reservation.findByReservationTime", query = "SELECT r FROM Reservation r WHERE r.reservationTime = :reservationTime"),
-    @NamedQuery(name = "Reservation.findByUsername", query = "SELECT r FROM Reservation r WHERE r.username = :username"),
-    @NamedQuery(name = "Reservation.findByStaUsername", query = "SELECT r FROM Reservation r WHERE r.staUsername = :staUsername")})
+    @NamedQuery(name = "Reservation.findByReservationId", query = "SELECT r FROM Reservation r WHERE r.reservationId = :reservationId"),
+    @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
+    @NamedQuery(name = "Reservation.findByUsername", query = "SELECT r FROM Reservation r WHERE r.username = :username")})
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "reservation_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date reservationTime;
+    @Column(name = "reservation_id")
+    private Integer reservationId;
+    @Basic(optional = false)
+    @Column(name = "is_onspot")
+    private boolean isOnspot;
     @Basic(optional = false)
     @Column(name = "username")
     private String username;
-    @Column(name = "sta_username")
-    private String staUsername;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "note")
+    private String note;
 
     public Reservation() {
     }
 
-    public Reservation(Date reservationTime) {
-        this.reservationTime = reservationTime;
+    public Reservation(Integer reservationId) {
+        this.reservationId = reservationId;
     }
 
-    public Reservation(Date reservationTime, String username) {
-        this.reservationTime = reservationTime;
+    public Reservation(Integer reservationId, boolean isOnspot, String username, String note) {
+        this.reservationId = reservationId;
+        this.isOnspot = isOnspot;
         this.username = username;
+        this.note = note;
     }
 
-    public Date getReservationTime() {
-        return reservationTime;
+    public Integer getReservationId() {
+        return reservationId;
     }
 
-    public void setReservationTime(Date reservationTime) {
-        this.reservationTime = reservationTime;
+    public void setReservationId(Integer reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public boolean getIsOnspot() {
+        return isOnspot;
+    }
+
+    public void setIsOnspot(boolean isOnspot) {
+        this.isOnspot = isOnspot;
     }
 
     public String getUsername() {
@@ -69,18 +84,18 @@ public class Reservation implements Serializable {
         this.username = username;
     }
 
-    public String getStaUsername() {
-        return staUsername;
+    public String getNote() {
+        return note;
     }
 
-    public void setStaUsername(String staUsername) {
-        this.staUsername = staUsername;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (reservationTime != null ? reservationTime.hashCode() : 0);
+        hash += (reservationId != null ? reservationId.hashCode() : 0);
         return hash;
     }
 
@@ -91,7 +106,7 @@ public class Reservation implements Serializable {
             return false;
         }
         Reservation other = (Reservation) object;
-        if ((this.reservationTime == null && other.reservationTime != null) || (this.reservationTime != null && !this.reservationTime.equals(other.reservationTime))) {
+        if ((this.reservationId == null && other.reservationId != null) || (this.reservationId != null && !this.reservationId.equals(other.reservationId))) {
             return false;
         }
         return true;
@@ -99,7 +114,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "AvatarEntity.Reservation[reservationTime=" + reservationTime + "]";
+        return "AvatarEntity.Reservation[reservationId=" + reservationId + "]";
     }
 
 }

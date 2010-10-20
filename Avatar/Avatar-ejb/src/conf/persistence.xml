@@ -14,7 +14,6 @@
     <class>AvatarEntity.Country</class>
     <class>AvatarEntity.HotelInfo</class>
     <class>AvatarEntity.Reservation</class>
-    <class>AvatarEntity.Payment</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
