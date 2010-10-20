@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2010 at 05:27 PM
+-- Generation Time: Oct 20, 2010 at 07:00 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -121,14 +121,14 @@ INSERT INTO `hall` (`product_id`, `product_type`, `description`, `normal_rate`, 
 --
 
 CREATE TABLE IF NOT EXISTS `hall_reservation` (
-  `reservation_time` datetime NOT NULL,
+  `reservation_item_id` int(11) NOT NULL,
   `product_id` varchar(6) NOT NULL,
   `begin_time` time NOT NULL,
   `end_time` time NOT NULL,
   `use_date` date NOT NULL,
   `attendees` int(11) NOT NULL,
   `venue_no` varchar(6) DEFAULT NULL,
-  PRIMARY KEY (`reservation_time`),
+  PRIMARY KEY (`reservation_item_id`),
   KEY `fk_hall_ordered_in` (`product_id`),
   KEY `fk_is_used_in` (`venue_no`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -194,18 +194,38 @@ INSERT INTO `other_services` (`product_id`, `product_type`, `description`, `imag
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `other_services_reservation`
+--
+
+CREATE TABLE IF NOT EXISTS `other_services_reservation` (
+  `reservation_item_id` int(11) NOT NULL,
+  `product_id` varchar(6) NOT NULL,
+  `note` text NOT NULL,
+  PRIMARY KEY (`reservation_item_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `other_services_reservation`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payment`
 --
 
 CREATE TABLE IF NOT EXISTS `payment` (
+  `payment_id` int(11) NOT NULL,
   `reservation_time` datetime NOT NULL,
   `confirm_time` datetime NOT NULL,
   `username` varchar(25) DEFAULT NULL,
   `payment_date` date NOT NULL,
   `payment_method` varchar(15) NOT NULL,
-  `payment_bank` varchar(20) DEFAULT NULL,
-  `amount` double DEFAULT NULL,
-  PRIMARY KEY (`reservation_time`,`confirm_time`),
+  `payment_bank` varchar(20) NOT NULL,
+  `account_number` varchar(45) NOT NULL,
+  `amount` double NOT NULL,
+  PRIMARY KEY (`payment_id`),
   KEY `fk_checks` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -247,21 +267,38 @@ INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `
 --
 
 CREATE TABLE IF NOT EXISTS `reservation` (
-  `reservation_time` datetime NOT NULL,
+  `reservation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `is_onspot` tinyint(1) NOT NULL,
   `username` varchar(25) NOT NULL,
-  `sta_username` varchar(25) DEFAULT NULL,
-  PRIMARY KEY (`reservation_time`),
-  KEY `fk_makes` (`username`),
-  KEY `fk_validates` (`sta_username`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `note` text NOT NULL,
+  PRIMARY KEY (`reservation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`reservation_time`, `username`, `sta_username`) VALUES
-('2010-10-19 09:28:47', 'christian.h6191', NULL),
-('2010-10-19 12:56:47', 'christian.h6191', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservation_item`
+--
+
+CREATE TABLE IF NOT EXISTS `reservation_item` (
+  `reservation_item_id` int(11) NOT NULL AUTO_INCREMENT,
+  `reservation_time` datetime NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `price` double DEFAULT '0',
+  PRIMARY KEY (`reservation_item_id`),
+  KEY `fk_makes` (`username`),
+  KEY `fk_validates` (`price`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `reservation_item`
+--
+
 
 -- --------------------------------------------------------
 
@@ -304,10 +341,11 @@ INSERT INTO `room` (`room_no`, `product_id`, `room_name`, `floor`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `room_reservation` (
-  `reservation_time` datetime NOT NULL,
+  `reservation_item_id` int(11) NOT NULL,
+  `product_id` varchar(6) NOT NULL,
   `entry_date` date NOT NULL,
   `exit_date` date NOT NULL,
-  PRIMARY KEY (`reservation_time`)
+  PRIMARY KEY (`reservation_item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
