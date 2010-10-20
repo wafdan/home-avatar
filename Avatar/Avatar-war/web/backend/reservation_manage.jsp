@@ -95,8 +95,8 @@
                                             int index = 0;
                                             ReservationJpaController jpa = new ReservationJpaController();
                                             List<Reservation> ReservationList = jpa.findReservationEntities();
-                                            RoomReservationJpaController jpr = new RoomReservationJpaController();
-                                            List<RoomReservation> RoomList = jpr.findRoomReservationEntities();
+                                            //RoomReservationJpaController jpr = new RoomReservationJpaController();
+                                           // List<RoomReservation> RoomList = jpr.findRoomReservationEntities();
                                             if (editIndex == -1) {
                                                 for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
                                                     Reservation temp = i.next();
@@ -108,7 +108,7 @@
 
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"><% 
-                                            int ck = 0;
+                                          /*  int ck = 0;
                                             for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
                                                 RoomReservation tmp = j.next();
                                                 if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
@@ -116,7 +116,8 @@
                                                 }
                                             }
                                             if (ck==1) {out.write("Room");} else {out.write("Hall");}
-                                            
+                                            */
+                                            out.write("Room");
                                         %></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
@@ -166,7 +167,7 @@
                                     %></td>
                                   <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                   <td><div style="overflow:auto"><%
-                                            int ck = 0;
+                                           /* int ck = 0;
                                             for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
                                                 RoomReservation tmp = j.next();
                                                 if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
@@ -174,7 +175,8 @@
                                                 }
                                             }
                                             if (ck==1) {out.write("Room");} else {out.write("Hall");}
-
+                                               */
+                                               out.write("Room");
                                         %></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
