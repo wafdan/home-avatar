@@ -121,7 +121,7 @@
                                         %></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
-                                    <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
                                     <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
 
@@ -158,7 +158,7 @@
                                         %></td>
                                     <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
                                     <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
-                                    <td><a href="staff_manage.jsp"> cancel </a></td>
+                                    <td><a href="reservation_manage.jsp"> cancel </a></td>
 
                                 </form>
                                 <% } else {%>
@@ -180,7 +180,7 @@
                                         %></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
-                                <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
                                 <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
 
                                 <%              }
@@ -195,7 +195,10 @@
                                     <td><a href="#">edit</a></td>
                                     <td><a href="#">delete</a></td>
                                 </tr>   -->                     </table>
-                            <h2 class="title">&nbsp;</h2>
+                            <h2 class="title">
+
+
+                                &nbsp;</h2>
                             <div class="post"></div>
                         </div>
                     </div>
