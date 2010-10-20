@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2010 at 07:00 PM
+-- Generation Time: Oct 20, 2010 at 07:23 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -342,33 +342,16 @@ INSERT INTO `room` (`room_no`, `product_id`, `room_name`, `floor`) VALUES
 
 CREATE TABLE IF NOT EXISTS `room_reservation` (
   `reservation_item_id` int(11) NOT NULL,
-  `product_id` varchar(6) NOT NULL,
+  `room_no` varchar(6) NOT NULL,
   `entry_date` date NOT NULL,
   `exit_date` date NOT NULL,
+  `actual_entry` datetime DEFAULT NULL,
+  `actual_exit` datetime DEFAULT NULL,
   PRIMARY KEY (`reservation_item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_reservation`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `room_usage`
---
-
-CREATE TABLE IF NOT EXISTS `room_usage` (
-  `reservation_time` datetime NOT NULL,
-  `room_no` varchar(6) NOT NULL,
-  `actual_entry` datetime DEFAULT NULL,
-  `actual_exit` datetime DEFAULT NULL,
-  PRIMARY KEY (`reservation_time`,`room_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `room_usage`
 --
 
 
