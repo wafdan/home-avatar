@@ -5,6 +5,15 @@
 
 package TestReservasi;
 
+import AvatarEntity.CustomerJpaController;
+import AvatarEntity.Reservation;
+import AvatarEntity.ReservationItem;
+import AvatarEntity.ReservationItemJpaController;
+import AvatarEntity.ReservationJpaController;
+import AvatarEntity.Room;
+import AvatarEntity.RoomJpaController;
+import AvatarEntity.RoomReservation;
+import AvatarEntity.RoomReservationJpaController;
 import AvatarEntity.exceptions.PreexistingEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,6 +54,27 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath () + "</h1>");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            CustomerJpaController custjpa = new CustomerJpaController();
+            ReservationJpaController resjpa = new ReservationJpaController();
+            ReservationItemJpaController rijpa = new ReservationItemJpaController();
+            RoomJpaController rmjpa = new RoomJpaController();
+            Room rm = rmjpa.findRoom("105");
+            RoomReservation rr = new RoomReservation();
+            Reservation res = new Reservation();
+            rr.setReservationId(res);
+            rr.setReservationTime(new Date());
+            rr.setPrice(rm.getProductId().getWeekdayRate());
+            rr.setEntryDate(df.parse("2010-12-25"));
+            rr.setExitDate(df.parse("2010-12-26"));
+            res.setNote("tes");
+            res.setUsername(custjpa.findCustomer("christian.h6191"));
+            res.setReservationItemCollection(new HashSet<ReservationItem>());
+            res.getReservationItemCollection().add(rr);
+            resjpa.create(res);
+            for (ReservationItem item : res.getReservationItemCollection()) {
+                rijpa.create(item);
+            }
             out.println("</body>");
             out.println("</html>");
         /*} catch (PreexistingEntityException ex) {
