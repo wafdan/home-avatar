@@ -28,7 +28,6 @@ public class Cart {
     }
 
     public void deleteCart(Object _obj) {
-        type.remove(type.indexOf(_obj));
         obj.remove(_obj);
     }
 
