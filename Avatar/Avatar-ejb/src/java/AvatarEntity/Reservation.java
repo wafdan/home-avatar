@@ -36,8 +36,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByReservationId", query = "SELECT r FROM Reservation r WHERE r.reservationId = :reservationId"),
     @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
-    @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.payment IS NULL"),
-    @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.payment IS NOT NULL")})
+    @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NULL"),
+    @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NOT NULL")})
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
