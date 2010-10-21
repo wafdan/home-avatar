@@ -17,7 +17,7 @@
         <servlet-class>MengubahInformasiPengguna.UpdateAkun</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HapusStaf</servlet-name>
+        <servlet-name>HapusStaff</servlet-name>
         <servlet-class>MengelolaPengguna.HapusStaff</servlet-class>
     </servlet>
     <servlet>
@@ -30,15 +30,43 @@
     </servlet>
     <servlet>
         <servlet-name>loginHandler</servlet-name>
-        <servlet-class>loginHandler</servlet-class>
+        <servlet-class>Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProfilHotel</servlet-name>
         <servlet-class>MengubahProfilHotel.EditProfilHotel</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EditAcco</servlet-name>
+        <servlet-class>MengelolaLayanan.EditAcco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditHall</servlet-name>
+        <servlet-class>MengelolaLayanan.EditHall</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditServ</servlet-name>
+        <servlet-class>MengelolaLayanan.EditServ</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>TestReservasi.TestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusAcco</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusAcco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusHall</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusHall</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusServ</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusServ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditStaff</servlet-name>
+        <servlet-class>MengelolaPengguna.EditStaff</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
@@ -57,10 +85,6 @@
         <url-pattern>/MengubahInformasiPengguna/UpdateAkun</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HapusStaf</servlet-name>
-        <url-pattern>/MengelolaPengguna/HapusStaf</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditCustomer</servlet-name>
         <url-pattern>/MengelolaPengguna/EditCustomer</url-pattern>
     </servlet-mapping>
@@ -75,6 +99,30 @@
     <servlet-mapping>
         <servlet-name>EditProfilHotel</servlet-name>
         <url-pattern>/backend/EditProfilHotel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestReservasi/TestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusAcco</servlet-name>
+        <url-pattern>/MengelolaLayanan/HapusAcco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusHall</servlet-name>
+        <url-pattern>/MengelolaLayanan/HapusHall</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusServ</servlet-name>
+        <url-pattern>/MengelolaLayanan/HapusServ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusStaff</servlet-name>
+        <url-pattern>/MengelolaPengguna/HapusStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditStaff</servlet-name>
+        <url-pattern>/MengelolaPengguna/EditStaff</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
