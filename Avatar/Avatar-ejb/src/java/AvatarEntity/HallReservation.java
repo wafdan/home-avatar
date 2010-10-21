@@ -9,15 +9,12 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -70,8 +67,8 @@ public class HallReservation extends ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public HallReservation(Integer reservationItemId, Date beginTime, Date endTime, Date useDate, int attendees) {
-        this.reservationItemId = reservationItemId;
+    public HallReservation(Integer reservationItemId, Date reservationTime, double price, Date beginTime, Date endTime, Date useDate, int attendees) {
+        super(reservationItemId, reservationTime, price);
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.useDate = useDate;

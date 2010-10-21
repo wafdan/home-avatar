@@ -68,7 +68,7 @@ public class ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public ReservationItem(Integer reservationItemId, Date reservationTime, double price, char dtype) {
+    public ReservationItem(Integer reservationItemId, Date reservationTime, double price) {
         this.reservationItemId = reservationItemId;
         this.reservationTime = reservationTime;
         this.price = price;
