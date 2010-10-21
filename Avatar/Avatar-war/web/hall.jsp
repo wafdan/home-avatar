@@ -1,4 +1,11 @@
-terator" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="AvatarEntity.Venue" %>
+<%@ page import="AvatarEntity.Hall" %>
+<%@ page import="AvatarEntity.VenueJpaController" %>
+<%@ page import="AvatarEntity.HallJpaController" %>
+<%@ page import="Layanan.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
@@ -93,18 +100,23 @@ terator" %>
     <div id="content">
       <%
             if (type == null) {
-                out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
+                if (venues.size() < 1) {
+                    out.println("<div class='entry'>");
+                    out.println("<p>No Venue Availaible</p>");
+                    out.println("</div>");
+                } else {
+                    out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
+                }
             } else {
                 if (type.equals("1")) {
-                        out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
+                    out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
                 } else {
-                        out.println("<h2 class='title'>" + ((Hall) cur).getProductType() + "</h2>");
+                    out.println("<h2 class='title'>" + ((Hall) cur).getProductType() + "</h2>");
                 }
             }
 
             if (type.equals("1")) {
                 out.println("<br /><p><img src='" + ((Venue) cur).getImage() + "' />" + ((Venue) cur).getDescription() + "</p>");
-
             } else {
                 out.println("<br />");
                 if (!isLogin) {

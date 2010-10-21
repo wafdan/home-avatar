@@ -88,16 +88,23 @@
 <div class="wrapper col4">
   <div id="container">
     <div id="content">
-      <%  out.println("<h2 class='title'>" + cur.getProductType() + "</h2>");
-        out.println("<br />");
-        /*if (!isLogin) {
-        out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+      <%
+        if (services.size() < 1) {
+            out.println("<div class='entry'>");
+            out.println("<p>No Service Availaible</p>");
+            out.println("</div>");
         } else {
-        out.println("<a class='book' href='#'>Add to Cart</a>");
-        }*/
-        out.println("<div class='entry'>");
-        out.println("<p><img src='" + cur.getImage() + "' />" + cur.getDescription() + "</p>");
-        out.println("</div>");
+            out.println("<h2 class='title'>" + cur.getProductType() + "</h2>");
+            out.println("<br />");
+            /*if (!isLogin) {
+            out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+            } else {
+            out.println("<a class='book' href='#'>Add to Cart</a>");
+            }*/
+            out.println("<div class='entry'>");
+            out.println("<p><img src='" + cur.getImage() + "' />" + cur.getDescription() + "</p>");
+            out.println("</div>");
+        }
       %>
     </div>
 
