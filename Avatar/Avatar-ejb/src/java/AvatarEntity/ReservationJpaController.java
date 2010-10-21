@@ -259,7 +259,7 @@ public class ReservationJpaController {
     public List<Reservation> findUnpaid() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNamedQuery("findUnpaid");
+            Query q = em.createNamedQuery("Reservation.findUnpaid");
             return q.getResultList();
         } finally {
             em.close();
@@ -269,7 +269,7 @@ public class ReservationJpaController {
     public List<Reservation> findPaid() {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNamedQuery("findpaid");
+            Query q = em.createNamedQuery("Reservation.findPaid");
             return q.getResultList();
         } finally {
             em.close();

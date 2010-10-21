@@ -5,7 +5,6 @@
     <class>AvatarEntity.Profile</class>
     <class>AvatarEntity.HotelInfo</class>
     <class>AvatarEntity.Accomodation</class>
-    <class>AvatarEntity.Customer</class>
     <class>AvatarEntity.Hall</class>
     <class>AvatarEntity.HallReservation</class>
     <class>AvatarEntity.Layout</class>
@@ -20,6 +19,7 @@
     <class>AvatarEntity.Telephone</class>
     <class>AvatarEntity.Venue</class>
     <class>AvatarEntity.VenueLayout</class>
+    <class>AvatarEntity.Customer</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

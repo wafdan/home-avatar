@@ -7,6 +7,8 @@ package AvatarEntity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -109,6 +111,19 @@ public class Reservation implements Serializable {
 
     public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection) {
         this.reservationItemCollection = reservationItemCollection;
+    }
+
+    public int getTotalPrice() {
+        int sum = 0;
+        for (ReservationItem item : this.getReservationItemCollection()) {
+            sum += item.getPrice();
+        }
+        return sum;
+    }
+
+    public Date getReservationTime() {
+        Iterator<ReservationItem> iter = this.getReservationItemCollection().iterator();
+        return iter.next().getReservationTime();
     }
 
     public Customer getUsername() {
