@@ -10,8 +10,12 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,17 +29,16 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "HallReservation.findAll", query = "SELECT h FROM HallReservation h"),
     @NamedQuery(name = "HallReservation.findByReservationItemId", query = "SELECT h FROM HallReservation h WHERE h.reservationItemId = :reservationItemId"),
-    @NamedQuery(name = "HallReservation.findByProductId", query = "SELECT h FROM HallReservation h WHERE h.productId = :productId"),
     @NamedQuery(name = "HallReservation.findByBeginTime", query = "SELECT h FROM HallReservation h WHERE h.beginTime = :beginTime"),
     @NamedQuery(name = "HallReservation.findByEndTime", query = "SELECT h FROM HallReservation h WHERE h.endTime = :endTime"),
     @NamedQuery(name = "HallReservation.findByUseDate", query = "SELECT h FROM HallReservation h WHERE h.useDate = :useDate"),
-    @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees"),
-    @NamedQuery(name = "HallReservation.findByVenueNo", query = "SELECT h FROM HallReservation h WHERE h.venueNo = :venueNo")})
-public class HallReservation extends ReservationItem implements Serializable {
+    @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees")})
+public class HallReservation implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
-    @Column(name = "product_id")
-    private String productId;
+    @Column(name = "reservation_item_id")
+    private Integer reservationItemId;
     @Basic(optional = false)
     @Column(name = "begin_time")
     @Temporal(TemporalType.TIME)
@@ -51,8 +54,15 @@ public class HallReservation extends ReservationItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "attendees")
     private int attendees;
-    @Column(name = "venue_no")
-    private String venueNo;
+    @JoinColumn(name = "venue_no", referencedColumnName = "venue_no")
+    @ManyToOne
+    private Venue venueNo;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @ManyToOne(optional = false)
+    private Hall productId;
+    @JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private RoomReservation roomReservation;
 
     public HallReservation() {
     }
@@ -61,22 +71,20 @@ public class HallReservation extends ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public HallReservation(Date reservationTime, String username, String productId, Date beginTime, Date endTime, Date useDate, int attendees) {
-        super(reservationTime, username);
-        //this.reservationItemId = reservationItemId;
-        this.productId = productId;
+    public HallReservation(Integer reservationItemId, Date beginTime, Date endTime, Date useDate, int attendees) {
+        this.reservationItemId = reservationItemId;
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.useDate = useDate;
         this.attendees = attendees;
     }
-    
-    public String getProductId() {
-        return productId;
+
+    public Integer getReservationItemId() {
+        return reservationItemId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setReservationItemId(Integer reservationItemId) {
+        this.reservationItemId = reservationItemId;
     }
 
     public Date getBeginTime() {
@@ -111,12 +119,28 @@ public class HallReservation extends ReservationItem implements Serializable {
         this.attendees = attendees;
     }
 
-    public String getVenueNo() {
+    public Venue getVenueNo() {
         return venueNo;
     }
 
-    public void setVenueNo(String venueNo) {
+    public void setVenueNo(Venue venueNo) {
         this.venueNo = venueNo;
+    }
+
+    public Hall getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Hall productId) {
+        this.productId = productId;
+    }
+
+    public RoomReservation getRoomReservation() {
+        return roomReservation;
+    }
+
+    public void setRoomReservation(RoomReservation roomReservation) {
+        this.roomReservation = roomReservation;
     }
 
     @Override

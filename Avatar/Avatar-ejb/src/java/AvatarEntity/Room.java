@@ -6,24 +6,28 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "room")
 @NamedQueries({
     @NamedQuery(name = "Room.findAll", query = "SELECT r FROM Room r"),
     @NamedQuery(name = "Room.findByRoomNo", query = "SELECT r FROM Room r WHERE r.roomNo = :roomNo"),
-    @NamedQuery(name = "Room.findByProductId", query = "SELECT r FROM Room r WHERE r.productId = :productId"),
     @NamedQuery(name = "Room.findByRoomName", query = "SELECT r FROM Room r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "Room.findByFloor", query = "SELECT r FROM Room r WHERE r.floor = :floor")})
 public class Room implements Serializable {
@@ -32,14 +36,16 @@ public class Room implements Serializable {
     @Basic(optional = false)
     @Column(name = "room_no")
     private String roomNo;
-    @Basic(optional = false)
-    @Column(name = "product_id")
-    private String productId;
     @Column(name = "room_name")
     private String roomName;
     @Basic(optional = false)
     @Column(name = "floor")
     private int floor;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roomNo")
+    private Collection<RoomReservation> roomReservationCollection;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @ManyToOne(optional = false)
+    private Accomodation productId;
 
     public Room() {
     }
@@ -48,9 +54,8 @@ public class Room implements Serializable {
         this.roomNo = roomNo;
     }
 
-    public Room(String roomNo, String productId, int floor) {
+    public Room(String roomNo, int floor) {
         this.roomNo = roomNo;
-        this.productId = productId;
         this.floor = floor;
     }
 
@@ -60,14 +65,6 @@ public class Room implements Serializable {
 
     public void setRoomNo(String roomNo) {
         this.roomNo = roomNo;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
     }
 
     public String getRoomName() {
@@ -84,6 +81,22 @@ public class Room implements Serializable {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+
+    public Collection<RoomReservation> getRoomReservationCollection() {
+        return roomReservationCollection;
+    }
+
+    public void setRoomReservationCollection(Collection<RoomReservation> roomReservationCollection) {
+        this.roomReservationCollection = roomReservationCollection;
+    }
+
+    public Accomodation getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Accomodation productId) {
+        this.productId = productId;
     }
 
     @Override

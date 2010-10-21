@@ -6,21 +6,24 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "accomodation")
@@ -75,6 +78,8 @@ public class Accomodation implements Serializable {
     @Column(name = "tolerance_late")
     @Temporal(TemporalType.TIME)
     private Date toleranceLate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<Room> roomCollection;
 
     public Accomodation() {
     }
@@ -181,6 +186,14 @@ public class Accomodation implements Serializable {
 
     public void setToleranceLate(Date toleranceLate) {
         this.toleranceLate = toleranceLate;
+    }
+
+    public Collection<Room> getRoomCollection() {
+        return roomCollection;
+    }
+
+    public void setRoomCollection(Collection<Room> roomCollection) {
+        this.roomCollection = roomCollection;
     }
 
     @Override

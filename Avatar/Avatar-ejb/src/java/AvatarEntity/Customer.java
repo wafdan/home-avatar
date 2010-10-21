@@ -6,13 +6,16 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -68,6 +71,8 @@ public class Customer implements Serializable {
     private String country;
     @Column(name = "telephone")
     private String telephone;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    private Collection<Reservation> reservationCollection;
 
     public Customer() {
     }
@@ -174,6 +179,14 @@ public class Customer implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Collection<Reservation> getReservationCollection() {
+        return reservationCollection;
+    }
+
+    public void setReservationCollection(Collection<Reservation> reservationCollection) {
+        this.reservationCollection = reservationCollection;
     }
 
     @Override

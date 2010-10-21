@@ -6,13 +6,16 @@
 package AvatarEntity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,17 +26,23 @@ import javax.persistence.Table;
 @Table(name = "other_services_reservation")
 @NamedQueries({
     @NamedQuery(name = "OtherServicesReservation.findAll", query = "SELECT o FROM OtherServicesReservation o"),
-    @NamedQuery(name = "OtherServicesReservation.findByReservationItemId", query = "SELECT o FROM OtherServicesReservation o WHERE o.reservationItemId = :reservationItemId"),
-    @NamedQuery(name = "OtherServicesReservation.findByProductId", query = "SELECT o FROM OtherServicesReservation o WHERE o.productId = :productId")})
-public class OtherServicesReservation extends ReservationItem implements Serializable {
+    @NamedQuery(name = "OtherServicesReservation.findByReservationItemId", query = "SELECT o FROM OtherServicesReservation o WHERE o.reservationItemId = :reservationItemId")})
+public class OtherServicesReservation implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
-    @Column(name = "product_id")
-    private String productId;
+    @Column(name = "reservation_item_id")
+    private Integer reservationItemId;
     @Basic(optional = false)
     @Lob
     @Column(name = "note")
     private String note;
+    @JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private ReservationItem reservationItem;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @ManyToOne(optional = false)
+    private OtherServices productId;
 
     public OtherServicesReservation() {
     }
@@ -42,19 +51,17 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
         this.reservationItemId = reservationItemId;
     }
 
-    public OtherServicesReservation(Date reservationTime, String username, Integer reservationItemId, String productId, String note) {
-        super(reservationTime, username);
-        //this.reservationItemId = reservationItemId;
-        this.productId = productId;
+    public OtherServicesReservation(Integer reservationItemId, String note) {
+        this.reservationItemId = reservationItemId;
         this.note = note;
     }
 
-    public String getProductId() {
-        return productId;
+    public Integer getReservationItemId() {
+        return reservationItemId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setReservationItemId(Integer reservationItemId) {
+        this.reservationItemId = reservationItemId;
     }
 
     public String getNote() {
@@ -63,6 +70,22 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public ReservationItem getReservationItem() {
+        return reservationItem;
+    }
+
+    public void setReservationItem(ReservationItem reservationItem) {
+        this.reservationItem = reservationItem;
+    }
+
+    public OtherServices getProductId() {
+        return productId;
+    }
+
+    public void setProductId(OtherServices productId) {
+        this.productId = productId;
     }
 
     @Override

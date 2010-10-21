@@ -6,18 +6,21 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "venue")
@@ -40,6 +43,10 @@ public class Venue implements Serializable {
     @Lob
     @Column(name = "image")
     private String image;
+    @OneToMany(mappedBy = "venueNo")
+    private Collection<HallReservation> hallReservationCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venue")
+    private Collection<VenueLayout> venueLayoutCollection;
 
     public Venue() {
     }
@@ -83,6 +90,22 @@ public class Venue implements Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Collection<HallReservation> getHallReservationCollection() {
+        return hallReservationCollection;
+    }
+
+    public void setHallReservationCollection(Collection<HallReservation> hallReservationCollection) {
+        this.hallReservationCollection = hallReservationCollection;
+    }
+
+    public Collection<VenueLayout> getVenueLayoutCollection() {
+        return venueLayoutCollection;
+    }
+
+    public void setVenueLayoutCollection(Collection<VenueLayout> venueLayoutCollection) {
+        this.venueLayoutCollection = venueLayoutCollection;
     }
 
     @Override

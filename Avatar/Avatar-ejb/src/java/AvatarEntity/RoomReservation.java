@@ -7,9 +7,8 @@ package AvatarEntity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,30 +27,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "room_reservation")
-@AttributeOverrides({
-    @AttributeOverride(name = "reservation_item_id", column = @Column())
-})
 @NamedQueries({
     @NamedQuery(name = "RoomReservation.findAll", query = "SELECT r FROM RoomReservation r"),
     @NamedQuery(name = "RoomReservation.findByReservationItemId", query = "SELECT r FROM RoomReservation r WHERE r.reservationItemId = :reservationItemId"),
-    @NamedQuery(name = "RoomReservation.findByRoomNo", query = "SELECT r FROM RoomReservation r WHERE r.roomNo = :roomNo"),
     @NamedQuery(name = "RoomReservation.findByEntryDate", query = "SELECT r FROM RoomReservation r WHERE r.entryDate = :entryDate"),
     @NamedQuery(name = "RoomReservation.findByExitDate", query = "SELECT r FROM RoomReservation r WHERE r.exitDate = :exitDate"),
     @NamedQuery(name = "RoomReservation.findByActualEntry", query = "SELECT r FROM RoomReservation r WHERE r.actualEntry = :actualEntry"),
     @NamedQuery(name = "RoomReservation.findByActualExit", query = "SELECT r FROM RoomReservation r WHERE r.actualExit = :actualExit")})
-public class RoomReservation extends ReservationItem implements Serializable {
+public class RoomReservation implements Serializable {
     private static final long serialVersionUID = 1L;
-    /*@Id
+    @Id
     @Basic(optional = false)
     @Column(name = "reservation_item_id")
-    private Integer reservationItemId;*/
-    /*@Basic(optional = false)
-    @Column(name = "room_no")
-    private String roomNo;*/
-    @Basic(optional = false)
-    @ManyToOne
-    @JoinColumn(name = "room_no")
-    private Room room;
+    private Integer reservationItemId;
     @Basic(optional = false)
     @Column(name = "entry_date")
     @Temporal(TemporalType.DATE)
@@ -65,6 +54,14 @@ public class RoomReservation extends ReservationItem implements Serializable {
     @Column(name = "actual_exit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actualExit;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "roomReservation")
+    private HallReservation hallReservation;
+    @JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private ReservationItem reservationItem;
+    @JoinColumn(name = "room_no", referencedColumnName = "room_no")
+    @ManyToOne(optional = false)
+    private Room roomNo;
 
     public RoomReservation() {
     }
@@ -73,20 +70,18 @@ public class RoomReservation extends ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public RoomReservation(Date reservationTime, String username, Room room, Date entryDate, Date exitDate) {
-        super(reservationTime, username);
-        //this.reservationItemId = reservationItemId;
-        this.room = room;
+    public RoomReservation(Integer reservationItemId, Date entryDate, Date exitDate) {
+        this.reservationItemId = reservationItemId;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
     }
 
-    public Room getRoomNo() {
-        return room;
+    public Integer getReservationItemId() {
+        return reservationItemId;
     }
 
-    public void setRoomNo(String roomNo) {
-        this.room = room;
+    public void setReservationItemId(Integer reservationItemId) {
+        this.reservationItemId = reservationItemId;
     }
 
     public Date getEntryDate() {
@@ -119,6 +114,30 @@ public class RoomReservation extends ReservationItem implements Serializable {
 
     public void setActualExit(Date actualExit) {
         this.actualExit = actualExit;
+    }
+
+    public HallReservation getHallReservation() {
+        return hallReservation;
+    }
+
+    public void setHallReservation(HallReservation hallReservation) {
+        this.hallReservation = hallReservation;
+    }
+
+    public ReservationItem getReservationItem() {
+        return reservationItem;
+    }
+
+    public void setReservationItem(ReservationItem reservationItem) {
+        this.reservationItem = reservationItem;
+    }
+
+    public Room getRoomNo() {
+        return roomNo;
+    }
+
+    public void setRoomNo(Room roomNo) {
+        this.roomNo = roomNo;
     }
 
     @Override

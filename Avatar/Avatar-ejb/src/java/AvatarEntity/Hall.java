@@ -6,21 +6,24 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "hall")
@@ -66,6 +69,8 @@ public class Hall implements Serializable {
     @Basic(optional = false)
     @Column(name = "overcharge_rate")
     private double overchargeRate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<HallReservation> hallReservationCollection;
 
     public Hall() {
     }
@@ -155,6 +160,14 @@ public class Hall implements Serializable {
 
     public void setOverchargeRate(double overchargeRate) {
         this.overchargeRate = overchargeRate;
+    }
+
+    public Collection<HallReservation> getHallReservationCollection() {
+        return hallReservationCollection;
+    }
+
+    public void setHallReservationCollection(Collection<HallReservation> hallReservationCollection) {
+        this.hallReservationCollection = hallReservationCollection;
     }
 
     @Override

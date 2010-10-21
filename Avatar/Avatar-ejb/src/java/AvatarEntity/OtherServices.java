@@ -6,18 +6,21 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author kamoe
+ * @author Christian
  */
 @Entity
 @Table(name = "other_services")
@@ -52,6 +55,8 @@ public class OtherServices implements Serializable {
     @Basic(optional = false)
     @Column(name = "published")
     private boolean published;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<OtherServicesReservation> otherServicesReservationCollection;
 
     public OtherServices() {
     }
@@ -122,6 +127,14 @@ public class OtherServices implements Serializable {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public Collection<OtherServicesReservation> getOtherServicesReservationCollection() {
+        return otherServicesReservationCollection;
+    }
+
+    public void setOtherServicesReservationCollection(Collection<OtherServicesReservation> otherServicesReservationCollection) {
+        this.otherServicesReservationCollection = otherServicesReservationCollection;
     }
 
     @Override

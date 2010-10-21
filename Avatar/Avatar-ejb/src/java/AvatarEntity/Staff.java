@@ -1,6 +1,12 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
 
 /**
  *
- * @author zulfikar
+ * @author Christian
  */
 @Entity
 @Table(name = "staff")
@@ -47,6 +52,8 @@ public class Staff implements Serializable {
     @Basic(optional = false)
     @Column(name = "position")
     private short position;
+    @OneToMany(mappedBy = "username")
+    private Collection<Payment> paymentCollection;
 
     public Staff() {
     }
@@ -110,6 +117,14 @@ public class Staff implements Serializable {
 
     public void setPosition(short position) {
         this.position = position;
+    }
+
+    public Collection<Payment> getPaymentCollection() {
+        return paymentCollection;
+    }
+
+    public void setPaymentCollection(Collection<Payment> paymentCollection) {
+        this.paymentCollection = paymentCollection;
     }
 
     @Override

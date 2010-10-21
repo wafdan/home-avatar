@@ -6,15 +6,20 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,8 +31,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByReservationId", query = "SELECT r FROM Reservation r WHERE r.reservationId = :reservationId"),
-    @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
-    @NamedQuery(name = "Reservation.findByUsername", query = "SELECT r FROM Reservation r WHERE r.username = :username")})
+    @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot")})
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,12 +43,16 @@ public class Reservation implements Serializable {
     @Column(name = "is_onspot")
     private boolean isOnspot;
     @Basic(optional = false)
-    @Column(name = "username")
-    private String username;
-    @Basic(optional = false)
     @Lob
     @Column(name = "note")
     private String note;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
+    private Collection<Payment> paymentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
+    private Collection<ReservationItem> reservationItemCollection;
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    @ManyToOne(optional = false)
+    private Customer username;
 
     public Reservation() {
     }
@@ -53,10 +61,9 @@ public class Reservation implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public Reservation(Integer reservationId, boolean isOnspot, String username, String note) {
+    public Reservation(Integer reservationId, boolean isOnspot, String note) {
         this.reservationId = reservationId;
         this.isOnspot = isOnspot;
-        this.username = username;
         this.note = note;
     }
 
@@ -76,20 +83,36 @@ public class Reservation implements Serializable {
         this.isOnspot = isOnspot;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Collection<Payment> getPaymentCollection() {
+        return paymentCollection;
+    }
+
+    public void setPaymentCollection(Collection<Payment> paymentCollection) {
+        this.paymentCollection = paymentCollection;
+    }
+
+    public Collection<ReservationItem> getReservationItemCollection() {
+        return reservationItemCollection;
+    }
+
+    public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection) {
+        this.reservationItemCollection = reservationItemCollection;
+    }
+
+    public Customer getUsername() {
+        return username;
+    }
+
+    public void setUsername(Customer username) {
+        this.username = username;
     }
 
     @Override
