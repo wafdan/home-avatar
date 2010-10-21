@@ -29,7 +29,7 @@
         <servlet-class>MengelolaPengguna.HapusCustomer</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>loginHandler</servlet-name>
+        <servlet-name>Login</servlet-name>
         <servlet-class>Login</servlet-class>
     </servlet>
     <servlet>
@@ -93,10 +93,6 @@
         <url-pattern>/MengelolaPengguna/HapusCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>loginHandler</servlet-name>
-        <url-pattern>/loginHandler</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditProfilHotel</servlet-name>
         <url-pattern>/backend/EditProfilHotel</url-pattern>
     </servlet-mapping>
@@ -123,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>EditStaff</servlet-name>
         <url-pattern>/MengelolaPengguna/EditStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
