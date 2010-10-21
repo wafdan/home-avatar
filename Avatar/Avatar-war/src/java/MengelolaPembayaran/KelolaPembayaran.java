@@ -52,7 +52,8 @@ public class KelolaPembayaran extends HttpServlet {
                 out.println("Amount: " + item.getTotalPrice() + "<br />");
                 out.println("Reservation time: " + item.getReservationTime() + "<br />");
                 out.println("On spot? " + (item.getIsOnspot() ? "yes" : "no") + "<br />");
-                out.println("Verified? " + (item.getPayment() != null ? "yes" : "no") + "<br />");
+                out.println("Confirmed? " + (item.getPayment() != null ? "yes" : "no") + "<br />");
+                out.println("Verified? " + (item.getPayment() != null ? (item.getPayment().getUsername() != null ? "yes" : "no") : "no") + "<br />");
                 out.println("Note: " + item.getNote() + "<br />");
                 out.println("-----<br />");
             }

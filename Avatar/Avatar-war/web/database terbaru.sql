@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2010 at 11:32 PM
+-- Generation Time: Oct 22, 2010 at 12:13 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS `customer` (
 INSERT INTO `customer` (`username`, `name`, `password`, `email`, `identity_type`, `identity_number`, `address1`, `address2`, `city`, `country`, `telephone`) VALUES
 ('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'nch048@yahoo.com', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607'),
 ('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', '', '', NULL, '', '', NULL),
-('dian.p5154', 'Dian Perdhana', 'bfcaa9c5e8912710e5d3fa3a5c339c3b', 'chrhad07188@students.itb.ac.id', 'Passport', 'S500100', 'ITB', 'Jalan Ganesha 10', 'Bandung', 'Indonesia', '+62819270000'),
 ('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL);
 
 -- --------------------------------------------------------
@@ -232,15 +231,12 @@ CREATE TABLE IF NOT EXISTS `payment` (
   PRIMARY KEY (`payment_id`),
   UNIQUE KEY `reservation_id` (`reservation_id`),
   UNIQUE KEY `fk_checks` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `payment`
 --
 
-INSERT INTO `payment` (`payment_id`, `reservation_id`, `confirm_time`, `username`, `payment_date`, `payment_method`, `payment_bank`, `account_number`, `amount`) VALUES
-(2, 2, '2010-10-21 22:24:58', NULL, '2010-10-21', 'transfer', 'BNI', '123231', 545000),
-(3, 3, '2010-10-21 22:25:05', NULL, '2010-10-21', 'cheque', 'BCA', '12323414', 10000);
 
 -- --------------------------------------------------------
 
@@ -281,15 +277,12 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `note` text NOT NULL,
   PRIMARY KEY (`reservation_id`),
   KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`) VALUES
-(2, 0, 'christian.h6191', 'tes lagi'),
-(3, 0, 'dian.p5154', 'tes lagi');
 
 -- --------------------------------------------------------
 
@@ -306,14 +299,12 @@ CREATE TABLE IF NOT EXISTS `reservation_item` (
   PRIMARY KEY (`reservation_item_id`),
   KEY `fk_validates` (`price`),
   KEY `reservation_id` (`reservation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reservation_item`
 --
 
-INSERT INTO `reservation_item` (`reservation_item_id`, `reservation_id`, `reservation_time`, `price`, `DTYPE`) VALUES
-(2, 2, '2010-10-21 17:39:26', 545000, 'R');
 
 -- --------------------------------------------------------
 
@@ -372,8 +363,6 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
 -- Dumping data for table `room_reservation`
 --
 
-INSERT INTO `room_reservation` (`reservation_item_id`, `room_no`, `entry_date`, `exit_date`, `actual_entry`, `actual_exit`) VALUES
-(2, '105', '2010-12-25', '2010-12-26', NULL, NULL);
 
 -- --------------------------------------------------------
 
