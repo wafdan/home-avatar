@@ -102,27 +102,12 @@
                                                     Reservation temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%index++;
-                                                                                        out.write(Integer.toString(index));
-                                        %></td>
+                                    <td>&nbsp;</td>
 
-                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                    <td><div style="overflow:auto"><%
-                                          /*  int ck = 0;
-                                            for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
-                                                RoomReservation tmp = j.next();
-                                                if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
-                                                    ck =1;
-                                                }
-                                            }
-                                            if (ck==1) {out.write("Room");} else {out.write("Hall");}
-                                            */
-                                            out.write("Room");
-                                        %></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
-                                    <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><a href="reservation_manage.jsp?edit=<%out.print(Integer.toString(index));%>">edit</a></td>
+                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
                                 </tr>
 
                     <%
@@ -137,9 +122,9 @@
                                         <% index++;
                                                                                            %>
                                 <td><%
-                                                                                                                                                            out.write(Integer.toString(index));
+                                                                                                                                                            out.print(Integer.toString(index));
                                     %></td>
-                                  <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
+                                  <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
                                   <td><div style="overflow:auto"><%
                                            String tp = "room";
                                             /* int ck = 0;
@@ -151,15 +136,15 @@
                                             }
                                             if (ck==1) {tp = room;} else {tp = hall;}
                                                */
-                                               out.write("Room");
+                                               out.print("Room");
                                         %></div></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
+                                <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
+                                <td><div style="overflow:auto"> <% out.print(temp.getReservationTime().toString());%></div></td>
                                 <td><a href="reservation_manage.jsp?edit=<%
                                         if(tp.equals("room"))
-                                        {out.write(Integer.toString(1));} else {out.write(Integer.toString(2));} ;
+                                        {out.print(Integer.toString(1));} else {out.print(Integer.toString(2));} ;
                                         %>">edit</a></td>
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
 
 
                                 <%
@@ -207,9 +192,9 @@
                                 <% %>
 
                                 <td><%
-                                                                                                                                                            out.write(Integer.toString(index));
+                                                                                                                                                            out.print(Integer.toString(index));
                                     %></td>
-                                  <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
+                                  <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
                                   <td><div style="overflow:auto"><%
                                            String tp = "room";
                                             /* int ck = 0;
@@ -221,19 +206,19 @@
                                             }
                                             if (ck==1) {tp = room;} else {tp = hall;}
                                                */
-                                               out.write("Room");
+                                               out.print("Room");
                                         %></div></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
+                                <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
+                                <td><div style="overflow:auto"> <% out.print(temp.getReservationTime().toString());%></div></td>
 
                                 <td><a href="reservation_manage.jsp?edit=<%
                                         if(tp.equals("room"))
-                                        {out.write(Integer.toString(1));} else {out.write(Integer.toString(2));} ;
+                                        {out.print(Integer.toString(1));} else {out.print(Integer.toString(2));} ;
                                         %>">edit</a></td>
 
-                                <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                <td><a href="reservation_manage.jsp?edit=<%out.print(Integer.toString(index));%>">edit</a></td>
 
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
 
                                 <%
                                     }
