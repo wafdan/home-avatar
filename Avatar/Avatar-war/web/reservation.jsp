@@ -19,23 +19,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link type="text/css" href="styles/jquerystyle.css" rel="stylesheet" />
-		<script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
-		<script type="text/javascript" src="jquery/jqueryui.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				// Datepicker
-				$('.datepicker').datepicker({
-					inline: true
-				});
-				//hover states on the static widgets
-				$('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); },
-					function() { $(this).removeClass('ui-state-hover'); }
-				);
+        <script type="text/javascript" src="script/jquery.js"></script>
+        <script type="text/javascript">
 
-			});
-		</script>
+
+        </script>
     </head>
     <body>
         <%
@@ -118,8 +106,8 @@
 
             <label>Total room</label> <input type="text" name="totalroom" />
             <!-- BAGIAN DHANA -->
-            <label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" />
-            <label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" />
+            <label>Check-in date</label> <input name="roomcheckindate" type="text" readonly="true" class="date-pick" />
+            <label>Check-out date</label> <input name="roomcheckoutdate" type="text" readonly="true" />
             <!-- END OF BAGIAN DHANA -->
 
             <h2>HALL</h2>
@@ -139,7 +127,7 @@
             </select>
             <label>Total hall needed</label> <input type="text" name="totalhall" />
             <!-- BAGIAN DHANA LAGI -->
-            <label>Date</label> <input name="halldate" type="text" class="datepicker" />
+            <label>Date</label> <input name="halldate" type="text" readonly="true" />
             <!-- END OF BAGIAN DHANA -->
         </form>
         <%}
