@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -64,15 +65,17 @@ public class TestServlet extends HttpServlet {
             Reservation res = new Reservation();
             rr.setReservationId(res);
             rr.setReservationTime(new Date());
+            rr.setRoomNo(rm);
             rr.setPrice(rm.getProductId().getWeekdayRate());
             rr.setEntryDate(df.parse("2010-12-25"));
             rr.setExitDate(df.parse("2010-12-26"));
             res.setNote("tes");
             res.setUsername(custjpa.findCustomer("christian.h6191"));
-            res.setReservationItemCollection(new HashSet<ReservationItem>());
-            res.getReservationItemCollection().add(rr);
             resjpa.create(res);
-            for (ReservationItem item : res.getReservationItemCollection()) {
+            Collection<ReservationItem> coll = new HashSet<ReservationItem>();
+            coll.add(rr);
+            for (ReservationItem item : coll) {
+                item.setReservationId(res);
                 rijpa.create(item);
             }
             out.println("</body>");
