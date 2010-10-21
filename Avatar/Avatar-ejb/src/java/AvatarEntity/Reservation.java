@@ -132,7 +132,13 @@ public class Reservation implements Serializable {
 
     public Date getReservationTime() {
         Iterator<ReservationItem> iter = this.getReservationItemCollection().iterator();
-        return iter.next().getReservationTime();
+        ReservationItem res = null;
+        if (iter.hasNext()) {
+            res = iter.next();
+            return res.getReservationTime();
+        } else {
+            return null;
+        }
     }
 
     @Override
