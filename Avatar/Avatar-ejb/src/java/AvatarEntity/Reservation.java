@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,7 +33,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
     @NamedQuery(name = "Reservation.findByReservationId", query = "SELECT r FROM Reservation r WHERE r.reservationId = :reservationId"),
-    @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot")})
+    @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
+    @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.payment IS NULL"),
+    @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.payment IS NOT NULL")})
 public class Reservation implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,8 +50,8 @@ public class Reservation implements Serializable {
     @Lob
     @Column(name = "note")
     private String note;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
-    private Collection<Payment> paymentCollection;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Payment payment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
     private Collection<ReservationItem> reservationItemCollection;
     @JoinColumn(name = "username", referencedColumnName = "username")
@@ -91,12 +95,12 @@ public class Reservation implements Serializable {
         this.note = note;
     }
 
-    public Collection<Payment> getPaymentCollection() {
-        return paymentCollection;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPaymentCollection(Collection<Payment> paymentCollection) {
-        this.paymentCollection = paymentCollection;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     public Collection<ReservationItem> getReservationItemCollection() {

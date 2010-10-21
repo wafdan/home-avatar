@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,7 +62,7 @@ public class Payment implements Serializable {
     @Column(name = "amount")
     private double amount;
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Reservation reservationId;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne

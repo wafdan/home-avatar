@@ -34,9 +34,6 @@ public class ReservationJpaController {
     }
 
     public void create(Reservation reservation) {
-        if (reservation.getPaymentCollection() == null) {
-            reservation.setPaymentCollection(new ArrayList<Payment>());
-        }
         if (reservation.getReservationItemCollection() == null) {
             reservation.setReservationItemCollection(new ArrayList<ReservationItem>());
         }
@@ -44,17 +41,16 @@ public class ReservationJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Payment payment = reservation.getPayment();
+            if (payment != null) {
+                payment = em.getReference(payment.getClass(), payment.getPaymentId());
+                reservation.setPayment(payment);
+            }
             Customer username = reservation.getUsername();
             if (username != null) {
                 username = em.getReference(username.getClass(), username.getUsername());
                 reservation.setUsername(username);
             }
-            Collection<Payment> attachedPaymentCollection = new ArrayList<Payment>();
-            for (Payment paymentCollectionPaymentToAttach : reservation.getPaymentCollection()) {
-                paymentCollectionPaymentToAttach = em.getReference(paymentCollectionPaymentToAttach.getClass(), paymentCollectionPaymentToAttach.getPaymentId());
-                attachedPaymentCollection.add(paymentCollectionPaymentToAttach);
-            }
-            reservation.setPaymentCollection(attachedPaymentCollection);
             Collection<ReservationItem> attachedReservationItemCollection = new ArrayList<ReservationItem>();
             for (ReservationItem reservationItemCollectionReservationItemToAttach : reservation.getReservationItemCollection()) {
                 reservationItemCollectionReservationItemToAttach = em.getReference(reservationItemCollectionReservationItemToAttach.getClass(), reservationItemCollectionReservationItemToAttach.getReservationItemId());
@@ -62,18 +58,18 @@ public class ReservationJpaController {
             }
             reservation.setReservationItemCollection(attachedReservationItemCollection);
             em.persist(reservation);
+            if (payment != null) {
+                Reservation oldReservationIdOfPayment = payment.getReservationId();
+                if (oldReservationIdOfPayment != null) {
+                    oldReservationIdOfPayment.setPayment(null);
+                    oldReservationIdOfPayment = em.merge(oldReservationIdOfPayment);
+                }
+                payment.setReservationId(reservation);
+                payment = em.merge(payment);
+            }
             if (username != null) {
                 username.getReservationCollection().add(reservation);
                 username = em.merge(username);
-            }
-            for (Payment paymentCollectionPayment : reservation.getPaymentCollection()) {
-                Reservation oldReservationIdOfPaymentCollectionPayment = paymentCollectionPayment.getReservationId();
-                paymentCollectionPayment.setReservationId(reservation);
-                paymentCollectionPayment = em.merge(paymentCollectionPayment);
-                if (oldReservationIdOfPaymentCollectionPayment != null) {
-                    oldReservationIdOfPaymentCollectionPayment.getPaymentCollection().remove(paymentCollectionPayment);
-                    oldReservationIdOfPaymentCollectionPayment = em.merge(oldReservationIdOfPaymentCollectionPayment);
-                }
             }
             for (ReservationItem reservationItemCollectionReservationItem : reservation.getReservationItemCollection()) {
                 Reservation oldReservationIdOfReservationItemCollectionReservationItem = reservationItemCollectionReservationItem.getReservationId();
@@ -98,20 +94,18 @@ public class ReservationJpaController {
             em = getEntityManager();
             em.getTransaction().begin();
             Reservation persistentReservation = em.find(Reservation.class, reservation.getReservationId());
+            Payment paymentOld = persistentReservation.getPayment();
+            Payment paymentNew = reservation.getPayment();
             Customer usernameOld = persistentReservation.getUsername();
             Customer usernameNew = reservation.getUsername();
-            Collection<Payment> paymentCollectionOld = persistentReservation.getPaymentCollection();
-            Collection<Payment> paymentCollectionNew = reservation.getPaymentCollection();
             Collection<ReservationItem> reservationItemCollectionOld = persistentReservation.getReservationItemCollection();
             Collection<ReservationItem> reservationItemCollectionNew = reservation.getReservationItemCollection();
             List<String> illegalOrphanMessages = null;
-            for (Payment paymentCollectionOldPayment : paymentCollectionOld) {
-                if (!paymentCollectionNew.contains(paymentCollectionOldPayment)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Payment " + paymentCollectionOldPayment + " since its reservationId field is not nullable.");
+            if (paymentOld != null && !paymentOld.equals(paymentNew)) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
                 }
+                illegalOrphanMessages.add("You must retain Payment " + paymentOld + " since its reservationId field is not nullable.");
             }
             for (ReservationItem reservationItemCollectionOldReservationItem : reservationItemCollectionOld) {
                 if (!reservationItemCollectionNew.contains(reservationItemCollectionOldReservationItem)) {
@@ -124,17 +118,14 @@ public class ReservationJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+            if (paymentNew != null) {
+                paymentNew = em.getReference(paymentNew.getClass(), paymentNew.getPaymentId());
+                reservation.setPayment(paymentNew);
+            }
             if (usernameNew != null) {
                 usernameNew = em.getReference(usernameNew.getClass(), usernameNew.getUsername());
                 reservation.setUsername(usernameNew);
             }
-            Collection<Payment> attachedPaymentCollectionNew = new ArrayList<Payment>();
-            for (Payment paymentCollectionNewPaymentToAttach : paymentCollectionNew) {
-                paymentCollectionNewPaymentToAttach = em.getReference(paymentCollectionNewPaymentToAttach.getClass(), paymentCollectionNewPaymentToAttach.getPaymentId());
-                attachedPaymentCollectionNew.add(paymentCollectionNewPaymentToAttach);
-            }
-            paymentCollectionNew = attachedPaymentCollectionNew;
-            reservation.setPaymentCollection(paymentCollectionNew);
             Collection<ReservationItem> attachedReservationItemCollectionNew = new ArrayList<ReservationItem>();
             for (ReservationItem reservationItemCollectionNewReservationItemToAttach : reservationItemCollectionNew) {
                 reservationItemCollectionNewReservationItemToAttach = em.getReference(reservationItemCollectionNewReservationItemToAttach.getClass(), reservationItemCollectionNewReservationItemToAttach.getReservationItemId());
@@ -143,6 +134,15 @@ public class ReservationJpaController {
             reservationItemCollectionNew = attachedReservationItemCollectionNew;
             reservation.setReservationItemCollection(reservationItemCollectionNew);
             reservation = em.merge(reservation);
+            if (paymentNew != null && !paymentNew.equals(paymentOld)) {
+                Reservation oldReservationIdOfPayment = paymentNew.getReservationId();
+                if (oldReservationIdOfPayment != null) {
+                    oldReservationIdOfPayment.setPayment(null);
+                    oldReservationIdOfPayment = em.merge(oldReservationIdOfPayment);
+                }
+                paymentNew.setReservationId(reservation);
+                paymentNew = em.merge(paymentNew);
+            }
             if (usernameOld != null && !usernameOld.equals(usernameNew)) {
                 usernameOld.getReservationCollection().remove(reservation);
                 usernameOld = em.merge(usernameOld);
@@ -150,17 +150,6 @@ public class ReservationJpaController {
             if (usernameNew != null && !usernameNew.equals(usernameOld)) {
                 usernameNew.getReservationCollection().add(reservation);
                 usernameNew = em.merge(usernameNew);
-            }
-            for (Payment paymentCollectionNewPayment : paymentCollectionNew) {
-                if (!paymentCollectionOld.contains(paymentCollectionNewPayment)) {
-                    Reservation oldReservationIdOfPaymentCollectionNewPayment = paymentCollectionNewPayment.getReservationId();
-                    paymentCollectionNewPayment.setReservationId(reservation);
-                    paymentCollectionNewPayment = em.merge(paymentCollectionNewPayment);
-                    if (oldReservationIdOfPaymentCollectionNewPayment != null && !oldReservationIdOfPaymentCollectionNewPayment.equals(reservation)) {
-                        oldReservationIdOfPaymentCollectionNewPayment.getPaymentCollection().remove(paymentCollectionNewPayment);
-                        oldReservationIdOfPaymentCollectionNewPayment = em.merge(oldReservationIdOfPaymentCollectionNewPayment);
-                    }
-                }
             }
             for (ReservationItem reservationItemCollectionNewReservationItem : reservationItemCollectionNew) {
                 if (!reservationItemCollectionOld.contains(reservationItemCollectionNewReservationItem)) {
@@ -203,12 +192,12 @@ public class ReservationJpaController {
                 throw new NonexistentEntityException("The reservation with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            Collection<Payment> paymentCollectionOrphanCheck = reservation.getPaymentCollection();
-            for (Payment paymentCollectionOrphanCheckPayment : paymentCollectionOrphanCheck) {
+            Payment paymentOrphanCheck = reservation.getPayment();
+            if (paymentOrphanCheck != null) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This Reservation (" + reservation + ") cannot be destroyed since the Payment " + paymentCollectionOrphanCheckPayment + " in its paymentCollection field has a non-nullable reservationId field.");
+                illegalOrphanMessages.add("This Reservation (" + reservation + ") cannot be destroyed since the Payment " + paymentOrphanCheck + " in its payment field has a non-nullable reservationId field.");
             }
             Collection<ReservationItem> reservationItemCollectionOrphanCheck = reservation.getReservationItemCollection();
             for (ReservationItem reservationItemCollectionOrphanCheckReservationItem : reservationItemCollectionOrphanCheck) {
