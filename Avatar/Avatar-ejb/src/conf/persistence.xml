@@ -4,6 +4,22 @@
     <jta-data-source>Avatar</jta-data-source>
     <class>AvatarEntity.Profile</class>
     <class>AvatarEntity.HotelInfo</class>
+    <class>AvatarEntity.Accomodation</class>
+    <class>AvatarEntity.Customer</class>
+    <class>AvatarEntity.Hall</class>
+    <class>AvatarEntity.HallReservation</class>
+    <class>AvatarEntity.Layout</class>
+    <class>AvatarEntity.OtherServices</class>
+    <class>AvatarEntity.OtherServicesReservation</class>
+    <class>AvatarEntity.Payment</class>
+    <class>AvatarEntity.Reservation</class>
+    <class>AvatarEntity.ReservationItem</class>
+    <class>AvatarEntity.Room</class>
+    <class>AvatarEntity.RoomReservation</class>
+    <class>AvatarEntity.Staff</class>
+    <class>AvatarEntity.Telephone</class>
+    <class>AvatarEntity.Venue</class>
+    <class>AvatarEntity.VenueLayout</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
