@@ -5,8 +5,11 @@
 
 package MengelolaPembayaran;
 
+import AvatarEntity.Reservation;
+import AvatarEntity.ReservationJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +43,19 @@ public class KelolaPembayaran extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             */
+            // Inisialisasi Kontroler JPA dan Kelas Entity
+            ReservationJpaController resjc = new ReservationJpaController();
+            List<Reservation> lres = resjc.findReservationEntities();
+            for (Reservation item : lres) {
+                out.println("ID: " + item.getReservationId() + "<br />");
+                out.println("User: " + item.getUsername().getName() + "<br />");
+                out.println("Amount: " + item.getTotalPrice() + "<br />");
+                out.println("Reservation time: " + item.getReservationTime() + "<br />");
+                out.println("On spot? " + (item.getIsOnspot() ? "yes" : "no") + "<br />");
+                out.println("Verified? " + (item.getPayment() != null ? "yes" : "no") + "<br />");
+                out.println("Note: " + item.getNote() + "<br />");
+                out.println("-----<br />");
+            }
         } finally { 
             out.close();
         }
