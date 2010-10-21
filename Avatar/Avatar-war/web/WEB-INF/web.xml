@@ -72,6 +72,10 @@
         <servlet-name>TambahKeranjang</servlet-name>
         <servlet-class>ReservationServlet.TambahKeranjang</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>KelolaPembayaran</servlet-name>
+        <servlet-class>MengelolaPembayaran.KelolaPembayaran</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>TambahKeranjang</servlet-name>
         <url-pattern>/TambahKeranjang</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KelolaPembayaran</servlet-name>
+        <url-pattern>/MengelolaPembayaran/KelolaPembayaran</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
