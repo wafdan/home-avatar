@@ -5,24 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.sql.*" %>
-<%@ page import="AvatarEntity.ReservationJpaController" %>
-<%@ page import="AvatarEntity.Reservation" %>
+<%@ page import="AvatarEntity.CustomerJpaController" %>
+<%@ page import="AvatarEntity.Customer" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
-
-<%@ page import="AvatarEntity.RoomJpaController" %>
-<%@ page import="AvatarEntity.RoomReservationJpaController" %>
-<%@ page import="AvatarEntity.RoomReservation" %>
-<%@ page import="AvatarEntity.Room" %>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%!    String option0 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\">Manager</option></select>";
-    String option1 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\" selected=\"true \">Receptionis</option> <option value=\"2\">Manager</option></select>";
-    String option2 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\" selected=\"true\">Manager</option></select>";
-    //ReservationJpaController s = new ReservationJpaController();
-    //RoomJpaController r = new RoomJpaController();
+
+<%! CustomerJpaController c = new CustomerJpaController();
+    List<Customer> l = null;
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -52,7 +43,7 @@
                 <ul>
                     <li><a href="profile_manage.jsp">Profile</a></li>
                     <li class="current_page_item"><a href="#">User</a></li>
-                    <li><a href="#">Facilities</a></li>
+                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
                     <li><a href="#">Statistic</a></li>
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>
@@ -69,20 +60,21 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Reservasi</h1>
+                        <h1 class="title">Daftar Customer</h1>
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
                                 <tr>
                                     <th bgcolor="#262626" width="29">No.</th>
                                     <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Fasilitas</th>
-                                    <th bgcolor="#262626" width="77">Tipe</th>
-                                    <th bgcolor="#262626" width="96">Waktu</th>
+                                    <th bgcolor="#262626" width="89">Name</th>
+                                    <th bgcolor="#262626" width="77">Identity Type</th>
+                                    <th bgcolor="#262626" width="96">Identity Number</th>
 
                                 </tr>
 
                                 <%
-                                            int editIndex = 0;
+
+                                                int editIndex = 0;
                                             try {
                                                 String Index = request.getParameter("edit");
                                                 editIndex = Integer.parseInt(Index);
@@ -93,169 +85,64 @@
                                             }
 
                                             int index = 0;
-                                            ReservationJpaController jpa = new ReservationJpaController();
-                                            List<Reservation> ReservationList = jpa.findReservationEntities();
-                                            //RoomReservationJpaController jpr = new RoomReservationJpaController();
-                                           // List<RoomReservation> RoomList = jpr.findRoomReservationEntities();
+                                            CustomerJpaController jpa = new CustomerJpaController();
+                                            List<Customer> staffList = jpa.findCustomerEntities();
                                             if (editIndex == -1) {
-                                                for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
-                                                    Reservation temp = i.next();
+                                                l = c.findCustomerEntities();
+                                                for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
+                                                    Customer temp = i.next();
+                                                    index++;
                                 %>
                                 <tr>
-                                    <td>&nbsp;</td>
-
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td><a href="reservation_manage.jsp?edit=<%out.print(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
+                                    <td><%=index %></td>
+                                    <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
+                                    <td> <%= temp.getIdentityType()%> </td>
+                                    <td> <%= temp.getIdentityNumber()%> </td>
+                                    <td><a href="?edit=<%=index%>">edit</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
                                 </tr>
-
-                    <%
-                                                                                }
-                                                                            } else if(editIndex == 1) {
-                                                                                int iterator = 0;
-                                                                                for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
-                                                                                    Reservation temp = i.next();
-                                                                                    iterator++;
-                                %>
-                                <tr>
-                                        <% index++;
-                                                                                           %>
-                                <td><%
-                                                                                                                                                            out.print(Integer.toString(index));
-                                    %></td>
-                                  <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
-                                  <td><div style="overflow:auto"><%
-                                           String tp = "room";
-                                            /* int ck = 0;
-                                            for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
-                                                RoomReservation tmp = j.next();
-                                                if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
-                                                    ck =1;
+                                <% }
                                                 }
-                                            }
-                                            if (ck==1) {tp = room;} else {tp = hall;}
-                                               */
-                                               out.print("Room");
-                                        %></div></td>
-                                <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
-                                <td><div style="overflow:auto"> <% out.print(temp.getReservationTime().toString());%></div></td>
-                                <td><a href="reservation_manage.jsp?edit=<%
-                                        if(tp.equals("room"))
-                                        {out.print(Integer.toString(1));} else {out.print(Integer.toString(2));} ;
-                                        %>">edit</a></td>
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
+            else
+            {
+                int iterator=0;
+                for(Iterator<Customer> i = staffList.iterator(); i.hasNext();)
+                {
+                    Customer temp=i.next();
+                    iterator++;
+
+                %>
+                <tr><td><%=iterator%></td>
+                <%
+                if(iterator==editIndex){
+                 %>
+
+                 <form action="EditCustomer" method="get">
+                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
+                     <td><input type="text" name="name" id="name" value="<%=temp.getName() %>"> </td>
+                     <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
+                     <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber() %>"></td>
+                     <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
+                 </form>
+                <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>"> delete</a></td>
+                <td><a href="ManageCustomer.jsp"> cancel </a></td>
 
 
-                                <%
-                                    }
-                                            %>
-                                <!--<tr>
-                                    <td>&nbsp;</td>
-                                    <td><div style="overflow:auto"> asfasfafafa&nbsp;</div></td>
-                                    <td><div style="overflow:auto">&nbsp; knights_of_kangouw@yahoo.com</div></td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td><a href="#">edit</a></td>
-                                    <td><a href="#">delete</a></td>
-                                </tr>   -->                     </table>
-                            <p>&nbsp;</p>
-                            <div class="box">
-                              <h1>EDIT RESERVASI KAMAR</h1>
-                              <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getReservationTime().toString() %>" method="get">
-                                <label> <span>Username</span>
-                                  <input class="input_text" name="name" id="name" type="text" />
-                                </label>
-                                <label> <span>Email</span>
-                                  <input class="input_text" name="email" id="email" type="text" />
-                                </label>
-                                <label> <span>Employment ID</span>
-                                  <input class="input_text" name="subject" id="subject" type="text" />
-                                </label>
 
-                                <label>
-                                  <input class="button" value="Add" type="submit" />
-                                </label>
-                              </form>
-                          </div>
-                                <% } else if(editIndex == 2) {
-                                                                            int iterator = 0;
-                                                                            for (Iterator<Reservation> i = ReservationList.iterator(); i.hasNext();) {
-                                                                                Reservation temp = i.next();
-                                                                                iterator++;
-                                %>
-                                <tr>
-                                        <% index++;
-                                                                                           %>
+                 <% }else{%>
 
-                                
-                                <% %>
+       <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
+                                    <td> <%= temp.getIdentityType()%> </td>
+                                    <td> <%= temp.getIdentityNumber()%> </td>
+                                    <td><a href="?edit=<%=iterator%>">edit</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
 
-                                <td><%
-                                                                                                                                                            out.print(Integer.toString(index));
-                                    %></td>
-                                  <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
-                                  <td><div style="overflow:auto"><%
-                                           String tp = "room";
-                                            /* int ck = 0;
-                                            for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
-                                                RoomReservation tmp = j.next();
-                                                if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
-                                                    ck =1;
-                                                }
-                                            }
-                                            if (ck==1) {tp = room;} else {tp = hall;}
-                                               */
-                                               out.print("Room");
-                                        %></div></td>
-                                <td><div style="overflow:auto"> <% out.print(temp.getUsername());%></div></td>
-                                <td><div style="overflow:auto"> <% out.print(temp.getReservationTime().toString());%></div></td>
+           <%}}}%>
 
-                                <td><a href="reservation_manage.jsp?edit=<%
-                                        if(tp.equals("room"))
-                                        {out.print(Integer.toString(1));} else {out.print(Integer.toString(2));} ;
-                                        %>">edit</a></td>
-
-                                <td><a href="reservation_manage.jsp?edit=<%out.print(Integer.toString(index));%>">edit</a></td>
-
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.print(temp.getUsername());%>">delete</a></td>
-
-                                <%
-                                    }
-                                            %>
-                                <!--<tr>
-                                    <td>&nbsp;</td>
-                                    <td><div style="overflow:auto"> asfasfafafa&nbsp;</div></td>
-                                    <td><div style="overflow:auto">&nbsp; knights_of_kangouw@yahoo.com</div></td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td><a href="#">edit</a></td>
-                                    <td><a href="#">delete</a></td>
-                                </tr>   -->
-                            <p>&nbsp;</p>
-                            <h2 class="title">
-
-
-                                &nbsp;</h2>
-                            <div class="box">
-                              <h1>EDIT RESERVASI AULA</h1>
-                              <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
-                                <label> <span>Username</span>
-                                  <input class="input_text" name="name2" id="name2" type="text" />
-                                </label>
-                                <label> <span>Email</span>
-                                  <input class="input_text" name="email2" id="email2" type="text" />
-                                </label>
-                                <label> <span>Employment ID</span>
-                                  <input class="input_text" name="subject2" id="subject2" type="text" />
-                                </label>
-                                <label>
-                                  <input class="button" value="Add" type="submit" />
-                                </label>
-                              </form>
-                            </div>
-                                <% } %>
-                            <p>&nbsp;</p>
+                            </table>
+                            <h2 class="title">&nbsp;</h2>
                             <div class="post"></div>
                         </div>
                     </div>
@@ -265,14 +152,25 @@
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>Reservation Management</h2>
+                                    <h2>User Management</h2>
                                 </div>
                                 <hr />
                                 <ul>
-                                  <li><a href="reservation_add.jsp">Add Reservation</a></li>
-                                  <li><a href="reservation_manage.jsp">Manage Reservation</a></li>
+                                    <li>STAFF
+                                        <ul>
+                                            <li><a href="staff_add.jsp">Add New Staff</a></li>
+                                            <li><a href="staff_manage.jsp">Manage Staff</a></li>
+                                        </ul>
+                                    </li>
+                                    <hr />
+                                    <li>CUSTOMER
+                                        <ul>
+                                            <li><a href="customer_add.jsp">Add New Customer</a></li>
+                                            <li><a href="customer_manage.jsp">Manage Customer</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
-                              <hr />
+                                <hr />
                             </li>
                         </ul>
                     </div>
