@@ -7,7 +7,6 @@ package AvatarEntity;
 
 import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
-import AvatarEntity.exceptions.PreexistingEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,7 +32,7 @@ public class PaymentJpaController {
         return emf.createEntityManager();
     }
 
-    public void create(Payment payment) throws IllegalOrphanException, PreexistingEntityException, Exception {
+    public void create(Payment payment) throws IllegalOrphanException {
         List<String> illegalOrphanMessages = null;
         Reservation reservationIdOrphanCheck = payment.getReservationId();
         if (reservationIdOrphanCheck != null) {
@@ -72,11 +71,6 @@ public class PaymentJpaController {
                 username = em.merge(username);
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findPayment(payment.getPaymentId()) != null) {
-                throw new PreexistingEntityException("Payment " + payment + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

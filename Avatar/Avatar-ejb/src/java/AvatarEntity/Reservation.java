@@ -52,8 +52,8 @@ public class Reservation implements Serializable {
     @Lob
     @Column(name = "note")
     private String note;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Payment payment;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationId")
+    private Payment payment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
     private Collection<ReservationItem> reservationItemCollection;
     @JoinColumn(name = "username", referencedColumnName = "username")
@@ -113,8 +113,17 @@ public class Reservation implements Serializable {
         this.reservationItemCollection = reservationItemCollection;
     }
 
-    public int getTotalPrice() {
-        int sum = 0;
+    public Customer getUsername() {
+        return username;
+    }
+
+    public void setUsername(Customer username) {
+        this.username = username;
+    }
+
+    // Derived Attributes
+    public double getTotalPrice() {
+        double sum = 0;
         for (ReservationItem item : this.getReservationItemCollection()) {
             sum += item.getPrice();
         }
@@ -124,14 +133,6 @@ public class Reservation implements Serializable {
     public Date getReservationTime() {
         Iterator<ReservationItem> iter = this.getReservationItemCollection().iterator();
         return iter.next().getReservationTime();
-    }
-
-    public Customer getUsername() {
-        return username;
-    }
-
-    public void setUsername(Customer username) {
-        this.username = username;
     }
 
     @Override
