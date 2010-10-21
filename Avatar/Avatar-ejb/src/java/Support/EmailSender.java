@@ -58,5 +58,4 @@ public class EmailSender implements EmailSenderLocal {
             ex.printStackTrace();
         }
     }
-
 }
