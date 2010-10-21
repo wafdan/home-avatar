@@ -1,11 +1,3 @@
-/*
-Template Name: Prestigious
-File: Forms CSS
-Author: OS Templates
-Author URI: http://www.os-templates.com/
-Licence: <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 Unported License</a>
-*/
-
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
 
@@ -27,6 +19,33 @@ legend{display:none;}
 	border:1px solid #CCCCCC;
 	}
 
+#container .addtocart{
+	float:right;
+	}
+
+#container .addtocart #submit{
+	margin:0;
+	padding:5px;
+	color:#ffffff;
+	background-color:#1640AA;
+	border:1px solid #CCCCCC;
+	}
+	
+#container .addtocart #submit:hover{
+	margin:0;
+	padding:5px;
+	color:#ffffff;
+	background-color:#2c447f;
+	border:1px solid #CCCCCC;
+}
+
+#container .addtocart #submit:active{
+	margin:0;
+	padding:5px;
+	color:#ffffff;
+	background-color:#4A71D4;
+	border:1px solid #CCCCCC;
+}
 /* ----------------------------------------------Newsletter-------------------------------------*/
 
 

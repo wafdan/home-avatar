@@ -1,11 +1,3 @@
-/*
-Template Name: Prestigious
-File: Navigation CSS
-Author: OS Templates
-Author URI: http://www.os-templates.com/
-Licence: <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0 Unported License</a>
-*/
-
 #topnav{
 	display:block;
 	float:right;
@@ -64,6 +56,13 @@ Licence: <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commo
 	border-top-color:#982216;
 	}
 	
+#topnav li.activelast a{
+	color:#982216;
+	background-color:#FFFFFF;
+	border-top-color:#982216;
+	margin-right:-30px;
+	}
+	
 #topnav li li a:link, #topnav li li a:visited{
 	width:150px;
 	float:none;
@@ -83,7 +82,7 @@ Licence: <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commo
 
 #topnav ul ul{
 	z-index:9999;
-	position:absolute;
+	position:fixed;
 	left:-999em;
 	height:auto;
 	width:170px;
