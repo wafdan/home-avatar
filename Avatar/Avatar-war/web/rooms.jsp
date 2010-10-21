@@ -56,7 +56,7 @@
 
     <div id="topnav">
       <ul>
-        <li class="last"><a href="reservations.html">Reservation</a><span>make an order</span></li>
+        <li class="last"><a href="reservation.jsp">Reservation</a><span>make an order</span></li>
         <li><a href="services.jsp">Services</a><span>Our best services</span></li>
         <li><a href="hall.jsp">Events</a><span>Meeting and Conference</span></li>
         <li class="active"><a href="rooms.jsp">Rooms</a><span>Rooms and Facilities</span></li>
