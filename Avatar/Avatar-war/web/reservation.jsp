@@ -5,6 +5,13 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="AvatarEntity.Accomodation"%>
+<%@page import="AvatarEntity.Hall"%>
+<%@page import="AvatarEntity.HallJpaController"%>
+<%@page import="AvatarEntity.AccomodationJpaController"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -78,6 +85,17 @@
             <select name="roomtype">
                 <%
                             /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
+                            List<Accomodation> listAccomodation=(new AccomodationJpaController()).findAccomodationEntities();
+                            Iterator<Accomodation> i=listAccomodation.iterator();
+
+                            
+                            while(i.hasNext()){
+                                Accomodation temp;
+                                temp=i.next();
+                                %>
+                                <option value="<%=temp.getProductId() %>"><%=temp.getProductType() %></option>
+                                <%
+                            }
                 %>
             </select>
             <label>Total room</label> <input type="text" name="totalroom" />
@@ -87,7 +105,16 @@
             <h2>HALL</h2>
             <label>Package</label>
             <select name="packagetype">
-                <%                            /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+                <%
+                    /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+                    List<Hall> listhall=(new HallJpaController()).findHallEntities();
+                    Iterator<Hall> iHall=listhall.iterator();
+                    while(iHall.hasNext()){
+                        Hall hall=iHall.next();
+                        %>
+                        <option value="<%=hall.getProductId() %>"><%=hall.getProductType() %></option>
+                        <%
+                    }
                 %>
             </select>
             <label>Total hall needed</label> <input type="text" name="totalhall" />
