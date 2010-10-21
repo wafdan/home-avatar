@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 20, 2010 at 07:23 PM
+-- Generation Time: Oct 21, 2010 at 09:54 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `accomodation` (
   `tolerance_early` time NOT NULL,
   `tolerance_late` time NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accomodation`
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `password` text NOT NULL,
   `email` text NOT NULL,
   `identity_type` varchar(10) NOT NULL,
-  `identity_number` varchar(50) DEFAULT NULL,
+  `identity_number` varchar(50) NOT NULL,
   `address1` varchar(75) NOT NULL,
   `address2` varchar(75) DEFAULT NULL,
   `city` varchar(25) NOT NULL,
@@ -74,16 +74,16 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `telephone` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`username`),
   KEY `fk_has_address_in` (`city`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`username`, `name`, `password`, `email`, `identity_type`, `identity_number`, `address1`, `address2`, `city`, `country`, `telephone`) VALUES
-('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL),
-('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', NULL, '', NULL, '', '', NULL),
-('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'nch048@yahoo.com', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607');
+('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'nch048@yahoo.com', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607'),
+('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', '', '', NULL, '', '', NULL),
+('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `hall` (
   `overcharge_unit` varchar(10) NOT NULL,
   `overcharge_rate` double NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hall`
@@ -130,8 +130,10 @@ CREATE TABLE IF NOT EXISTS `hall_reservation` (
   `venue_no` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`reservation_item_id`),
   KEY `fk_hall_ordered_in` (`product_id`),
-  KEY `fk_is_used_in` (`venue_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `fk_is_used_in` (`venue_no`),
+  KEY `product_id` (`product_id`),
+  KEY `product_id_2` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `hall_reservation`
@@ -148,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `layout` (
   `layout_no` int(11) NOT NULL AUTO_INCREMENT,
   `layout_name` varchar(20) NOT NULL,
   PRIMARY KEY (`layout_no`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `layout`
@@ -176,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `other_services` (
   `unit_price` double NOT NULL,
   `published` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `other_services`
@@ -186,10 +188,10 @@ INSERT INTO `other_services` (`product_id`, `product_type`, `description`, `imag
 ('F0001', 'Breakfast', 'Breakfast is served. Wake up slowly and enjoy a morning at a ready-laid breakfast table. Our popular breakfast buffet has everything from scrambled eggs to smoothies and our breakfast staff will serve you tea and coffee on demand. Served every day', NULL, 'person', 50000, 0),
 ('F0002', 'Lunch', 'Savour our delicious lunch buffet. The table is laid and the meal begins with a salad buffet, followed by soup, a fish course and a meat course with hot vegetables that vary from day to day. To finish, we have a splendid dessert table with ten or so different sweets. Served Monday to Friday.', NULL, 'person', 45000, 0),
 ('F0003', 'Dinner', 'The world is full of different tastes and at Spons threesixty° our aim is to enjoy them all. We serve tasty drinks and beautifully prepared food that finds its inspiration in every corner of the world, so we hope that you will feel at home, wherever you''re from. We are untiring in gathering ideas and flavours from different places, with the aim of exploring a whole world of taste.', NULL, 'person', 0, 0),
-('M0001', 'Classic Upper Body Massag', 'Our professional massage therapists provide treatments that will increase your well-being, give you new energy and relieve any pain. We accept reservations seven days a week 08:00 to 21:00 and we are happy to help you choose the treatment that best suits your needs. You can choose if you want the massage in your hotel room, In-Room Spa, or in our massage room, which is adjacent to the Fitness Centre on the first floor of the hotel. Welcome to relax!', NULL, '', 100000, 0),
-('M0002', 'Classic Full Body Massage', 'Classic Full Body Massage. Full Body!', NULL, '', 300000, 0),
 ('G0001', 'Aerobic Exercise Guide', 'translate_to_english("joged poco poco diajari instruktur")', NULL, '', 0, 0),
-('G0002', 'Gym Exercise Guide', 'enlarge your muscle instructed by professional trainer.', NULL, '', 0, 0);
+('G0002', 'Gym Exercise Guide', 'enlarge your muscle instructed by professional trainer.', NULL, '', 0, 0),
+('M0001', 'Classic Upper Body Massag', 'Our professional massage therapists provide treatments that will increase your well-being, give you new energy and relieve any pain. We accept reservations seven days a week 08:00 to 21:00 and we are happy to help you choose the treatment that best suits your needs. You can choose if you want the massage in your hotel room, In-Room Spa, or in our massage room, which is adjacent to the Fitness Centre on the first floor of the hotel. Welcome to relax!', NULL, '', 100000, 0),
+('M0002', 'Classic Full Body Massage', 'Classic Full Body Massage. Full Body!', NULL, '', 300000, 0);
 
 -- --------------------------------------------------------
 
@@ -201,8 +203,9 @@ CREATE TABLE IF NOT EXISTS `other_services_reservation` (
   `reservation_item_id` int(11) NOT NULL,
   `product_id` varchar(6) NOT NULL,
   `note` text NOT NULL,
-  PRIMARY KEY (`reservation_item_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`reservation_item_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `other_services_reservation`
@@ -217,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `other_services_reservation` (
 
 CREATE TABLE IF NOT EXISTS `payment` (
   `payment_id` int(11) NOT NULL,
-  `reservation_time` datetime NOT NULL,
+  `reservation_id` int(11) NOT NULL,
   `confirm_time` datetime NOT NULL,
   `username` varchar(25) DEFAULT NULL,
   `payment_date` date NOT NULL,
@@ -226,8 +229,9 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `account_number` varchar(45) NOT NULL,
   `amount` double NOT NULL,
   PRIMARY KEY (`payment_id`),
-  KEY `fk_checks` (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `fk_checks` (`username`),
+  KEY `reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `payment`
@@ -271,8 +275,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `is_onspot` tinyint(1) NOT NULL,
   `username` varchar(25) NOT NULL,
   `note` text NOT NULL,
-  PRIMARY KEY (`reservation_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`reservation_id`),
+  KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reservation`
@@ -287,13 +292,14 @@ CREATE TABLE IF NOT EXISTS `reservation` (
 
 CREATE TABLE IF NOT EXISTS `reservation_item` (
   `reservation_item_id` int(11) NOT NULL AUTO_INCREMENT,
+  `reservation_id` int(11) NOT NULL,
   `reservation_time` datetime NOT NULL,
-  `username` varchar(25) NOT NULL,
-  `price` double DEFAULT '0',
+  `price` double NOT NULL DEFAULT '0',
+  `DTYPE` char(1) NOT NULL,
   PRIMARY KEY (`reservation_item_id`),
-  KEY `fk_makes` (`username`),
-  KEY `fk_validates` (`price`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `fk_validates` (`price`),
+  KEY `reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `reservation_item`
@@ -312,8 +318,9 @@ CREATE TABLE IF NOT EXISTS `room` (
   `room_name` varchar(20) DEFAULT NULL,
   `floor` int(11) NOT NULL,
   PRIMARY KEY (`room_no`),
-  KEY `fk_has` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `fk_has` (`product_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room`
@@ -347,8 +354,9 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
   `exit_date` date NOT NULL,
   `actual_entry` datetime DEFAULT NULL,
   `actual_exit` datetime DEFAULT NULL,
-  PRIMARY KEY (`reservation_item_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`reservation_item_id`),
+  KEY `room_no` (`room_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room_reservation`
@@ -369,19 +377,19 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `employment_id` varchar(20) NOT NULL,
   `position` smallint(6) NOT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `staff`
 --
 
 INSERT INTO `staff` (`username`, `name`, `password`, `email`, `employment_id`, `position`) VALUES
-('Zulfikar19', 'Zulfikar Hakim', '94167761e0943c3c8ffc8142698857df', 'zulfikar_165@students.itb.ac.id', '199002192010091001', 0),
-('Restya19', 'Restya Winda A.', 'defe1ef55f723634cc31f440ad6abeda', 'restya_wa@yahoo.co.id', '198806032010092001', 1),
-('manager', 'Manager', '1d0258c2440a8d19e716292b231e3190', 'manager@man.com', '2', 2),
-('admin', 'Admin', '21232f297a57a5a743894a0e4a801fc3', '', '', 0),
 ('aaaaaa', 'Ahmad Dodolin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'aaa@aaa.a', '78070987', 1),
-('bbbbbb', 'Bambang Burangrang', '875f26fdb1cecf20ceb4ca028263dec6', '', '', 0);
+('admin', 'Admin', '21232f297a57a5a743894a0e4a801fc3', '', '', 0),
+('bbbbbb', 'Bambang Burangrang', '875f26fdb1cecf20ceb4ca028263dec6', '', '', 0),
+('manager', 'Manager', '1d0258c2440a8d19e716292b231e3190', 'manager@man.com', '2', 2),
+('Restya19', 'Restya Winda A.', 'defe1ef55f723634cc31f440ad6abeda', 'restya_wa@yahoo.co.id', '198806032010092001', 1),
+('Zulfikar19', 'Zulfikar Hakim', '94167761e0943c3c8ffc8142698857df', 'zulfikar_165@students.itb.ac.id', '199002192010091001', 0);
 
 -- --------------------------------------------------------
 
@@ -415,7 +423,7 @@ CREATE TABLE IF NOT EXISTS `venue` (
   `description` text,
   `image` text COMMENT 'path ke file image',
   PRIMARY KEY (`venue_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venue`
@@ -438,23 +446,77 @@ CREATE TABLE IF NOT EXISTS `venue_layout` (
   PRIMARY KEY (`venue_no`,`layout_no`),
   KEY `fk_has_layout` (`venue_no`),
   KEY `fk_is_applied_in` (`layout_no`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `venue_layout`
 --
 
 INSERT INTO `venue_layout` (`venue_no`, `layout_no`, `capacity`) VALUES
-('7601', 5, 500),
-('7601', 4, 300),
-('7601', 3, 200),
-('7601', 2, 150),
 ('7601', 1, 100),
+('7601', 2, 150),
+('7601', 3, 200),
+('7601', 4, 300),
+('7601', 5, 500),
 ('7602', 1, 50),
 ('7602', 2, 75),
 ('7602', 3, 100),
 ('7602', 4, 150),
 ('7602', 5, 250);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `hall_reservation`
+--
+ALTER TABLE `hall_reservation`
+  ADD CONSTRAINT `hall_reservation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `hall` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `other_services_reservation`
+--
+ALTER TABLE `other_services_reservation`
+  ADD CONSTRAINT `other_services_reservation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `other_services` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`username`) REFERENCES `staff` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `reservation`
+--
+ALTER TABLE `reservation`
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `reservation_item`
+--
+ALTER TABLE `reservation_item`
+  ADD CONSTRAINT `reservation_item_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `room`
+--
+ALTER TABLE `room`
+  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `accomodation` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `room_reservation`
+--
+ALTER TABLE `room_reservation`
+  ADD CONSTRAINT `room_reservation_ibfk_1` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `venue_layout`
+--
+ALTER TABLE `venue_layout`
+  ADD CONSTRAINT `venue_layout_ibfk_1` FOREIGN KEY (`venue_no`) REFERENCES `venue` (`venue_no`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `venue_layout_ibfk_2` FOREIGN KEY (`layout_no`) REFERENCES `venue_layout` (`layout_no`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
