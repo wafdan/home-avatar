@@ -210,7 +210,8 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 #content{
 	display:block;
 	float:left;
-	width:600px;
+	width:500px;
+        height:100%;
 	}
 
 /* ------Comments-----*/
