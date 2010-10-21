@@ -43,7 +43,7 @@ public class MelihatLayananController {
     }
 
     public List<OtherServices> getPublishedOtherServicesList() {
-        return osjc.findPublishedOtherServicesEntities();
+        return osjc.findPublishedOtherServices();
     }
 
     public List<Venue> getVenueList() {
