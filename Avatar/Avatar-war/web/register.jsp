@@ -137,7 +137,7 @@
                 <label for="city">City</label>
             </div>
 
-        <div class="right">
+        <div class="left">
             <select class="element text medium" id="country" name="country">
                 <option value="" selected="selected"></option>
                 <option value="Afghanistan" >Afghanistan</option>
