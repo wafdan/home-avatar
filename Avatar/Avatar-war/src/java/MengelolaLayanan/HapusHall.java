@@ -6,6 +6,7 @@
 package MengelolaLayanan;
 
 import AvatarEntity.HallJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +42,8 @@ public class HapusHall extends HttpServlet {
             HallJpaController hjc=new HallJpaController();
             hjc.destroy(primaryKey);
             response.sendRedirect("../backend/fac_hall_manage.jsp");
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusHall.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
 

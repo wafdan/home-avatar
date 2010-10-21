@@ -5,6 +5,7 @@
 package MengelolaLayanan;
 
 import AvatarEntity.OtherServicesJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,12 +35,15 @@ public class HapusServ extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
         try {
             String primaryKey = request.getParameter("delete");
             out.write(primaryKey);
             OtherServicesJpaController sjc = new OtherServicesJpaController();
             sjc.destroy(primaryKey);
             response.sendRedirect("../backend/fac_serv_manage.jsp");
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusServ.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

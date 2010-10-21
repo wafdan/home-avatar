@@ -6,6 +6,7 @@
 package MengelolaLayanan;
 
 import AvatarEntity.AccomodationJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,6 +42,8 @@ public class HapusAcco extends HttpServlet {
             AccomodationJpaController sjc=new AccomodationJpaController();
             sjc.destroy(primaryKey);
             response.sendRedirect("../backend/fac_room_manage.jsp");
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
