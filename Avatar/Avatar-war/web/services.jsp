@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="AvatarEntity.OtherServicesJpaController"%>
 <%@ page import="AvatarEntity.OtherServices"%>
-<%@ page import="Layanan.Cart" %>
+<%@ page import="Layanan.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 
@@ -16,18 +16,18 @@
 
 <body id="top">
     <%
-        OtherServicesJpaController ctrl = new OtherServicesJpaController();
-        List<OtherServices> services = ctrl.findOtherServicesEntities();
+        MelihatLayananController ctrl = new MelihatLayananController();
+        List<OtherServices> services = ctrl.getOtherServicesList();
         OtherServices cur;
         String pid = request.getParameter("id");
         if (pid == null) {
             cur = services.get(0);
         } else {
-            cur = ctrl.findOtherServices(pid);
+            cur = ctrl.getOtherServices(pid);
         }
 
         Boolean isLogin = false;
-        if (session.getAttribute("uname") != null) {
+        if (session.getAttribute("name") != null) {
             isLogin = true;
         }
     %>
@@ -99,20 +99,12 @@
         out.println("<p><img src='" + cur.getImage() + "' />" + cur.getDescription() + "</p>");
         out.println("</div>");
       %>
-
-      <div class="addtocart">
-        <form action="#" method="post">
-          <p>
-            <input name="submit" type="submit" id="submit" value="Add To Cart" />
-          </p>
-        </form>
-      </div>
-	</div>
+    </div>
 
     <div id="column">
     	<div class="holder">
             <%if ((session.getAttribute("name")) != null) {%>
-                <h2 class="title"><img src="images/demo/cart.png" alt="" />5 Items in Your Cart Total : $1500</h2>
+                <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(ctrl.c.count()); %> Item(s) in Your Cart</h2>
             <%}/*else {*/%>
         </div>
 

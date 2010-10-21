@@ -1,11 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="AvatarEntity.Venue" %>
-<%@ page import="AvatarEntity.Hall" %>
-<%@ page import="AvatarEntity.VenueJpaController" %>
-<%@ page import="AvatarEntity.HallJpaController" %>
-<%@ page import="Layanan.Cart" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
+terator" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
@@ -19,10 +12,9 @@
 <body id="top">
 <div class="wrapper col1">
     <%
-        HallJpaController ctrl = new HallJpaController();
-        VenueJpaController ctrl2 = new VenueJpaController();
-        List<Venue> venues = ctrl2.findVenueEntities();
-        List<Hall> packages = ctrl.findHallEntities();
+        MelihatLayananController ctrl = new MelihatLayananController();
+        List<Venue> venues = ctrl.getVenueList();
+        List<Hall> packages = ctrl.getHallList();
         Object cur;
         String type = request.getParameter("type");
         String pid = request.getParameter("id");
@@ -31,18 +23,18 @@
                 cur = venues.get(0);
         } else {
                 if (type.equals("1")) {
-                        cur = ctrl2.findVenue(pid);
+                        cur = ctrl.getVenue(pid);
                 } else {
-                        cur = ctrl.findHall(pid);
+                        cur = ctrl.getHall(pid);
                 }
         }
 
         Boolean isLogin = false;
-        if (session.getAttribute("uname") != null) {
+        if (session.getAttribute("name") != null) {
                 isLogin = true;
         }
      %>
-        
+
   <div id="topbar">
        <%if ((session.getAttribute("name")) == null) {%>
     <form name="login" action="Login" method="post">
@@ -68,7 +60,7 @@
 
     <div id="topnav">
       <ul>
-        <li class="last"><a href="reservation.jsp">Reservation</a><span>make an order</span></li>
+        <li class="last"><a href="reservations.html">Reservation</a><span>make an order</span></li>
         <li><a href="services.jsp">Services</a><span>Our best services</span></li>
         <li class="active"><a href="hall.jsp">Events</a><span>Meeting and Conference</span></li>
         <li><a href="rooms.jsp">Rooms</a><span>Rooms and Facilities</span></li>
@@ -130,21 +122,12 @@
                 out.println("</div>");
             }
         %>
-
-      <div class="addtocart">
-        <form action="#" method="post">
-          <p>
-            <input name="submit" type="submit" id="submit" value="Add To Cart" />
-          </p>
-        </form>
-      </div>
-
-	</div>
+    </div>
 
     <div id="column">
     	<div class="holder">
             <%if ((session.getAttribute("name")) != null) {%>
-            <h2 class="title"><img src="images/demo/cart.png" alt="" />5 Items in Your Cart Total : $1500</h2>
+            <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(ctrl.c.count()); %> Item(s) in Your Cart</h2>
             <%}/*else {*/%>
         </div>
 
