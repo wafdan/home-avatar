@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="AvatarEntity.OtherServices" %>
-<%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="AvatarEntity.OtherServicesJpaController"%>
+<%@ page import="AvatarEntity.OtherServices"%>
 <%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
@@ -16,14 +16,14 @@
 
 <body id="top">
     <%
-        MelihatLayananController ctrl = new MelihatLayananController();
-        List<OtherServices> services = ctrl.getPublishedOtherServicesList();
+        OtherServicesJpaController ctrl = new OtherServicesJpaController();
+        List<OtherServices> services = ctrl.findOtherServicesEntities();
         OtherServices cur;
         String pid = request.getParameter("id");
         if (pid == null) {
             cur = services.get(0);
         } else {
-            cur = ctrl.getOtherServices(pid);
+            cur = ctrl.findOtherServices(pid);
         }
 
         Boolean isLogin = false;

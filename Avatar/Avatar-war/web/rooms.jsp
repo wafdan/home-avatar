@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.*,java.sql.*" %>
-<%@ page import="Layanan.MelihatLayananController" %>
 <%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
@@ -16,14 +15,14 @@
 
 <body id="top">
      <%
-        MelihatLayananController ctrl = new MelihatLayananController();
-        List<Accomodation> rooms = ctrl.getAccomodationList();
+        AccomodationJpaController ctrl = new AccomodationJpaController();
+        List<Accomodation> rooms = ctrl.findAccomodationEntities();
         Accomodation cur;
         String pid = request.getParameter("id");
         if (pid == null) {
             cur = rooms.get(0);
         } else {
-            cur = ctrl.getAccomodation(pid);
+            cur = ctrl.findAccomodation(pid);
         }
 
         Boolean isLogin = false;

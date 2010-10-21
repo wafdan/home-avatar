@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="AvatarEntity.Venue" %>
 <%@ page import="AvatarEntity.Hall" %>
-<%@ page import="Layanan.MelihatLayananController" %>
+<%@ page import="AvatarEntity.VenueJpaController" %>
+<%@ page import="AvatarEntity.HallJpaController" %>
 <%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
@@ -18,9 +19,10 @@
 <body id="top">
 <div class="wrapper col1">
     <%
-        MelihatLayananController ctrl = new MelihatLayananController();
-        List<Venue> venues = ctrl.getVenueList();
-        List<Hall> packages = ctrl.getHallList();
+        HallJpaController ctrl = new HallJpaController();
+        VenueJpaController ctrl2 = new VenueJpaController();
+        List<Venue> venues = ctrl2.findVenueEntities();
+        List<Hall> packages = ctrl.findHallEntities();
         Object cur;
         String type = request.getParameter("type");
         String pid = request.getParameter("id");
@@ -29,9 +31,9 @@
                 cur = venues.get(0);
         } else {
                 if (type.equals("1")) {
-                        cur = ctrl.getVenue(pid);
+                        cur = ctrl2.findVenue(pid);
                 } else {
-                        cur = ctrl.getHall(pid);
+                        cur = ctrl.findHall(pid);
                 }
         }
 
