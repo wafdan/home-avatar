@@ -8,8 +8,8 @@ package AvatarEntity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "room_reservation")
+@DiscriminatorValue("R")
 @NamedQueries({
     @NamedQuery(name = "RoomReservation.findAll", query = "SELECT r FROM RoomReservation r"),
     @NamedQuery(name = "RoomReservation.findByReservationItemId", query = "SELECT r FROM RoomReservation r WHERE r.reservationItemId = :reservationItemId"),
@@ -34,12 +35,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "RoomReservation.findByExitDate", query = "SELECT r FROM RoomReservation r WHERE r.exitDate = :exitDate"),
     @NamedQuery(name = "RoomReservation.findByActualEntry", query = "SELECT r FROM RoomReservation r WHERE r.actualEntry = :actualEntry"),
     @NamedQuery(name = "RoomReservation.findByActualExit", query = "SELECT r FROM RoomReservation r WHERE r.actualExit = :actualExit")})
-public class RoomReservation implements Serializable {
+public class RoomReservation extends ReservationItem implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "reservation_item_id")
-    private Integer reservationItemId;
     @Basic(optional = false)
     @Column(name = "entry_date")
     @Temporal(TemporalType.DATE)
@@ -54,11 +51,9 @@ public class RoomReservation implements Serializable {
     @Column(name = "actual_exit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actualExit;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "roomReservation")
-    private HallReservation hallReservation;
-    @JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
+    /*@JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private ReservationItem reservationItem;
+    private ReservationItem reservationItem;*/
     @JoinColumn(name = "room_no", referencedColumnName = "room_no")
     @ManyToOne(optional = false)
     private Room roomNo;
@@ -74,14 +69,6 @@ public class RoomReservation implements Serializable {
         this.reservationItemId = reservationItemId;
         this.entryDate = entryDate;
         this.exitDate = exitDate;
-    }
-
-    public Integer getReservationItemId() {
-        return reservationItemId;
-    }
-
-    public void setReservationItemId(Integer reservationItemId) {
-        this.reservationItemId = reservationItemId;
     }
 
     public Date getEntryDate() {
@@ -116,21 +103,13 @@ public class RoomReservation implements Serializable {
         this.actualExit = actualExit;
     }
 
-    public HallReservation getHallReservation() {
-        return hallReservation;
-    }
-
-    public void setHallReservation(HallReservation hallReservation) {
-        this.hallReservation = hallReservation;
-    }
-
-    public ReservationItem getReservationItem() {
+    /*public ReservationItem getReservationItem() {
         return reservationItem;
     }
 
     public void setReservationItem(ReservationItem reservationItem) {
         this.reservationItem = reservationItem;
-    }
+    }*/
 
     public Room getRoomNo() {
         return roomNo;

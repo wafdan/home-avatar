@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,6 +28,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "hall_reservation")
+@DiscriminatorValue("H")
 @NamedQueries({
     @NamedQuery(name = "HallReservation.findAll", query = "SELECT h FROM HallReservation h"),
     @NamedQuery(name = "HallReservation.findByReservationItemId", query = "SELECT h FROM HallReservation h WHERE h.reservationItemId = :reservationItemId"),
@@ -33,12 +36,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "HallReservation.findByEndTime", query = "SELECT h FROM HallReservation h WHERE h.endTime = :endTime"),
     @NamedQuery(name = "HallReservation.findByUseDate", query = "SELECT h FROM HallReservation h WHERE h.useDate = :useDate"),
     @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees")})
-public class HallReservation implements Serializable {
+public class HallReservation extends ReservationItem implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "reservation_item_id")
-    private Integer reservationItemId;
     @Basic(optional = false)
     @Column(name = "begin_time")
     @Temporal(TemporalType.TIME)
@@ -54,15 +53,15 @@ public class HallReservation implements Serializable {
     @Basic(optional = false)
     @Column(name = "attendees")
     private int attendees;
-    @JoinColumn(name = "venue_no", referencedColumnName = "venue_no")
-    @ManyToOne
-    private Venue venueNo;
+    /*@JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private ReservationItem reservationItem;*/
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     @ManyToOne(optional = false)
     private Hall productId;
-    @JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private RoomReservation roomReservation;
+    @JoinColumn(name = "venue_no", referencedColumnName = "venue_no")
+    @ManyToOne
+    private Venue venueNo;
 
     public HallReservation() {
     }
@@ -77,14 +76,6 @@ public class HallReservation implements Serializable {
         this.endTime = endTime;
         this.useDate = useDate;
         this.attendees = attendees;
-    }
-
-    public Integer getReservationItemId() {
-        return reservationItemId;
-    }
-
-    public void setReservationItemId(Integer reservationItemId) {
-        this.reservationItemId = reservationItemId;
     }
 
     public Date getBeginTime() {
@@ -119,13 +110,13 @@ public class HallReservation implements Serializable {
         this.attendees = attendees;
     }
 
-    public Venue getVenueNo() {
-        return venueNo;
+    /*public ReservationItem getReservationItem() {
+        return reservationItem;
     }
 
-    public void setVenueNo(Venue venueNo) {
-        this.venueNo = venueNo;
-    }
+    public void setReservationItem(ReservationItem reservationItem) {
+        this.reservationItem = reservationItem;
+    }*/
 
     public Hall getProductId() {
         return productId;
@@ -135,12 +126,12 @@ public class HallReservation implements Serializable {
         this.productId = productId;
     }
 
-    public RoomReservation getRoomReservation() {
-        return roomReservation;
+    public Venue getVenueNo() {
+        return venueNo;
     }
 
-    public void setRoomReservation(RoomReservation roomReservation) {
-        this.roomReservation = roomReservation;
+    public void setVenueNo(Venue venueNo) {
+        this.venueNo = venueNo;
     }
 
     @Override

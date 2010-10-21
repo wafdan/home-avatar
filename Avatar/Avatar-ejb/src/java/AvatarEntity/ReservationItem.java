@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -29,36 +31,35 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "reservation_item")
+@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries({
     @NamedQuery(name = "ReservationItem.findAll", query = "SELECT r FROM ReservationItem r"),
     @NamedQuery(name = "ReservationItem.findByReservationItemId", query = "SELECT r FROM ReservationItem r WHERE r.reservationItemId = :reservationItemId"),
     @NamedQuery(name = "ReservationItem.findByReservationTime", query = "SELECT r FROM ReservationItem r WHERE r.reservationTime = :reservationTime"),
-    @NamedQuery(name = "ReservationItem.findByPrice", query = "SELECT r FROM ReservationItem r WHERE r.price = :price"),
-    @NamedQuery(name = "ReservationItem.findByDtype", query = "SELECT r FROM ReservationItem r WHERE r.dtype = :dtype")})
+    @NamedQuery(name = "ReservationItem.findByPrice", query = "SELECT r FROM ReservationItem r WHERE r.price = :price")})
 public class ReservationItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "reservation_item_id")
-    private Integer reservationItemId;
+    protected Integer reservationItemId;
     @Basic(optional = false)
     @Column(name = "reservation_time")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date reservationTime;
+    protected Date reservationTime;
     @Basic(optional = false)
     @Column(name = "price")
-    private double price;
-    @Basic(optional = false)
-    @Column(name = "DTYPE")
-    private char dtype;
+    protected double price;
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
+    protected HallReservation hallReservation;*/
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
     @ManyToOne(optional = false)
-    private Reservation reservationId;
+    protected Reservation reservationId;
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
+    protected OtherServicesReservation otherServicesReservation;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
-    private OtherServicesReservation otherServicesReservation;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
-    private RoomReservation roomReservation;
+    protected RoomReservation roomReservation;*/
 
     public ReservationItem() {
     }
@@ -71,7 +72,6 @@ public class ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
         this.reservationTime = reservationTime;
         this.price = price;
-        this.dtype = dtype;
     }
 
     public Integer getReservationItemId() {
@@ -98,13 +98,13 @@ public class ReservationItem implements Serializable {
         this.price = price;
     }
 
-    public char getDtype() {
-        return dtype;
+    /*public HallReservation getHallReservation() {
+        return hallReservation;
     }
 
-    public void setDtype(char dtype) {
-        this.dtype = dtype;
-    }
+    public void setHallReservation(HallReservation hallReservation) {
+        this.hallReservation = hallReservation;
+    }*/
 
     public Reservation getReservationId() {
         return reservationId;
@@ -114,7 +114,7 @@ public class ReservationItem implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public OtherServicesReservation getOtherServicesReservation() {
+    /*public OtherServicesReservation getOtherServicesReservation() {
         return otherServicesReservation;
     }
 
@@ -128,7 +128,7 @@ public class ReservationItem implements Serializable {
 
     public void setRoomReservation(RoomReservation roomReservation) {
         this.roomReservation = roomReservation;
-    }
+    }*/
 
     @Override
     public int hashCode() {

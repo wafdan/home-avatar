@@ -30,7 +30,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "OtherServices.findByProductType", query = "SELECT o FROM OtherServices o WHERE o.productType = :productType"),
     @NamedQuery(name = "OtherServices.findByPricingUnit", query = "SELECT o FROM OtherServices o WHERE o.pricingUnit = :pricingUnit"),
     @NamedQuery(name = "OtherServices.findByUnitPrice", query = "SELECT o FROM OtherServices o WHERE o.unitPrice = :unitPrice"),
-    @NamedQuery(name = "OtherServices.findByPublished", query = "SELECT o FROM OtherServices o WHERE o.published = :published")})
+    @NamedQuery(name = "OtherServices.findByPublished", query = "SELECT o FROM OtherServices o WHERE o.published = :published"),
+    @NamedQuery(name = "OtherServices.findPublished", query = "SELECT o FROM OtherServices o WHERE o.published = 1")})
 public class OtherServices implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
