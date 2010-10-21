@@ -203,14 +203,14 @@
                                 <ul>
                                     <li>ROOMS
                                         <ul>
-                                            <li><a href="#">Add New Room</a></li>
+                                            <li><a href="fac_room_add.jsp">Add New Room</a></li>
                                             <li><a href="fac_room_manage.jsp">Manage Room</a></li>
                                         </ul>
                                     </li>
                                     <li>MEETINGS & EVENTS
                                         <ul>
-                                            <li><a href="#">Add New Packet</a></li>
-                                            <li class="curtab"><a href="#">Manage Packet</a></li>
+                                            <li><a href="fac_hall_add.jsp">Add New Packet</a></li>
+                                            <li><a href="#">Manage Packet</a></li>
                                         </ul>
                                     </li>
                                     <li>OTHER SERVICES

@@ -59,6 +59,36 @@
                 font-weight: bold;
                 font-size: large;
             }
+
+            label{
+                float: left;
+                width: 120px;
+                font-weight: bold;
+            }
+
+            input, textarea{
+                width: 180px;
+                margin-bottom: 5px;
+            }
+
+            textarea{
+                width: 250px;
+                height: 150px;
+            }
+
+            .boxes{
+                width: 1em;
+            }
+
+            #submitbutton{
+                margin-left: 120px;
+                margin-top: 5px;
+                width: 90px;
+            }
+
+            br{
+                clear: left;
+            }
         </style>
         <script type="text/javascript">
             function confirmAction()
@@ -109,7 +139,7 @@
                         </ul>
                         <div class="post">
                             <div class="fac1">
-                                <form>
+                                <form action="TambahHall" method="post">
                                     <label for="pid">Product ID</label>
                                     <input type="text" name="pid" id="pid" value="" /><br />
 
@@ -143,8 +173,8 @@
                                     <label for="tlat">Tolerance Late:</label>
                                     <input type="text" name="tlat" id="tlat" value="" /><br />
 
-
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
+                                    <a href="fac_hall_manage.jsp">  Cancel  </a>
                                 </form>
                             </div>
                         </div>
