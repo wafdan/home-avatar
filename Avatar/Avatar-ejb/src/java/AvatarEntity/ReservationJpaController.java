@@ -256,6 +256,26 @@ public class ReservationJpaController {
         }
     }
 
+    public List<Reservation> findUnpaid() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("findUnpaid");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Reservation> findPaid() {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("findpaid");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getReservationCount() {
         EntityManager em = getEntityManager();
         try {
