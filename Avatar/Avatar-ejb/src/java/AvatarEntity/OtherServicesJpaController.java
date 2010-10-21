@@ -21,7 +21,7 @@ import java.util.Collection;
 
 /**
  *
- * @author Christian
+ * @author TOSHIBA
  */
 public class OtherServicesJpaController {
 
@@ -190,12 +190,6 @@ public class OtherServicesJpaController {
         } finally {
             em.close();
         }
-    }
-
-    public List<OtherServices> findPublishedOtherServices() {
-        EntityManager em = getEntityManager();
-        Query q = em.createNamedQuery("findPublished");
-        return q.getResultList();
     }
 
     public int getOtherServicesCount() {
