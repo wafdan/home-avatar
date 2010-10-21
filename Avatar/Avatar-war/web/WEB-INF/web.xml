@@ -124,6 +124,18 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAcco</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditAcco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditHall</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditHall</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServ</servlet-name>
+        <url-pattern>/MengelolaLayanan/EditServ</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
