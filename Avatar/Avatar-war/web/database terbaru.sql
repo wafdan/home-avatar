@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2010 at 09:54 AM
+-- Generation Time: Oct 21, 2010 at 11:50 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -355,7 +355,8 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
   `actual_entry` datetime DEFAULT NULL,
   `actual_exit` datetime DEFAULT NULL,
   PRIMARY KEY (`reservation_item_id`),
-  KEY `room_no` (`room_no`)
+  KEY `room_no` (`room_no`),
+  KEY `reservation_item_id` (`reservation_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -472,12 +473,15 @@ INSERT INTO `venue_layout` (`venue_no`, `layout_no`, `capacity`) VALUES
 -- Constraints for table `hall_reservation`
 --
 ALTER TABLE `hall_reservation`
-  ADD CONSTRAINT `hall_reservation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `hall` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `hall_reservation_ibfk_4` FOREIGN KEY (`reservation_item_id`) REFERENCES `reservation_item` (`reservation_item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `hall_reservation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `hall` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `hall_reservation_ibfk_3` FOREIGN KEY (`venue_no`) REFERENCES `venue` (`venue_no`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `other_services_reservation`
 --
 ALTER TABLE `other_services_reservation`
+  ADD CONSTRAINT `other_services_reservation_ibfk_2` FOREIGN KEY (`reservation_item_id`) REFERENCES `reservation_item` (`reservation_item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `other_services_reservation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `other_services` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -509,6 +513,7 @@ ALTER TABLE `room`
 -- Constraints for table `room_reservation`
 --
 ALTER TABLE `room_reservation`
+  ADD CONSTRAINT `room_reservation_ibfk_2` FOREIGN KEY (`reservation_item_id`) REFERENCES `reservation_item` (`reservation_item_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `room_reservation_ibfk_1` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
