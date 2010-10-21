@@ -6,6 +6,7 @@
 package MengelolaPengguna;
 
 import AvatarEntity.CustomerJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,6 +40,8 @@ public class HapusCustomer extends HttpServlet {
             CustomerJpaController cjc=new CustomerJpaController();
             cjc.destroy(primaryKey);
             response.sendRedirect("ManageCustomer.jsp");
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
