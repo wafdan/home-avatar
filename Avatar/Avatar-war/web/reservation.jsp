@@ -16,22 +16,60 @@
     <body>
         <%
 
-        try{
+                    try {
 
-            if (request.getParameter("step").equals("2")) {
-                /* INI HALAMAN KEDUA */
-            } else if (request.getParameter("step").equals("3")) {
-                /* INI HALAMAN KETIGA */
-            } else {
-                /* INI HALAMAN PERTAMA */
+                        if (request.getParameter("step").equals("2")) {
+                            /* INI HALAMAN KEDUA */
         %>
-        
-        <%
-                
-            }
-            }
-        catch(NullPointerException ex){%>
-          <h1> Reservation Form</h1>
+        <h1>THIS IS RESUME OF YOUR RESERVATION</h1>
+        <h2>Room</h2>
+        <table>
+            <tr>
+                <th>No.</th>
+                <th>Facility</th>
+                <th>Duration (days)</th>
+                <th>Unit price</th>
+                <th>Total price</th>
+            </tr>
+            <tr>
+                <% /*ini buat produce isi td-nya*/%>
+            </tr>
+        </table>
+        <%                    } else if (request.getParameter("step").equals("3")) {
+                        /* INI HALAMAN KETIGA */
+        %> 
+        <p>Please transfer Rp. <% /*Total pembayaran*/%> to one of these account number : </p>
+        <ol>
+            <li>
+                Bank : BRI
+                Acc. No. : 0992-19920776-1
+                Holder name : Zulfikar Hakim
+            </li>
+
+            <li>
+                Bank : BCA
+                Acc No. : 03976-1-374-1
+                Holder name : Zulfikar Hakim
+            </li>
+        </ol>
+
+        <FORM METHOD="LINK" ACTION="#">
+            <INPUT TYPE="submit" VALUE="Confirm payment now">
+        </FORM>
+
+        <form method="link" action="#">
+            <input type="submit" value="Go to main page"
+        </form>
+
+
+
+        <%                            } else {
+                        /* INI HALAMAN PERTAMA */
+        %>
+
+        <%                    }
+                } catch (NullPointerException ex) {%>
+        <h1> Reservation Form</h1>
         <p> Please fill up this form to book our facility. </p>
         <h2>ROOM</h2>
 
@@ -39,7 +77,7 @@
             <label>Room type : </label>
             <select name="roomtype">
                 <%
-                    /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
+                            /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
                 %>
             </select>
             <label>Total room</label> <input type="text" name="totalroom" />
@@ -49,8 +87,7 @@
             <h2>HALL</h2>
             <label>Package</label>
             <select name="packagetype">
-                <%
-                    /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+                <%                            /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
                 %>
             </select>
             <label>Total hall needed</label> <input type="text" name="totalhall" />
