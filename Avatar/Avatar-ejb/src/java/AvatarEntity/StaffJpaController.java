@@ -192,4 +192,14 @@ public class StaffJpaController {
         }
     }
 
+    public String translatePosition(short input){
+        if(input==0){
+            return "Administrator";
+        }else if(input ==1){
+            return "Receptionist";
+        }else{
+            return "Manager";
+        }
+    }
+
 }
