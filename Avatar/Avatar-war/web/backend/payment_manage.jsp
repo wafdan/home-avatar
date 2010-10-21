@@ -73,12 +73,14 @@
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
                                 <tr>
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Fasilitas</th>
-                                    <th bgcolor="#262626" width="77">Tipe</th>
-                                    <th bgcolor="#262626" width="96">Waktu</th>
-
+                                    <th bgcolor="#262626">ID</th>
+                                    <th bgcolor="#262626">Username</th>
+                                    <th bgcolor="#262626">Reservation Time</th>
+                                    <th bgcolor="#262626">Total</th>
+                                    <th bgcolor="#262626">On Spot?</th>
+                                    <th bgcolor="#262626">Confirmed?</th>
+                                    <th bgcolor="#262626">Verified?</th>
+                                    <th bgcolor="#262626">Notes</th>
                                 </tr>
 
                                 <%
@@ -102,27 +104,14 @@
                                                     Reservation temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%index++;
-                                                                                        out.write(Integer.toString(index));
-                                        %></td>
-
-                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                    <td><div style="overflow:auto"><%
-                                          /*  int ck = 0;
-                                            for (Iterator<RoomReservation> j = RoomList.iterator(); j.hasNext();) {
-                                                RoomReservation tmp = j.next();
-                                                if (temp.getReservationTime().compareTo(tmp.getReservationTime())==0) {
-                                                    ck =1;
-                                                }
-                                            }
-                                            if (ck==1) {out.write("Room");} else {out.write("Hall");}
-                                            */
-                                            out.write("Room");
-                                        %></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                    <td><div style="overflow:auto"> <% out.write(temp.getReservationTime().toString());%></div></td>
-                                    <td><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><div style="overflow:auto"><%= temp.getReservationId().toString() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getUsername().getUsername() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getReservationTime() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getTotalPrice() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getIsOnspot() ? "yes" : "no" %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getPayment() != null ? "yes" : "no" %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getPayment().getUsername() != null ? "yes" : "no" %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getNote() %></div></td>
                                 </tr>
 
                     <%

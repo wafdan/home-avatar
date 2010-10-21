@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.*,java.sql.*" %>
-<%@ page import="Layanan.MelihatLayananController" %>
 <%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
@@ -67,7 +66,7 @@
   <div id="container">
     <div id="content">
         <h1>Registration Form</h1>
-        <form id="formregistrasi" class="appnitro"  method="post" action="TambahAkun">
+        <form id="formregistrasi" class="appnitro"  method="post" action="MelakukanRegistrasi/TambahAkun">
 
         <ul id="list_field">
         <li id="li_1" >
@@ -125,7 +124,12 @@
 
             <div>
                 <input id="address1" name="address1" class="element text large" value="" type="text" />
-                <label for="address1">Street Address</label>
+                <label for="address1">Street Address - Line 1</label>
+            </div>
+
+            <div>
+                <input id="address2" name="address2" class="element text large" value="" type="text" />
+                <label for="address2">Street Address - Line 2</label>
             </div>
 
             <div class="left">

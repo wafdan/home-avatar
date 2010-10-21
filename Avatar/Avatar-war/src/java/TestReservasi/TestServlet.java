@@ -6,6 +6,7 @@
 package TestReservasi;
 
 import AvatarEntity.CustomerJpaController;
+import AvatarEntity.PaymentJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationItemJpaController;
@@ -55,20 +56,20 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath () + "</h1>");
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            /*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             CustomerJpaController custjpa = new CustomerJpaController();
             ReservationJpaController resjpa = new ReservationJpaController();
             ReservationItemJpaController rijpa = new ReservationItemJpaController();
             RoomJpaController rmjpa = new RoomJpaController();
             Room rm = rmjpa.findRoom("105");
             RoomReservation rr = new RoomReservation();
-            Reservation res = new Reservation();
-            rr.setReservationId(res);
             rr.setReservationTime(new Date());
             rr.setRoomNo(rm);
             rr.setPrice(rm.getProductId().getWeekdayRate());
             rr.setEntryDate(df.parse("2010-12-25"));
             rr.setExitDate(df.parse("2010-12-26"));
+            Reservation res = new Reservation();
+            
             res.setNote("tes");
             res.setUsername(custjpa.findCustomer("christian.h6191"));
             resjpa.create(res);
@@ -77,6 +78,28 @@ public class TestServlet extends HttpServlet {
             for (ReservationItem item : coll) {
                 item.setReservationId(res);
                 rijpa.create(item);
+            }*/
+            ReservationJpaController resjpa = new ReservationJpaController();
+            PaymentJpaController payjpa = new PaymentJpaController();
+            List<Reservation> lresUnpaid = resjpa.findUnpaid();
+            if (!lresUnpaid.isEmpty()) {
+                for (Reservation item : lresUnpaid) {
+                    out.println("Nomor: " + item.getReservationId() + "<br />");
+                    out.println("User: " + item.getUsername().getName() + "<br />");
+                    out.println("-----<br />");
+                }
+            } else {
+                out.println("Tidak ada tunggakan.<br />");
+            }
+            List<Reservation> lresPaid = resjpa.findPaid();
+            if (!lresPaid.isEmpty()) {
+                for (Reservation item : lresPaid) {
+                    out.println("Nomor: " + item.getReservationId() + "<br />");
+                    out.println("User: " + item.getUsername().getName() + "<br />");
+                    out.println("-----<br />");
+                }
+            } else {
+                out.println("Tidak ada pembayaran lunas.<br />");
             }
             out.println("</body>");
             out.println("</html>");

@@ -96,7 +96,7 @@ public class TambahAkun extends HttpServlet {
                     }
                 } while (cust != null);
                 cust = new Customer(uname, name, EncMd5.MD5(pass), email, identityType, identityNumber, address1, city, country);
-                if (!address2.equals("")) cust.setTelephone(address2);
+                if (!address2.equals("")) cust.setAddress2(address2);
                 if (!telephone.equals("")) cust.setTelephone(telephone);
                 custJC.create(cust);
                 response.setContentType("text/html;charset=UTF-8");
@@ -117,7 +117,7 @@ public class TambahAkun extends HttpServlet {
                         "Username: " + uname + "\n" + "Password: " + pass + "\n";
                 EmailSender.sendEmail(email, "chrhad081@gmail.com", "", "Hotel Reservation Registration", body);
             } else {
-                response.sendRedirect("Registrasi.jsp?" + redirparam);
+                response.sendRedirect("../register.jsp?" + redirparam);
             }
         } catch (PreexistingEntityException ex) {
             out.println("Internal Error: Data already existed");
