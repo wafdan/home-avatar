@@ -5,14 +5,8 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.Accomodation;
-import AvatarEntity.AccomodationJpaController;
-import AvatarEntity.exceptions.PreexistingEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TOSHIBA
  */
-@WebServlet(name="TambahAcco", urlPatterns={"/backend/TambahAcco"})
-public class TambahAcco extends HttpServlet {
+@WebServlet(name="TambahOtherServices", urlPatterns={"/backend/TambahOtherServices"})
+public class TambahOtherServices extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,43 +32,17 @@ public class TambahAcco extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String pid = request.getParameter("pid");
-            String type = request.getParameter("type");
-            String desc = request.getParameter("desc");
-            String img = request.getParameter("img");
-            String max = request.getParameter("max");
-            String nent = request.getParameter("nent");
-            String noxt = request.getParameter("noxt");
-            String wday = request.getParameter("wday");
-            String wend = request.getParameter("wend");
-            String terl = request.getParameter("terl");
-            String tlat = request.getParameter("tlat");
-
-            Accomodation hoo = new Accomodation();
-            AccomodationJpaController ajc = new AccomodationJpaController();
-
-            hoo.setProductId(pid);
-            hoo.setProductType(type);
-            hoo.setDescription(desc);
-            hoo.setImage(img);
-            hoo.setMaxPax(Integer.parseInt(max));
-            hoo.setNormalEntry(Time.valueOf(nent));
-            hoo.setNormalExit(Time.valueOf(noxt));
-            hoo.setWeekdayRate(Double.parseDouble(wday));
-            hoo.setWeekendRate(Double.parseDouble(wend));
-            hoo.setToleranceEarly(Time.valueOf(terl));
-            hoo.setToleranceLate(Time.valueOf(tlat));
-
-            ajc.create(hoo);
-
-            out.println("hoooo");
-            response.sendRedirect("fac_room_manage.jsp");
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahAcco.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(TambahAcco.class.getName()).log(Level.SEVERE, null, ex);
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet TambahOtherServices</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet TambahOtherServices at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
         } finally { 
-            //response.sendRedirect("fac_room_add.jsp");
             out.close();
         }
     } 
