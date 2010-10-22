@@ -12,12 +12,27 @@ legend{display:none;}
 #container #respond p{margin:5px 0;}
 
 #container #submit{
-	margin:0;
+	margin-right:20px;
 	padding:5px;
 	color:#666666;
 	background-color:#F7F7F7;
 	border:1px solid #CCCCCC;
 	}
+#container #submit:hover{
+	margin-right:20px;
+	padding:5px;
+	color:#666666;
+	background-color:#95ec00;
+	border:3px solid #CCCCCC;
+	}
+#container #submit:visited{
+	margin-right:20px;
+	padding:5px;
+	color:#666666;
+	background-color:#111;
+	border:3px solid #CCCCCC;
+	}
+
 #container form ul {
     list-style: none;
 
