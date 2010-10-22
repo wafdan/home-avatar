@@ -11,18 +11,29 @@
 <%@page import="AvatarEntity.AccomodationJpaController"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
+<%@page import="Pemesanan.CartLocal"%>
+<%@page import="javax.ejb.EJB"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.NamingException"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="java.util.logging.Level"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
+<%!
+    private CartLocal lookupCartSessionBeanLocal() {
+        try {
+            Context c = new InitialContext();
+            return (CartLocal) c.lookup("java:global/Avatar/Avatar-ejb/CartSessionBean!Pemesanan.CartLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Reservation Page</title>
-        <link type="text/css" href="styles/jquerystyle.css" rel="stylesheet" />
-        <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="jquery/jqueryui.js"></script>
-        <script type="text/javascript">
+    CartLocal c=lookupCartSessionBeanLocal();
+    %>
             $(function(){
 
                     // Datepicker
@@ -37,56 +48,61 @@
                     );
 
             });
-        </script>
-    </head>
-    <body>
-        <%
 
-                    try {
+            
+            <%
 
-                        if (request.getParameter("step").equals("2")) {
-                            /* INI HALAMAN KEDUA */
-        %>
-        <h1>THIS IS RESUME OF YOUR RESERVATION</h1>
-        <h2>Room</h2>
-        <table>
-            <tr>
-                <th>No.</th>
-                <th>Facility</th>
-                <th>Duration (days)</th>
-                <th>Unit price</th>
-                <th>Total price</th>
-            </tr>
-            <tr>
-                <% /*ini buat produce isi td-nya*/%>
-            </tr>
-        </table>
-        <%                    } else if (request.getParameter("step").equals("3")) {
-                                    /* INI HALAMAN KETIGA */
-        %>
-        <p>Please transfer Rp. <% /*Total pembayaran*/%> to one of these account number : </p>
-        <ol>
-            <li>
-                Bank : BRI
-                Acc. No. : 0992-19920776-1
-                Holder name : Zulfikar Hakim
-            </li>
 
-            <li>
-                Bank : BCA
-                Acc No. : 03976-1-374-1
-                Holder name : Zulfikar Hakim
-            </li>
-        </ol>
 
-        <FORM METHOD="LINK" ACTION="#">
-            <INPUT TYPE="submit" VALUE="Confirm payment now">
-        </FORM>
+                        try {
 
-        <form method="link" action="#">
-            <input type="submit" value="Go to main page"
-        </form>
+                            if (request.getParameter("step").equals("2")) {
+                                /* INI HALAMAN KEDUA */
 
+                                out.write("Jumlah hall="+c.getListHall().size());
+
+            %>
+                       
+            <h1>THIS IS RESUME OF YOUR RESERVATION</h1>
+            <h2>Room</h2>
+            <table>
+                <tr>
+                    <th>No.</th>
+                    <th>Facility</th>
+                    <th>Duration (days)</th>
+                    <th>Unit price</th>
+                    <th>Total price</th>
+                </tr>
+                <tr>
+                    <% /*ini buat produce isi td-nya*/%>
+                </tr>
+            </table>
+            <%                    } else if (request.getParameter("step").equals("3")) {
+                                        /* INI HALAMAN KETIGA */
+            %>
+            <p>Please transfer Rp. <% /*Total pembayaran*/%> to one of these account number : </p>
+            <ol>
+                <li>
+                    Bank : BRI
+                    Acc. No. : 0992-19920776-1
+                    Holder name : Zulfikar Hakim
+                </li>
+
+                <li>
+                    Bank : BCA
+                    Acc No. : 03976-1-374-1
+                    Holder name : Zulfikar Hakim
+                </li>
+            </ol>
+
+            <FORM METHOD="LINK" ACTION="#">
+                <INPUT TYPE="submit" VALUE="Confirm payment now">
+            </FORM>
+
+            <form method="link" action="#">
+                <input type="submit" value="Go to main page"
+            </form>
+       
 
 
         <%                            } else {
@@ -94,12 +110,13 @@
         %>
 
         <%                    }
-                            } catch (NullPointerException ex) {%>
+                            } catch (NullPointerException ex) {
+                                ex.printStackTrace();%>
         <h1> Reservation Form</h1>
         <p> Please fill up this form to book our facility. </p>
         <h2>ROOM</h2>
 
-        <form action="AddFacility" method="POST">
+        <form action="TambahKeranjang" method="POST">
             <label>Room type : </label>
             <select name="roomtype">
                 <%
@@ -143,6 +160,7 @@
             <!-- BAGIAN DHANA LAGI -->
             <label>Date</label> <input name="halldate" type="text" class="datepicker" />
             <!-- END OF BAGIAN DHANA -->
+            <input type="submit" value="SUBMIT">
         </form>
         <%}
         %>
