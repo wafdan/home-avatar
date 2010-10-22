@@ -193,7 +193,7 @@
                         </div>
                     </div>
                     <!-- end content -->
-                    <jsp:include page="sidebar.jsp" />
+                    <jsp:include page="fac_sidebar.jsp" />
                     <div style="clear: both;">&nbsp;</div>
                 </div>
                 <!-- end page -->
