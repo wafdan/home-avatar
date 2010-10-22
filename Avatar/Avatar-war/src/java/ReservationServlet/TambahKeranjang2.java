@@ -2,35 +2,31 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ReservationServlet;
 
 import Pemesanan.CartLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Pemesanan.CartSessionBean;
-import javax.ejb.EJB;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  *
  * @author zulfikar
  */
-public class TambahKeranjang extends HttpServlet {
-    CartLocal cartSessionBean1 = lookupCartSessionBeanLocal();
-
-
+@WebServlet(name="TambahKeranjang2", urlPatterns={"/TambahKeranjang2"})
+public class TambahKeranjang2 extends HttpServlet {
+    CartLocal cartSessionBean = lookupCartSessionBeanLocal();
+   
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -38,37 +34,26 @@ public class TambahKeranjang extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-
-            String roomType = (String) request.getParameter("roomtype");
-            Date checkInDate = df.parse((String) request.getParameter("roomcheckindate"));
-
-            Date checkOutDate = df.parse((String) request.getParameter("roomcheckoutdate"));
-            short totalRoom = Short.parseShort((String) request.getParameter("totalroom"));
-
-            String packageType = (String) request.getParameter("packagetype");
-            Date hallDate = df.parse((String) request.getParameter("halldate"));
-            short totalHall = Short.parseShort((String) request.getParameter("totalhall"));
-
-            cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
-            cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
-
-            out.write("Jumlah hall="+cartSessionBean1.getListHall().size());
-            // request.setAttribute("listhall", cartSessionBean1.getListHall());
-            response.sendRedirect("TambahKeranjang2");
-        } catch (ParseException ex) {
-            Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet TambahKeranjang2</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet TambahKeranjang2 at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
+            out.write("Jumlah hall="+cartSessionBean.getListHall().size());
+        } finally { 
             out.close();
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -80,9 +65,9 @@ public class TambahKeranjang extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -93,7 +78,7 @@ public class TambahKeranjang extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -116,12 +101,4 @@ public class TambahKeranjang extends HttpServlet {
         }
     }
 
-
-
 }
-
-/**
- * @author Deepak Kumar
- * @Web http://www.roseindia.net
- * @Email deepak@roseindia.net
- */
