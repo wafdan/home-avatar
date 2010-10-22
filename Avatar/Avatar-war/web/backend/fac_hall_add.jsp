@@ -165,7 +165,7 @@
                                     <input type="text" name="stim" id="stim" value="00:00:00" /><br />
 
                                     <label for="etim">End Time:</label>
-                                    <input type="text" name="etim" id="etim" value="" /><br />
+                                    <input type="text" name="etim" id="etim" value="00:00:00" /><br />
 
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
                                     <a href="fac_hall_manage.jsp">  Cancel  </a>
