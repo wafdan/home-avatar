@@ -46,7 +46,11 @@ public class KelolaPembayaran extends HttpServlet {
             // Inisialisasi Kontroler JPA dan Kelas Entity
             ReservationJpaController resjc = new ReservationJpaController();
             List<Reservation> lres = resjc.findReservationEntities();
-            for (Reservation item : lres) {
+            request.setAttribute("returnList", lres);
+            getServletConfig().getServletContext().
+                    getRequestDispatcher("../backend/payment_manage.jsp").
+                    forward(request, response);
+            /*for (Reservation item : lres) {
                 out.println("ID: " + item.getReservationId() + "<br />");
                 out.println("User: " + item.getUsername().getName() + "<br />");
                 out.println("Amount: " + item.getTotalPrice() + "<br />");
@@ -56,7 +60,7 @@ public class KelolaPembayaran extends HttpServlet {
                 out.println("Verified? " + (item.getPayment() != null ? (item.getPayment().getUsername() != null ? "yes" : "no") : "no") + "<br />");
                 out.println("Note: " + item.getNote() + "<br />");
                 out.println("-----<br />");
-            }
+            }*/
         } finally { 
             out.close();
         }
