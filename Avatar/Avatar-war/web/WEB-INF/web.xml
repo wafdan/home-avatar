@@ -37,32 +37,8 @@
         <servlet-class>MengubahProfilHotel.EditProfilHotel</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditAcco</servlet-name>
-        <servlet-class>MengelolaLayanan.EditAcco</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditHall</servlet-name>
-        <servlet-class>MengelolaLayanan.EditHall</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditServ</servlet-name>
-        <servlet-class>MengelolaLayanan.EditServ</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>TestReservasi.TestServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>HapusAcco</servlet-name>
-        <servlet-class>MengelolaLayanan.HapusAcco</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>HapusHall</servlet-name>
-        <servlet-class>MengelolaLayanan.HapusHall</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>HapusServ</servlet-name>
-        <servlet-class>MengelolaLayanan.HapusServ</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditStaff</servlet-name>
@@ -109,18 +85,6 @@
         <url-pattern>/TestReservasi/TestServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HapusAcco</servlet-name>
-        <url-pattern>/MengelolaLayanan/HapusAcco</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HapusHall</servlet-name>
-        <url-pattern>/MengelolaLayanan/HapusHall</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HapusServ</servlet-name>
-        <url-pattern>/MengelolaLayanan/HapusServ</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>HapusStaff</servlet-name>
         <url-pattern>/MengelolaPengguna/HapusStaff</url-pattern>
     </servlet-mapping>
@@ -131,18 +95,6 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditAcco</servlet-name>
-        <url-pattern>/MengelolaLayanan/EditAcco</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditHall</servlet-name>
-        <url-pattern>/MengelolaLayanan/EditHall</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditServ</servlet-name>
-        <url-pattern>/MengelolaLayanan/EditServ</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TambahKeranjang</servlet-name>

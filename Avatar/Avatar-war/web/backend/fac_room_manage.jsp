@@ -137,7 +137,7 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getImage());%></div></td>
                                     <td align="center"><a href="fac_room_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td align="center"><a onclick="return confirmAction()" href="../MengelolaLayanan/HapusAcco?delete=<% out.write(temp.getProductId());%>">delete</a></td>
+                                    <td align="center"><a onclick="return confirmAction()" href="HapusAcco?delete=<% out.write(temp.getProductId());%>">delete</a></td>
                                 </tr>
                                 <%}
                                 } else{
@@ -148,7 +148,7 @@
                                             index++;
                                             if(iterator == editIndex){%>
                                             <%--<form action="../MengelolaLayanan/EditAcco?pid=<%= temp.getProductId()%>" method="post">--%>
-                                            <form action="../MengelolaLayanan/EditAcco" method="post">
+                                            <form action="EditAcco" method="post">
                                                 <tr>
                                                     <th bgcolor="#262626" width="20%">No</th>
                                                     <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
@@ -174,7 +174,7 @@
                                                     </td>
                                                     <td>
                                                         <input type="submit" value="save" onclick="this.form.pid.disabled=false;" />
-                                                        <a onclick="return confirmAction()" href="../MengelolaLayanan/HapusAcco?delete=%3C%%20out.write(temp.getProductId());%%3E">
+                                                        <a onclick="return confirmAction()" href="HapusAcco?delete=%3C%%20out.write(temp.getProductId());%%3E">
                                                             delete</a>
                                                         <a href="fac_room_manage.jsp">
                                                             cancel</a>

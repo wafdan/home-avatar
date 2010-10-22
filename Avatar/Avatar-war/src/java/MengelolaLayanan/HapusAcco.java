@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author zulfikar
  */
-@WebServlet(name="HapusAcco", urlPatterns={"/MengelolaLayanan/HapusAcco"})
+@WebServlet(name="HapusAcco", urlPatterns={"/backend/HapusAcco"})
 public class HapusAcco extends HttpServlet {
    
     /** 

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TOSHIBA
  */
-@WebServlet(name="EditServ", urlPatterns={"/MengelolaLayanan/EditServ"})
+@WebServlet(name="EditServ", urlPatterns={"/backend/EditServ"})
 public class EditServ extends HttpServlet {
    
     /** 

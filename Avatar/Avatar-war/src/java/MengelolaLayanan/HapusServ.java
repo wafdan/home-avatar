@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TOSHIBA
  */
-@WebServlet(name = "HapusServ", urlPatterns = {"/MengelolaLayanan/HapusServ"})
+@WebServlet(name = "HapusServ", urlPatterns = {"/backend/HapusServ"})
 public class HapusServ extends HttpServlet {
 
     /** 
