@@ -131,7 +131,7 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Tambah Room</h1>
+                        <h1 class="title">Tambah Hall</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
                             <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
