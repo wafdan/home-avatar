@@ -17,11 +17,12 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Christian
+ * @author Zulfikar Hakim
+ * zulfikar.hakim@gmail.com
  */
-public class ReservationItemJpaController {
+public class ReservationItemJpaController1 {
 
-    public ReservationItemJpaController() {
+    public ReservationItemJpaController1() {
         emf = Persistence.createEntityManagerFactory("AvatarPersistenceUnit");
     }
     private EntityManagerFactory emf = null;
@@ -149,7 +150,6 @@ public class ReservationItemJpaController {
             em.close();
         }
     }
-    
 
     public int getReservationItemCount() {
         EntityManager em = getEntityManager();

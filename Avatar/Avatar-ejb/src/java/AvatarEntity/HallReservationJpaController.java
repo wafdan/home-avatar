@@ -6,6 +6,7 @@
 package AvatarEntity;
 
 import AvatarEntity.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -217,6 +218,13 @@ public class HallReservationJpaController {
         } finally {
             em.close();
         }
+    }
+
+    public List<HallReservation> findReservationByUseDate(Date useDate ){
+        EntityManager em=getEntityManager();
+        Query query=em.createNamedQuery(HallReservation.findByUseDate);
+        query.setParameter("useDate", useDate);
+        return query.getResultList();
     }
 
 }

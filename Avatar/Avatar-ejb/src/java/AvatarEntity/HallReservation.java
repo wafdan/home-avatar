@@ -34,6 +34,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "HallReservation.findByUseDate", query = "SELECT h FROM HallReservation h WHERE h.useDate = :useDate"),
     @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees")})
 public class HallReservation extends ReservationItem implements Serializable {
+   //tambahan dari Zul
+   public static final String findByUseDate="HallReservation.findByUseDate";
+    
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "begin_time")

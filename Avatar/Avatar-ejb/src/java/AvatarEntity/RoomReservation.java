@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package AvatarEntity;
 
 import java.io.Serializable;
@@ -36,6 +35,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "RoomReservation.findByActualEntry", query = "SELECT r FROM RoomReservation r WHERE r.actualEntry = :actualEntry"),
     @NamedQuery(name = "RoomReservation.findByActualExit", query = "SELECT r FROM RoomReservation r WHERE r.actualExit = :actualExit")})
 public class RoomReservation extends ReservationItem implements Serializable {
+
+    public static final String findByEntryDate = "RoomReservation.findByEntryDate";
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "entry_date")
@@ -104,13 +105,12 @@ public class RoomReservation extends ReservationItem implements Serializable {
     }
 
     /*public ReservationItem getReservationItem() {
-        return reservationItem;
+    return reservationItem;
     }
 
     public void setReservationItem(ReservationItem reservationItem) {
-        this.reservationItem = reservationItem;
+    this.reservationItem = reservationItem;
     }*/
-
     public Room getRoomNo() {
         return roomNo;
     }
@@ -143,5 +143,4 @@ public class RoomReservation extends ReservationItem implements Serializable {
     public String toString() {
         return "AvatarEntity.RoomReservation[reservationItemId=" + reservationItemId + "]";
     }
-
 }
