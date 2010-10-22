@@ -1,4 +1,4 @@
-form, fieldset, legend{margin:0; padding:0; border:none;}
+form, fieldset, legend{margin:0; padding:0; border:none;font-family:Verdana, Arial, Helvetica, sans-serif;}
 legend{display:none;}
 
 /* ----------------------------------------------Forms in Content Area-------------------------------------*/
@@ -12,30 +12,25 @@ legend{display:none;}
 #container #respond p{margin:5px 0;}
 
 #container #submit{
-	margin-right:20px;
 	padding:5px;
 	color:#666666;
 	background-color:#F7F7F7;
 	border:1px solid #CCCCCC;
 	}
 #container #submit:hover{
-	margin-right:20px;
 	padding:5px;
-	color:#666666;
-	background-color:#95ec00;
+	color:#ffffff;
+	background-color:#ff1800;
 	border:3px solid #CCCCCC;
 	}
 #container #submit:visited{
-	margin-right:20px;
 	padding:5px;
 	color:#666666;
 	background-color:#111;
 	border:3px solid #CCCCCC;
 	}
-
 #container form ul {
     list-style: none;
-
 }
 
 /* ----------------------------------------------Newsletter-------------------------------------*/
