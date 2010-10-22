@@ -112,10 +112,10 @@ public class TambahAkun extends HttpServlet {
                 out.println("<a href=\"../index.jsp\">Back to main page</a>");
                 out.println("</body>");
                 out.println("</html>");
-                String body = "Your Hotel Reservation System Account has been successfully made.\n\n" +
+                String body = "Welcome, "+name+"\nYour Hotel Reservation System Account has been successfully made.\n\n" +
                         "Please take note of your username and password to access our system.\n" +
                         "Username: " + uname + "\n" + "Password: " + pass + "\n";
-                EmailSender.sendEmail(email, "chrhad081@gmail.com", "", "Hotel Reservation Registration", body);
+                EmailSender.sendEmail(email, "avatarhomeapp@gmail.com", "", "Hotel Reservation Registration", body);
             } else {
                 response.sendRedirect("../register.jsp?" + redirparam);
             }
