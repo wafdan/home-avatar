@@ -170,35 +170,7 @@
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-                    <div id="sidebar">
-                        <ul>
-                            <li>
-                                <div id="sidebar-title">
-                                    <h2>Facilities Management</h2><br />
-                                </div>
-                                <ul>
-                                    <li>ROOMS
-                                        <ul>
-                                            <li><a href="fac_hall_add.jsp">Add New Room</a></li>
-                                            <li><a href="fac_room_manage.jsp">Manage Room</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>MEETINGS & EVENTS
-                                        <ul>
-                                            <li><a href="#">Add New Packet</a></li>
-                                            <li class="curtab"><a href="#">Manage Packet</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>OTHER SERVICES
-                                        <ul>
-                                            <li><a href="#">Add New Services</a></li>
-                                            <li><a href="fac_serv_manage.jsp">Manage Services</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <jsp:include page="sidebar.jsp" />
                     <!-- end sidebar -->
                     <div style="clear: both;">&nbsp;</div>
                 </div>
