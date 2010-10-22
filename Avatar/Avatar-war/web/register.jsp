@@ -57,9 +57,7 @@
 </div>
 
 <div class="wrapper col3">
-  <div id="breadcrumb">
-    <h1>Rooms and Facilities</h1>
-  </div>
+  
 </div>
 
 <div class="wrapper col4">
@@ -348,17 +346,14 @@
 
 
     <div id="column">
-    	<div class="holder">
-            <%if ((session.getAttribute("name")) == null) {%>
-                <h2 class="title">  Become our member!</h2>
-            <%}/*else {*/%>
-        </div>
-
+    	
       <div class="subnav">
-        <h2>Room's Type</h2>
-        <ul>
-            
-        </ul>
+          <%if ((session.getAttribute("name")) == null) {%>
+            <h2 class="title">  Become our member!</h2>
+            <p>Discover just how rewarding membership can be.</p>
+            <p>Join our membership now to access exclusive benefits, flexible reward options, fast online booking and the finest hotels and resorts in the world. </p>
+            <p>Enrollment is quick, easy and free.</p>
+          <%}/*else {*/%>
       </div>
 
     </div>
