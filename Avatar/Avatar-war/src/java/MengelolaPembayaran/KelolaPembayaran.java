@@ -6,10 +6,13 @@
 package MengelolaPembayaran;
 
 import AvatarEntity.Reservation;
+import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +33,7 @@ public class KelolaPembayaran extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here
@@ -47,9 +50,14 @@ public class KelolaPembayaran extends HttpServlet {
             ReservationJpaController resjc = new ReservationJpaController();
             List<Reservation> lres = resjc.findReservationEntities();
             request.setAttribute("returnList", lres);
-            getServletConfig().getServletContext().
-                    getRequestDispatcher("../backend/payment_manage.jsp").
-                    forward(request, response);
+            //out.println("ServletContext is " + (getServletConfig().getServletContext().getRequestDispatcher("../backend/payment_manage.jsp") == null ? "null" : "ok"));
+            //ServletContext context = this.getServletContext();
+            //out.println("Context is null? " + (context == null ? "yes" : "no") + "<br />");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
+            //out.println("Dispatcher is null? " + (dispatcher == null ? "yes" : "no") + "<br />");
+            dispatcher.forward(request, response);
+            //this.getServletContext().getRequestDispatcher("/backend/payment_manage.jsp").forward(request,response);
+            //getServletConfig().getServletContext().getRequestDispatcher("/backend/payment_manage.jsp").forward(request, response);
             /*for (Reservation item : lres) {
                 out.println("ID: " + item.getReservationId() + "<br />");
                 out.println("User: " + item.getUsername().getName() + "<br />");
@@ -59,6 +67,10 @@ public class KelolaPembayaran extends HttpServlet {
                 out.println("Confirmed? " + (item.getPayment() != null ? "yes" : "no") + "<br />");
                 out.println("Verified? " + (item.getPayment() != null ? (item.getPayment().getUsername() != null ? "yes" : "no") : "no") + "<br />");
                 out.println("Note: " + item.getNote() + "<br />");
+                out.println("Reservation item(s):<br />");
+                for (ReservationItem subitem : item.getReservationItemCollection()) {
+                    out.println("\t" + subitem.getReservationItemId() + ": Rp " + subitem.getPrice() + "<br />");
+                }
                 out.println("-----<br />");
             }*/
         } finally { 

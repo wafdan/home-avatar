@@ -49,7 +49,7 @@ public class TambahKeranjang2 extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             */
-            out.write("Jumlah hall="+cartSessionBean.getListHall().size());
+            //out.write("Jumlah hall="+cartSessionBean.getListHall().size());
         } finally { 
             out.close();
         }

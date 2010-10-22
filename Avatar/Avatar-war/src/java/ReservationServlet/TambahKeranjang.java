@@ -18,7 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Pemesanan.CartSessionBean;
+//import Pemesanan.CartSessionBean;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -57,10 +57,10 @@ public class TambahKeranjang extends HttpServlet {
             Date hallDate = df.parse((String) request.getParameter("halldate"));
             short totalHall = Short.parseShort((String) request.getParameter("totalhall"));
 
-            cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
-            cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
+            //cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
+            //cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
 
-            out.write("Jumlah hall="+cartSessionBean1.getListHall().size());
+            //out.write("Jumlah hall="+cartSessionBean1.getListHall().size());
             // request.setAttribute("listhall", cartSessionBean1.getListHall());
             response.sendRedirect("TambahKeranjang2");
         } catch (ParseException ex) {
