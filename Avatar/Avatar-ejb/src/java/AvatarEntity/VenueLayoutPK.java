@@ -6,10 +6,6 @@
 package AvatarEntity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
 /**
  *
  * @author Christian
