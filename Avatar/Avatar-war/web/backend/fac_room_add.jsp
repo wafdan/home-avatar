@@ -141,10 +141,10 @@
                             <div class="fac1">
                                 <form action="TambahAcco" method="post">
                                     <label for="pid">Product ID</label>
-                                    <input type="text" name="pid" id="pid" value="" /><br />
+                                    <input type="text" name="pid" id="pid" value="" maxlength="6"/><br />
 
                                     <label for="type">Product Type:</label>
-                                    <input type="text" name="type" id="type" value="" /><br />
+                                    <input type="text" name="type" id="type" value="" maxlength="25"/><br />
 
                                     <label for="desc">Description:</label>
                                     <textarea name="desc" id="desc"></textarea><br />
@@ -153,13 +153,13 @@
                                     <input type="text" name="img" id="img" value="" /><br />
 
                                     <label for="max">Max Pax:</label>
-                                    <input type="text" name="max" id="max" value="0" /><br />
+                                    <input type="text" name="max" id="max" value="0" maxlength="11"/><br />
 
                                     <label for="nent">Normal Entry:</label>
-                                    <input type="text" name="nent" id="nent" value="" /><br />
+                                    <input type="text" name="nent" id="nent" value="00:00:00" /><br />
 
                                     <label for="noxt">Normal Exit:</label>
-                                    <input type="text" name="noxt" id="noxt" value="" /><br />
+                                    <input type="text" name="noxt" id="noxt" value="00:00:00" /><br />
 
                                     <label for="wday">Weekday Rate:</label>
                                     <input type="text" name="wday" id="wday" value="0" /><br />
@@ -168,10 +168,10 @@
                                     <input type="text" name="wend" id="wend" value="0" /><br />
 
                                     <label for="terl">Tolerance Early:</label>
-                                    <input type="text" name="terl" id="terl" value="" /><br />
+                                    <input type="text" name="terl" id="terl" value="00:00:00" /><br />
 
                                     <label for="tlat">Tolerance Late:</label>
-                                    <input type="text" name="tlat" id="tlat" value="" /><br />
+                                    <input type="text" name="tlat" id="tlat" value="00:00:00" /><br />
 
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
                                     <a href="fac_room_manage.jsp">  Cancel  </a>

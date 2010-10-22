@@ -141,37 +141,31 @@
                             <div class="fac1">
                                 <form action="TambahHall" method="post">
                                     <label for="pid">Product ID</label>
-                                    <input type="text" name="pid" id="pid" value="" /><br />
+                                    <input type="text" name="pid" id="pid" value="" maxlength="6"/><br />
 
                                     <label for="type">Product Type:</label>
-                                    <input type="text" name="type" id="type" value="" /><br />
+                                    <input type="text" name="type" id="type" value="" maxlength="25"/><br />
 
                                     <label for="desc">Description:</label>
                                     <textarea name="desc" id="desc"></textarea><br />
 
-                                    <label for="img">Image:</label>
-                                    <input type="text" name="img" id="img" value="" /><br />
+                                    <label for="nrat">Normal Rate:</label>
+                                    <input type="text" name="nrat" id="nrat" value="0" /><br />
 
-                                    <label for="max">Max Pax:</label>
-                                    <input type="text" name="max" id="max" value="" /><br />
+                                    <label for="nrtu">Normal Rate Unit:</label>
+                                    <input type="text" name="nrtu" id="nrtu" value="" maxlength="10"/><br />
 
-                                    <label for="nent">Normal Entry:</label>
-                                    <input type="text" name="nent" id="nent" value="" /><br />
+                                    <label for="ovrt">Overcharge Rate:</label>
+                                    <input type="text" name="ovrt" id="ovrt" value="0" /><br />
 
-                                    <label for="noxt">Normal Exit:</label>
-                                    <input type="text" name="noxt" id="noxt" value="" /><br />
+                                    <label for="ovu">Overcharge Unit:</label>
+                                    <input type="text" name="ovu" id="ovu" value="" maxlength="10"/><br />
 
-                                    <label for="wday">Weekday Rate:</label>
-                                    <input type="text" name="wday" id="wday" value="" /><br />
+                                    <label for="stim">Start Time:</label>
+                                    <input type="text" name="stim" id="stim" value="00:00:00" /><br />
 
-                                    <label for="wend">Weekend Rate:</label>
-                                    <input type="text" name="wend" id="wend" value="" /><br />
-
-                                    <label for="terl">Tolerance Early:</label>
-                                    <input type="text" name="terl" id="terl" value="" /><br />
-
-                                    <label for="tlat">Tolerance Late:</label>
-                                    <input type="text" name="tlat" id="tlat" value="" /><br />
+                                    <label for="etim">End Time:</label>
+                                    <input type="text" name="etim" id="etim" value="" /><br />
 
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
                                     <a href="fac_hall_manage.jsp">  Cancel  </a>
