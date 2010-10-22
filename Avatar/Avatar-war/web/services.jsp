@@ -32,7 +32,7 @@
         }
     %>
     
-<jsp:include page="footer.jsp"/>
+<jsp:include page="header.jsp"/>
 
 <div class="wrapper col3">
   <div id="breadcrumb">

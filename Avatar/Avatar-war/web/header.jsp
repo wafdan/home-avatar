@@ -33,7 +33,7 @@
         <li><a href="services.jsp">Services</a><span>Our best services</span></li>
         <li><a href="hall.jsp">Events</a><span>Meeting and Conference</span></li>
         <li><a href="rooms.jsp">Rooms</a><span>Rooms and Facilities</span></li>
-        <li class="active"><a href="index.html">Home</a><span></span></li>
+        <li><a href="index.jsp">Home</a><span></span></li>
       </ul>
     </div>
 
