@@ -102,7 +102,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>KelolaPembayaran</servlet-name>
-        <url-pattern>/MengelolaPembayaran/KelolaPembayaran</url-pattern>
+        <url-pattern>/backend/payment_manage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

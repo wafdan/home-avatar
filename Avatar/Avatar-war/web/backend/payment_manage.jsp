@@ -13,7 +13,7 @@
 List<Reservation> lres = (List<Reservation>) request.getAttribute("returnList");
 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 Locale locale = Locale.getDefault();
-NumberFormat format = NumberFormat.getCurrencyInstance(locale);
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 %>
 <%-- end object initialization --%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -22,7 +22,7 @@ NumberFormat format = NumberFormat.getCurrencyInstance(locale);
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../../styles/default.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div id="logo-wrap">
@@ -62,7 +62,7 @@ NumberFormat format = NumberFormat.getCurrencyInstance(locale);
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Reservasi dan Status Pembayaran</h1>
+                        <h1 class="title">Reservation and Payment List</h1>
                         <div class="post">
                             <table width="*" border="1" style="table-layout:fixed">
                                 <tr>
@@ -71,25 +71,40 @@ NumberFormat format = NumberFormat.getCurrencyInstance(locale);
                                     <th>Reservation Time</th>
                                     <th>Total</th>
                                     <th>On Spot?</th>
-                                    <th>Confirmed?</th>
+                                    <th>Confirmed</th>
                                     <th>Verified?</th>
-                                    <th>Notes</th>
+                                    <th>Reservation Notes</th>
                                 </tr>
                                 <%
                                 for (Reservation item : lres) {
+                                    String verifyAction;
+                                    if (item.getPayment() == null) {
+                                        verifyAction = "Remind";
+                                    } else {
+                                        verifyAction = "Verify";
+                                    }
                                 %>
                                 <tr>
                                     <td><%= item.getReservationId() %></td>
                                     <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= formatter.format(item.getReservationTime()) %></td>
-                                    <td><%= format.format(item.getTotalPrice()) %></td>
+                                    <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
                                     <td><%= (item.getIsOnspot() ? "yes" : "no") %></td>
-                                    <td><%= (item.getPayment() != null ? "yes" : "no") %></td>
+                                    <td>
+                                        <%= (item.getPayment() == null ? "not yet" :
+                                            currencyFormat.format(item.getPayment().getAmount())) %>
+                                    </td>
                                     <td>
                                         <%= (item.getPayment() != null ?
                                         (item.getPayment().getUsername() != null ? "yes" : "no") : "no") %>
                                     </td>
                                     <td><%= item.getNote() %></td>
+                                    <td>
+                                        <form method="post" name="verifyForm" id="verifyForm" action="payment_manage">
+                                            <input type="hidden" name="reservationId" id="reservationId" value="<%= item.getReservationId() %>" />
+                                            <input type="submit" name="verify" id="verify" value="<%= verifyAction %>" />
+                                        </form>
+                                    </td>
                                 </tr>
                                 <%
                                 }

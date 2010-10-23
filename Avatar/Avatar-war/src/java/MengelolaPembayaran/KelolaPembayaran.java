@@ -5,14 +5,23 @@
 
 package MengelolaPembayaran;
 
+import AvatarEntity.HallReservation;
+import AvatarEntity.OtherServicesReservation;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationJpaController;
+import AvatarEntity.RoomReservation;
+import Support.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,31 +42,57 @@ public class KelolaPembayaran extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet KelolaPembayaran</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet KelolaPembayaran at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
+            if (request.getParameter("verify") != null) {
+                Locale locale = Locale.getDefault();
+                NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                ReservationJpaController rjpa = new ReservationJpaController();
+                Integer reservationId = Integer.parseInt(request.getParameter("reservationId"));
+                Reservation res = rjpa.findReservation(reservationId);
+                Collection<ReservationItem> lresitem = res.getReservationItemCollection();
+                String messageContent = "To: Mr/Ms/Mrs. " + res.getUsername().getName() + "\n\n";
+                String messageItemList = "";
+                for (ReservationItem item : lresitem) {
+                    messageItemList += ("    " + item.getReservationItemId() + ". ");
+                    if (item instanceof RoomReservation) {
+                        messageItemList += ("Room " + ((RoomReservation) item).getRoomNo().getRoomNo());
+                    } else if (item instanceof HallReservation) {
+                        messageItemList += ("Package " + ((HallReservation) item).getProductId().getProductId());
+                    } else if (item instanceof OtherServicesReservation) {
+                        messageItemList += ("" + ((OtherServicesReservation) item).getProductId().getProductId());
+                    } else {
+                        messageItemList += "unknown service???";
+                    }
+                    messageItemList += (" => " + currencyFormat.format(item.getPrice()));
+                    messageItemList += "\n";
+                }
+                String destAddress = res.getUsername().getEmail();
+                if (request.getParameter("verify").equals("Remind")) {
+                    messageContent += "Dear customer,\n\n";
+                    messageContent += ("Please be reminded that you have made reservation on " +
+                            formatter.format(res.getReservationTime()) + " as follows:\n");
+                    messageContent += messageItemList;
+                    messageContent += "    ------\n";
+                    messageContent += ("    Total = " + currencyFormat.format(res.getTotalPrice()) + "\n\n");
+                    messageContent += "Please make your payment done and confirm yours immediately.\n\nThank you for your attention.\n\n\n";
+                    messageContent += "Sincerely yours,\nHotel Management";
+                    try {
+                        EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Reservation Payment Reminder", messageContent);
+                    } catch (Exception ex) {
+                        Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (request.getParameter("verify").equals("Verify")) {
+                    // TODO: tambah logic pembuatan PDF
+                }
+            }
             // Inisialisasi Kontroler JPA dan Kelas Entity
             ReservationJpaController resjc = new ReservationJpaController();
             List<Reservation> lres = resjc.findReservationEntities();
             request.setAttribute("returnList", lres);
-            //out.println("ServletContext is " + (getServletConfig().getServletContext().getRequestDispatcher("../backend/payment_manage.jsp") == null ? "null" : "ok"));
-            //ServletContext context = this.getServletContext();
-            //out.println("Context is null? " + (context == null ? "yes" : "no") + "<br />");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
-            //out.println("Dispatcher is null? " + (dispatcher == null ? "yes" : "no") + "<br />");
             dispatcher.forward(request, response);
-            //this.getServletContext().getRequestDispatcher("/backend/payment_manage.jsp").forward(request,response);
-            //getServletConfig().getServletContext().getRequestDispatcher("/backend/payment_manage.jsp").forward(request, response);
             /*for (Reservation item : lres) {
                 out.println("ID: " + item.getReservationId() + "<br />");
                 out.println("User: " + item.getUsername().getName() + "<br />");

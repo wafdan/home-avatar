@@ -6,6 +6,7 @@
 package TestReservasi;
 
 import AvatarEntity.CustomerJpaController;
+import AvatarEntity.Payment;
 import AvatarEntity.PaymentJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
@@ -26,8 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -56,8 +59,9 @@ public class TestServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath () + "</h1>");
-            /*DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            CustomerJpaController custjpa = new CustomerJpaController();
+            GregorianCalendar cal = new GregorianCalendar();
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            /*CustomerJpaController custjpa = new CustomerJpaController();
             ReservationJpaController resjpa = new ReservationJpaController();
             ReservationItemJpaController rijpa = new ReservationItemJpaController();
             RoomJpaController rmjpa = new RoomJpaController();
@@ -79,6 +83,7 @@ public class TestServlet extends HttpServlet {
                 item.setReservationId(res);
                 rijpa.create(item);
             }*/
+            /*
             ReservationJpaController resjpa = new ReservationJpaController();
             PaymentJpaController payjpa = new PaymentJpaController();
             List<Reservation> lresUnpaid = resjpa.findUnpaid();
@@ -100,7 +105,18 @@ public class TestServlet extends HttpServlet {
                 }
             } else {
                 out.println("Tidak ada pembayaran lunas.<br />");
-            }
+            }*/
+            PaymentJpaController pjpa = new PaymentJpaController();
+            Payment pay = new Payment();
+            Reservation res = new Reservation(1);
+            pay.setReservationId(res);
+            pay.setAmount(545000);
+            pay.setConfirmTime(new Date());
+            pay.setPaymentBank("BNI");
+            pay.setPaymentDate(df.parse("2010-10-20"));
+            pay.setAccountNumber("0129330535");
+            pay.setPaymentMethod("transfer");
+            pjpa.create(pay);
             out.println("</body>");
             out.println("</html>");
         /*} catch (PreexistingEntityException ex) {
