@@ -5,15 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="AvatarEntity.CustomerJpaController" %>
-<%@ page import="AvatarEntity.Customer" %>
+<%@ page import="AvatarEntity.OtherServicesReservationJpaController" %>
+<%@ page import="AvatarEntity.OtherServicesReservation" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<%! CustomerJpaController c = new CustomerJpaController();
-    List<Customer> l = null;
+<%! OtherServicesReservationJpaController c = new OtherServicesReservationJpaController();
+    List<OtherServicesReservation> l = null;
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -67,8 +67,8 @@
                                     <th bgcolor="#262626" width="29">No.</th>
                                     <th bgcolor="#262626" width="179">Username</th>
                                     <th bgcolor="#262626" width="89">Name</th>
-                                    <th bgcolor="#262626" width="77">Identity Type</th>
-                                    <th bgcolor="#262626" width="96">Identity Number</th>
+                                    <th bgcolor="#262626" width="77">Product Id</th>
+                                    
 
                                 </tr>
 
@@ -85,31 +85,31 @@
                                             }
 
                                             int index = 0;
-                                            CustomerJpaController jpa = new CustomerJpaController();
-                                            List<Customer> staffList = jpa.findCustomerEntities();
+                                            OtherServicesReservationJpaController jpa = new OtherServicesReservationJpaController();
+                                            List<OtherServicesReservation> staffList = jpa.findOtherServicesReservationEntities();
                                             if (editIndex == -1) {
-                                                l = c.findCustomerEntities();
-                                                for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
-                                                    Customer temp = i.next();
+                                                l = c.findOtherServicesReservationEntities();
+                                                for (Iterator<OtherServicesReservation> i = l.iterator(); i.hasNext();) {
+                                                    OtherServicesReservation temp = i.next();
                                                     index++;
                                 %>
                                 <tr>
                                     <td><%=index %></td>
-                                    <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                    <td> <%= temp.getIdentityType()%> </td>
-                                    <td> <%= temp.getIdentityNumber()%> </td>
+                                    <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getProductId().toString() %></div></td>
+                                    <td> <%= temp.getNote() %> </td>
+                                    
                                     <td><a href="?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>">delete</a></td>
                                 </tr>
                                 <% }
                                                 }
             else
             {
                 int iterator=0;
-                for(Iterator<Customer> i = staffList.iterator(); i.hasNext();)
+                for(Iterator<OtherServicesReservation> i = staffList.iterator(); i.hasNext();)
                 {
-                    Customer temp=i.next();
+                    OtherServicesReservation temp=i.next();
                     iterator++;
 
                 %>
@@ -119,25 +119,25 @@
                  %>
 
                  <form action="EditCustomer" method="get">
-                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
-                     <td><input type="text" name="name" id="name" value="<%=temp.getName() %>"> </td>
-                     <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
-                     <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber() %>"></td>
+                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getReservationItemId() %>"></td>
+                     <td><input type="text" name="name" id="name" value="<%=temp.getProductId().toString() %>"> </td>
+                     <td><input type="text" name="itype" id="itype" value="<%=temp.getNote() %>"></td>
+                     
                      <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
                  </form>
-                <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>"> delete</a></td>
+                <td><a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>"> delete</a></td>
                 <td><a href="ManageCustomer.jsp"> cancel </a></td>
 
 
 
                  <% }else{%>
 
-       <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                    <td> <%= temp.getIdentityType()%> </td>
-                                    <td> <%= temp.getIdentityNumber()%> </td>
+       <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getProductId().toString() %></div></td>
+                                    <td> <%= temp.getNote() %> </td>
+                                    
                                     <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>">delete</a></td>
 
            <%}}}%>
 
