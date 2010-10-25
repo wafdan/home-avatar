@@ -247,6 +247,19 @@ public class ReservationJpaController {
         }
     }
 
+    public List<Reservation> findReservationEntitiesByUsername(String username) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            //cq.select(cq.from(Reservation.class));
+            Query q = em.createQuery("SELECT r FROM Reservation r WHERE r.username = :username ORDER BY p.reservation_id descending");
+            q.setParameter("username", username);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public Reservation findReservation(Integer id) {
         EntityManager em = getEntityManager();
         try {
