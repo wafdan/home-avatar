@@ -4,6 +4,7 @@
  */
 package ReservationServlet;
 
+import AvatarEntity.Room;
 import Pemesanan.CartLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,17 +20,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import Pemesanan.CartSessionBean;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author zulfikar
  */
 public class TambahKeranjang extends HttpServlet {
-    CartLocal cartSessionBean1 = lookupCartSessionBeanLocal();
 
+    CartLocal cartSessionBean1 = lookupCartSessionBeanLocal();
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,31 +41,45 @@ public class TambahKeranjang extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session=request.getSession();
+
         try {
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            String action = request.getParameter("action");
+            if (action.equals("add")) {
+                
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-            String roomType = (String) request.getParameter("roomtype");
-            Date checkInDate = df.parse((String) request.getParameter("roomcheckindate"));
+                String roomType = (String) request.getParameter("roomtype");
+                Date checkInDate = df.parse((String) request.getParameter("roomcheckindate"));
+                
 
-            Date checkOutDate = df.parse((String) request.getParameter("roomcheckoutdate"));
-            short totalRoom = Short.parseShort((String) request.getParameter("totalroom"));
+                Date checkOutDate = df.parse((String) request.getParameter("roomcheckoutdate"));
+                short totalRoom = Short.parseShort((String) request.getParameter("totalroom"));
 
-            String packageType = (String) request.getParameter("packagetype");
-            Date hallDate = df.parse((String) request.getParameter("halldate"));
-            short totalHall = Short.parseShort((String) request.getParameter("totalhall"));
+                String packageType = (String) request.getParameter("packagetype");
+                Date hallDate = df.parse((String) request.getParameter("halldate"));
+                short totalHall = Short.parseShort((String) request.getParameter("totalhall"));
 
-            //cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
-            //cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
+                cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
+                cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
 
-            //out.write("Jumlah hall="+cartSessionBean1.getListHall().size());
-            // request.setAttribute("listhall", cartSessionBean1.getListHall());
-            response.sendRedirect("TambahKeranjang2");
+                //out.write("Jumlah hall yang dipesan=" + cartSessionBean1.getHallCart().size());
+
+                // request.setAttribute("listhall", cartSessionBean1.getListHall());
+                session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
+                session.setAttribute("hallcart", cartSessionBean1.getHallCart());
+                out.write("Jumlah cart untuk room : "+cartSessionBean1.getRoomCart().size());
+
+                //response.sendRedirect("reservation.jsp?step=2");
+                out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
+            }
+            else if (action.equals("delete")){
+                
+            }
         } catch (ParseException ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -115,9 +132,6 @@ public class TambahKeranjang extends HttpServlet {
             throw new RuntimeException(ne);
         }
     }
-
-
-
 }
 
 /**
