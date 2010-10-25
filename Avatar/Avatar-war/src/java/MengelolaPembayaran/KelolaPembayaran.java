@@ -20,6 +20,7 @@ import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import KelolaPembayaran.ReceiptGenerator;
 import Support.EmailSender;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
@@ -132,6 +133,11 @@ public class KelolaPembayaran extends HttpServlet {
                             popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
                                 + "<!--\n\twindow.alert('E-mail has been sent to "
                                 + res.getUsername().getEmail() + ".');\n//-->\n</script>";
+                            File fdel = new File(attfile);
+                            boolean succ = fdel.delete();
+                            if (!succ) {
+                                throw new IllegalArgumentException("Delete: deletion failed");
+                            }
                         } catch (Exception ex) {
                             Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
                         }
