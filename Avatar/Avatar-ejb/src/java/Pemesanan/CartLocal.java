@@ -7,8 +7,10 @@ package Pemesanan;
 import AvatarEntity.Hall;
 import AvatarEntity.Room;
 import java.util.Date;
+import javax.ejb.CreateException;
 import javax.ejb.Local;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.ejb.SessionContext;
@@ -20,6 +22,8 @@ import javax.ejb.SessionContext;
 @Local
 public interface CartLocal {
 
+     public ArrayList<HallSessionInfo> getHallCart();
+     public ArrayList<RoomSessionInfo> getRoomCart();
     public void setSessionContext(SessionContext ctx) throws EJBException, RemoteException;
 
     public void ejbRemove() throws EJBException, RemoteException;
@@ -43,6 +47,8 @@ public interface CartLocal {
     public List<Hall> getListHall();
 
     public void setListHall(List<Hall> input);
+
+    CartLocal create() throws CreateException;
 }
 
 
