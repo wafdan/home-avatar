@@ -24,6 +24,16 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
+    <script language="javascript" type="text/javascript">
+    <!--
+        function verifyConfirm(formname, username) {
+            var ans = window.confirm("Are you sure to send e-mail to " + username + "?");
+            if (ans) {
+                document.forms[formname].submit();
+            }
+        }
+    //-->
+    </script>
     <body>
         <div id="logo-wrap">
             <div id="logo">
@@ -50,7 +60,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>
                     <li><a href="#">Reservation</a></li>
-                    <li><a href="#">Payment</a></li>
+                    <li><a href="payment_manage">Payment</a></li>
                 </ul>
             </div>
         </div>
@@ -100,10 +110,13 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     </td>
                                     <td><%= item.getNote() %></td>
                                     <td>
-                                        <form method="post" name="verifyForm" id="verifyForm" action="payment_manage">
+                                        <% if (item.getPayment() == null || (item.getPayment() != null && item.getPayment().getUsername() == null)) { %>
+                                        <form method="post" name="verifyForm<%= item.getReservationId() %>" id="verifyForm<%= item.getReservationId() %>" action="payment_manage">
                                             <input type="hidden" name="reservationId" id="reservationId" value="<%= item.getReservationId() %>" />
-                                            <input type="submit" name="verify" id="verify" value="<%= verifyAction %>" />
+                                            <input type="hidden" name="verify" id="verify" value="<%= verifyAction %>" />
+                                            <input type="submit" name="submitButt" id="submitButt" value="<%= verifyAction %>" onclick="verifyConfirm('verifyForm<%= item.getReservationId() %>', '<%= item.getUsername().getUsername() %>'); return false;" />
                                         </form>
+                                        <% } %>
                                     </td>
                                 </tr>
                                 <%

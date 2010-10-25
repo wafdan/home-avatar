@@ -5,12 +5,20 @@
 
 package MengelolaPembayaran;
 
+import AvatarEntity.Customer;
 import AvatarEntity.HallReservation;
 import AvatarEntity.OtherServicesReservation;
+import AvatarEntity.Payment;
+import AvatarEntity.PaymentJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationJpaController;
 import AvatarEntity.RoomReservation;
+import AvatarEntity.Staff;
+import AvatarEntity.StaffJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
+import AvatarEntity.exceptions.NonexistentEntityException;
+import KelolaPembayaran.ReceiptGenerator;
 import Support.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +34,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,6 +51,7 @@ public class KelolaPembayaran extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
         try {
             if (request.getParameter("verify") != null) {
@@ -51,8 +61,9 @@ public class KelolaPembayaran extends HttpServlet {
                 ReservationJpaController rjpa = new ReservationJpaController();
                 Integer reservationId = Integer.parseInt(request.getParameter("reservationId"));
                 Reservation res = rjpa.findReservation(reservationId);
+                Customer cust = res.getUsername();
                 Collection<ReservationItem> lresitem = res.getReservationItemCollection();
-                String messageContent = "To: Mr/Ms/Mrs. " + res.getUsername().getName() + "\n\n";
+                String messageContent = "To: Mr/Ms/Mrs. " + cust.getName() + "\n\n";
                 String messageItemList = "";
                 for (ReservationItem item : lresitem) {
                     messageItemList += ("    " + item.getReservationItemId() + ". ");
@@ -84,7 +95,40 @@ public class KelolaPembayaran extends HttpServlet {
                         Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (request.getParameter("verify").equals("Verify")) {
-                    // TODO: tambah logic pembuatan PDF
+                    if (res.getPayment() != null) { // jika pembayaran sudah dikonfirmasi
+                        // Memperbaharui basis data
+                        PaymentJpaController pjpa = new PaymentJpaController();
+                        StaffJpaController sjpa = new StaffJpaController();
+                        Payment pay = res.getPayment();
+                        Staff verifier = sjpa.findStaff((String) session.getAttribute("username"));
+                        pay.setUsername(verifier);
+                        try { // penulisan ke basis data
+                            pjpa.edit(pay);
+                        } catch (IllegalOrphanException ex) {
+                            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (NonexistentEntityException ex) {
+                            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        // Mengirim kepada pengguna
+                        ReceiptGenerator recgen = new ReceiptGenerator();
+                        String attfile = recgen.generateDocument(res);
+                        messageContent += "Dear customer,\n\n";
+                        messageContent += ("You have completed payment for your reservation made on " +
+                                formatter.format(res.getReservationTime()) + " as follows:\n");
+                        messageContent += messageItemList;
+                        messageContent += "    ------\n";
+                        messageContent += ("    Total = " + currencyFormat.format(res.getTotalPrice()) + "\n\n");
+                        messageContent += "Your payment receipt is attached with this mail.\n\nThank you for choosing our service.\n\n\n";
+                        messageContent += "Sincerely yours,\nHotel Management";
+                        try {
+                            EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Payment Receipt", messageContent, attfile);
+                        } catch (Exception ex) {
+                            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
             }
             // Inisialisasi Kontroler JPA dan Kelas Entity
