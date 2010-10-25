@@ -12,8 +12,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<%! RoomReservationJpaController c = new RoomReservationJpaController();
-    List<RoomReservation> l = null;
+<%! RoomReservationJpaController cr = new RoomReservationJpaController();
+    List<RoomReservation> lr = null;
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -38,7 +38,7 @@
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
             </div>
-            <%}%>
+            <% } %>
             <div id="menu">
                 <ul>
                     <li><a href="profile_manage.jsp">Profile</a></li>
@@ -73,7 +73,7 @@
                                 </tr>
 
                                 <%
-
+                                            out.write("tes masuk 1");
                                                 int editIndex = 0;
                                             try {
                                                 String Index = request.getParameter("edit");
@@ -85,17 +85,20 @@
                                             }
 
                                             int index = 0;
-                                            RoomReservationJpaController jpa = new RoomReservationJpaController();
-                                            List<RoomReservation> staffList = jpa.findRoomReservationEntities();
+                                            RoomReservationJpaController jpr = new RoomReservationJpaController();
+                                            List<RoomReservation> roomList = jpr.findRoomReservationEntities();
                                             if (editIndex == -1) {
-                                                l = c.findRoomReservationEntities();
-                                                for (Iterator<RoomReservation> i = l.iterator(); i.hasNext();) {
-                                                    RoomReservation temp = i.next();
+                                                out.write("tes masuk 2");
+                                                lr = cr.findRoomReservationEntities();
+                                                out.write("tes masuk 3");
+                                                for (Iterator<RoomReservation> ir = lr.iterator(); ir.hasNext();) {
+                                                    out.write("tes masuk 4");
+                                                    RoomReservation temp = ir.next();
                                                     index++;
                                 %>
                                 <tr>
                                     <td><%=index %></td>
-                                    <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
+                                    <td><div style="overflow:auto"><% /* = temp.getReservationItemId() */  %></div></td>
                                     <td><div style="overflow:auto"><%= temp.getRoomNo().toString() %></div></td>
                                     <td> <%= temp.getEntryDate().toString() %> </td>
                                     <td> <%= temp.getExitDate().toString() %> </td>
@@ -107,9 +110,9 @@
             else
             {
                 int iterator=0;
-                for(Iterator<RoomReservation> i = staffList.iterator(); i.hasNext();)
+                for(Iterator<RoomReservation> ir = roomList.iterator(); ir.hasNext();)
                 {
-                    RoomReservation temp=i.next();
+                    RoomReservation temp=ir.next();
                     iterator++;
 
                 %>
