@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package Support;
+package KelolaPembayaran;
 
 import javax.ejb.Local;
 
@@ -12,6 +12,8 @@ import javax.ejb.Local;
  * @author Christian
  */
 @Local
-public interface PdfGeneratorLocal {
+public interface ReceiptGeneratorLocal {
+
+    public String generateDocument(AvatarEntity.Reservation reservation);
     
 }
