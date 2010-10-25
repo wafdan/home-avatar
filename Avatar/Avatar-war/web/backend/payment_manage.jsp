@@ -35,6 +35,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
     //-->
     </script>
     <body>
+        <%= request.getAttribute("popup") %>
         <div id="logo-wrap">
             <div id="logo">
                 <h1><a href="#">AVATAR</a></h1>

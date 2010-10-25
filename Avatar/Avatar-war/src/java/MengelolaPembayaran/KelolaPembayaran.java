@@ -53,6 +53,7 @@ public class KelolaPembayaran extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
+        String popup = "";
         try {
             if (request.getParameter("verify") != null) {
                 Locale locale = Locale.getDefault();
@@ -91,6 +92,9 @@ public class KelolaPembayaran extends HttpServlet {
                     messageContent += "Sincerely yours,\nHotel Management";
                     try {
                         EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Reservation Payment Reminder", messageContent);
+                        popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
+                                + "<!--\n\twindow.alert('E-mail has been sent to "
+                                + res.getUsername().getEmail() + ".');\n//-->\n</script>";
                     } catch (Exception ex) {
                         Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -125,6 +129,9 @@ public class KelolaPembayaran extends HttpServlet {
                         messageContent += "Sincerely yours,\nHotel Management";
                         try {
                             EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Payment Receipt", messageContent, attfile);
+                            popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
+                                + "<!--\n\twindow.alert('E-mail has been sent to "
+                                + res.getUsername().getEmail() + ".');\n//-->\n</script>";
                         } catch (Exception ex) {
                             Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -135,6 +142,7 @@ public class KelolaPembayaran extends HttpServlet {
             ReservationJpaController resjc = new ReservationJpaController();
             List<Reservation> lres = resjc.findReservationEntities();
             request.setAttribute("returnList", lres);
+            request.setAttribute("popup", popup);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
             dispatcher.forward(request, response);
             /*for (Reservation item : lres) {
