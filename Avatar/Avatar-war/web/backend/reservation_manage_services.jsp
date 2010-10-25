@@ -73,7 +73,7 @@
                                 </tr>
 
                                 <%
-
+                                            out.write("tes masuk 1");
                                                 int editIndex = 0;
                                             try {
                                                 String Index = request.getParameter("edit");
@@ -88,8 +88,10 @@
                                             OtherServicesReservationJpaController jpa = new OtherServicesReservationJpaController();
                                             List<OtherServicesReservation> staffList = jpa.findOtherServicesReservationEntities();
                                             if (editIndex == -1) {
+                                                out.write("tes masuk 2");
                                                 l = c.findOtherServicesReservationEntities();
                                                 for (Iterator<OtherServicesReservation> i = l.iterator(); i.hasNext();) {
+                                                    out.write("tes masuk 3");
                                                     OtherServicesReservation temp = i.next();
                                                     index++;
                                 %>
