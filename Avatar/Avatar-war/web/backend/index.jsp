@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="AvatarEntity.Profile"%>
+<%@page import="AvatarEntity.ProfileJpaController"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -67,7 +69,11 @@
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>Spons Hotel</h2>
+                                    <%
+                                        ProfileJpaController pjc=new ProfileJpaController();
+                                        Profile p=pjc.findProfile(Boolean.TRUE);
+                                    %>
+                                    <h2><%=p.getHotelName() %></h2>
                                 </div>
                                 <ul>
                                 </ul>
