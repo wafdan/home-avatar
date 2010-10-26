@@ -1,8 +1,3 @@
-<%--
-    Document   : reservation
-    Created on : 20 Okt 10, 13:03:55
-    Author     : zulfikar
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.Accomodation"%>
@@ -24,23 +19,29 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="jquery/jqueryui.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
+        <script type="text/javascript">
+            $(function(){
 
-$(function(){
+            // Datepicker
+            $('.datepicker').datepicker({
+            inline: true
+            });
 
-// Datepicker
-$('.datepicker').datepicker({
-inline: true
-});
+            //hover states on the static widgets
+            $('#dialog_link, ul#icons li').hover(
+            function() { $(this).addClass('ui-state-hover'); },
+            function() { $(this).removeClass('ui-state-hover'); }
+            );
 
-//hover states on the static widgets
-$('#dialog_link, ul#icons li').hover(
-function() { $(this).addClass('ui-state-hover'); },
-function() { $(this).removeClass('ui-state-hover'); }
-);
-
-});
-
-
+            });
+        </script>
+    </head>
+<body>
 <%
 
 
