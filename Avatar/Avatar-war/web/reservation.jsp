@@ -61,14 +61,16 @@
                 var retval=true;
 
                 if(room){
-                    retval=retval&&!(roomcheckinlength==0 || roomcheckoutlength);
+                    retval=retval&&!(roomcheckinlength==0 || roomcheckoutlength==0);
                 }
 
                 if(hall)
                 {
                     retval=retval&&!(halldate==0)
                 }
-                alert("Date field must be filled");
+
+                if(retval)
+                    alert("Date field must be filled");
                 return retval;            
             }
 
@@ -132,7 +134,7 @@
     <body>
         <%
                     try {
-                        //out.write((String)request.getParameter("step"));
+                        /*HALAMAN PERTAMA*/
                         if (request.getParameter("step").equals("1")) {
         %>
         <jsp:include page="header.jsp"/>
@@ -151,9 +153,16 @@
                         <input type="checkbox" onclick="changeRoom();" name="roomcheckbox" value="1" /><label>Book Room</label>
                         <input type="checkbox" onclick="changeHall();" name="hallcheckbox" value="1" /><label>Book Hall</label>
                         <ul>
-
                             <li>
                                 <h2>ROOM</h2>
+                                <div id="errormessage">
+
+                                    <%
+                                                                String error = request.getParameter("error");
+                                                                if (error != null) {
+                                                                    out.write("WARNING : Check in date must be BEFORE check out date");
+                                                                }
+                                    %></div>
                                 <label>Room type </label> <select name="roomtype" disabled="true">
                                     <%
                                                                 /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
@@ -239,7 +248,7 @@
                         </tr>
                         <tr>
                             <% /*ini buat produce isi td-nya*/
-                                                                                
+
                                                                                 while (iRoom.hasNext()) {
                                                                                     i++;
                                                                                     RoomSessionInfo temp = iRoom.next();

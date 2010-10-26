@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
@@ -86,6 +87,18 @@ public class TambahKeranjang extends HttpServlet {
                 if (roomCheckBox != null) {
                     checkInDate = df.parse(preCheckInDate);
                     checkOutDate = df.parse(preCheckOutDate);
+
+                    Calendar calOut=(Calendar.getInstance());
+                    calOut.setTime(checkOutDate);
+                    
+                    Calendar calIn=(Calendar.getInstance());
+                    calIn.setTime(checkInDate);
+
+                    if(calOut.before(calIn)){
+                        response.sendRedirect("reservation.jsp?step=1&error=1");
+                        return;
+                    }
+
                     totalRoom = Short.parseShort(preTotalRoom);
                     cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
                     session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
