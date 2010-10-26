@@ -1,5 +1,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="AvatarEntity.*,java.sql.*" %>
+<%@ page import="Layanan.*" %>
 <%@page import="AvatarEntity.Accomodation"%>
 <%@page import="AvatarEntity.Hall"%>
 <%@page import="AvatarEntity.HallJpaController"%>
@@ -19,8 +21,12 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+    <title>Hotel Graha Bandung - Reservation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <link rel="stylesheet" href="styles/layout.css" type="text/css" />
         <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="jquery/jqueryui.js"></script>
         <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
@@ -41,55 +47,63 @@
             });
         </script>
     </head>
+
 <body>
 <%
-
-
-
-            try {
-                //out.write((String)request.getParameter("step"));
-                if (request.getParameter("step").equals("1")) {
+    try {
+    //out.write((String)request.getParameter("step"));
+    if (request.getParameter("step").equals("1")) {
 %>
-<h1> Reservation Form</h1>
-<p> Please fill up this form to book our facility. </p>
+<jsp:include page="header.jsp"/>
+<div class="wrapper col3">
+  <div id="breadcrumb">
+    <h1>Reservations</h1>
+  </div>
+</div>
+
+<div class="wrapper col4">
+  <div id="container">
+      <div id="content" style="width:500px;">
+          <h1>Please fill up this form to book our facility. </h1>
 <h2>ROOM</h2>
 
 <form action="TambahKeranjang?action=add" method="POST">
-    <label>Room type : </label>
+    <ul>
+
+        <li><label>Room type </label>
     <select name="roomtype">
         <%
-                            /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
-                            List<Accomodation> listAccomodation = (new AccomodationJpaController()).findAccomodationEntities();
-                            Iterator<Accomodation> i = listAccomodation.iterator();
+            /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
+            List<Accomodation> listAccomodation = (new AccomodationJpaController()).findAccomodationEntities();
+            Iterator<Accomodation> i = listAccomodation.iterator();
 
 
-                            while (i.hasNext()) {
-                                Accomodation temp;
-                                temp = i.next();
+            while (i.hasNext()) {
+                Accomodation temp;
+                temp = i.next();
         %>
-        <option value="<%=temp.getProductId()%>"><%=temp.getProductType()%></option>
+    <option value="<%=temp.getProductId()%>"><%=temp.getProductType()%></option>
         <%
                             }
         %>
     </select>
-
-    <label>Total room</label> <input type="text" name="totalroom" />
-    <!-- BAGIAN DHANA -->
-    <label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" />
-    <label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" />
-    <!-- END OF BAGIAN DHANA -->
+        
+    <label>Total room</label> <input type="text" name="totalroom" /></li>
+    <li><label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" />
+    <label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" /></li>
+    </ul>
 
     <h2>HALL</h2>
     <label>Package</label>
     <select name="packagetype">
         <%
-                            /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
-                            List<Hall> listhall = (new HallJpaController()).findHallEntities();
-                            Iterator<Hall> iHall = listhall.iterator();
-                            while (iHall.hasNext()) {
-                                Hall hall = iHall.next();
+            /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+            List<Hall> listhall = (new HallJpaController()).findHallEntities();
+            Iterator<Hall> iHall = listhall.iterator();
+            while (iHall.hasNext()) {
+                Hall hall = iHall.next();
         %>
-        <option value="<%=hall.getProductId()%>"> <%=hall.getProductType()%> </option>
+    <option value="<%=hall.getProductId()%>"> <%=hall.getProductType()%> </option>
         <%
                             }
         %>
@@ -102,13 +116,13 @@
 </form>
 
 <%
-                } else if (request.getParameter("step").equals("2")) {
-                    /* INI HALAMAN KEDUA */
-                    ArrayList<RoomSessionInfo> cartRoom = (ArrayList<RoomSessionInfo>) session.getAttribute("roomcart");
-                    ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
-                    Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
-                    Iterator<HallSessionInfo> iHall = cartHall.iterator();
-                    int i = 0;
+    } else if (request.getParameter("step").equals("2")) {
+        /* INI HALAMAN KEDUA */
+        ArrayList<RoomSessionInfo> cartRoom = (ArrayList<RoomSessionInfo>) session.getAttribute("roomcart");
+        ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
+        Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
+        Iterator<HallSessionInfo> iHall = cartHall.iterator();
+        int i = 0;
 
 %>
 
@@ -127,18 +141,18 @@
     <tr>
         <% /*ini buat produce isi td-nya*/
 
-                            CartController chartController = new CartController();
-                            double totalBill = 0;
-                            while (iRoom.hasNext()) {
-                                i++;
-                                RoomSessionInfo temp = iRoom.next();
-                                double singleRowPrice=0;
-                                if (temp.available) {
-                                    singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
-                                    totalBill += singleRowPrice;
-                                } else {
-                                    singleRowPrice = 0;
-                                }
+            CartController chartController = new CartController();
+            double totalBill = 0;
+            while (iRoom.hasNext()) {
+                i++;
+                RoomSessionInfo temp = iRoom.next();
+                double singleRowPrice=0;
+                if (temp.available) {
+                    singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
+                    totalBill += singleRowPrice;
+                } else {
+                    singleRowPrice = 0;
+                }
         %>
     <tr>
         <td><%=i%></td>
@@ -166,15 +180,15 @@
     </tr>
 
     <%
-                        i = 0;
-                        while (iHall.hasNext()) {
-                            i++;
-                            HallSessionInfo temp = iHall.next();
-                            double singleRowPrice=0;
-                            if(temp.available){
-                                singleRowPrice=chartController.getHallPrice(temp.product_id);
-                            }
-                            totalBill+=singleRowPrice;
+        i = 0;
+        while (iHall.hasNext()) {
+            i++;
+            HallSessionInfo temp = iHall.next();
+            double singleRowPrice=0;
+            if(temp.available){
+                singleRowPrice=chartController.getHallPrice(temp.product_id);
+            }
+            totalBill+=singleRowPrice;
     %>
     <tr>
         <td><%=i%></td>
@@ -194,10 +208,10 @@
 <a href="reservation.jsp?step=3">Proceed</a>
 
 <%
-                session.setAttribute("totalprice", totalBill);
-                } else if (request.getParameter("step").equals("3")) {
-                    /* INI HALAMAN KETIGA */
-                    double totalPrice=(Double)session.getAttribute("totalprice");
+    session.setAttribute("totalprice", totalBill);
+    } else if (request.getParameter("step").equals("3")) {
+        /* INI HALAMAN KETIGA */
+        double totalPrice=(Double)session.getAttribute("totalprice");
 %>
 <p>Please transfer Rp. <%=totalPrice %> to one of these account number : </p>
 <ol>
@@ -224,8 +238,8 @@
 
 
 
-<%                            } else if (request.getParameter("step").equals("4")){
-                    /* INI HALAMAN KEEMPAT */
+<%  } else if (request.getParameter("step").equals("4")){
+    /* INI HALAMAN KEEMPAT */
     %> 
     <p> Your reservation has been saved. Please pay and confirm in 5 workdays. If you have paid, go to confirmation page below</p>
     <a href="#">Confirm know</a>
@@ -234,10 +248,28 @@
 %>
 
 <%                    }
-            } catch (NullPointerException ex) {
-                ex.printStackTrace();
+    } catch (NullPointerException ex) {
+        ex.printStackTrace();
 
-            }
+    }
 %>
+</div>
+    <div id="column">
+    	<div class="holder">
+           
+        </div>
+
+      <div class="subnav">
+        
+      </div>
+
+    </div>
+    <div class="clear"></div>
+  
+</div>
+</div>
+        
+ <jsp:include page="footer.jsp"/>
+       
 </body>
 </html>
