@@ -58,7 +58,7 @@ Venue toEdit = (Venue) request.getAttribute("toEdit");
                             </table>
                             <h2>Layout Manager</h2>
                             <table border="0">
-                                <% VenueLayoutJpaController vljpa = null;
+                                <% VenueLayoutJpaController vljpa = new VenueLayoutJpaController();
                                 VenueLayout vl = null;
                                 for (Layout lay : ljpa.findLayoutEntities()) {
                                     vl = vljpa.findVenueLayout(toEdit.getVenueNo(), lay.getLayoutNo());

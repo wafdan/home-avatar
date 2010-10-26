@@ -37,7 +37,7 @@ public class HapusRoomInd extends HttpServlet {
         try {
             RoomJpaController rmjpa = new RoomJpaController();
             rmjpa.destroy(request.getParameter("roomNo"));
-            response.sendRedirect("/backend/room_add");
+            response.sendRedirect("room_add");
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(HapusRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {

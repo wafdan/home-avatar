@@ -36,7 +36,7 @@ public class HapusLayout extends HttpServlet {
         try {
             LayoutJpaController ljpa = new LayoutJpaController();
             ljpa.destroy(Integer.parseInt(request.getParameter("layoutNo")));
-            response.sendRedirect("/backend/layout_add");
+            response.sendRedirect("layout_add");
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusLayout.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 

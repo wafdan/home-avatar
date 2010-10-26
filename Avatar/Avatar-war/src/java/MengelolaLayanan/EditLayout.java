@@ -43,7 +43,7 @@ public class EditLayout extends HttpServlet {
                 if (request.getParameter("update") != null) { // Jika ada aksi pengubahan
                     layout.setLayoutName(request.getParameter("layoutName"));
                     ljpa.edit(layout);
-                    response.sendRedirect("/backend/layout_add");
+                    response.sendRedirect("layout_add");
                 } else  {
                     // Kirim ke JSP halaman edit
                     request.setAttribute("toEdit", layout);

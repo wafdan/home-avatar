@@ -53,7 +53,7 @@ public class EditRoomInd extends HttpServlet {
                     Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
                     room.setProductId(accom);
                     rmjpa.edit(room);
-                    response.sendRedirect("/backend/room_add");
+                    response.sendRedirect("room_add");
                 } else  {
                     // Kirim ke JSP halaman edit
                     request.setAttribute("toEdit", room);

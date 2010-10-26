@@ -40,7 +40,7 @@ public class HapusVenue extends HttpServlet {
             if (request.getParameter("venueNo") != null) {
                 vjpa.destroy(request.getParameter("venueNo"));
             }
-            response.sendRedirect("/backend/venue_add");
+            response.sendRedirect("venue_add");
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(HapusVenue.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {

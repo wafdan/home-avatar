@@ -47,7 +47,7 @@ public class EditVenue extends HttpServlet {
                 if (!request.getParameter("description").equals("")) {
                     venue.setDescription(request.getParameter("description"));
                 }
-                vjpa.create(venue);
+                vjpa.edit(venue);
                 // Masukkan layout
                 LayoutJpaController ljpa = new LayoutJpaController();
                 VenueLayoutJpaController vljpa = new VenueLayoutJpaController();
@@ -62,7 +62,7 @@ public class EditVenue extends HttpServlet {
                         vljpa.create(vl);
                     }
                 }
-                response.sendRedirect("/backend/venue_add");
+                response.sendRedirect("venue_add");
             } else {
                 // Kirim ke JSP halaman edit
                 request.setAttribute("toEdit", venue);
