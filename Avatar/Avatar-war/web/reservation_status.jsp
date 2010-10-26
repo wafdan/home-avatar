@@ -24,18 +24,75 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
-            String username = (String) session.getAttribute("name");
-            List<Reservation> reserv = kpc.getReservation();
+            String name = (String) session.getAttribute("name");
+            out.println(name);
+            out.println("<br />");
 
-            for (Reservation r : reserv) {
-                out.println(""+r.getReservationId()+" "+r.getUsername().getUsername()+" "+r.getNote());
-                for (ReservationItem curRes : r.getReservationItemCollection()) {
-                    out.println("->"+curRes.getReservationItemId()+" "+curRes.getReservationTime()+" "+curRes.getPrice());
+            List<Reservation> UReserv = kpc.getUnpaidReservationByName(name);
+            out.println("<H1>Unpaid Reservation</H1>");
+            if (UReserv.size() < 1) {
+                out.println("No Unpaid Reservation");
+                out.println("<br />");
+            } else {
+                for (Reservation r : UReserv) {
+                    out.println("Reservation Id = "+r.getReservationId()+" by "+r.getUsername().getUsername()+", Note : "+r.getNote());
+                    out.println("<br />");
+                    double total = 0;
+                    for (ReservationItem curRes : r.getReservationItemCollection()) {
+                        out.println("-> Reservation Item Id = "+curRes.getReservationItemId()+" - "+curRes.getReservationTime()+" : Rp "+curRes.getPrice());
+                        out.println("<br />");
+                        if (curRes instanceof RoomReservation) {
+                            out.println("Entry Date = "+((RoomReservation) curRes).getEntryDate());
+                            out.println("Exit Date = "+((RoomReservation) curRes).getExitDate());
+                        } else if (curRes instanceof HallReservation) {
+                            out.println("Date = "+((HallReservation) curRes).getUseDate());
+                            out.println("Time = "+((HallReservation) curRes).getBeginTime()+"-"+((HallReservation) curRes).getEndTime());
+                        } else if (curRes instanceof OtherServicesReservation) {
+                            out.println("- "+((OtherServicesReservation) curRes).getProductId().getProductType());
+                        }
+                        out.println("<br />");
+                        total += curRes.getPrice();
+                    }
+                    out.println("Total = Rp "+total);
+                    out.println("<br /><br />");
                 }
             }
+
+            List<Reservation> PReserv = kpc.getPaidReservationByName(name);
+            out.println("<H1>Paid Reservation</H1>");
+            if (PReserv.size() < 1) {
+                out.println("No Paid Reservation");
+                out.println("<br />");
+            } else {
+                for (Reservation r : PReserv) {
+                    out.println("Reservation Id = "+r.getReservationId()+" by "+r.getUsername().getUsername()+", Note : "+r.getNote());
+                    out.println("<br />");
+                    for (ReservationItem curRes : r.getReservationItemCollection()) {
+                        out.println("-> Reservation Item Id = "+curRes.getReservationItemId()+" - "+curRes.getReservationTime()+" : Rp "+curRes.getPrice());
+                        out.println("<br />");
+                        if (curRes instanceof RoomReservation) {
+                            out.println("Entry Date = "+((RoomReservation) curRes).getEntryDate());
+                            out.println("Exit Date = "+((RoomReservation) curRes).getExitDate());
+                        } else if (curRes instanceof HallReservation) {
+                            out.println("Date = "+((HallReservation) curRes).getUseDate());
+                            out.println("Time = "+((HallReservation) curRes).getBeginTime()+"-"+((HallReservation) curRes).getEndTime());
+                        } else if (curRes instanceof OtherServicesReservation) {
+                            out.println("- "+((OtherServicesReservation) curRes).getProductId().getProductType());
+                        }
+                        out.println("<br />");
+                    }
+                    out.println("Status = ");
+                    if (kpc.isPaymentVerified(r)) {
+                        out.println("Verified");
+                    } else {
+                        out.println("Not verified");
+                    }
+                    out.println("<br />");
+                }
+            }
+
             /*Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream("d:/test.pdf"));
             document.open();
