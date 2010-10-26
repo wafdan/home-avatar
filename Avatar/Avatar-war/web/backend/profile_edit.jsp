@@ -374,14 +374,15 @@
                                         </select>
                                     </label>
 
-                                    <label> <span>Hotel Logo </span>
-                                        <input class="input_text" name="imagedirectory" id="imagedirectory" type="file" value=""/>
-                                        <!--input class="button" type="file" name="browse" value="browse..." style="width:75px" /-->
-                                    </label>
                                     <label> <span> Hotel Description</span>
                                         <textarea class="message" name="hoteldesc" id="hoteldesc"><%=p.getHotelDescription()%></textarea>
                                         <input class="button" value="Simpan" type="submit" />
                                     </label>
+                                </form>
+
+                                <form action="CommonsFileUploadServlet" enctype="multipart/form-data" method="POST">
+                                    <input type="file" name="file1"><br>
+                                    <input type="Submit" value="Upload File"><br>
                                 </form>
                             </div>
                             <h2 class="title">&nbsp;</h2>
