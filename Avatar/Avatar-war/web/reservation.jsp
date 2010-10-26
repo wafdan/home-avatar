@@ -132,7 +132,7 @@
                             while (iRoom.hasNext()) {
                                 i++;
                                 RoomSessionInfo temp = iRoom.next();
-                                double singleRowPrice;
+                                double singleRowPrice=0;
                                 if (temp.available) {
                                     singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
                                     totalBill += singleRowPrice;
