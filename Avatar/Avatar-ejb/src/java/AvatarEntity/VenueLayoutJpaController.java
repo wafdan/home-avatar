@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -64,7 +65,8 @@ public class VenueLayoutJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            VenueLayout persistentVenueLayout = em.find(VenueLayout.class, venueLayout.getVenueNo());
+            VenueLayout persistentVenueLayout = findVenueLayout(venueLayout.getVenueNo(), venueLayout.getLayoutNo());
+            //VenueLayout persistentVenueLayout = em.find(VenueLayout.class, venueLayout.getVenueNo());
             Venue venueOld = persistentVenueLayout.getVenue();
             Venue venueNew = venueLayout.getVenue();
             if (venueNew != null) {
@@ -162,7 +164,10 @@ public class VenueLayoutJpaController {
             Query q = em.createNamedQuery("VenueLayout.findVenueLayout");
             q.setParameter("venueNo", venueNo);
             q.setParameter("layoutNo", layoutNo);
-            return (VenueLayout) q.getSingleResult();
+            Object res = q.getSingleResult();
+            return (VenueLayout) res;
+        } catch (NoResultException ex) {
+            return null;
         } finally {
             em.close();
         }

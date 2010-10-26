@@ -5,6 +5,7 @@
 
 package AvatarEntity;
 
+import AvatarEntity.VenueLayoutJpaController;
 import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import AvatarEntity.exceptions.PreexistingEntityException;
@@ -119,8 +120,9 @@ public class VenueJpaController {
             hallReservationCollectionNew = attachedHallReservationCollectionNew;
             venue.setHallReservationCollection(hallReservationCollectionNew);
             Collection<VenueLayout> attachedVenueLayoutCollectionNew = new ArrayList<VenueLayout>();
+            VenueLayoutJpaController vljpa = new VenueLayoutJpaController();
             for (VenueLayout venueLayoutCollectionNewVenueLayoutToAttach : venueLayoutCollectionNew) {
-                venueLayoutCollectionNewVenueLayoutToAttach = em.getReference(venueLayoutCollectionNewVenueLayoutToAttach.getClass(), venueLayoutCollectionNewVenueLayoutToAttach.getVenueNo());
+                venueLayoutCollectionNewVenueLayoutToAttach = vljpa.findVenueLayout(venueLayoutCollectionNewVenueLayoutToAttach.getVenueNo(), venueLayoutCollectionNewVenueLayoutToAttach.getLayoutNo());
                 attachedVenueLayoutCollectionNew.add(venueLayoutCollectionNewVenueLayoutToAttach);
             }
             venueLayoutCollectionNew = attachedVenueLayoutCollectionNew;
