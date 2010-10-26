@@ -9,7 +9,8 @@ import AvatarEntity.Accomodation;
 import AvatarEntity.AccomodationJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
-import AvatarEntity.exceptions.PreexistingEntityException;
+import AvatarEntity.exceptions.IllegalOrphanException;
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Christian
  */
-public class TambahRoomInd extends HttpServlet {
+public class EditRoomInd extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,28 +39,33 @@ public class TambahRoomInd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add");
         try {
             // Inisialisasi JPA Controller dan List of Entity
             RoomJpaController rmjpa = new RoomJpaController();
             AccomodationJpaController acjpa = new AccomodationJpaController();
-            // Jika ada aksi penambahan
-            if (request.getParameter("add") != null) {
-                Room room = new Room(request.getParameter("roomNo"),
-                        Integer.parseInt(request.getParameter("floor")));
-                if (!request.getParameter("roomName").equals(""))
-                    room.setRoomName(request.getParameter("roomName"));
-                Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
-                room.setProductId(accom);
-                rmjpa.create(room);
+            if (request.getParameter("roomNo") != null) {
+                Room room = rmjpa.findRoom(request.getParameter("roomNo"));
+                if (request.getParameter("update") != null) {
+                    // Jika ada aksi pengubahan
+                    room.setFloor(Integer.parseInt(request.getParameter("floor")));
+                    if (!request.getParameter("roomName").equals(""))
+                        room.setRoomName(request.getParameter("roomName"));
+                    Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
+                    room.setProductId(accom);
+                    rmjpa.edit(room);
+                } else  {
+                    // Kirim ke JSP halaman edit
+                    request.setAttribute("toEdit", room);
+                    dispatcher = request.getRequestDispatcher("/backend/room_edit.jsp");
+                }
             }
-            // Kirim ke JSP
-            List<Room> lroom = rmjpa.findRoomEntities();
-            request.setAttribute("returnList", lroom);
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(EditRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(EditRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
         }

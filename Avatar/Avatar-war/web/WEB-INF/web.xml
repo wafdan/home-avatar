@@ -56,6 +56,26 @@
         <servlet-name>TambahRoomInd</servlet-name>
         <servlet-class>MengelolaLayanan.TambahRoomInd</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditRoomInd</servlet-name>
+        <servlet-class>MengelolaLayanan.EditRoomInd</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusRoomInd</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusRoomInd</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TambahLayout</servlet-name>
+        <servlet-class>MengelolaLayanan.TambahLayout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusLayout</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusLayout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditLayout</servlet-name>
+        <servlet-class>MengelolaLayanan.EditLayout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -111,6 +131,26 @@
     <servlet-mapping>
         <servlet-name>TambahRoomInd</servlet-name>
         <url-pattern>/backend/room_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRoomInd</servlet-name>
+        <url-pattern>/backend/room_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusRoomInd</servlet-name>
+        <url-pattern>/backend/room_delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahLayout</servlet-name>
+        <url-pattern>/backend/layout_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusLayout</servlet-name>
+        <url-pattern>/backend/layout_delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditLayout</servlet-name>
+        <url-pattern>/backend/layout_edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

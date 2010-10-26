@@ -85,7 +85,8 @@ List<Room> lroom = (List<Room>) request.getAttribute("returnList");
                                     <td><%= ind.getProductId().getProductType() %></td>
                                     <td><%= ind.getFloor() %></td>
                                     <td><%= (ind.getRoomName() != null ? ind.getRoomName() : "none" ) %></td>
-                                    <td>delete | edit</td>
+                                    <td><a href="room_delete?roomNo=<%= ind.getRoomNo() %>">delete</a> |
+                                        <a href="room_edit?roomNo=<%= ind.getRoomNo() %>">edit</a></td>
                                 </tr>
                                 <%}%>
                             </table>

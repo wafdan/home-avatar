@@ -5,14 +5,12 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.Accomodation;
-import AvatarEntity.AccomodationJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
-import AvatarEntity.exceptions.PreexistingEntityException;
+import AvatarEntity.exceptions.IllegalOrphanException;
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Christian
  */
-public class TambahRoomInd extends HttpServlet {
+public class HapusRoomInd extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,31 +36,17 @@ public class TambahRoomInd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
         try {
-            // Inisialisasi JPA Controller dan List of Entity
             RoomJpaController rmjpa = new RoomJpaController();
-            AccomodationJpaController acjpa = new AccomodationJpaController();
-            // Jika ada aksi penambahan
-            if (request.getParameter("add") != null) {
-                Room room = new Room(request.getParameter("roomNo"),
-                        Integer.parseInt(request.getParameter("floor")));
-                if (!request.getParameter("roomName").equals(""))
-                    room.setRoomName(request.getParameter("roomName"));
-                Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
-                room.setProductId(accom);
-                rmjpa.create(room);
-            }
-            // Kirim ke JSP
-            List<Room> lroom = rmjpa.findRoomEntities();
-            request.setAttribute("returnList", lroom);
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+            rmjpa.destroy(request.getParameter("roomNo"));
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HapusRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
         }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add");
         dispatcher.forward(request, response);
     } 
 

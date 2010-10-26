@@ -5,16 +5,11 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.Accomodation;
-import AvatarEntity.AccomodationJpaController;
-import AvatarEntity.Room;
-import AvatarEntity.RoomJpaController;
-import AvatarEntity.exceptions.PreexistingEntityException;
+import AvatarEntity.Layout;
+import AvatarEntity.LayoutJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Christian
  */
-public class TambahRoomInd extends HttpServlet {
+public class TambahLayout extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,28 +33,17 @@ public class TambahRoomInd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/layout_add.jsp");
         try {
-            // Inisialisasi JPA Controller dan List of Entity
-            RoomJpaController rmjpa = new RoomJpaController();
-            AccomodationJpaController acjpa = new AccomodationJpaController();
-            // Jika ada aksi penambahan
+            LayoutJpaController ljpa = new LayoutJpaController();
             if (request.getParameter("add") != null) {
-                Room room = new Room(request.getParameter("roomNo"),
-                        Integer.parseInt(request.getParameter("floor")));
-                if (!request.getParameter("roomName").equals(""))
-                    room.setRoomName(request.getParameter("roomName"));
-                Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
-                room.setProductId(accom);
-                rmjpa.create(room);
+                Layout lay = new Layout();
+                lay.setLayoutName(request.getParameter("layoutName"));
+                ljpa.create(lay);
             }
-            // Kirim ke JSP
-            List<Room> lroom = rmjpa.findRoomEntities();
-            request.setAttribute("returnList", lroom);
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+            // set untuk forward ke JSP
+            List<Layout> lLay = ljpa.findLayoutEntities();
+            request.setAttribute("returnList", lLay);
         } finally { 
             out.close();
         }
