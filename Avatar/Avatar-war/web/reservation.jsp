@@ -45,6 +45,87 @@
             );
 
             });
+
+
+            
+            var checkDateKosong=function()
+            {
+                //return false kalo ga valid
+                
+                var roomcheckinlength=document.syalala.roomcheckindate.value.length;
+                //alert(roomcheckinlength);
+                var roomcheckoutlength=document.syalala.roomcheckoutdate.value.length;
+                var halldate=document.syalala.halldate.value.length;
+                var room=document.syalala.roomcheckbox.checked;
+                var hall=document.syalala.hallcheckbox.checked;
+                var retval=true;
+
+                if(room){
+                    retval=retval&&!(roomcheckinlength==0 || roomcheckoutlength);
+                }
+
+                if(hall)
+                {
+                    retval=retval&&!(halldate==0)
+                }
+                alert("Date field must be filled");
+                return retval;            
+            }
+
+            var changeRoom=function()
+            {
+                // var kondisi=document.getElementById("roomcheckbox").checked;
+                var kondisi=document.syalala.roomcheckbox.checked;
+                //alert(document.syalala.roomcheckbox.checked);
+                if(!kondisi){
+                    document.syalala.roomcheckindate.disabled=true;
+                    document.syalala.roomcheckoutdate.disabled=true;
+                    document.syalala.roomtype.disabled=true;
+                    document.syalala.totalroom.disabled=true;
+                }else{
+                    document.syalala.roomcheckindate.disabled=false;
+                    document.syalala.roomcheckoutdate.disabled=false;
+                    document.syalala.roomtype.disabled=false;
+                    document.syalala.totalroom.disabled=false;
+                }
+
+                var kondisi2=document.syalala.hallcheckbox.checked;
+
+                if(kondisi || kondisi2){
+                    document.syalala.tombol.disabled=false;
+                }
+                else{
+                    document.syalala.tombol.disabled=true;
+                }
+            }
+
+            var changeHall=function()
+            {
+                var kondisi=document.syalala.hallcheckbox.checked;
+                if(kondisi)
+                {
+                    document.syalala.halldate.disabled=false;
+                    document.syalala.packagetype.disabled=false;
+                    document.syalala.totalhall.disabled=false;
+
+                }
+                else
+                {
+                    document.syalala.halldate.disabled=true;
+                    document.syalala.packagetype.disabled=true;
+                    document.syalala.totalhall.disabled=true;
+                }
+
+                var kondisi2=document.syalala.roomcheckbox.checked;
+
+                if(kondisi || kondisi2){
+                    document.syalala.tombol.disabled=false;
+                }
+                else{
+                    document.syalala.tombol.disabled=true;
+                }
+
+            }
         </script>
     </head>
 
@@ -65,13 +146,15 @@
             <div id="container">
                 <div id="content" style="width:500px;">
                     <h1>Please fill up this form to book our facility. </h1>
-                    <h2>ROOM</h2>
 
-                    <form action="TambahKeranjang?action=add" method="POST">
+                    <form action="TambahKeranjang?action=add" method="POST" name="syalala" onsubmit="return checkDateKosong();">
+                        <input type="checkbox" onclick="changeRoom();" name="roomcheckbox" value="1" /><label>Book Room</label>
+                        <input type="checkbox" onclick="changeHall();" name="hallcheckbox" value="1" /><label>Book Hall</label>
                         <ul>
 
-                            <li><label>Room type </label>
-                                <select name="roomtype">
+                            <li>
+                                <h2>ROOM</h2>
+                                <label>Room type </label> <select name="roomtype" disabled="true">
                                     <%
                                                                 /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
                                                                 List<Accomodation> listAccomodation = (new AccomodationJpaController()).findAccomodationEntities();
@@ -89,21 +172,21 @@
                                 </select> </li>
 
                             <!--li> <label>Total room</label> <input type="text" name="totalroom" /></li -->
-                            <li> <select name="totalroom">
+                            <li> <select name="totalroom" disabled="true">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select> </li>
-                            <li><label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" /></li>
-                            <li><label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" /></li>
+                            <li><label>Check-in date</label> <input disabled="true" name="roomcheckindate" type="text" class="datepicker" class="date-pick" /></li>
+                            <li><label>Check-out date</label> <input  disabled="true" name="roomcheckoutdate" type="text" class="datepicker" /></li>
                         </ul>
 
                         <h2>HALL</h2>
                         <ul>
                             <li><label>Package</label>
-                                <select name="packagetype">
+                                <select name="packagetype" disabled="true">
                                     <%
                                                                 /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
                                                                 List<Hall> listhall = (new HallJpaController()).findHallEntities();
@@ -116,16 +199,16 @@
                                                                 }
                                     %>
                                 </select>
-                                <li> <select name="totalhall">
+                            <li> <select name="totalhall" disabled="true">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                 </select> </li>
-                            <li><label>Date</label> <input name="halldate" type="text" class="datepicker" /></li>
+                            <li><label>Date</label> <input name="halldate" type="text" class="datepicker" disabled="true"/></li>
                         </ul>
-                        <input type="submit" value="SUBMIT">
+                        <input type="submit" value="SUBMIT" name="tombol" disabled="true">
 
                     </form>
 
@@ -134,9 +217,11 @@
                                                 /* INI HALAMAN KEDUA */
                                                 ArrayList<RoomSessionInfo> cartRoom = (ArrayList<RoomSessionInfo>) session.getAttribute("roomcart");
                                                 ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
-                                                Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
-                                                Iterator<HallSessionInfo> iHall = cartHall.iterator();
-                                                int i = 0;
+                                                CartController chartController = new CartController();
+                                                double totalBill = 0;
+                                                if (cartRoom != null) {
+                                                    Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
+                                                    int i = 0;
 
                     %>
 
@@ -154,19 +239,17 @@
                         </tr>
                         <tr>
                             <% /*ini buat produce isi td-nya*/
-
-                                                        CartController chartController = new CartController();
-                                                        double totalBill = 0;
-                                                        while (iRoom.hasNext()) {
-                                                            i++;
-                                                            RoomSessionInfo temp = iRoom.next();
-                                                            double singleRowPrice = 0;
-                                                            if (temp.available) {
-                                                                singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
-                                                                totalBill += singleRowPrice;
-                                                            } else {
-                                                                singleRowPrice = 0;
-                                                            }
+                                                                                
+                                                                                while (iRoom.hasNext()) {
+                                                                                    i++;
+                                                                                    RoomSessionInfo temp = iRoom.next();
+                                                                                    double singleRowPrice = 0;
+                                                                                    if (temp.available) {
+                                                                                        singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
+                                                                                        totalBill += singleRowPrice;
+                                                                                    } else {
+                                                                                        singleRowPrice = 0;
+                                                                                    }
                             %>
                         <tr>
                             <td><%=i%></td>
@@ -178,10 +261,16 @@
                             <td><%=singleRowPrice%></td>
                         </tr>
                         <%
-                                                    }
+                                                                            }
                         %>
                         </tr>
                     </table>
+                    <%
+
+                                                }
+                                                if (cartHall != null) {
+                                                    Iterator<HallSessionInfo> iHall = cartHall.iterator();
+                    %>
 
                     <h2>Hall</h2>
                     <table>
@@ -194,15 +283,15 @@
                         </tr>
 
                         <%
-                                                    i = 0;
-                                                    while (iHall.hasNext()) {
-                                                        i++;
-                                                        HallSessionInfo temp = iHall.next();
-                                                        double singleRowPrice = 0;
-                                                        if (temp.available) {
-                                                            singleRowPrice = chartController.getHallPrice(temp.product_id);
-                                                        }
-                                                        totalBill += singleRowPrice;
+                                                                            int i = 0;
+                                                                            while (iHall.hasNext()) {
+                                                                                i++;
+                                                                                HallSessionInfo temp = iHall.next();
+                                                                                double singleRowPrice = 0;
+                                                                                if (temp.available) {
+                                                                                    singleRowPrice = chartController.getHallPrice(temp.product_id);
+                                                                                }
+                                                                                totalBill += singleRowPrice;
                         %>
                         <tr>
                             <td><%=i%></td>
@@ -216,6 +305,9 @@
                         %>
 
                     </table>
+                    <%
+                                                }
+                    %>
 
                     <a href="reservation.jsp?step=1">Request more...</a>
                     <p>Your bill : Rp. <%=totalBill%></p>
@@ -255,6 +347,7 @@
 
                     <%                    }
                                 } catch (NullPointerException ex) {
+                                    response.sendRedirect("reservation.jsp?step=1");
                                     ex.printStackTrace();
 
                                 }

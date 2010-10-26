@@ -65,30 +65,47 @@ public class TambahKeranjang extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equals("add")) {
 
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                //Mendapatkan informasi buat roomnya
+                String roomCheckBox = request.getParameter("roomcheckbox");
+                String hallCheckBox = request.getParameter("hallcheckbox");
 
                 String roomType = (String) request.getParameter("roomtype");
-                Date checkInDate = df.parse((String) request.getParameter("roomcheckindate"));
-
-
-                Date checkOutDate = df.parse((String) request.getParameter("roomcheckoutdate"));
-                short totalRoom = Short.parseShort((String) request.getParameter("totalroom"));
+                String preCheckInDate = request.getParameter("roomcheckindate");
+                String preCheckOutDate = request.getParameter("roomcheckoutdate");
+                String preTotalRoom = request.getParameter("totalroom");
 
                 String packageType = (String) request.getParameter("packagetype");
-                Date hallDate = df.parse((String) request.getParameter("halldate"));
-                short totalHall = Short.parseShort((String) request.getParameter("totalhall"));
+                String preHallDate = request.getParameter("halldate");
+                String preTotalHall = request.getParameter("totalhall");
 
-                cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
-                cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                Date checkInDate;
+                Date checkOutDate;
+                short totalRoom;
 
-                //out.write("Jumlah hall yang dipesan=" + cartSessionBean1.getHallCart().size());
+                if (roomCheckBox != null) {
+                    checkInDate = df.parse(preCheckInDate);
+                    checkOutDate = df.parse(preCheckOutDate);
+                    totalRoom = Short.parseShort(preTotalRoom);
+                    cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
+                    session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
+                    out.write("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
 
-                // request.setAttribute("listhall", cartSessionBean1.getListHall());
-                session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
-                session.setAttribute("hallcart", cartSessionBean1.getHallCart());
-                out.write("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
+                }
 
-                //response.sendRedirect("reservation.jsp?step=2");
+                //Mendapatkan informasi buat hall nya
+
+                Date hallDate = df.parse(preHallDate);
+                short totalHall = Short.parseShort(preTotalHall);
+
+                if (hallCheckBox != null) {
+                    hallDate = df.parse(preHallDate);
+                    totalHall = Short.parseShort(preTotalHall);
+                    cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
+                    session.setAttribute("hallcart", cartSessionBean1.getHallCart());
+                    out.write("Jumlah cart untuk room : " + cartSessionBean1.getHallCart().size());
+                }
+
                 out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
             } else if (action.equals("delete")) {
             } else if (action.equals("proceed")) {
@@ -96,7 +113,7 @@ public class TambahKeranjang extends HttpServlet {
                 Reservation res = new Reservation();
                 res.setIsOnspot(false);
                 /*Ini harus diubah*/
-                String usernameCustomer="harlili";
+                String usernameCustomer = "harlili";
                 Customer cust = (new CustomerJpaController()).findCustomer(usernameCustomer);
                 res.setUsername(cust);
                 res.setNote("");
@@ -116,11 +133,11 @@ public class TambahKeranjang extends HttpServlet {
                     (new HallReservationJpaController()).create(hallReservation);
                 }
 
-                CartController cartController=new CartController();
-                
+                CartController cartController = new CartController();
+
                 while (iRoomCart.hasNext()) {
                     RoomSessionInfo temp = iRoomCart.next();
-                    RoomReservation roomReservation=new RoomReservation();
+                    RoomReservation roomReservation = new RoomReservation();
                     roomReservation.setEntryDate(temp.entry_date);
                     roomReservation.setExitDate(temp.exit_date);
                     roomReservation.setReservationTime(new Date());
