@@ -48,7 +48,7 @@
                     <li><a href="#">Post</a></li>
                     <li><a href="#">Repository</a></li>
                     <li><a href="reservation_manage.jsp">Reservation</a></li>
-                    <li><a href="#">Payment</a></li>
+                    <li><a href="payment_manage.jsp">Payment</a></li>
                 </ul>
             </div>
         </div>
