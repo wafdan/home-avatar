@@ -44,8 +44,24 @@ public class KonfirmasiPembayaranController {
          return rc.findReservationEntities();
     }
 
-    public List<Reservation> getReservationByUsername(String username) {
-         return rc.findReservationEntitiesByUsername(username);
+    public List<Reservation> getReservationByName(String name) {
+         return rc.findOnlineReservationByName(name);
+    }
+
+    public List<Reservation> getUnpaidReservationByName(String name) {
+         return rc.findUnpaidOnlineReservationByName(name);
+    }
+
+    public List<Reservation> getPaidReservationByName(String name) {
+         return rc.findPaidOnlineReservationByName(name);
+    }
+
+    public List<ReservationItem> getReservationItem() {
+         return ric.findReservationItemEntities();
+    }
+
+    public boolean isPaymentVerified (Reservation r) {
+        return (r.getPayment().getUsername() != null);
     }
 
 }

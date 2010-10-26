@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  *
@@ -247,19 +248,6 @@ public class ReservationJpaController {
         }
     }
 
-    public List<Reservation> findReservationEntitiesByUsername(String username) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            //cq.select(cq.from(Reservation.class));
-            Query q = em.createQuery("SELECT r FROM Reservation r WHERE r.username = :username ORDER BY p.reservation_id descending");
-            q.setParameter("username", username);
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
     public Reservation findReservation(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -283,6 +271,54 @@ public class ReservationJpaController {
         EntityManager em = getEntityManager();
         try {
             Query q = em.createNamedQuery("Reservation.findPaid");
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Reservation> findOnlineReservationByName(String name) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Reservation.findReservationByName");
+            q.setParameter("name", name);
+            q.setParameter("isOnspot", false);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Reservation> findOnspotReservationByName(String name) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Reservation.findReservationByName");
+            q.setParameter("name", name);
+            q.setParameter("isOnspot", true);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Reservation> findUnpaidOnlineReservationByName(String name) {
+        List<Reservation> result = findOnlineReservationByName(name);
+        List<Reservation> paid = findPaidOnlineReservationByName(name);
+        Iterator<Reservation> i = result.iterator();
+        while (i.hasNext()) {
+            Reservation r = i.next();
+            if (paid.contains(r)) {
+                result.remove(r);
+            }
+        }
+        return result;
+    }
+
+    public List<Reservation> findPaidOnlineReservationByName(String name) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Reservation.findPaidOnlineReservationByName");
+            q.setParameter("name", name);
             return q.getResultList();
         } finally {
             em.close();
