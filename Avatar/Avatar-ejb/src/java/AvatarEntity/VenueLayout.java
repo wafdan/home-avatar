@@ -28,7 +28,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "VenueLayout.findAll", query = "SELECT v FROM VenueLayout v"),
     @NamedQuery(name = "VenueLayout.findByVenueNo", query = "SELECT v FROM VenueLayout v WHERE v.venueNo = :venueNo"),
     @NamedQuery(name = "VenueLayout.findByLayoutNo", query = "SELECT v FROM VenueLayout v WHERE v.layoutNo = :layoutNo"),
-    @NamedQuery(name = "VenueLayout.findByCapacity", query = "SELECT v FROM VenueLayout v WHERE v.capacity = :capacity")})
+    @NamedQuery(name = "VenueLayout.findByCapacity", query = "SELECT v FROM VenueLayout v WHERE v.capacity = :capacity"),
+    @NamedQuery(name = "VenueLayout.findVenueLayout", query = "SELECT v FROM VenueLayout v WHERE v.venueNo = :venueNo AND v.layoutNo = :layoutNo")})
 public class VenueLayout implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

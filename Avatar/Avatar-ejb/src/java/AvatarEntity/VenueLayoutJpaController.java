@@ -156,6 +156,18 @@ public class VenueLayoutJpaController {
         }
     }
 
+    public VenueLayout findVenueLayout(String venueNo, Integer layoutNo) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("VenueLayout.findVenueLayout");
+            q.setParameter("venueNo", venueNo);
+            q.setParameter("layoutNo", layoutNo);
+            return (VenueLayout) q.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getVenueLayoutCount() {
         EntityManager em = getEntityManager();
         try {
