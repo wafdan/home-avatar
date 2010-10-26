@@ -10,6 +10,8 @@ import AvatarEntity.Hall;
 import AvatarEntity.HallJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
+import AvatarEntity.RoomReservation;
+import AvatarEntity.RoomReservationJpaController;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -99,28 +101,75 @@ public class CartController implements CartControllerLocal {
     }
 
     public double countTotalBill(Date tanggalMasuk, Date tanggalKeluar, double normalRate, double weekendrate) {
-        Calendar calMasuk=Calendar.getInstance();
+        Calendar calMasuk = Calendar.getInstance();
         calMasuk.setTime(tanggalMasuk);
 
-        Calendar calKeluar=Calendar.getInstance();
+        Calendar calKeluar = Calendar.getInstance();
         calKeluar.setTime(tanggalKeluar);
 
         calKeluar.add(Calendar.DATE, -1);
-        double retval=0;
-        while(!calMasuk.after(calKeluar)){
-            int dayofweek=calMasuk.get(Calendar.DAY_OF_WEEK);
-            if(dayofweek==Calendar.SUNDAY || dayofweek==Calendar.SATURDAY){
-                retval+=weekendrate;
-            }
-            else
-            {
-                retval+=normalRate;
+        double retval = 0;
+        while (!calMasuk.after(calKeluar)) {
+            int dayofweek = calMasuk.get(Calendar.DAY_OF_WEEK);
+            if (dayofweek == Calendar.SUNDAY || dayofweek == Calendar.SATURDAY) {
+                retval += weekendrate;
+            } else {
+                retval += normalRate;
             }
         }
         return retval;
     }
 
+    public String generateRoomNumber(String product_id, Date entry_date, Date exit_date) throws Exception {
+        String retval;
+        List<Room> allRoom = (new RoomJpaController()).findRoomEntities();
+        Iterator<Room> iAllRoom = allRoom.iterator();
 
+        //Filter dulu room nya sesuai dengan tipe accomodation yang diinginkan
+        while (iAllRoom.hasNext()) {
+            Room temp = iAllRoom.next();
+            if (!temp.getProductId().getProductId().equals(product_id)) {
+                allRoom.remove(temp);
+            }
+        }
+
+        //Udah gitu filter room reservation sesuai dengan tipe accomodation yang diinginkan
+        List<RoomReservation> roomReservations = (new RoomReservationJpaController()).findReservationByEntryDate(entry_date);
+        if (roomReservations != null) {
+            Iterator<RoomReservation> iRoomReservation = roomReservations.iterator();
+
+            while (iRoomReservation.hasNext()) {
+                RoomReservation temp = iRoomReservation.next();
+                if (!temp.getRoomNo().getProductId().getProductId().equals(product_id)) {
+                    roomReservations.remove(temp);
+                }
+            }
+        }
+
+        //Masukkan ke hashmap semua elemen yang udah terisi, yaitu yang ada di reservationnya.
+        HashMap<String, Boolean> hashTerisi = new HashMap<String, Boolean>();
+        if (roomReservations != null) {
+            Iterator<RoomReservation> iRoomReservation2 = roomReservations.iterator();
+            while (iRoomReservation2.hasNext()) {
+                RoomReservation temp = iRoomReservation2.next();
+                hashTerisi.put(temp.getRoomNo().getRoomNo(), Boolean.TRUE);
+            }
+        }
+
+        //udah gitu tinggal didapatkan satu nomor kamar kosong pertama yang ditemukan
+
+        iAllRoom = allRoom.iterator();
+        while (iAllRoom.hasNext()) {
+            Room temp = iAllRoom.next();
+            Boolean adakah = hashTerisi.get(temp.getRoomNo());
+            if (adakah == null) {
+                retval = temp.getRoomNo();
+                return retval;
+            }
+        }
+        throw new Exception("Tidak ditemukan kamar yang kosong, mohon maaf");
+
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }
