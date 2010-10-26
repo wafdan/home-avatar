@@ -38,8 +38,7 @@ public class EditRoomInd extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add");
+        PrintWriter out = response.getWriter();        
         try {
             // Inisialisasi JPA Controller dan List of Entity
             RoomJpaController rmjpa = new RoomJpaController();
@@ -54,10 +53,12 @@ public class EditRoomInd extends HttpServlet {
                     Accomodation accom = acjpa.findAccomodation(request.getParameter("roomType"));
                     room.setProductId(accom);
                     rmjpa.edit(room);
+                    response.sendRedirect("/backend/room_add");
                 } else  {
                     // Kirim ke JSP halaman edit
                     request.setAttribute("toEdit", room);
-                    dispatcher = request.getRequestDispatcher("/backend/room_edit.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_edit.jsp");
+                    dispatcher.forward(request, response);
                 }
             }
         } catch (IllegalOrphanException ex) {
@@ -69,7 +70,6 @@ public class EditRoomInd extends HttpServlet {
         } finally { 
             out.close();
         }
-        dispatcher.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -38,7 +38,6 @@ public class TambahRoomInd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
         try {
             // Inisialisasi JPA Controller dan List of Entity
             RoomJpaController rmjpa = new RoomJpaController();
@@ -56,6 +55,8 @@ public class TambahRoomInd extends HttpServlet {
             // Kirim ke JSP
             List<Room> lroom = rmjpa.findRoomEntities();
             request.setAttribute("returnList", lroom);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
+            dispatcher.forward(request, response);
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -63,7 +64,7 @@ public class TambahRoomInd extends HttpServlet {
         } finally { 
             out.close();
         }
-        dispatcher.forward(request, response);
+        
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

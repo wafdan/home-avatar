@@ -5,11 +5,13 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.Layout;
-import AvatarEntity.LayoutJpaController;
+import AvatarEntity.VenueJpaController;
+import AvatarEntity.exceptions.IllegalOrphanException;
+import AvatarEntity.exceptions.NonexistentEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Christian
  */
-public class TambahLayout extends HttpServlet {
+public class HapusVenue extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,18 +36,16 @@ public class TambahLayout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            LayoutJpaController ljpa = new LayoutJpaController();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/layout_add.jsp");
-            if (request.getParameter("add") != null) {
-                Layout lay = new Layout();
-                lay.setLayoutName(request.getParameter("layoutName"));
-                ljpa.create(lay);
+            VenueJpaController vjpa = new VenueJpaController();
+            if (request.getParameter("venueNo") != null) {
+                vjpa.destroy(request.getParameter("venueNo"));
             }
-            // set untuk forward ke JSP
-            List<Layout> lLay = ljpa.findLayoutEntities();
-            request.setAttribute("returnList", lLay);
-            dispatcher.forward(request, response);
-        } finally { 
+            response.sendRedirect("/backend/venue_add");
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(HapusVenue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(HapusVenue.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             out.close();
         }
     } 

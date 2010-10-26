@@ -5,7 +5,6 @@
 
 package MengelolaLayanan;
 
-import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
 import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +37,7 @@ public class HapusRoomInd extends HttpServlet {
         try {
             RoomJpaController rmjpa = new RoomJpaController();
             rmjpa.destroy(request.getParameter("roomNo"));
+            response.sendRedirect("/backend/room_add");
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(HapusRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
@@ -46,8 +45,6 @@ public class HapusRoomInd extends HttpServlet {
         } finally { 
             out.close();
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add");
-        dispatcher.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

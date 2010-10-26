@@ -76,6 +76,18 @@
         <servlet-name>EditLayout</servlet-name>
         <servlet-class>MengelolaLayanan.EditLayout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TambahVenue</servlet-name>
+        <servlet-class>MengelolaLayanan.TambahVenue</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HapusVenue</servlet-name>
+        <servlet-class>MengelolaLayanan.HapusVenue</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditVenue</servlet-name>
+        <servlet-class>MengelolaLayanan.EditVenue</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -151,6 +163,18 @@
     <servlet-mapping>
         <servlet-name>EditLayout</servlet-name>
         <url-pattern>/backend/layout_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahVenue</servlet-name>
+        <url-pattern>/backend/venue_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusVenue</servlet-name>
+        <url-pattern>/backend/venue_delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditVenue</servlet-name>
+        <url-pattern>/backend/venue_edit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

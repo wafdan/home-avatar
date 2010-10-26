@@ -40,7 +40,7 @@ Room toEdit = (Room) request.getAttribute("toEdit");
                     <!-- start content -->
                     <div id="content">
                         <h1 class="title">Edit Individual Room</h1>
-                        <form method="post" name="editIndRoom" id="editIndRoom" action="room_add">
+                        <form method="post" name="editIndRoom" id="editIndRoom" action="room_edit">
                             <input type="hidden" name="roomNo" id="roomNo" value="<%= toEdit.getRoomNo() %>" />
                             <table border="0">
                                 <tr>
@@ -57,7 +57,7 @@ Room toEdit = (Room) request.getAttribute("toEdit");
                                             for (Accomodation ind : ajpa.findAccomodationEntities()) {
                                             %>
                                             <option value="<%= ind.getProductId() %>"<%=
-                                            (toEdit.getProductId().getProductType().equals(ind.getProductId()) ?
+                                            (toEdit.getProductId().getProductId().equals(ind.getProductId()) ?
                                                 " selected=\"selected\"" : "")
                                             %>><%= ind.getProductType() %></option>
                                             <% } %>

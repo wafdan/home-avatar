@@ -35,18 +35,20 @@ public class EditLayout extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/layout_add");
         try {
             // Inisialisasi JPA Controller dan List of Entity
             LayoutJpaController ljpa = new LayoutJpaController();
             if (request.getParameter("layoutNo") != null) {
                 Layout layout = ljpa.findLayout(Integer.parseInt(request.getParameter("layoutNo")));
                 if (request.getParameter("update") != null) { // Jika ada aksi pengubahan
+                    layout.setLayoutName(request.getParameter("layoutName"));
                     ljpa.edit(layout);
+                    response.sendRedirect("/backend/layout_add");
                 } else  {
                     // Kirim ke JSP halaman edit
                     request.setAttribute("toEdit", layout);
-                    dispatcher = request.getRequestDispatcher("/backend/layout_edit.jsp");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/layout_edit.jsp");
+                    dispatcher.forward(request, response);
                 }
             }
         } catch (NonexistentEntityException ex) {
@@ -56,7 +58,6 @@ public class EditLayout extends HttpServlet {
         } finally {
             out.close();
         }
-        dispatcher.forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

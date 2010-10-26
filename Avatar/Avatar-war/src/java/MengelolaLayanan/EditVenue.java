@@ -7,9 +7,15 @@ package MengelolaLayanan;
 
 import AvatarEntity.Layout;
 import AvatarEntity.LayoutJpaController;
+import AvatarEntity.Venue;
+import AvatarEntity.VenueJpaController;
+import AvatarEntity.VenueLayout;
+import AvatarEntity.VenueLayoutJpaController;
+import AvatarEntity.exceptions.PreexistingEntityException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Christian
  */
-public class TambahLayout extends HttpServlet {
+public class EditVenue extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,17 +40,39 @@ public class TambahLayout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            LayoutJpaController ljpa = new LayoutJpaController();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/layout_add.jsp");
-            if (request.getParameter("add") != null) {
-                Layout lay = new Layout();
-                lay.setLayoutName(request.getParameter("layoutName"));
-                ljpa.create(lay);
+            VenueJpaController vjpa = new VenueJpaController();
+            Venue venue = vjpa.findVenue(request.getParameter("venueNo"));
+            if (request.getParameter("update") != null) {
+                // Masukkan Venue
+                if (!request.getParameter("description").equals("")) {
+                    venue.setDescription(request.getParameter("description"));
+                }
+                vjpa.create(venue);
+                // Masukkan layout
+                LayoutJpaController ljpa = new LayoutJpaController();
+                VenueLayoutJpaController vljpa = new VenueLayoutJpaController();
+                VenueLayout vl = null;
+                for (Layout lay : ljpa.findLayoutEntities()) {
+                    vl = new VenueLayout(venue.getVenueNo(), lay.getLayoutNo(),
+                            Integer.parseInt(request.getParameter("layout_" + lay.getLayoutNo())));
+                    vl.setVenue(venue); vl.setLayout(lay);
+                    if (vljpa.findVenueLayout(venue.getVenueNo(), lay.getLayoutNo()) != null) {
+                        vljpa.edit(vl);
+                    } else {
+                        vljpa.create(vl);
+                    }
+                }
+                response.sendRedirect("/backend/venue_add");
+            } else {
+                // Kirim ke JSP halaman edit
+                request.setAttribute("toEdit", venue);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/venue_edit.jsp");
+                dispatcher.forward(request, response);
             }
-            // set untuk forward ke JSP
-            List<Layout> lLay = ljpa.findLayoutEntities();
-            request.setAttribute("returnList", lLay);
-            dispatcher.forward(request, response);
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(EditVenue.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(EditVenue.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
         }

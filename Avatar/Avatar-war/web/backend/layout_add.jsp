@@ -56,6 +56,7 @@ List<Layout> lLay = (List<Layout>) request.getAttribute("returnList");
                                 <tr>
                                     <th>No</th>
                                     <th>Layout Name</th>
+                                    <th>Action</th>
                                 </tr>
                                 <%
                                 for (Layout ind : lLay) {

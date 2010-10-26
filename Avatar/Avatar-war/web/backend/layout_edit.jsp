@@ -40,7 +40,7 @@ Layout toEdit = (Layout) request.getAttribute("toEdit");
                     <div id="content">
                         <h1 class="title">Edit Layout</h1>
                         <form method="post" name="editLayout" id="editLayout" action="layout_edit">
-                            <input type="hidden" name="roomNo" id="roomNo" value="<%= toEdit.getLayoutNo() %>" />
+                            <input type="hidden" name="layoutNo" id="layoutNo" value="<%= toEdit.getLayoutNo() %>" />
                             <table border="0">
                                 <tr>
                                     <td>Layout No</td>
