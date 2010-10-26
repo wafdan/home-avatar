@@ -149,23 +149,9 @@ public class KelolaPembayaran extends HttpServlet {
             List<Reservation> lres = resjc.findReservationEntities();
             request.setAttribute("returnList", lres);
             request.setAttribute("popup", popup);
+            // Tampilkan ke JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
             dispatcher.forward(request, response);
-            /*for (Reservation item : lres) {
-                out.println("ID: " + item.getReservationId() + "<br />");
-                out.println("User: " + item.getUsername().getName() + "<br />");
-                out.println("Amount: " + item.getTotalPrice() + "<br />");
-                out.println("Reservation time: " + item.getReservationTime() + "<br />");
-                out.println("On spot? " + (item.getIsOnspot() ? "yes" : "no") + "<br />");
-                out.println("Confirmed? " + (item.getPayment() != null ? "yes" : "no") + "<br />");
-                out.println("Verified? " + (item.getPayment() != null ? (item.getPayment().getUsername() != null ? "yes" : "no") : "no") + "<br />");
-                out.println("Note: " + item.getNote() + "<br />");
-                out.println("Reservation item(s):<br />");
-                for (ReservationItem subitem : item.getReservationItemCollection()) {
-                    out.println("\t" + subitem.getReservationItemId() + ": Rp " + subitem.getPrice() + "<br />");
-                }
-                out.println("-----<br />");
-            }*/
         } finally { 
             out.close();
         }

@@ -52,6 +52,10 @@
         <servlet-name>KelolaPembayaran</servlet-name>
         <servlet-class>MengelolaPembayaran.KelolaPembayaran</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TambahRoomInd</servlet-name>
+        <servlet-class>MengelolaLayanan.TambahRoomInd</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
         <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>KelolaPembayaran</servlet-name>
         <url-pattern>/backend/payment_manage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahRoomInd</servlet-name>
+        <url-pattern>/backend/room_add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
