@@ -89,30 +89,31 @@
     </select>
         
     <label>Total room</label> <input type="text" name="totalroom" /></li>
-    <li><label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" />
-    <label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" /></li>
+        <li><label>Check-in date</label> <input name="roomcheckindate" type="text" class="datepicker" class="date-pick" /></li>
+    <li><label>Check-out date</label> <input name="roomcheckoutdate" type="text" class="datepicker" /></li>
     </ul>
 
     <h2>HALL</h2>
-    <label>Package</label>
-    <select name="packagetype">
-        <%
-            /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
-            List<Hall> listhall = (new HallJpaController()).findHallEntities();
-            Iterator<Hall> iHall = listhall.iterator();
-            while (iHall.hasNext()) {
-                Hall hall = iHall.next();
-        %>
-    <option value="<%=hall.getProductId()%>"> <%=hall.getProductType()%> </option>
-        <%
-                            }
-        %>
-    </select>
-    <label>Total hall needed</label> <input type="text" name="totalhall" />
-    <!-- BAGIAN DHANA LAGI -->
-    <label>Date</label> <input name="halldate" type="text" class="datepicker" />
-    <!-- END OF BAGIAN DHANA -->
+    <ul>
+        <li><label>Package</label>
+        <select name="packagetype">
+            <%
+                /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+                List<Hall> listhall = (new HallJpaController()).findHallEntities();
+                Iterator<Hall> iHall = listhall.iterator();
+                while (iHall.hasNext()) {
+                    Hall hall = iHall.next();
+            %>
+        <option value="<%=hall.getProductId()%>"> <%=hall.getProductType()%> </option>
+            <%
+                                }
+            %>
+        </select>
+        <label>Total hall</label> <input type="text" name="totalhall" /></li>
+       <li><label>Date</label> <input name="halldate" type="text" class="datepicker" /></li>
+    </ul>
     <input type="submit" value="SUBMIT">
+
 </form>
 
 <%
@@ -255,12 +256,10 @@
 %>
 </div>
     <div id="column">
-    	<div class="holder">
-           
-        </div>
-
+    	
       <div class="subnav">
-        
+        <h2>Promotion</h2>
+        <p>For best room rate and booking service, please contact our customer service.</p>
       </div>
 
     </div>
