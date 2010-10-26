@@ -229,7 +229,7 @@
     </li>
 </ol>
 
-<FORM METHOD="LINK" ACTION="#">
+<FORM METHOD="GET" ACTION="TambahKeranjang?action=proceed">
     <INPUT TYPE="submit" VALUE="Save Reservation">
 </FORM>
 

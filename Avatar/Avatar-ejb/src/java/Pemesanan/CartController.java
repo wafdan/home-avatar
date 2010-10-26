@@ -116,6 +116,7 @@ public class CartController implements CartControllerLocal {
             } else {
                 retval += normalRate;
             }
+            calMasuk.add(Calendar.DATE, 1);
         }
         return retval;
     }

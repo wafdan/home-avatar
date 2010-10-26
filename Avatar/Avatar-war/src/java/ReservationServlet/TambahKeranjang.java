@@ -4,14 +4,28 @@
  */
 package ReservationServlet;
 
+import AvatarEntity.Customer;
+import AvatarEntity.CustomerJpaController;
+import AvatarEntity.Hall;
+import AvatarEntity.HallReservation;
+import AvatarEntity.HallReservationJpaController;
+import AvatarEntity.Reservation;
+import AvatarEntity.ReservationJpaController;
 import AvatarEntity.Room;
+import AvatarEntity.RoomReservation;
+import AvatarEntity.RoomReservationJpaController;
+import Pemesanan.CartController;
 import Pemesanan.CartLocal;
+import Pemesanan.HallSessionInfo;
+import Pemesanan.RoomSessionInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -45,17 +59,17 @@ public class TambahKeranjang extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
 
         try {
             String action = request.getParameter("action");
             if (action.equals("add")) {
-                
-                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
                 String roomType = (String) request.getParameter("roomtype");
                 Date checkInDate = df.parse((String) request.getParameter("roomcheckindate"));
-                
+
 
                 Date checkOutDate = df.parse((String) request.getParameter("roomcheckoutdate"));
                 short totalRoom = Short.parseShort((String) request.getParameter("totalroom"));
@@ -72,15 +86,55 @@ public class TambahKeranjang extends HttpServlet {
                 // request.setAttribute("listhall", cartSessionBean1.getListHall());
                 session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
                 session.setAttribute("hallcart", cartSessionBean1.getHallCart());
-                out.write("Jumlah cart untuk room : "+cartSessionBean1.getRoomCart().size());
+                out.write("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
 
                 //response.sendRedirect("reservation.jsp?step=2");
                 out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
-            }
-            else if (action.equals("delete")){
+            } else if (action.equals("delete")) {
+            } else if (action.equals("proceed")) {
+                ReservationJpaController resjpa = new ReservationJpaController();
+                Reservation res = new Reservation();
+                res.setIsOnspot(false);
+                /*Ini harus diubah*/
+                String usernameCustomer="harlili";
+                Customer cust = (new CustomerJpaController()).findCustomer(usernameCustomer);
+                res.setUsername(cust);
+                res.setNote("");
+                resjpa.create(res);
+                ArrayList<HallSessionInfo> listHallCart = cartSessionBean1.getHallCart();
+                ArrayList<RoomSessionInfo> listRoomCart = cartSessionBean1.getRoomCart();
+                Iterator<HallSessionInfo> iHallCart = listHallCart.iterator();
+                Iterator<RoomSessionInfo> iRoomCart = listRoomCart.iterator();
+
+                while (iHallCart.hasNext()) {
+                    HallSessionInfo temp = iHallCart.next();
+                    HallReservation hallReservation = new HallReservation();
+                    hallReservation.setProductId(new Hall(temp.product_id));
+                    hallReservation.setUseDate(temp.use_date);
+                    hallReservation.setReservationTime(new Date());
+                    hallReservation.setReservationId(res);
+                    (new HallReservationJpaController()).create(hallReservation);
+                }
+
+                CartController cartController=new CartController();
                 
+                while (iRoomCart.hasNext()) {
+                    RoomSessionInfo temp = iRoomCart.next();
+                    RoomReservation roomReservation=new RoomReservation();
+                    roomReservation.setEntryDate(temp.entry_date);
+                    roomReservation.setExitDate(temp.exit_date);
+                    roomReservation.setReservationTime(new Date());
+                    roomReservation.setRoomNo(new Room(cartController.generateRoomNumber(temp.product_id, temp.entry_date, temp.exit_date)));
+                    roomReservation.setReservationId(res);
+                    (new RoomReservationJpaController()).create(roomReservation);
+                }
+
+                out.write("success");
+
             }
         } catch (ParseException ex) {
+            Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
@@ -133,7 +187,6 @@ public class TambahKeranjang extends HttpServlet {
         }
     }
 }
-
 /**
  * @author Deepak Kumar
  * @Web http://www.roseindia.net
