@@ -12,7 +12,8 @@
 <%@ page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<%!    String option0 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\">Manager</option></select>";
+<%!
+    String option0 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\">Manager</option></select>";
     String option1 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\" selected=\"true \">Receptionis</option> <option value=\"2\">Manager</option></select>";
     String option2 = "<select id=\"position\" name=\"position\"> <option value=\"0\">Administartor</option><option value=\"1\">Receptionis</option> <option value=\"2\" selected=\"true\">Manager</option></select>";
     StaffJpaController s = new StaffJpaController();
@@ -64,14 +65,6 @@
                     <div id="content">
                         <h1 class="title">Daftar Staff</h1>
                         <div class="post">
-                            <table width="603" border="1" style="table-layout:fixed">
-                                <tr>
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Nama</th>
-                                    <th bgcolor="#262626" width="77">ID</th>
-                                    <th bgcolor="#262626" width="96">Position</th>
-                                </tr>
                                 <%
                                     int editIndex = 0;
                                     try {
@@ -86,17 +79,21 @@
                                     int index = 0;
                                     StaffJpaController jpa = new StaffJpaController();
                                     List<Staff> staffList = jpa.findStaffEntities();
-                                    if (editIndex == -1) {
+                                    if (editIndex == -1) {%>
+                                    <table width="603" border="1" style="table-layout:fixed">
+                                        <tr>
+                                            <th bgcolor="#262626" width="29">No.</th>
+                                            <th bgcolor="#262626" width="179">Username</th>
+                                            <th bgcolor="#262626" width="89">Nama</th>
+                                            <th bgcolor="#262626" width="77">ID</th>
+                                            <th bgcolor="#262626" width="96">Position</th>
+                                        </tr>
+                                        <%
                                         for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
                                             Staff temp = i.next();
-                                %>
+                                        %>
                                 <tr>
-                                    <td>
-                                    <%index++;
-                                    out.write(Integer.toString(index));
-                                    %>
-                                    </td>
-
+                                    <td><%=index++%></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
@@ -104,47 +101,59 @@
                                     <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
                                     <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
-
-                                <%
-                                        }
-                                    } else {
-                                        int iterator = 0;
-                                        for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
-                                            Staff temp = i.next();
-                                            iterator++;
+                                <%}%>
+                                </table>
+                                <%} else {
+                                    int iterator = 0;
+                                    for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
+                                        Staff temp = i.next();
+                                        iterator++;
                                 %>
-                                <tr>
                                     <% index++;
                                     if (iterator == editIndex) {%>
-                                    <td>
+                                    <%--<td>
                                         <%out.write(Integer.toString(index));%>
-                                    </td>
+                                    </td>--%>
                                 <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
-                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getUsername() + "\" id=\"username\" name=\"username\" disabled=\"true\"></input>");%></td>
-                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getName() + "\" id=\"nama\" name=\"nama\"></input>");%></td>
-                                    <td><% out.write("<input type=\"text\" value=\"" + temp.getEmploymentId() + "\" id=\"emID\" name=\"emID\"></input>");%></td>
-                                    <td>
-                                        <%
-                                        if (temp.getPosition() == 0)
+                                    <div class="required">
+                                        <label class="flabel">No. </label>
+                                        <input type="text" class="input_text" disabled="true" value="<%= editIndex%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Username :</label>
+                                        <input type="text" class="input_text" disabled="true" value="<%=temp.getUsername()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Name:</label>
+                                        <input type="text" class="input_text" name="name" id="name" value="<%=temp.getName()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Employee ID:</label>
+                                        <input type="text" class="input_text" name="itype" id="itype" value="<%=temp.getEmploymentId()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Position:</label>
+                                        <%if (temp.getPosition() == 0)
                                         {out.write(option0);}
                                         else if (temp.getPosition() == 1)
                                         {out.write(option1);}
                                         else
                                         {out.write(option2);}
                                         %>
-                                    </td>
-                                    <td><input type="submit" value="save" onclick="this.form.username.disabled=false;"/> </td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
-                                    <td><a href="staff_manage.jsp"> cancel </a></td>
+                                    </div><br/>
+                                        
+                                    <input class="button" type="submit" value="save" onclick="this.form.username.disabled=false;"/>
+                                    <a class="button" href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a>
+                                    <a class="button" href="staff_manage.jsp"> cancel </a>
                                 </form>
                                 <% } else {%>
-                                <td><%%></td>
+                                <%--<td><%%></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                 <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
                                 <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>--%>
 
                                 <%      }
                                     }
@@ -157,8 +166,7 @@
                                     <td>&nbsp;</td>
                                     <td><a href="#">edit</a></td>
                                     <td><a href="#">delete</a></td>
-                                </tr>   -->        
-                            </table>
+                                </tr>   --> 
                         </div>
                     </div>
                     <!-- end content -->
