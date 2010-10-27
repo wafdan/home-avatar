@@ -119,7 +119,8 @@ public class TambahKeranjang extends HttpServlet {
                     out.write("Jumlah cart untuk room : " + cartSessionBean1.getHallCart().size());
                 }
 
-                out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
+                //out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
+                response.sendRedirect("reservation.jsp?step=2");
             } else if (action.equals("delete")) {
             } else if (action.equals("proceed")) {
                 ReservationJpaController resjpa = new ReservationJpaController();
@@ -160,7 +161,7 @@ public class TambahKeranjang extends HttpServlet {
                 }
 
                 out.write("success");
-
+                response.sendRedirect("reservation.jsp?step=4");
             }
         } catch (ParseException ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
