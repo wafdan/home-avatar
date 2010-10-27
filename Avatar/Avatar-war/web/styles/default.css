@@ -87,6 +87,22 @@ br {
     clear: right;
 }
 
+form .input_text{
+    width: 200px;
+    padding: 1px 3px;
+}
+
+form .select{
+    width: 210px;
+    padding: 1px 3px;
+}
+
+form .message{
+    width: 200px;
+    height: 70px;
+    padding: 1px 3px;
+    overflow: scroll;
+}
 /* Header */
 
 #header {
