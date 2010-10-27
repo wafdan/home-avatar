@@ -7,13 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="AvatarEntity.RoomReservationJpaController" %>
 <%@ page import="AvatarEntity.RoomReservation" %>
+<%@ page import="AvatarEntity.CustomerJpaController" %>
+<%@ page import="AvatarEntity.Customer" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <%! RoomReservationJpaController cr = new RoomReservationJpaController();
-    List<RoomReservation> lr = null;
+    List<RoomReservation> lr = cr.findRoomReservationEntities();
+
+   /* CustomerJpaController sr = new CustomerJpaController();
+    List<Customer> kir = sr.findCustomerEntities(); */
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -87,10 +92,20 @@
                                             int index = 0;
                                             RoomReservationJpaController jpr = new RoomReservationJpaController();
                                             List<RoomReservation> roomList = jpr.findRoomReservationEntities();
+
+                                         /*   CustomerJpaController jpc = new CustomerJpaController();
+                                            List<Customer> cusList = jpc.findCustomerEntities();
+                                            Iterator<Customer> cur = kir.iterator();
+                                                if (cur.hasNext()) {out.write(" cur has next ");} else {out.write(" cur no next ");}
+                                         */
                                             if (editIndex == -1) {
                                                 out.write("tes masuk 2");
-                                                lr = cr.findRoomReservationEntities();
+                                                
                                                 out.write("tes masuk 3");
+
+                                                Iterator<RoomReservation> ur = roomList.iterator();
+                                                if (ur.hasNext()) {out.write(" has next ");} else {out.write(" no next ");}
+
                                                 for (Iterator<RoomReservation> ir = lr.iterator(); ir.hasNext();) {
                                                     out.write("tes masuk 4");
                                                     RoomReservation temp = ir.next();
@@ -98,7 +113,7 @@
                                 %>
                                 <tr>
                                     <td><%=index %></td>
-                                    <td><div style="overflow:auto"><% /* = temp.getReservationItemId() */  %></div></td>
+                                    <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
                                     <td><div style="overflow:auto"><%= temp.getRoomNo().toString() %></div></td>
                                     <td> <%= temp.getEntryDate().toString() %> </td>
                                     <td> <%= temp.getExitDate().toString() %> </td>
