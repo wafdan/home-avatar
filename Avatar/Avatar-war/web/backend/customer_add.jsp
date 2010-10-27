@@ -55,7 +55,7 @@
                     <div id="content">
                         <div class="post">
                             <div class="box">
-                                <h1>tambah CUSTOMER</h1>
+                                <h1>Tambah Customer</h1>
                                 <form method="post" action="TambahCustomer">
                                     <div class="required">
                                         <label><span>Name :</span></label>
