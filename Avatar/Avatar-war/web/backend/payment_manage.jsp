@@ -138,7 +138,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 <ul>
                                     <li>PAYMENT
                                         <ul>
-                                            <li><a href="payment_management.jsp">Payment Management</a></li>
+                                            <li><a href="payment_manage">Payment Management</a></li>
                                         </ul>
                                     </li>
                                 </ul>
