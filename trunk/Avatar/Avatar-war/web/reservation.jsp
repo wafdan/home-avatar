@@ -69,7 +69,7 @@
                     retval=retval&&!(halldate==0)
                 }
 
-                if(retval)
+                if(!retval)
                     alert("Date field must be filled");
                 return retval;            
             }
