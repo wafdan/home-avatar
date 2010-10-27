@@ -82,8 +82,15 @@ form label {
     float: left;
     padding: 3px 7px 3px 3px;
     text-align: right;
-    font-size: 16px;
+    font-size: 14px;
     width: 130px;
+}
+
+.flabel {
+    float: left;
+    padding: 3px 7px 3px 3px;
+    text-align: right;
+    width: 100px;
 }
 
 br {
@@ -109,6 +116,11 @@ form .message{
 
 form .button{
     padding: 5px 5px;
+    margin: 5px 5px;
+    border-style: outset;
+    border-color: #BBBBBB;
+    background-color: #48ACDE;
+    color: #000000;
 }
 /* Header */
 

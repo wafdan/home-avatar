@@ -29,11 +29,10 @@
                 <h2> Back End Management</h2>
             </div>
         </div>
-
         <!-- start header -->
         <div id="header">
             <%
-            if ((session.getAttribute("name")) != null) {
+                        if ((session.getAttribute("name")) != null) {
             %>
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
@@ -62,88 +61,93 @@
                     <div id="content">
                         <h1 class="title">Daftar Customer</h1>
                         <div class="post">
-                            <table width="603" border="1" style="table-layout:fixed">
-                                <tr>
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Name</th>
-                                    <th bgcolor="#262626" width="77">Identity Type</th>
-                                    <th bgcolor="#262626" width="96">Identity Number</th>
-
-                                </tr>
-
                                 <%
-                                            
-                                                int editIndex = 0;
-                                            try {
-                                                String Index = request.getParameter("edit");
-                                                editIndex = Integer.parseInt(Index);
-                                            } catch (NullPointerException ex) {
-                                                editIndex = -1;
-                                            } catch (NumberFormatException ex) {
-                                                editIndex = -1;
-                                            }
+                                int editIndex = 0;
+                                try {
+                                    String Index = request.getParameter("edit");
+                                    editIndex = Integer.parseInt(Index);
+                                } catch (NullPointerException ex) {
+                                    editIndex = -1;
+                                } catch (NumberFormatException ex) {
+                                    editIndex = -1;
+                                }
 
-                                            int index = 0;
-                                            CustomerJpaController jpa = new CustomerJpaController();
-                                            List<Customer> staffList = jpa.findCustomerEntities();
-                                            if (editIndex == -1) {
-                                                l = c.findCustomerEntities();
-                                                for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
-                                                    Customer temp = i.next();
-                                                    index++;
+                                int index = 0;
+                                CustomerJpaController jpa = new CustomerJpaController();
+                                List<Customer> staffList = jpa.findCustomerEntities();
+                                if (editIndex == -1) {%>
+                                <table width="603" border="1" style="table-layout:fixed">
+                                    <tr>
+                                        <th bgcolor="#262626" width="29">No.</th>
+                                        <th bgcolor="#262626" width="179">Username</th>
+                                        <th bgcolor="#262626" width="89">Name</th>
+                                        <th bgcolor="#262626" width="77">Identity Type</th>
+                                        <th bgcolor="#262626" width="96">Identity Number</th>
+                                    </tr>
+                                <%l = c.findCustomerEntities();
+                                    for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
+                                        Customer temp = i.next();
+                                        index++;
                                 %>
                                 <tr>
-                                    <td><%=index %></td>
+                                    <td><%=index%></td>
                                     <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
                                     <td><div style="overflow:auto"><%= temp.getName()%></div></td>
                                     <td> <%= temp.getIdentityType()%> </td>
                                     <td> <%= temp.getIdentityNumber()%> </td>
-                                    <td><a href="?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
+                                    <td><a href="customer_manage.jsp?edit=<%=index%>">edit</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
                                 </tr>
-                                <% }
-                                                }
-            else
-            {
-                int iterator=0;
-                for(Iterator<Customer> i = staffList.iterator(); i.hasNext();)
-                {
-                    Customer temp=i.next();
-                    iterator++;
+                                <% }%>
+                                </table>
+                                <%} else {
+                                    int iterator = 0;
+                                    for (Iterator<Customer> i = staffList.iterator(); i.hasNext();) {
+                                        Customer temp = i.next();
+                                        iterator++;
+                                %>
+                                <%--<tr><td><%=iterator%></td>--%>
+                                <%if (iterator == editIndex) {%>
+                                <form action="EditCustomer" method="get">
+                                    <div class="required">
+                                        <label class="flabel">No. </label>
+                                        <input type="text" class="input_text" disabled="true" value="<%= index%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Username:</label>
+                                        <input type="text" class="input_text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Name:</label>
+                                        <input type="text" class="input_text" name="name" id="name" value="<%=temp.getName()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Identity Type:</label>
+                                        <input type="text" class="input_text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"/>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label class="flabel">Identity Number:</label>
+                                        <input type="text" class="input_text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber()%>"/>
+                                    </div><br/>
+                                    <div class="required" style="text-align: left;">
+                                        <input class="button" type="submit" value="Save" onclick="this.form.username.disabled=false;" />
+                                        <a class="button" href="HapusCustomer?delete=<%= temp.getUsername()%>"> delete </a>
+                                        <a class="button" href="customer_manage.jsp"> cancel </a>
+                                    </div>
+                                </form>
+                                <% } else {%>
 
-                %>
-                <tr><td><%=iterator%></td>
-                <%
-                if(iterator==editIndex){
-                 %>
-                 
-                 <form action="EditCustomer" method="get">
-                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
-                     <td><input type="text" name="name" id="name" value="<%=temp.getName() %>"> </td>
-                     <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
-                     <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber() %>"></td>
-                     <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
-                 </form>
-                <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>"> delete</a></td>
-                <td><a href="ManageCustomer.jsp"> cancel </a></td>
+                               <%-- <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
+                                <td><div style="overflow:auto"><%= temp.getName()%></div></td>
+                                <td> <%= temp.getIdentityType()%> </td>
+                                <td> <%= temp.getIdentityNumber()%> </td>
+                                <td><a href="?edit=<%=iterator%>">edit</a></td>
+                                <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>--%>
 
-                
-               
-                 <% }else{%>
-
-       <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                    <td> <%= temp.getIdentityType()%> </td>
-                                    <td> <%= temp.getIdentityNumber()%> </td>
-                                    <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
-
-           <%}}}%>
-
-                            </table>
-                            <h2 class="title">&nbsp;</h2>
-                            <div class="post"></div>
+                                    <%}
+                                }
+                            }%>
+                            <%--</table>--%>
                         </div>
                     </div>
                     <!-- end content -->
