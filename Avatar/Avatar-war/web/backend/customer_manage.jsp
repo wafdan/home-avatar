@@ -111,7 +111,7 @@
                                 <form action="EditCustomer" method="get">
                                     <div class="required">
                                         <label class="flabel">No. </label>
-                                        <input type="text" class="input_text" disabled="true" value="<%= index%>"/>
+                                        <input type="text" class="input_text" disabled="true" value="<%= editIndex%>"/>
                                     </div><br/>
                                     <div class="required">
                                         <label class="flabel">Username:</label>
