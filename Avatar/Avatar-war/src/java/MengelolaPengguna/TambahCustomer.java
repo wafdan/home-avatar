@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import KelolaPengguna.MengelolaPenggunaController;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
  * @author zulfikar
  */
+@WebServlet(name = "TambahCustomer", urlPatterns = {"/backend/TambahCustomer"})
 public class TambahCustomer extends HttpServlet {
 
     /** 
