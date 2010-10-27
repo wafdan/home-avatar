@@ -23,6 +23,10 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            function confirmAction()
+            {return confirm("Do you really want to delete?")}
+        </script>
     </head>
     <body>
 
@@ -93,13 +97,13 @@
                                             Staff temp = i.next();
                                         %>
                                 <tr>
-                                    <td><%=index++%></td>
+                                    <td><%=++index%></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
                                     <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a onclick="return confirmAction()" href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
                                 <%}%>
                                 </table>
@@ -117,19 +121,19 @@
                                 <form action="../MengelolaPengguna/EditStaff?username=<%= temp.getUsername()%>" method="get">
                                     <div class="required">
                                         <label class="flabel">No. </label>
-                                        <input type="text" class="input_text" disabled="true" value="<%= editIndex%>"/>
+                                        <input type="text" class="input_text" readonly="true" value="<%= editIndex%>"/>
                                     </div><br/>
                                     <div class="required">
                                         <label class="flabel">Username :</label>
-                                        <input type="text" class="input_text" disabled="true" value="<%=temp.getUsername()%>"/>
+                                        <input type="text" class="input_text" readonly="true" name="username" value="<%=temp.getUsername()%>"/>
                                     </div><br/>
                                     <div class="required">
                                         <label class="flabel">Name:</label>
-                                        <input type="text" class="input_text" name="name" id="name" value="<%=temp.getName()%>"/>
+                                        <input type="text" class="input_text" id="name" name="nama" value="<%=temp.getName()%>"/>
                                     </div><br/>
                                     <div class="required">
                                         <label class="flabel">Employee ID:</label>
-                                        <input type="text" class="input_text" name="itype" id="itype" value="<%=temp.getEmploymentId()%>"/>
+                                        <input type="text" class="input_text" id="itype" name="emID" value="<%=temp.getEmploymentId()%>"/>
                                     </div><br/>
                                     <div class="required">
                                         <label class="flabel">Position:</label>
@@ -143,7 +147,7 @@
                                     </div><br/>
                                         
                                     <input class="button" type="submit" value="save" onclick="this.form.username.disabled=false;"/>
-                                    <a class="button" href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a>
+                                    <a onclick="return confirmAction()" class="button" href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a>
                                     <a class="button" href="staff_manage.jsp"> cancel </a>
                                 </form>
                                 <% } else {%>
@@ -153,7 +157,7 @@
                                 <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                 <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
                                 <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                <td><a href="../MengelolaPengguna/HapusStaf?delete=<% out.write(temp.getUsername());%>">delete</a></td>--%>
+                                <td><a href="../MengelolaPengguna/HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>--%>
 
                                 <%      }
                                     }

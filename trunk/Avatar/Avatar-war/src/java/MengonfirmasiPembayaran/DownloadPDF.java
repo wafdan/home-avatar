@@ -48,10 +48,8 @@ public class DownloadPDF extends HttpServlet {
             int returnVal = fc.showSaveDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                String path = file.getCanonicalPath();
-                System.out.println(path);
                 Document document = new Document();
-                PdfWriter.getInstance(document, new FileOutputStream("Receipt"+new Date()+".pdf"));
+                PdfWriter.getInstance(document, new FileOutputStream("c:/Receipt"+new Date()+".pdf"));
                 document.open();
                 document.add(new Paragraph("Receipt"));
                 document.add(new Paragraph(""));

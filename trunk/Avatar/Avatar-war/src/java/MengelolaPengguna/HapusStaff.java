@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author zulfikar
  */
-@WebServlet(name="HapusStaff", urlPatterns={"/MengelolaPengguna/HapusStaff"})
+@WebServlet(name="HapusStaff", urlPatterns={"/backend/HapusStaff"})
 public class HapusStaff extends HttpServlet {
    
     /** 
@@ -40,11 +40,12 @@ public class HapusStaff extends HttpServlet {
             out.write(primaryKey);
             StaffJpaController sjc=new StaffJpaController();
             sjc.destroy(primaryKey);
-            response.sendRedirect("../backend/staff_manage.jsp");
+           
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusStaff.class.getName()).log(Level.SEVERE, null, ex);
 
-        } finally { 
+        } finally {
+             response.sendRedirect("staff_manage.jsp");
             out.close();
         }
     } 

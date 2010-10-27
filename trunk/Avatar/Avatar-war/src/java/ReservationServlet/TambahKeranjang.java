@@ -108,8 +108,8 @@ public class TambahKeranjang extends HttpServlet {
 
                 //Mendapatkan informasi buat hall nya
 
-                Date hallDate = df.parse(preHallDate);
-                short totalHall = Short.parseShort(preTotalHall);
+                Date hallDate;
+                short totalHall;
 
                 if (hallCheckBox != null) {
                     hallDate = df.parse(preHallDate);
