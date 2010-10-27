@@ -21,7 +21,7 @@
   <div id="container">
     <div id="content">
         <h1>Edit Profile</h1>
-        <form id="formregistrasi" class="appnitro"  method="post" action="MelakukanRegistrasi/TambahAkun">
+        <form id="form_20674" class="appnitro"  method="post" action="MelakukanRegistrasi/TambahAkun">
 
         <ul id="list_field">
         <li id="li_1" >
@@ -296,7 +296,7 @@
     </li>
 
         </ul>
-            <input name="submit" type="submit" id="submit" value="Save" />
+            <input name="submit" type="submit" id="submit" value="Submit" />
        </form>
 
      </div>
