@@ -138,7 +138,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 <ul>
                                     <li>PAYMENT
                                         <ul>
-                                            <li><a href="payment_management.jsp">Payment Management</a></li>
+                                            <li><a href="payment_manage">Payment Management</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -151,5 +151,12 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             </div>
         </div>
         <!-- end page -->
+        <!-- start footer -->
+        <div id="footer">
+            <div id="footer-wrap">
+                <p id="legal">(c)2010 AVATAR. Design by <a href="http://www.freecsstemplates.org/">Hakuna Matata</a>.</p>
+            </div>
+        </div>
+        <!-- end footer -->
     </body>
 </html>
