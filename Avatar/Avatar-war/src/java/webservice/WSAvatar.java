@@ -264,7 +264,7 @@ public class WSAvatar {
                             ps_reservation_item.setInt(1, reservation_id);
                             ps_reservation_item.setTimestamp(2, now);
                             ps_reservation_item.setDouble(3, total);
-                            ps_reservation_item.setString(4, "T");
+                            ps_reservation_item.setString(4, "R");
                             ps_reservation_item.executeUpdate();
 
                             ResultSet rs_reservation_item = ps_reservation_item.getGeneratedKeys();
