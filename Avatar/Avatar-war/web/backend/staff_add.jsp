@@ -54,7 +54,7 @@
         <!-- start header -->
         <div id="header">
             <%
-            if ((session.getAttribute("name")) != null) {
+                        if ((session.getAttribute("name")) != null) {
             %>
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
@@ -85,25 +85,30 @@
                             <div class="box">
                                 <h1>tambah staff</h1>
                                 <form action="TambahStaf" method="get">
-                                    <label> <span>Full name</span>
+                                    <div class="required">
+                                        <label><span>Full name :</span></label>
                                         <input class="input_text" name="name" id="name" type="text" />
-                                    </label>
-                                    <label> <span>Email</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Email :</span></label>
                                         <input class="input_text" name="email" id="email" type="text" />
-                                    </label>
-                                    <label> <span>Employment ID</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Employment ID :</span></label>
                                         <input class="input_text" name="subject" id="subject" type="text" />
-                                    </label>
-                                    <label> <span>Position</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Position :</span></label>
                                         <select name="position" id="position">
                                             <option value="0">Administrator</option>
                                             <option value="1">Receptionis</option>
                                             <option value="2">Manager</option>
                                         </select>
-                                    </label>
-                                    <label>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label></label>
                                         <input class="button" value="Add" type="submit" />
-                                    </label>
+                                    </div>
                                 </form>
                             </div>
                             <h2 class="title">&nbsp;</h2>
