@@ -302,13 +302,14 @@ public class ReservationJpaController {
     }
 
     public List<Reservation> findUnpaidOnlineReservationByName(String name) {
-        List<Reservation> result = findOnlineReservationByName(name);
+        List<Reservation> result = new ArrayList<Reservation>();
+        List<Reservation> all = findOnlineReservationByName(name);
         List<Reservation> paid = findPaidOnlineReservationByName(name);
-        Iterator<Reservation> i = result.iterator();
+        Iterator<Reservation> i = all.iterator();
         while (i.hasNext()) {
             Reservation r = i.next();
-            if (paid.contains(r)) {
-                result.remove(r);
+            if (!paid.contains(r)) {
+                result.add(r);
             }
         }
         return result;
