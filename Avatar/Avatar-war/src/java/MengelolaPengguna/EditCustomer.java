@@ -49,7 +49,7 @@ public class EditCustomer extends HttpServlet {
             s.setIdentityType(itype);
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
-            response.sendRedirect("ManageCustomer.jsp");
+            
         } catch(NonexistentEntityException ex){
             out.write(ex.getMessage());
         }
@@ -57,6 +57,7 @@ public class EditCustomer extends HttpServlet {
             out.write(ex.getMessage());
         }
         finally {
+            response.sendRedirect("customer_manage.jsp");
             out.close();
         }
     } 

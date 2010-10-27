@@ -36,7 +36,6 @@ public class EditProfilHotel extends HttpServlet {
         try {
             String hotelname = request.getParameter("hotelname");
             String hoteldesc = request.getParameter("hoteldesc");
-            String imagedirectory = request.getParameter("imagedirectory");
             String city = request.getParameter("city");
             String phonenumber = request.getParameter("phonenumber");
             String email = request.getParameter("email");
@@ -52,11 +51,13 @@ public class EditProfilHotel extends HttpServlet {
             p.setHotelDescription(hoteldesc);
             pjc.edit(p);
 
+
         } catch (NonexistentEntityException ex) {
             out.write(ex.getMessage());
         } catch (Exception ex) {
             out.write(ex.getMessage());
         } finally {
+            response.sendRedirect("profile_manage.jsp");
             out.close();
         }
     }

@@ -97,20 +97,12 @@
         <url-pattern>/MengubahInformasiPengguna/UpdateAkun</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>HapusCustomer</servlet-name>
-        <url-pattern>/MengelolaPengguna/HapusCustomer</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>EditProfilHotel</servlet-name>
         <url-pattern>/backend/EditProfilHotel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestReservasi/TestServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>HapusStaff</servlet-name>
-        <url-pattern>/MengelolaPengguna/HapusStaff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditStaff</servlet-name>
@@ -175,6 +167,14 @@
     <servlet-mapping>
         <servlet-name>EditVenue</servlet-name>
         <url-pattern>/backend/venue_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusStaff</servlet-name>
+        <url-pattern>/backend/HapusStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HapusCustomer</servlet-name>
+        <url-pattern>/backend/HapusCustomer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

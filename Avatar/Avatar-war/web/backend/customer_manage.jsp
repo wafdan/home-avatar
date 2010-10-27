@@ -20,6 +20,10 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            function confirmAction()
+            {return confirm("Do you really want to delete?")}
+        </script>
     </head>
     <body>
 
@@ -96,7 +100,7 @@
                                     <td> <%= temp.getIdentityType()%> </td>
                                     <td> <%= temp.getIdentityNumber()%> </td>
                                     <td><a href="customer_manage.jsp?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
+                                    <td><a onclick="return confirmAction()" href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
                                 </tr>
                                 <% }%>
                                 </table>
@@ -131,7 +135,7 @@
                                     </div><br/>
                                     <div class="required" style="text-align: left;">
                                         <input class="button" type="submit" value="Save" onclick="this.form.username.disabled=false;" />
-                                        <a class="button" href="HapusCustomer?delete=<%= temp.getUsername()%>"> delete </a>
+                                        <a onclick="return confirmAction()" class="button" href="HapusCustomer?delete=<%= temp.getUsername()%>"> delete </a>
                                         <a class="button" href="customer_manage.jsp"> cancel </a>
                                     </div>
                                 </form>

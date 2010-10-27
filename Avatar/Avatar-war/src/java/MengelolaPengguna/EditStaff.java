@@ -52,13 +52,14 @@ public class EditStaff extends HttpServlet {
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 
-            response.sendRedirect("../backend/staff_manage.jsp");
+            
             
         } /*catch (NonexistentEntityException ex) {
             Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
         } */catch (Exception ex) {
             Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
-        } finally { 
+        } finally {
+            response.sendRedirect("../backend/staff_manage.jsp");
             out.close();
         }
     } 

@@ -52,7 +52,6 @@ public class TambahStaf extends HttpServlet {
             StaffJpaController sjc=new StaffJpaController();
             sjc.create(s);
             //Mengecek user udah ada atau belum
-            response.sendRedirect("../backend/staff_add.jsp");
             
 
         } catch(PreexistingEntityException ex){
@@ -77,13 +76,13 @@ public class TambahStaf extends HttpServlet {
             StaffJpaController sjc=new StaffJpaController();
             try {
                 sjc.create(s);
-                response.sendRedirect("../backend/staff_add.jsp?status=success");
+                response.sendRedirect("staff_add.jsp?status=success");
             } catch (PreexistingEntityException ex1) {
                 Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
-                response.sendRedirect("../backend/staff_add.jsp?status=alreadyexist");
+                response.sendRedirect("staff_add.jsp?status=alreadyexist");
             } catch (Exception ex1) {
                 Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex1);
-                response.sendRedirect("../backend/staff_add.jsp?status=unexpectedfailure");
+                response.sendRedirect("staff_add.jsp?status=unexpectedfailure");
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +94,7 @@ public class TambahStaf extends HttpServlet {
             Logger.getLogger(TambahStaf.class.getName()).log(Level.SEVERE, null, ex);
             //response.sendRedirect("TambahStaf.jsp?status=unexpectedfailure");
         } finally {
+            response.sendRedirect("staff_manage.jsp");
             out.close();
         }
     }

@@ -39,12 +39,12 @@ public class HapusCustomer extends HttpServlet {
             out.write(primaryKey);
             CustomerJpaController cjc=new CustomerJpaController();
             cjc.destroy(primaryKey);
-            response.sendRedirect("ManageCustomer.jsp");
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(HapusCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
+            response.sendRedirect("customer_manage.jsp");
             out.close();
         }
     } 
