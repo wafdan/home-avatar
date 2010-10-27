@@ -88,10 +88,6 @@
         <servlet-name>EditVenue</servlet-name>
         <servlet-class>MengelolaLayanan.EditVenue</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>CommonsFileUploadServlet</servlet-name>
-        <servlet-class>MengubahProfilHotel.CommonsFileUploadServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -179,10 +175,6 @@
     <servlet-mapping>
         <servlet-name>EditVenue</servlet-name>
         <url-pattern>/backend/venue_edit</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CommonsFileUploadServlet</servlet-name>
-        <url-pattern>/backend/CommonsFileUploadServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
