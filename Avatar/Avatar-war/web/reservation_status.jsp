@@ -10,94 +10,87 @@
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
 <%@page import="java.util.Collection" %>
-<%@page import="java.io.FileOutputStream;" %>
-<%@page import="com.itextpdf.text.*" %>
-<%@page import="com.itextpdf.text.pdf.*" %>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
 
+<%-- start object initialization --%>
+<%
+SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+SimpleDateFormat timeformatter = new SimpleDateFormat("HH:mm");
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
+<%-- end object initialization --%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+    <head profile="http://gmpg.org/xfn/11">
+        <title>Hotel Graha Bandung - Reservation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <link rel="stylesheet" href="styles/layout.css" type="text/css" />
+        <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="jquery/jqueryui.js"></script>
+        <script type="text/javascript" src="script/showConfirmForm.js"></script>
+        <script type="text/javascript" src="script/viewReservationDetail.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
     </head>
     <body>
+        <jsp:include page="header.jsp"/>
+        <div class="wrapper col3">
+            <div id="breadcrumb">
+                <h1>Reservation Status</h1>
+            </div>
+        </div>
+
+        <div class="wrapper col4">
+        <div id="container">
+        <div id="content" style="width:500px;">
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
             String name = (String) session.getAttribute("name");
             out.println(name);
             out.println("<br />");
 
-            List<Reservation> UReserv = kpc.getUnpaidReservationByName(name);
-            out.println("<H1>Unpaid Reservation</H1>");
-            if (UReserv.size() < 1) {
-                out.println("No Unpaid Reservation");
+            List<Reservation> Reserv = kpc.getReservationByName(name);
+            out.println("<H1>Reservations</H1>");
+            if (Reserv.size() < 1) {
+                out.println("No Reservation");
                 out.println("<br />");
             } else {
-                for (Reservation r : UReserv) {
-                    out.println("Reservation Id = "+r.getReservationId()+" by "+r.getUsername().getUsername()+", Note : "+r.getNote());
-                    out.println("<br />");
-                    double total = 0;
-                    for (ReservationItem curRes : r.getReservationItemCollection()) {
-                        out.println("-> Reservation Item Id = "+curRes.getReservationItemId()+" - "+curRes.getReservationTime()+" : Rp "+curRes.getPrice());
-                        out.println("<br />");
-                        if (curRes instanceof RoomReservation) {
-                            out.println("Entry Date = "+((RoomReservation) curRes).getEntryDate());
-                            out.println("Exit Date = "+((RoomReservation) curRes).getExitDate());
-                        } else if (curRes instanceof HallReservation) {
-                            out.println("Date = "+((HallReservation) curRes).getUseDate());
-                            out.println("Time = "+((HallReservation) curRes).getBeginTime()+"-"+((HallReservation) curRes).getEndTime());
-                        } else if (curRes instanceof OtherServicesReservation) {
-                            out.println("- "+((OtherServicesReservation) curRes).getProductId().getProductType());
-                        }
-                        out.println("<br />");
-                        total += curRes.getPrice();
+                for (Reservation r : Reserv) {
+                    out.println("Reservation Id : "+r.getReservationId()+"<br />");
+                    out.println("Total Price : "+currencyFormat.format(r.getTotalPrice())+"<br />");
+                    out.println("Note : "+r.getNote()+"<br />");
+                    out.println("Payment Status : ");
+                    if (kpc.getPaymentStatus(r) == 1) {
+                        out.println("Unpaid");
+                    } else if (kpc.getPaymentStatus(r) == 2) {
+                        out.println("Verified");
+                    } else {
+                        out.println("Not Verified");
                     }
-                    out.println("Total = Rp "+total);
+                    out.println("<br />");
+                    out.println("<div id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
+                    if (kpc.getPaymentStatus(r) == 1) {
+                        out.println("<div id=confirm_form"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:showForm("+r.getReservationId()+",1)' value='Confirm'></div>");
+                    } else {
+                        if (kpc.getPaymentStatus(r) == 2) {
+                            out.println("<form method='post' name='download' id='download' action='DownloadPDF'>");
+                            out.println("<input type='hidden' name='reservationId' id='reservationId' value='"+r.getReservationId()+"' />");
+                            out.println("<input class='button' type ='submit' value='Download Receipt'>");
+                            out.println("</form>");
+                        }
+                    }
                     out.println("<br /><br />");
                 }
             }
-
-            List<Reservation> PReserv = kpc.getPaidReservationByName(name);
-            out.println("<H1>Paid Reservation</H1>");
-            if (PReserv.size() < 1) {
-                out.println("No Paid Reservation");
-                out.println("<br />");
-            } else {
-                for (Reservation r : PReserv) {
-                    out.println("Reservation Id = "+r.getReservationId()+" by "+r.getUsername().getUsername()+", Note : "+r.getNote());
-                    out.println("<br />");
-                    for (ReservationItem curRes : r.getReservationItemCollection()) {
-                        out.println("-> Reservation Item Id = "+curRes.getReservationItemId()+" - "+curRes.getReservationTime()+" : Rp "+curRes.getPrice());
-                        out.println("<br />");
-                        if (curRes instanceof RoomReservation) {
-                            out.println("Entry Date = "+((RoomReservation) curRes).getEntryDate());
-                            out.println("Exit Date = "+((RoomReservation) curRes).getExitDate());
-                        } else if (curRes instanceof HallReservation) {
-                            out.println("Date = "+((HallReservation) curRes).getUseDate());
-                            out.println("Time = "+((HallReservation) curRes).getBeginTime()+"-"+((HallReservation) curRes).getEndTime());
-                        } else if (curRes instanceof OtherServicesReservation) {
-                            out.println("- "+((OtherServicesReservation) curRes).getProductId().getProductType());
-                        }
-                        out.println("<br />");
-                    }
-                    out.println("Status = ");
-                    if (kpc.isPaymentVerified(r)) {
-                        out.println("Verified");
-                    } else {
-                        out.println("Not verified");
-                    }
-                    out.println("<br />");
-                }
-            }
-
-            /*Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("d:/test.pdf"));
-            document.open();
-            document.add(new Paragraph("Hello, this is an example of how to use iText."));
-            document.close();*/
         %>
+        </div>
+        </div>
+        </div>
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>
