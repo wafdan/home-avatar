@@ -83,7 +83,7 @@
                     <div id="content">
                         <div class="post">
                             <div class="box">
-                                <h1>tambah staff</h1>
+                                <h1>Tambah Staff</h1>
                                 <form action="TambahStaf" method="get">
                                     <div class="required">
                                         <label><span>Full name :</span></label>
