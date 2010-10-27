@@ -78,9 +78,9 @@ input, textarea, select {
 	font-size: 13px;
 	color: #333333;
 }
-/*Label*/
 label {
     float: left;
+    width: 130px;
 }
 
 br {
