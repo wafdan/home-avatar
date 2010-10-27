@@ -150,7 +150,7 @@
                     <div id="content">
                         <div class="post">
                             <div class="box">
-                                <h1>edit profil hotel</h1>
+                                <h1>Edit Profil Hotel</h1>
                                 <form method="get" action="EditProfilHotel">
                                     <div class="required">
                                         <label> <span>Hotel name :</span></label>
