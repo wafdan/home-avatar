@@ -16,10 +16,10 @@
                 <h2>Facilities Management</h2><br />
             </div>
             <ul>
-                <li>ROOMS
+                <li>ACCOMODATIONS
                     <ul>
-                        <li><a href="fac_room_add.jsp">Add New Room</a></li>
-                        <li><a href="fac_room_manage.jsp">Manage Room</a></li>
+                        <li><a href="fac_room_add.jsp">Add Accomodation</a></li>
+                        <li><a href="fac_room_manage.jsp">Manage Accomodation</a></li>
                     </ul>
                 </li>
                 <li>MEETINGS & EVENTS
@@ -32,6 +32,21 @@
                     <ul>
                         <li><a href="fac_serv_add.jsp">Add New Services</a></li>
                         <li><a href="fac_serv_manage.jsp">Manage Services</a></li>
+                    </ul>
+                </li>
+                <li>ROOMS
+                    <ul>
+                        <li><a href="room_add">Manage Room</a></li>
+                    </ul>
+                </li>
+                <li>VENUES
+                    <ul>
+                        <li><a href="venue_add">Manage Venue</a></li>
+                    </ul>
+                </li>
+                <li>LAYOUTS
+                    <ul>
+                        <li><a href="layout_add">Manage Venue</a></li>
                     </ul>
                 </li>
             </ul>

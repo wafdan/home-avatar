@@ -19,6 +19,7 @@ Room toEdit = (Room) request.getAttribute("toEdit");
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Backend Avatar</title>
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <%
@@ -82,6 +83,9 @@ Room toEdit = (Room) request.getAttribute("toEdit");
                         </form>
                     </div>
                     <!-- end content -->
+                    <!-- start sidebar -->
+                    <jsp:include page="fac_sidebar.jsp" />
+                    <!-- end sidebar -->
                 </div>
             </div>
         </div>

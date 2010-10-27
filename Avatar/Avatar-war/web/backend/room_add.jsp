@@ -93,6 +93,9 @@ List<Room> lroom = (List<Room>) request.getAttribute("returnList");
                         </form>
                     </div>
                     <!-- end content -->
+                    <!-- start sidebar -->
+                    <jsp:include page="fac_sidebar.jsp" />
+                    <!-- end sidebar -->
                 </div>
             </div>
         </div>
