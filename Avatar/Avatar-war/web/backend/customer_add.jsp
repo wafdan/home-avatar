@@ -26,7 +26,7 @@
         <!-- start header -->
         <div id="header">
             <%
-            if ((session.getAttribute("name")) != null) {
+                        if ((session.getAttribute("name")) != null) {
             %>
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
@@ -56,41 +56,53 @@
                         <div class="post">
                             <div class="box">
                                 <h1>tambah CUSTOMER</h1>
-                                <form method="post" action="TambahCustomer"><label> <span>Name</span>
+                                <form method="post" action="TambahCustomer">
+                                    <div class="required">
+                                        <label><span>Name :</span></label>
                                         <input class="input_text" name="name" id="name" type="text" />
-                                    </label>
-                                    <label> <span>Email</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Email :</span></label>
                                         <input class="input_text" name="email" id="email" type="text" />
-                                    </label>
-                                    <label> <span>ID Type</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>ID Type :</span></label>
                                         <select name="idtype" id="idtype">
                                             <option value="KTP">KTP</option>
                                             <option value="SIM">SIM</option>
                                             <option value="Passport">Passport</option>
                                         </select>
-
-                                    </label>
-                                    <label> <span>ID Number</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>ID Number :</span></label>
                                         <input class="input_text" name="idnumber" id="idnumber" type="text" />
-                                    </label>
-                                    <label> <span>Address 1</span>
-                                        <input class="input_text" name="address1" id="address1" type="text" />
-                                    </label>
-                                    <label> <span>Address 2</span>
-                                        <input class="input_text" name="address2" id="address2" type="text" />
-                                    </label>
-                                    <label> <span>City</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Address 1 :</span></label>
+                                        <textarea class="message" name="address1" id="address1"></textarea>
+                                        <%--<input class="input_text" name="address1" id="address1" type="text" />--%>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Address 2 :</span></label>
+                                        <textarea class="message" name="address2" id="address2"></textarea>
+                                        <%--<input class="input_text" name="address2" id="address2" type="text" />--%>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>City :</span></label>
                                         <input class="input_text" name="city" id="city" type="text" />
-                                    </label>
-                                    <label> <span>Country</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Country :</span></label>
                                         <input class="input_text" name="country" id="country" type="text" />
-                                    </label>
-                                    <label> <span>Telephone</span>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label><span>Telephone</span></label>
                                         <input class="input_text" name="phone" id="phone" type="text" />
-                                    </label>
-                                    <label>
+                                    </div><br/>
+                                    <div class="required">
+                                        <label></label>
                                         <input class="button" value="Add" type="submit" />
-                                    </label>
+                                    </div><br/>
                                 </form>
                             </div>
                             <h2 class="title">&nbsp;</h2>
