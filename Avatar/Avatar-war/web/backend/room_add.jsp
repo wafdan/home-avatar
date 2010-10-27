@@ -10,20 +10,24 @@
 <%@page import="AvatarEntity.Room" %>
 <%@page import="java.util.List" %>
 <%
-List<Room> lroom = (List<Room>) request.getAttribute("returnList");
+            List<Room> lroom = (List<Room>) request.getAttribute("returnList");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Backend Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            function confirmAction()
+            {return confirm("Do you really want to delete?")}
+        </script>
     </head>
     <body>
         <%
-        if ((session.getAttribute("name")) != null) {
+                    if ((session.getAttribute("name")) != null) {
         %>
         <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
             <a href="../Logout">Logout</a>
@@ -53,11 +57,11 @@ List<Room> lroom = (List<Room>) request.getAttribute("returnList");
                                     <td><input type="text" name="roomNo" id="roomNo" size="3" maxlength="6" /></td>
                                     <td><select name="roomType" id="roomType">
                                             <%
-                                            AccomodationJpaController ajpa = new AccomodationJpaController();
-                                            for (Accomodation ind : ajpa.findAccomodationEntities()) {
+                                                        AccomodationJpaController ajpa = new AccomodationJpaController();
+                                                        for (Accomodation ind : ajpa.findAccomodationEntities()) {
                                             %>
-                                            <option value="<%= ind.getProductId() %>"><%= ind.getProductType() %></option>
-                                            <% } %>
+                                            <option value="<%= ind.getProductId()%>"><%= ind.getProductType()%></option>
+                                            <% }%>
                                         </select></td>
                                     <td><input type="text" name="floor" id="floor" size="3" maxlength="3" /></td>
                                     <td><input type="text" name="roomName" id="roomName" size="15" maxlength="20" /></td>
@@ -78,15 +82,15 @@ List<Room> lroom = (List<Room>) request.getAttribute("returnList");
                                     <th>Action</th>
                                 </tr>
                                 <%
-                                for (Room ind : lroom) {
+                                            for (Room ind : lroom) {
                                 %>
                                 <tr>
-                                    <td><%= ind.getRoomNo() %></td>
-                                    <td><%= ind.getProductId().getProductType() %></td>
-                                    <td><%= ind.getFloor() %></td>
-                                    <td><%= (ind.getRoomName() != null ? ind.getRoomName() : "none" ) %></td>
-                                    <td><a href="room_delete?roomNo=<%= ind.getRoomNo() %>">delete</a> |
-                                        <a href="room_edit?roomNo=<%= ind.getRoomNo() %>">edit</a></td>
+                                    <td><%= ind.getRoomNo()%></td>
+                                    <td><%= ind.getProductId().getProductType()%></td>
+                                    <td><%= ind.getFloor()%></td>
+                                    <td><%= (ind.getRoomName() != null ? ind.getRoomName() : "none")%></td>
+                                    <td><a onclick="return confirmAction();" href="room_delete?roomNo=<%= ind.getRoomNo()%>">delete</a> |
+                                        <a href="room_edit?roomNo=<%= ind.getRoomNo()%>">edit</a></td>
                                 </tr>
                                 <%}%>
                             </table>

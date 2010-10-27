@@ -33,7 +33,7 @@
         <!-- start header -->
         <div id="header">
             <%
-            if ((session.getAttribute("name")) != null) {
+                        if ((session.getAttribute("name")) != null) {
             %>
             <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
@@ -74,7 +74,7 @@
 
                                 <%
 
-                                                int editIndex = 0;
+                                            int editIndex = 0;
                                             try {
                                                 String Index = request.getParameter("edit");
                                                 editIndex = Integer.parseInt(Index);
@@ -94,52 +94,51 @@
                                                     index++;
                                 %>
                                 <tr>
-                                    <td><%=index %></td>
+                                    <td><%=index%></td>
                                     <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
                                     <td><div style="overflow:auto"><%= temp.getName()%></div></td>
                                     <td> <%= temp.getIdentityType()%> </td>
                                     <td> <%= temp.getIdentityNumber()%> </td>
                                     <td><a href="?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
+                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
                                 </tr>
                                 <% }
-                                                }
-            else
-            {
-                int iterator=0;
-                for(Iterator<Customer> i = staffList.iterator(); i.hasNext();)
-                {
-                    Customer temp=i.next();
-                    iterator++;
+                                                                            } else {
+                                                                                int iterator = 0;
+                                                                                for (Iterator<Customer> i = staffList.iterator(); i.hasNext();) {
+                                                                                    Customer temp = i.next();
+                                                                                    iterator++;
 
-                %>
-                <tr><td><%=iterator%></td>
-                <%
-                if(iterator==editIndex){
-                 %>
+                                %>
+                                <tr><td><%=iterator%></td>
+                                    <%
+                                                        if (iterator == editIndex) {
+                                    %>
 
-                 <form action="EditCustomer" method="get">
-                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
-                     <td><input type="text" name="name" id="name" value="<%=temp.getName() %>"> </td>
-                     <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
-                     <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber() %>"></td>
-                     <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
-                 </form>
-                <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>"> delete</a></td>
-                <td><a href="ManageCustomer.jsp"> cancel </a></td>
+                                <form action="EditCustomer" method="get">
+                                    <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
+                                    <td><input type="text" name="name" id="name" value="<%=temp.getName()%>"> </td>
+                                    <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
+                                    <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber()%>"></td>
+                                    <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
+                                </form>
+                                <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>"> delete</a></td>
+                                <td><a href="ManageCustomer.jsp"> cancel </a></td>
 
 
 
-                 <% }else{%>
+                                <% } else {%>
 
-       <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                    <td> <%= temp.getIdentityType()%> </td>
-                                    <td> <%= temp.getIdentityNumber()%> </td>
-                                    <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername() %>">delete</a></td>
+                                <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
+                                <td><div style="overflow:auto"><%= temp.getName()%></div></td>
+                                <td> <%= temp.getIdentityType()%> </td>
+                                <td> <%= temp.getIdentityNumber()%> </td>
+                                <td><a href="?edit=<%=iterator%>">edit</a></td>
+                                <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
 
-           <%}}}%>
+                                <%}
+                           }
+                       }%>
 
                             </table>
                             <h2 class="title">&nbsp;</h2>
