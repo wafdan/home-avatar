@@ -78,8 +78,11 @@ input, textarea, select {
 	font-size: 13px;
 	color: #333333;
 }
-label {
+form label {
     float: left;
+    padding: 3px 7px 3px 3px;
+    text-align: right;
+    font-size: 16px;
     width: 130px;
 }
 
@@ -102,6 +105,10 @@ form .message{
     height: 70px;
     padding: 1px 3px;
     overflow: scroll;
+}
+
+form .button{
+    padding: 5px 5px;
 }
 /* Header */
 
