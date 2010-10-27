@@ -93,7 +93,7 @@ border:1px solid #262626;
                             <td><img src="../images/cooltext471355125.png" width="235" height="103" alt="logo"></td>
                           </tr>
                           <tr>
-                            <td height="144">Deskripsi</td>
+                            <td height="144">Description</td>
                             <td><textarea style=" color:#FFF; background-color:#000; border-color:#000" cols="55" rows="6"><%=p.getHotelDescription() %></textarea></td>
                           </tr>
                         </table>
