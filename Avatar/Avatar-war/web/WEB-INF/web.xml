@@ -93,24 +93,12 @@
         <servlet-class>MengubahProfilHotel.CommonsFileUploadServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>TambahStaf</servlet-name>
-        <url-pattern>/MengelolaPengguna/TambahStaf</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>TambahCustomer</servlet-name>
-        <url-pattern>/MengelolaPengguna/TambahCustomer</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateAkun</servlet-name>
         <url-pattern>/MengubahInformasiPengguna/UpdateAkun</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditCustomer</servlet-name>
-        <url-pattern>/MengelolaPengguna/EditCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>HapusCustomer</servlet-name>
@@ -131,6 +119,18 @@
     <servlet-mapping>
         <servlet-name>EditStaff</servlet-name>
         <url-pattern>/MengelolaPengguna/EditStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahStaf</servlet-name>
+        <url-pattern>/backend/TambahStaf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TambahCustomer</servlet-name>
+        <url-pattern>/backend/TambahCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCustomer</servlet-name>
+        <url-pattern>/backend/EditCustomer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
