@@ -126,7 +126,7 @@ public class TambahKeranjang extends HttpServlet {
                 Reservation res = new Reservation();
                 res.setIsOnspot(false);
                 /*Ini harus diubah*/
-                String usernameCustomer = "harlili";
+                String usernameCustomer = (String) session.getAttribute("username");
                 Customer cust = (new CustomerJpaController()).findCustomer(usernameCustomer);
                 res.setUsername(cust);
                 res.setNote("");
