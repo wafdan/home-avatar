@@ -51,9 +51,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
             String name = (String) session.getAttribute("name");
-            out.println(name);
-            out.println("<br />");
-
+            
             List<Reservation> Reserv = kpc.getReservationByName(name);
             out.println("<H1>Reservations</H1>");
             if (Reserv.size() < 1) {
@@ -91,6 +89,5 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         </div>
         </div>
         </div>
-        <jsp:include page="footer.jsp"/>
     </body>
 </html>
