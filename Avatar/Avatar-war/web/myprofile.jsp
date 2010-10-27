@@ -1,12 +1,8 @@
-<%-- 
-    Document   : AccountInfo
-    Created on : 30 Sep 10, 12:03:18
-    Author     : Christian
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="AvatarEntity.*,java.sql.*" %>
+<%@ page import="Layanan.Cart" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
 <%@page import = "java.util.List,java.util.Iterator,AvatarEntity.Customer,AvatarEntity.CustomerJpaController" %>
 <%
             String username = session.getAttribute("username").toString();
@@ -14,49 +10,25 @@
             CustomerJpaController control = new CustomerJpaController();
             Customer cust = control.findCustomer(username);
 %>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>User Account Information</title>
-        <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="jquery/jquery.slidertron-0.1.js"></script>
-        <link href="styles/style.css" rel="stylesheet" type="text/css" media="screen" />
-        <style type="text/css">
-            @import "styles/slidertron.css";
-        </style>
-    </head>
-    <body>
-        <!-- end #header-wrapper -->
-        <div id="header">
-            <div id="logo">
-                <h1><a href="#">Spons hotel</a></h1>
-            </div>
-            <div id="menu">
-                <ul>
-                    <li><a href="index.jsp">Home</a></li>
-                    <li><a href="reservation.jsp" class="first">Reservation</a></li>
-                    <li><a href="rooms.jsp">Rooms</a></li>
-                    <li><a href="hall.jsp">Meeting & Events</a></li>
-                    <li><a href="services.jsp">Other Services</a></li>
-                    <li><a href="contactus.jsp">Contact Us</a></li>
-                </ul>
-            </div>
-            <!-- end #menu -->
-        </div>
-        <%
-                    if ((session.getAttribute("name")) != null) {
-        %>
-        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
-            <a href="Logout">Logout</a>
-        </div>
-        <%}%>
-        <!-- end #header -->
-        <hr />
-        <div id="page">
-            <div id="page-bgtop">
-                <div id="centerside">
-                    <div id="wrap">
-                        <form id="accountform" method="post" action="TambahAkun">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+    <title>Hotel Graha Bandung - My Profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="imagetoolbar" content="no" />
+    <link rel="stylesheet" href="styles/layout.css" type="text/css" />
+</head>
+
+<body id="top">
+
+<jsp:include page="header.jsp"/>
+
+<div class="wrapper col4">
+  <div id="container">
+    <div id="content">
+        <h1>My Profile</h1>
+            <form id="accountform" method="post" action="TambahAkun">
 
                             <h2>User Account Information</h2><br />
                             <label for="username">Username : </label> <%= cust.getUsername()%><br /><br />
@@ -75,23 +47,26 @@
 
                             <br /><a href="editprofile.jsp">Edit</a>
                         </form>
-                    </div>
-                    <!--END wrap register-->
-                </div>
-                <!--END wrap-->
-            </div>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>
-                <!-- end #content -->
-                <!-- end #sidebar -->
-            </p>
-            <div style="clear: both;">&nbsp;</div>
-        </div>
-        <!-- end #page -->
-        <div id="footer">
-            <p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">CSS Templates</a>.</p>
-        </div>
-        <!-- end #footer -->
-    </body>
+
+     </div>
+
+
+    <div id="column">
+
+      <div class="subnav">
+          <%if ((session.getAttribute("name")) == null) {%>
+            <h2 class="title">  Become our member!</h2>
+            <p>Discover just how rewarding membership can be.</p>
+            <p>Join our membership now to access exclusive benefits, flexible reward options, fast online booking and the finest hotels and resorts in the world. </p>
+            <p>Enrollment is quick, easy and free.</p>
+          <%}/*else {*/%>
+      </div>
+
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+<jsp:include page="footer.jsp"/>
+</body>
 </html>
