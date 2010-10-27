@@ -127,6 +127,26 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         </div>
                     </div>
                     <!-- end content -->
+                    <!-- start sidebar -->
+                    <div id="sidebar">
+                        <ul>
+                            <li>
+                                <div id="sidebar-title">
+                                    <h2>Payment Management</h2>
+                                </div>
+                                <hr />
+                                <ul>
+                                    <li>PAYMENT
+                                        <ul>
+                                            <li><a href="payment_management.jsp">Payment Management</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <hr />
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end sidebar -->
                 </div>
             </div>
         </div>
