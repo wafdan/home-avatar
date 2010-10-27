@@ -92,7 +92,7 @@ public class KelolaPembayaran extends HttpServlet {
                     messageContent += "Please make your payment done and confirm yours immediately.\n\nThank you for your attention.\n\n\n";
                     messageContent += "Sincerely yours,\nHotel Management";
                     try {
-                        EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Reservation Payment Reminder", messageContent);
+                        EmailSender.sendEmail(destAddress, "chrhad081@gmail.com", "", "Reservation Payment Reminder", messageContent);
                         popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
                                 + "<!--\n\twindow.alert('E-mail has been sent to "
                                 + res.getUsername().getEmail() + ".');\n//-->\n</script>";
@@ -129,7 +129,7 @@ public class KelolaPembayaran extends HttpServlet {
                         messageContent += "Your payment receipt is attached with this mail.\n\nThank you for choosing our service.\n\n\n";
                         messageContent += "Sincerely yours,\nHotel Management";
                         try {
-                            EmailSender.sendEmail(destAddress, "chrhad081@hotmail.com", "", "Payment Receipt", messageContent, attfile);
+                            EmailSender.sendEmail(destAddress, "chrhad081@gmail.com", "", "Payment Receipt", messageContent, attfile);
                             popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
                                 + "<!--\n\twindow.alert('E-mail has been sent to "
                                 + res.getUsername().getEmail() + ".');\n//-->\n</script>";
