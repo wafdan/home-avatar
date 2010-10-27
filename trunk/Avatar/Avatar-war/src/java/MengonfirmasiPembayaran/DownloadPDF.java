@@ -48,6 +48,7 @@ public class DownloadPDF extends HttpServlet {
             int returnVal = fc.showSaveDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
+                String path = file.getCanonicalPath();
                 Document document = new Document();
                 PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
