@@ -6,6 +6,10 @@
 package KonfirmasiPembayaran;
 
 import AvatarEntity.HallReservation;
+
+import AvatarEntity.Profile;
+import AvatarEntity.ProfileJpaController;
+import AvatarEntity.HallReservation;
 import AvatarEntity.HallReservationJpaController;
 import AvatarEntity.OtherServicesReservation;
 import AvatarEntity.OtherServicesReservationJpaController;
@@ -17,7 +21,6 @@ import AvatarEntity.Reservation;
 import AvatarEntity.ReservationJpaController;
 import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
-import AvatarEntity.exceptions.IllegalOrphanException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class KonfirmasiPembayaranController {
     HallReservationJpaController hrc;
     OtherServicesReservationJpaController osrc;
     PaymentJpaController pc;
+    ProfileJpaController hc;
 
     public KonfirmasiPembayaranController() {
         rc = new ReservationJpaController();
@@ -92,5 +96,9 @@ public class KonfirmasiPembayaranController {
         } catch (Exception e) {
             //return false;
         }
+    }
+
+    public Profile getProfilHotel() {
+        return ((Profile) hc.findProfileEntities().get(0));
     }
 }
