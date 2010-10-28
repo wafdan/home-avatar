@@ -47,22 +47,26 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 
         <div class="wrapper col4">
         <div id="container">
-        <div id="content" style="width:500px;">
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
             String name = (String) session.getAttribute("name");
             
             List<Reservation> Reserv = kpc.getReservationByName(name);
-            out.println("<H1>Reservations</H1>");
             if (Reserv.size() < 1) {
                 out.println("No Reservation");
                 out.println("<br />");
             } else {
                 for (Reservation r : Reserv) {
-                    out.println("Reservation Id : "+r.getReservationId()+"<br />");
-                    out.println("Total Price : "+currencyFormat.format(r.getTotalPrice())+"<br />");
-                    out.println("Note : "+r.getNote()+"<br />");
-                    out.println("Payment Status : ");
+                    out.println("Reservation Id : "+r.getReservationId());
+                    out.println("<table>");
+                    out.println("<tr>");
+                    out.println("<td>Total Price</td><td align='right'>"+currencyFormat.format(r.getTotalPrice())+"</td>");
+                    out.println("</tr>");
+                    out.println("<tr>");
+                    out.println("<td>Note</td><td>"+r.getNote()+"</td>");
+                    out.println("</tr>");
+                    out.println("<tr>");
+                    out.println("<td>Payment Status</td><td>");
                     if (kpc.getPaymentStatus(r) == 1) {
                         out.println("Unpaid");
                     } else if (kpc.getPaymentStatus(r) == 2) {
@@ -70,7 +74,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     } else {
                         out.println("Not Verified");
                     }
-                    out.println("<br />");
+                    out.println("</td></tr></table>");
                     out.println("<div id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
                     if (kpc.getPaymentStatus(r) == 1) {
                         out.println("<div id=confirm_form"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:showForm("+r.getReservationId()+",1)' value='Confirm'></div>");
@@ -88,6 +92,6 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         %>
         </div>
         </div>
-        </div>
+        <jsp:include page="footer.jsp"/>
     </body>
 </html>
