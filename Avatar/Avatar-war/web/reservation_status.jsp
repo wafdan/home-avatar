@@ -49,6 +49,8 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <div id="container">
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
+            //Profile p = kpc.getProfilHotel();
+            //System.out.println(p.getHotelName());
             String name = (String) session.getAttribute("name");
             
             List<Reservation> Reserv = kpc.getReservationByName(name);

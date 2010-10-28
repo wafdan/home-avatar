@@ -6,8 +6,6 @@
 package MengonfirmasiPembayaran;
 
 import java.io.IOException;
-import java.io.File;
-import java.io.FileOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import java.util.Date;
-import javax.swing.JFileChooser;
 import AvatarEntity.*;
 import KonfirmasiPembayaran.*;
 
@@ -37,33 +33,7 @@ public class DownloadPDF extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String reservId;
-        reservId =  request.getParameter("reservationId");
-        KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
-        Reservation r = c.getReservationById(Integer.parseInt(reservId));
-        try {
-            File fl = new File("Receipt"+new Date()+".pdf");
-            JFileChooser fc = new JFileChooser();
-            fc.setSelectedFile(fl);
-            int returnVal = fc.showSaveDialog(null);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                Document document = new Document(PageSize.A6, 50, 50, 50, 50);
-                PdfWriter.getInstance(document, new FileOutputStream("d:/Receipt"+new Date()+".pdf"));
-                document.open();
-                document.add(new Paragraph("Receipt"));
-                document.add(new Paragraph(""));
-                document.add(new Paragraph("Reservation Id : "+reservId));
-                document.add(new Paragraph("Name : "+r.getUsername().getName()));
-                document.add(new Paragraph("Total Price : "+r.getTotalPrice()));
-                document.add(new Paragraph(""));
-                document.add(new Paragraph("Receptionist : "+r.getPayment().getUsername().getName()));
-                document.close();
-            }
-            response.sendRedirect("reservation_status.jsp");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,7 +60,42 @@ public class DownloadPDF extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String reservId;
+        reservId =  request.getParameter("reservationId");
+        KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
+        Reservation r = c.getReservationById(Integer.parseInt(reservId));
+        //Profile p = c.getProfilHotel();
+
+        try {
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition"," attachment; filename=\"receipt.pdf\"");
+
+            Font headerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            Font contentFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+
+            Document document = new Document(PageSize.A6, 10, 10, 10, 10);
+            PdfWriter.getInstance(document, response.getOutputStream());
+            document.open();
+            Paragraph line = new Paragraph("Receipt", titleFont);
+            line.setAlignment(Paragraph.ALIGN_CENTER);
+            document.add(line);
+            document.add(new Paragraph(""));
+            line.setAlignment(Paragraph.ALIGN_LEFT);
+            line = new Paragraph("Reservation Id : "+reservId, contentFont);
+            document.add(line);
+            line = new Paragraph("Name : "+r.getUsername().getName(), contentFont);
+            document.add(line);
+            line = new Paragraph("Total Price : "+r.getTotalPrice(), contentFont);
+            document.add(line);
+            document.add(new Paragraph(""));
+            line = new Paragraph("Receptionist : "+r.getPayment().getUsername().getName(), contentFont);
+            document.add(line);
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
