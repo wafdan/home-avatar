@@ -15,9 +15,10 @@
 
     if (show.equals("true")) {
 %>
+    <br />
     <form method="post" name="confirmPayment" id="confirmPayment" action="ConfirmPayment">
     <input type="hidden" name="reservationId" id="reservationId" value="<%= r.getReservationId() %>" />
-    <table>
+    <table border="0">
     <tr>
     <td><label for="acc_no">Account Number</label></td>
     <td><label for="bank">Bank</label></td>
@@ -25,10 +26,10 @@
     <td><label for="payment_date">Payment Date (dd/mm/yyyy)</label></td>
     </tr>
     <tr>
-    <td><input type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>
-    <td><input type="text" id="bank<%= r.getReservationId() %>" name="bank" /></td>
-    <td><input type="text" id="amount<%= r.getReservationId() %>" name="amount" /></td>
-    <td><input type="text" id="payment_date<%= r.getReservationId() %>" name="payment_date" />
+    <td><input size="35" type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>
+    <td><input size="35" type="text" id="bank<%= r.getReservationId() %>" name="bank" /></td>
+    <td><input size="35" type="text" id="amount<%= r.getReservationId() %>" name="amount" /></td>
+    <td><input size="35" type="text" id="payment_date<%= r.getReservationId() %>" name="payment_date" />
     </td>
     </tr>
     </table>

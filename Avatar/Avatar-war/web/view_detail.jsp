@@ -25,6 +25,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
     String show = request.getParameter("show");
 
     if (show.equals("true")) {
+        out.println("Reservation Items :<br />");
         KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
         Reservation r = c.getReservationById(Integer.parseInt(rid));
         for (ReservationItem curRes : r.getReservationItemCollection()) {
