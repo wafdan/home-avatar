@@ -15,6 +15,11 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import AvatarEntity.*;
 import KonfirmasiPembayaran.*;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 
 /**
@@ -65,32 +70,94 @@ public class DownloadPDF extends HttpServlet {
         reservId =  request.getParameter("reservationId");
         KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
         Reservation r = c.getReservationById(Integer.parseInt(reservId));
-        //Profile p = c.getProfilHotel();
+        Profile p = c.getProfilHotel();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat timeformatter = new SimpleDateFormat("HH:mm");
+        Locale locale = Locale.getDefault();
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 
         try {
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition"," attachment; filename=\"receipt.pdf\"");
 
-            Font headerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
-            Font titleFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-            Font contentFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+            Font hotelFont = new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD);
+            Font headerFont = new Font(Font.FontFamily.HELVETICA, 6);
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
+            Font contentFont = new Font(Font.FontFamily.HELVETICA, 6);
 
             Document document = new Document(PageSize.A6, 10, 10, 10, 10);
             PdfWriter.getInstance(document, response.getOutputStream());
             document.open();
-            Paragraph line = new Paragraph("Receipt", titleFont);
+            
+            Paragraph line = new Paragraph(p.getHotelName(),hotelFont);
+            document.add(line);
+            line = new Paragraph(p.getHotelAddress1(), headerFont);
+            document.add(line);
+            line = new Paragraph(p.getHotelAddress2(), headerFont);
+            document.add(line);
+            line = new Paragraph(p.getHotelCity()+", "+p.getHotelCountry(), headerFont);
+            document.add(line);
+            line = new Paragraph("Phone : "+p.getHotelPhone(), headerFont);
+            document.add(line);
+            line = new Paragraph("Email : "+p.getHotelEmail(), headerFont);
+            document.add(line);
+            line = new Paragraph("Payment Receipt", titleFont);
             line.setAlignment(Paragraph.ALIGN_CENTER);
             document.add(line);
-            document.add(new Paragraph(""));
             line.setAlignment(Paragraph.ALIGN_LEFT);
-            line = new Paragraph("Reservation Id : "+reservId, contentFont);
-            document.add(line);
             line = new Paragraph("Name : "+r.getUsername().getName(), contentFont);
             document.add(line);
-            line = new Paragraph("Total Price : "+r.getTotalPrice(), contentFont);
+            line = new Paragraph("Address : "+r.getUsername().getAddress1(), contentFont);
             document.add(line);
-            document.add(new Paragraph(""));
+            
+            line = new Paragraph("Reservation Id : "+reservId, contentFont);
+            document.add(line);
+            document.add(new Paragraph(" "));
+
+            PdfPTable table = new PdfPTable(3);
+            for (ReservationItem curRes : r.getReservationItemCollection()) {
+                if (curRes instanceof RoomReservation) {
+                    table.addCell(borderlessCell("Room "+((RoomReservation) curRes).getRoomNo().getRoomNo(),Element.ALIGN_LEFT,true));
+                    table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell(currencyFormat.format(curRes.getPrice()),Element.ALIGN_RIGHT,false));
+                    table.addCell(borderlessCell("- Entry Date ",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell((formatter.format(((RoomReservation) curRes).getEntryDate())),Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell("",Element.ALIGN_RIGHT,false));
+                    table.addCell(borderlessCell("- Exit Date ",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell((formatter.format(((RoomReservation) curRes).getExitDate())),Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell("",Element.ALIGN_RIGHT,false));
+                } else if (curRes instanceof HallReservation) {
+                    table.addCell(borderlessCell("Venue "+((HallReservation) curRes).getVenueNo().getVenueNo(),Element.ALIGN_LEFT,true));
+                    table.addCell(borderlessCell(((HallReservation) curRes).getVenueNo().getVenueName(),Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell(currencyFormat.format(curRes.getPrice()),Element.ALIGN_RIGHT,false));
+                    table.addCell(borderlessCell("- Usage Time ",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell((formatter.format(((HallReservation) curRes).getUseDate())),Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell("",Element.ALIGN_RIGHT,false));
+                    table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell((timeformatter.format(((HallReservation) curRes).getBeginTime())+"-"+timeformatter.format(((HallReservation) curRes).getEndTime())),Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell("",Element.ALIGN_RIGHT,false));
+                } else if (curRes instanceof OtherServicesReservation) {
+                    table.addCell(borderlessCell(""+(((OtherServicesReservation) curRes).getProductId().getProductType()),Element.ALIGN_LEFT,true));
+                    table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+                    table.addCell(borderlessCell(currencyFormat.format(curRes.getPrice()),Element.ALIGN_RIGHT,false));
+                }
+            }
+            table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+            table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+            table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+            table.addCell(borderlessCell("",Element.ALIGN_LEFT,false));
+            table.addCell(borderlessCell("Total Price : ",Element.ALIGN_LEFT, true));
+            table.addCell(borderlessCell(currencyFormat.format(r.getTotalPrice()),Element.ALIGN_RIGHT, false));
+            document.add(table);
+            
+            
+            document.add(new Paragraph(" "));
+            line = new Paragraph(formatter.format(new Date()), contentFont);
+            line.setAlignment(Paragraph.ALIGN_LEFT);
+            document.add(line);
             line = new Paragraph("Receptionist : "+r.getPayment().getUsername().getName(), contentFont);
+            line.setAlignment(Paragraph.ALIGN_LEFT);
             document.add(line);
             document.close();
         } catch (Exception e) {
@@ -106,5 +173,19 @@ public class DownloadPDF extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private PdfPCell borderlessCell(String s, int alignment, boolean bold){
+        PdfPCell cell = new PdfPCell();
+        Font f;
+        if (bold == true) {
+            f= new Font(Font.FontFamily.HELVETICA, 6, Font.BOLD);
+        } else {
+            f= new Font(Font.FontFamily.HELVETICA, 6);
+        }
+        cell.setBorder(0);
+        cell.setHorizontalAlignment(alignment);
+        cell.addElement(new Paragraph(s,f));
+        return cell;
+}
 
 }
