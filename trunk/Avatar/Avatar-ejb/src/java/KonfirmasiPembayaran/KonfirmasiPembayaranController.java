@@ -44,6 +44,7 @@ public class KonfirmasiPembayaranController {
         hrc = new HallReservationJpaController();
         osrc = new OtherServicesReservationJpaController();
         pc = new PaymentJpaController();
+        hc = new ProfileJpaController();
     }
 
     public List<Reservation> getReservation() {
@@ -99,6 +100,6 @@ public class KonfirmasiPembayaranController {
     }
 
     public Profile getProfilHotel() {
-        return ((Profile) hc.findProfileEntities().get(0));
+        return hc.findProfile(Boolean.TRUE);
     }
 }
