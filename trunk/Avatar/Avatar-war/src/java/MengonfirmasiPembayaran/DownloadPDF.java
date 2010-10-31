@@ -182,8 +182,8 @@ public class DownloadPDF extends HttpServlet {
         } else {
             f= new Font(Font.FontFamily.HELVETICA, 6);
         }
-        cell.setBorder(0);
         cell.setHorizontalAlignment(alignment);
+        cell.setBorder(0);
         cell.addElement(new Paragraph(s,f));
         return cell;
 }
