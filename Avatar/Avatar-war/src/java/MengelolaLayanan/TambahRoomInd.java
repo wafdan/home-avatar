@@ -38,13 +38,14 @@ public class TambahRoomInd extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        // Inisialisasi JPA Controller dan List of Entity
+        RoomJpaController rmjpa = new RoomJpaController();
+        AccomodationJpaController acjpa = new AccomodationJpaController();
+        Room room = null;
         try {
-            // Inisialisasi JPA Controller dan List of Entity
-            RoomJpaController rmjpa = new RoomJpaController();
-            AccomodationJpaController acjpa = new AccomodationJpaController();
             // Jika ada aksi penambahan
             if (request.getParameter("add") != null) {
-                Room room = new Room(request.getParameter("roomNo"),
+                room = new Room(request.getParameter("roomNo"),
                         Integer.parseInt(request.getParameter("floor")));
                 if (!request.getParameter("roomName").equals(""))
                     room.setRoomName(request.getParameter("roomName"));
@@ -58,7 +59,11 @@ public class TambahRoomInd extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/room_add.jsp");
             dispatcher.forward(request, response);
         } catch (PreexistingEntityException ex) {
-            Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
+            out.println("<script type=\"text/javascript\">");
+            out.println("\talert('Room " + room.getRoomNo() + " already existed. Insert cancelled.');");
+            out.println("\twindow.location = \"room_add\"");
+            out.println("</script>");
+            //Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(TambahRoomInd.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
