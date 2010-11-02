@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -256,4 +257,16 @@ public class VenueJpaController {
         }
     }
 
+    public List<Venue> findUnused(Date useDate, Integer layoutNo, int capacity) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Venue.findUnused");
+            q.setParameter("useDate", useDate);
+            q.setParameter("layoutNo", layoutNo);
+            q.setParameter("capacity", capacity);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

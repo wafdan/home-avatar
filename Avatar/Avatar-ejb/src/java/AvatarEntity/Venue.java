@@ -27,7 +27,8 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Venue.findAll", query = "SELECT v FROM Venue v"),
     @NamedQuery(name = "Venue.findByVenueNo", query = "SELECT v FROM Venue v WHERE v.venueNo = :venueNo"),
-    @NamedQuery(name = "Venue.findByVenueName", query = "SELECT v FROM Venue v WHERE v.venueName = :venueName")})
+    @NamedQuery(name = "Venue.findByVenueName", query = "SELECT v FROM Venue v WHERE v.venueName = :venueName"),
+    @NamedQuery(name = "Venue.findUnused", query = "SELECT v FROM Venue v WHERE v.venueNo NOT IN (SELECT h.venueNo.venueNo FROM HallReservation h WHERE h.useDate = :useDate) AND v.venueNo IN (SELECT ve.venueNo FROM VenueLayout ve WHERE ve.layoutNo = :layoutNo AND ve.capacity >= :capacity)")})
 public class Venue implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
