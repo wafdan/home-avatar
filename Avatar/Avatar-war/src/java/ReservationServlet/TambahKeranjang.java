@@ -116,7 +116,7 @@ public class TambahKeranjang extends HttpServlet {
                     totalHall = Short.parseShort(preTotalHall);
                     cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
                     session.setAttribute("hallcart", cartSessionBean1.getHallCart());
-                    out.write("Jumlah cart untuk room : " + cartSessionBean1.getHallCart().size());
+                    out.write("Jumlah cart untuk hall : " + cartSessionBean1.getHallCart().size());
                 }
 
                 //out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");

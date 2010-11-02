@@ -5,6 +5,7 @@
 
 package TestReservasi;
 
+import AvatarEntity.Accomodation;
 import AvatarEntity.CustomerJpaController;
 import AvatarEntity.Payment;
 import AvatarEntity.PaymentJpaController;
@@ -106,7 +107,7 @@ public class TestServlet extends HttpServlet {
             } else {
                 out.println("Tidak ada pembayaran lunas.<br />");
             }*/
-            PaymentJpaController pjpa = new PaymentJpaController();
+            /*PaymentJpaController pjpa = new PaymentJpaController();
             Payment pay = new Payment();
             Reservation res = new Reservation(1);
             pay.setReservationId(res);
@@ -116,7 +117,13 @@ public class TestServlet extends HttpServlet {
             pay.setPaymentDate(df.parse("2010-10-20"));
             pay.setAccountNumber("0129330535");
             pay.setPaymentMethod("transfer");
-            pjpa.create(pay);
+            pjpa.create(pay);*/
+            RoomJpaController rjpa = new RoomJpaController();
+            Date entryDate = df.parse("2010-11-10");
+            Date exitDate = df.parse("2010-11-11");
+            for (Room rm : rjpa.findUnused("AC001", entryDate, exitDate)) {
+                out.println(rm.getRoomNo() + "<br />");
+            }
             out.println("</body>");
             out.println("</html>");
         /*} catch (PreexistingEntityException ex) {
