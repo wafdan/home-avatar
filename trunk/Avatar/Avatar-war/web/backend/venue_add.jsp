@@ -50,7 +50,7 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
                                     <th>Venue Name</th>
                                     <th>Description</th>
                                 </tr>
-                                <tr>
+                                <tr style="vertical-align:top;">
                                     <td><input type="text" name="venueNo" id="venueNo" size="4" maxlength="6" /></td>
                                     <td><input type="text" name="venueName" id="venueName" size="15" maxlength="25"></td>
                                     <td><textarea name="description" id="description" cols="25" rows="2"></textarea></td>
