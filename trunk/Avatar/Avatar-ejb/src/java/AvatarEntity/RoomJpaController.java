@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  *
@@ -205,6 +206,19 @@ public class RoomJpaController {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Room> findUnused(String productId, Date entryDate, Date exitDate) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Room.findUnused");
+            q.setParameter("productId", productId);
+            q.setParameter("entryDate", entryDate);
+            q.setParameter("exitDate", exitDate);
             return q.getResultList();
         } finally {
             em.close();
