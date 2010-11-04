@@ -59,7 +59,7 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
                                     <td><textarea name="description" id="description" cols="25" rows="2"></textarea></td>
                                 </tr>
                             </table>
-                            <h2>Layout Manager</h2>
+                            <h2>Capacity per Layout</h2>
                             <table border="0">
                                 <% for (Layout lay : ljpa.findLayoutEntities()) { %>
                                 <tr>

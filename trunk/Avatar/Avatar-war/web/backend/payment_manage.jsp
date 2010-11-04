@@ -56,9 +56,8 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         <div class="post">
                             <table width="*" border="1" style="table-layout:fixed">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Username</th>
                                     <th>Reservation Time</th>
+                                    <th>Username</th>
                                     <th>Total</th>
                                     <th>On Spot?</th>
                                     <th>Confirmed</th>
@@ -77,9 +76,8 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     pay = item.getPayment();
                                 %>
                                 <tr>
-                                    <td><%= item.getReservationId() %></td>
-                                    <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= formatter.format(item.getReservationTime()) %></td>
+                                    <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
                                     <td><%= (item.getIsOnspot() ? "yes" : "no") %></td>
                                     <td>

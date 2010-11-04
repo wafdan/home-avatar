@@ -123,7 +123,7 @@
                                     <label for="pid">Product ID</label>
                                     <input type="text" name="pid" id="pid" value="" maxlength="6"/><br />
 
-                                    <label for="type">Product Type:</label>
+                                    <label for="type">Room Type Name:</label>
                                     <input type="text" name="type" id="type" value="" maxlength="25"/><br />
 
                                     <label for="desc">Description:</label>
