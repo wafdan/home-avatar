@@ -2,15 +2,9 @@
     Document   : bheader
     Created on : Oct 27, 2010, 8:43:46 AM
     Author     : dhana
+    Modified by: Wafdan
+    Modified   : Nov 4, 2010
 --%>
-
-<div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2> Back End Management</h2>
-            </div>
-        </div>
-
         <!-- start header -->
         <div id="header">
             <%
@@ -22,14 +16,12 @@
             <%}%>
             <div id="menu">
                 <ul>
-                    <li><a href="profile_manage.jsp">Profile</a></li>
-                    <li class="current_page_item"><a href="#">User</a></li>
-                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
-                    <li><a href="#">Statistic</a></li>
-                    <li><a href="#">Post</a></li>
-                    <li><a href="#">Repository</a></li>
-                    <li><a href="#">Reservation</a></li>
-                    <li><a href="#">Payment</a></li>
+                    <li><a id="bhm_prof" onclick="return switchid('bhm_prof')" href="profile_manage.jsp">Profile</a></li>
+                    <li><a id="bhm_user" onclick="return switchid('bhm_user')" href="staff_manage.jsp">User</a></li>
+                    <li><a id="bhm_facs" href="fac_room_manage.jsp">Facilities</a></li>
+                    <li><a id="bhm_stat" href="javascript:;">Statistic</a></li>
+                    <li><a id="bhm_resv" href="reservation_manage.jsp">Reservation</a></li>
+                    <li><a id="bhm_pymt" href="payment_manage.jsp">Payment</a></li>
                 </ul>
             </div>
         </div>

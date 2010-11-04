@@ -38,6 +38,9 @@
                 <h2> Back End Management</h2>
             </div>
         </div>
+        <!-- start header -->
+        <jsp:include page="bheader.jsp"/>
+        <!-- end header -->
         <!-- start page -->
         <div id="wrapper">
             <div id="wrapper-btm">
