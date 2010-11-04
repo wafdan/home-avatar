@@ -35,31 +35,9 @@ border:1px solid #262626;
                 <h2> Back End Management</h2>
             </div>
         </div>
-
         <!-- start header -->
-        <div id="header">
-            <%
-            if ((session.getAttribute("name")) != null) {
-            %>
-            <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
-                <a href="../Logout">Logout</a>
-            </div>
-            <%}%>
-            <div id="menu">
-                <ul>
-                    <li class="current_page_item"><a href="#">Profile</a></li>
-                    <li><a href="staff_manage.jsp">User</a></li>
-                    <li><a href="fac_room_manage.jsp">Facilities</a></li>
-                    <li><a href="#">Statistic</a></li>
-                    <li><a href="#">Post</a></li>
-                    <li><a href="#">Repository</a></li>
-                    <li><a href="#">Reservation</a></li>
-                    <li><a href="#">Payment</a></li>
-                </ul>
-            </div>
-        </div>
+        <jsp:include page="bheader.jsp"/>
         <!-- end header -->
-
         <!-- start page -->
         <div id="wrapper">
             <div id="wrapper-btm">
