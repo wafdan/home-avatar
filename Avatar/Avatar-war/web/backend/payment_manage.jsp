@@ -6,12 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %>
-<%@ page import="java.util.List, java.util.Iterator, java.util.Locale, AvatarEntity.Reservation, java.text.SimpleDateFormat, java.text.NumberFormat" %>
+<%@ page import="java.util.List, java.util.Iterator, java.util.Locale, AvatarEntity.Payment, AvatarEntity.Reservation, java.text.SimpleDateFormat, java.text.NumberFormat" %>
 
 <%-- start object initialization --%>
 <%
 List<Reservation> lres = (List<Reservation>) request.getAttribute("returnList");
 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
 Locale locale = Locale.getDefault();
 NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 %>
@@ -87,6 +88,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     <th>Reservation Notes</th>
                                 </tr>
                                 <%
+                                Payment pay;
                                 for (Reservation item : lres) {
                                     String verifyAction;
                                     if (item.getPayment() == null) {
@@ -94,6 +96,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     } else {
                                         verifyAction = "Verify";
                                     }
+                                    pay = item.getPayment();
                                 %>
                                 <tr>
                                     <td><%= item.getReservationId() %></td>
@@ -102,8 +105,11 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
                                     <td><%= (item.getIsOnspot() ? "yes" : "no") %></td>
                                     <td>
-                                        <%= (item.getPayment() == null ? "not yet" :
-                                            currencyFormat.format(item.getPayment().getAmount())) %>
+                                        <%= (pay == null ? "not yet" :
+                                            (currencyFormat.format(pay.getAmount()) + "<br />" +
+                                            "date: " + onlyDate.format(pay.getPaymentDate()) + "<br />" +
+                                            "method: " + pay.getPaymentMethod() + "<br />" +
+                                            "bank acc.: " + pay.getAccountNumber() + " (" + pay.getPaymentBank() + ")" + "<br />")) %>
                                     </td>
                                     <td>
                                         <%= (item.getPayment() != null ?
