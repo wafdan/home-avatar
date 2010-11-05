@@ -24,14 +24,14 @@
                 </li>
                 <li>MEETINGS & EVENTS
                     <ul>
-                        <li><a href="fac_hall_add.jsp">Add New Packet</a></li>
-                        <li><a href="fac_hall_manage.jsp">Manage Packet</a></li>
+                        <li><a href="fac_hall_add.jsp">Add New Package</a></li>
+                        <li><a href="fac_hall_manage.jsp">Manage Package</a></li>
                     </ul>
                 </li>
                 <li>OTHER SERVICES
                     <ul>
-                        <li><a href="fac_serv_add.jsp">Add New Services</a></li>
-                        <li><a href="fac_serv_manage.jsp">Manage Services</a></li>
+                        <li><a href="fac_serv_add.jsp">Add New Service</a></li>
+                        <li><a href="fac_serv_manage.jsp">Manage Service</a></li>
                     </ul>
                 </li>
                 <li>ROOMS
@@ -46,7 +46,7 @@
                 </li>
                 <li>LAYOUTS
                     <ul>
-                        <li><a href="layout_add">Manage Venue</a></li>
+                        <li><a href="layout_add">Manage Layout</a></li>
                     </ul>
                 </li>
             </ul>
