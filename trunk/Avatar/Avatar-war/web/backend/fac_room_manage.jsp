@@ -93,7 +93,7 @@
                 <div id="page" style="width: auto;">
                     <!-- start content -->
                     <div id="content" style="width: 980px; overflow: visible;">
-                        <h1 class="title">Daftar Fasilitas</h1>
+                        <h1 class="title">Accomodation List</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="#">Rooms</a></li>
                             <li id="fmenu-item2"><a href="fac_hall_manage.jsp">Meetings & Events</a></li>
@@ -101,7 +101,6 @@
                         </ul>
                         <div class="post" style="overflow: scroll;">
                             <div class="fac1">
-                            Accomodations<br/>
                             <%--<table width="603" border="1" style="table-layout:fixed">--%>
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
