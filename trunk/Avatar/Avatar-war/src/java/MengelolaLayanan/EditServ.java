@@ -40,8 +40,11 @@ public class EditServ extends HttpServlet {
             String type = request.getParameter("type");
             String desc = request.getParameter("desc");
             String img = request.getParameter("img");
+            String prcu = request.getParameter("prcu");
+            String uprc = request.getParameter("uprc");
+            String pub = request.getParameter("pub");
 
-            out.println(id + "///" + type + "///" + desc + "///" + img + "///");
+            out.println(id + "///" + type + "///" + desc + "///" + img + "///"+ pub);
 
             OtherServicesJpaController sj = new OtherServicesJpaController();
             OtherServices s = new OtherServices();
@@ -50,10 +53,13 @@ public class EditServ extends HttpServlet {
             s.setProductType(type);
             s.setDescription(desc);
             s.setImage(img);
+            s.setPricingUnit(prcu);
+            s.setUnitPrice(Double.parseDouble(uprc));
+            s.setPublished(Boolean.getBoolean(pub));
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 
-            response.sendRedirect("../backend/fac_serv_manage.jsp");
+            //response.sendRedirect("../backend/fac_serv_manage.jsp");
 
         } catch (Exception ex) {
             Logger.getLogger(EditAcco.class.getName()).log(Level.SEVERE, null, ex);
