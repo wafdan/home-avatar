@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -67,7 +68,7 @@ public class Payment implements Serializable {
     @OneToOne(optional = false)
     private Reservation reservationId;
     @JoinColumn(name = "username", referencedColumnName = "username")
-    @OneToOne
+    @ManyToOne
     private Staff username;
 
     public Payment() {
