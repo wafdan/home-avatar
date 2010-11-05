@@ -81,7 +81,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">List of Facilities</h1>
+                        <h1 class="title">Hall List</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
                             <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
@@ -89,7 +89,6 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         </ul>
                         <div class="post">
                             <div class="fac1">
-                            Packages
                             <%--<table width="603" border="1" style="table-layout:fixed">--%>
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
