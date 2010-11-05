@@ -20,6 +20,7 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/timePicker.css" rel="stylesheet" type="text/css" />
         <style>
             #fmenu {
                 border-bottom: 1px solid #ccc;
@@ -90,6 +91,9 @@
                 clear: left;
             }
         </style>
+        <%--<script type="text/javascript" src="../script/jquery.js"></script>
+        <script type="text/javascript" src="../script/jquery.timePicker.js"></script>
+        <script type="text/javascript" src="../script/jquery.timePicker.min.js"></script>--%>
         <script type="text/javascript">
             function confirmAction()
             {return confirm("Do you really want to delete?")}
@@ -136,10 +140,13 @@
                                     <input type="text" name="max" id="max" value="0" maxlength="11"/><br />
 
                                     <label for="nent">Normal Entry:</label>
-                                    <input type="text" name="nent" id="nent" value="00:00:00" /><br />
-
+                                    <input type="text" name="nent" id="nent" value="00" maxlength="2" style="width: 20px" /> :
+                                    <input type="text" name="nent2" id="nent2" value="00" maxlength="2" style="width: 20px" />
+                                    <br />
                                     <label for="noxt">Normal Exit:</label>
-                                    <input type="text" name="noxt" id="noxt" value="00:00:00" /><br />
+                                    <input type="text" name="noxt" id="noxt" value="00" maxlength="2" style="width: 20px" /> :
+                                    <input type="text" name="noxt2" id="noxt2" value="00" maxlength="2" style="width: 20px" />
+                                    <br />
 
                                     <label for="wday">Weekday Rate:</label>
                                     <input type="text" name="wday" id="wday" value="0" /><br />
@@ -148,11 +155,14 @@
                                     <input type="text" name="wend" id="wend" value="0" /><br />
 
                                     <label for="terl">Tolerance Early:</label>
-                                    <input type="text" name="terl" id="terl" value="00:00:00" /><br />
+                                    <input type="text" name="terl" id="terl" value="00" maxlength="2" style="width: 20px" /> :
+                                    <input type="text" name="terl2" id="terl2" value="00" maxlength="2" style="width: 20px" />
+                                    <br />
 
                                     <label for="tlat">Tolerance Late:</label>
-                                    <input type="text" name="tlat" id="tlat" value="00:00:00" /><br />
-
+                                    <input type="text" name="tlat" id="tlat" value="00" maxlength="2" style="width: 20px" /> :
+                                    <input type="text" name="tlat2" id="tlat2" value="00" maxlength="2" style="width: 20px" />
+                                    <br />
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
                                     <a href="fac_room_manage.jsp">  Cancel  </a>
                                 </form>
