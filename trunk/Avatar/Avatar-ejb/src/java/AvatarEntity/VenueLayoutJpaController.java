@@ -65,8 +65,8 @@ public class VenueLayoutJpaController {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            VenueLayout persistentVenueLayout = findVenueLayout(venueLayout.getVenueNo(), venueLayout.getLayoutNo());
-            //VenueLayout persistentVenueLayout = em.find(VenueLayout.class, venueLayout.getVenueNo());
+            VenueLayoutPK venueLayoutPK = new VenueLayoutPK(venueLayout.getVenueNo(), venueLayout.getLayoutNo());
+            VenueLayout persistentVenueLayout = em.find(VenueLayout.class, venueLayoutPK);
             Venue venueOld = persistentVenueLayout.getVenue();
             Venue venueNew = venueLayout.getVenue();
             if (venueNew != null) {
@@ -161,13 +161,13 @@ public class VenueLayoutJpaController {
     public VenueLayout findVenueLayout(String venueNo, Integer layoutNo) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNamedQuery("VenueLayout.findVenueLayout");
+            /*Query q = em.createNamedQuery("VenueLayout.findVenueLayout");
             q.setParameter("venueNo", venueNo);
             q.setParameter("layoutNo", layoutNo);
             Object res = q.getSingleResult();
-            return (VenueLayout) res;
-        } catch (NoResultException ex) {
-            return null;
+            return (VenueLayout) res;*/
+            VenueLayoutPK id = new VenueLayoutPK(venueNo, layoutNo);
+            return em.find(VenueLayout.class, id);
         } finally {
             em.close();
         }
