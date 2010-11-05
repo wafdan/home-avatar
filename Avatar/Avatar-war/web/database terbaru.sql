@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 22, 2010 at 12:13 AM
+-- Generation Time: Nov 05, 2010 at 09:15 AM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `customer` (
 --
 
 INSERT INTO `customer` (`username`, `name`, `password`, `email`, `identity_type`, `identity_number`, `address1`, `address2`, `city`, `country`, `telephone`) VALUES
-('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'nch048@yahoo.com', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607'),
-('customer', 'Hadi W.', '91ec1f9324753048c0096d036a694f86', 'cus@cus.cus', 'Passport', '', '', NULL, '', '', NULL),
-('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'harlili@informatika.org', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL);
+('christian.h6191', 'Christian Hadiwinoto', 'eef3834d2d4b2affd133ed9bb6106687', 'if17081@students.if.itb.ac.id', 'Passport', 'V608081', 'Jalan Sultan Tirtayasa 43', NULL, 'Bandung', 'Indonesia', '+6281806115607'),
+('harlili', 'Harlili', '8b9963cd552debb75f29e76fbb0eee4a', 'nch048@yahoo.com', 'Passport', 'J778889', 'Jalan Pendawa 15', NULL, 'Bandung', 'Indonesia', NULL),
+('ponimin4070', 'Ponimin', '1f178c2dc14b2c94179846b0250d847e', 'nch048@yahoo.com', 'Passport', 'R22381A', 'Sukhumvit Soi 105', NULL, 'Bangkok', 'Thailand', '+66819222333');
 
 -- --------------------------------------------------------
 
@@ -123,16 +123,15 @@ INSERT INTO `hall` (`product_id`, `product_type`, `description`, `normal_rate`, 
 CREATE TABLE IF NOT EXISTS `hall_reservation` (
   `reservation_item_id` int(11) NOT NULL,
   `product_id` varchar(6) NOT NULL,
-  `begin_time` time ,
-  `end_time` time ,
+  `begin_time` time NOT NULL,
+  `end_time` time NOT NULL,
   `use_date` date NOT NULL,
-  `attendees` int(11) ,
+  `attendees` int(11) NOT NULL,
   `venue_no` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`reservation_item_id`),
   KEY `fk_hall_ordered_in` (`product_id`),
   KEY `fk_is_used_in` (`venue_no`),
-  KEY `product_id` (`product_id`),
-  KEY `product_id_2` (`product_id`)
+  KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -150,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `layout` (
   `layout_no` int(11) NOT NULL AUTO_INCREMENT,
   `layout_name` varchar(20) NOT NULL,
   PRIMARY KEY (`layout_no`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `layout`
@@ -161,7 +160,8 @@ INSERT INTO `layout` (`layout_no`, `layout_name`) VALUES
 (2, 'meeting'),
 (3, 'classroom'),
 (4, 'theatre'),
-(5, 'standing');
+(5, 'standing'),
+(6, 'bazaar');
 
 -- --------------------------------------------------------
 
@@ -230,13 +230,15 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `amount` double NOT NULL,
   PRIMARY KEY (`payment_id`),
   UNIQUE KEY `reservation_id` (`reservation_id`),
-  UNIQUE KEY `fk_checks` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `fk_checks` (`username`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `payment`
 --
 
+INSERT INTO `payment` (`payment_id`, `reservation_id`, `confirm_time`, `username`, `payment_date`, `payment_method`, `payment_bank`, `account_number`, `amount`) VALUES
+(1, 2, '2010-11-01 03:00:01', NULL, '2010-11-01', 'cheque', 'BNI', '0129332544', 545000);
 
 -- --------------------------------------------------------
 
@@ -277,12 +279,15 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `note` text NOT NULL,
   PRIMARY KEY (`reservation_id`),
   KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `reservation`
 --
 
+INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`) VALUES
+(1, 0, 'christian.h6191', 'tes saja'),
+(2, 0, 'ponimin4070', 'juga tes');
 
 -- --------------------------------------------------------
 
@@ -299,12 +304,15 @@ CREATE TABLE IF NOT EXISTS `reservation_item` (
   PRIMARY KEY (`reservation_item_id`),
   KEY `fk_validates` (`price`),
   KEY `reservation_id` (`reservation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `reservation_item`
 --
 
+INSERT INTO `reservation_item` (`reservation_item_id`, `reservation_id`, `reservation_time`, `price`, `DTYPE`) VALUES
+(1, 1, '2010-10-22 09:36:12', 545000, 'R'),
+(2, 2, '2010-10-22 09:36:26', 545000, 'R');
 
 -- --------------------------------------------------------
 
@@ -327,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `room` (
 --
 
 INSERT INTO `room` (`room_no`, `product_id`, `room_name`, `floor`) VALUES
-('101', 'AC001', NULL, 1),
+('101', 'AC003', NULL, 1),
 ('102', 'AC001', NULL, 1),
 ('103', 'AC001', NULL, 1),
 ('104', 'AC001', NULL, 1),
@@ -339,7 +347,10 @@ INSERT INTO `room` (`room_no`, `product_id`, `room_name`, `floor`) VALUES
 ('110', 'AC001', NULL, 1),
 ('111', 'AC001', NULL, 1),
 ('112', 'AC002', NULL, 1),
-('113', 'AC002', NULL, 1);
+('113', 'AC002', NULL, 1),
+('201', 'AC003', NULL, 2),
+('202', 'AC001', NULL, 2),
+('203', 'AC001', NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -363,6 +374,9 @@ CREATE TABLE IF NOT EXISTS `room_reservation` (
 -- Dumping data for table `room_reservation`
 --
 
+INSERT INTO `room_reservation` (`reservation_item_id`, `room_no`, `entry_date`, `exit_date`, `actual_entry`, `actual_exit`) VALUES
+(1, '101', '2010-11-13', '2010-11-15', NULL, NULL),
+(2, '102', '2010-10-29', '2010-10-30', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -432,7 +446,8 @@ CREATE TABLE IF NOT EXISTS `venue` (
 
 INSERT INTO `venue` (`venue_no`, `venue_name`, `description`, `image`) VALUES
 ('7601', 'Mahakarya Ballroom', NULL, NULL),
-('7602', 'Arjuna Room', NULL, NULL);
+('7602', 'Arjuna Lounge', NULL, NULL),
+('7603', 'Brahmastra Hall', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -454,16 +469,24 @@ CREATE TABLE IF NOT EXISTS `venue_layout` (
 --
 
 INSERT INTO `venue_layout` (`venue_no`, `layout_no`, `capacity`) VALUES
-('7601', 1, 100),
-('7601', 2, 150),
-('7601', 3, 200),
-('7601', 4, 300),
-('7601', 5, 500),
+('7601', 1, 80),
+('7601', 2, 100),
+('7601', 3, 120),
+('7601', 4, 140),
+('7601', 5, 200),
+('7601', 6, 155),
 ('7602', 1, 50),
 ('7602', 2, 75),
 ('7602', 3, 100),
 ('7602', 4, 150),
-('7602', 5, 250);
+('7602', 5, 200),
+('7602', 6, 185),
+('7603', 1, 80),
+('7603', 2, 100),
+('7603', 3, 140),
+('7603', 4, 210),
+('7603', 5, 300),
+('7603', 6, 280);
 
 --
 -- Constraints for dumped tables
@@ -521,7 +544,7 @@ ALTER TABLE `room_reservation`
 --
 ALTER TABLE `venue_layout`
   ADD CONSTRAINT `venue_layout_ibfk_1` FOREIGN KEY (`venue_no`) REFERENCES `venue` (`venue_no`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `venue_layout_ibfk_2` FOREIGN KEY (`layout_no`) REFERENCES `venue_layout` (`layout_no`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `venue_layout_ibfk_2` FOREIGN KEY (`layout_no`) REFERENCES `layout` (`layout_no`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
