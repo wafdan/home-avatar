@@ -78,7 +78,7 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Fasilitas</h1>
+                        <h1 class="title">Services List</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
                             <li id="fmenu-item2"><a href="fac_hall_manage.jsp">Meetings & Events</a></li>
@@ -86,7 +86,6 @@
                         </ul>
                         <div class="post">
                             <div class="fac1">
-                            Other Services
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
                                 int editIndex=0;
