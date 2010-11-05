@@ -137,6 +137,7 @@
         <%
             try {
                 /*HALAMAN PERTAMA*/
+                String id = request.getParameter("id");
                 if (request.getParameter("step").equals("1")) {
         %>
         
@@ -168,7 +169,7 @@
                                             Accomodation temp;
                                             temp = i.next();
                                     %>
-                                    <option value="<%=temp.getProductId()%>"><%=temp.getProductType()%></option>
+                                    <option value="<%=temp.getProductId()%>" <% if (id.equals(temp.getProductId())) { out.write("selected='true'");} %> ><%=temp.getProductType()%></option>
                                     <%
                                        }
                                     %>
@@ -197,7 +198,7 @@
                                                                 while (iHall.hasNext()) {
                                                                     Hall hall = iHall.next();
                                     %>
-                                    <option value="<%=hall.getProductId()%>"> <%=hall.getProductType()%> </option>
+                                    <option value="<%=hall.getProductId()%>" <% if (id.equals(hall.getProductId())) { out.write("selected='true'");} %> > <%=hall.getProductType()%> </option>
                                     <%
                                                                 }
                                     %>
