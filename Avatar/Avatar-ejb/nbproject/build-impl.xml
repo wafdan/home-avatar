@@ -334,12 +334,14 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${libs.MySQLDriver.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.iText-5.0.4.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.jfreechart-1.0.13.zip}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jcommon-1.0.13.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jfreechart-1.0.13.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.MySQLDriver.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.iText-5.0.4.jar}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.jfreechart-1.0.13.zip}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.jcommon-1.0.13.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.jfreechart-1.0.13.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">
