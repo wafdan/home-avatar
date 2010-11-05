@@ -154,6 +154,26 @@
                                                 <td><input type="text" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
                                             </tr>
                                             <tr>
+                                                <td>Pricing Unit :</td>
+                                                <td><input type="text" value= "<%= temp.getPricingUnit()%>" id="prcu" name="prcu" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Unit Price :</td>
+                                                <td><input type="text" value= "<%= temp.getUnitPrice()%>" id="uprc" name="uprc" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Published :</td>
+                                                <td>
+                                                <% if (temp.getPublished()){%>
+                                                    <input style="width:20px" type="radio" name="pub" id="pub" value="true" checked="checked" />Yes
+                                                    <input style="width:20px" type="radio" name="pub" id="pub" value="false" />No
+                                                <%}else{%>
+                                                    <input style="width:20px" type="radio" name="pub" id="pub" value="true" />Yes
+                                                    <input style="width:20px" type="radio" name="pub" id="pub" value="false" checked="checked"/>No
+                                                <%}%>
+                                                </td>
+                                            </tr>
+                                            <tr>
                                                 <td>
                                                 </td>
                                                 <td>
