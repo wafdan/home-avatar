@@ -8,6 +8,7 @@ import AvatarEntity.Accomodation;
 import AvatarEntity.AccomodationJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -40,8 +41,47 @@ public class EditAcco extends HttpServlet {
             String type = request.getParameter("type");
             String desc = request.getParameter("desc");
             String img = request.getParameter("img");
+            String max = request.getParameter("max");
+            String nent = request.getParameter("nent");
+            String nent2 = request.getParameter("nent2");
+            String noxt = request.getParameter("noxt");
+            String noxt2 = request.getParameter("noxt2");
+            String wday = request.getParameter("wday");
+            String wend = request.getParameter("wend");
+            String terl = request.getParameter("terl");
+            String terl2 = request.getParameter("terl2");
+            String tlat = request.getParameter("tlat");
+            String tlat2 = request.getParameter("tlat2");
+            //out.println(id + "///" + type + "///" + desc + "///" + img + "///");
 
-            out.println(id + "///" + type + "///" + desc + "///" + img + "///");
+            if (max == null ? "" == null : max.equals("")) {
+                max = "0";
+            }
+            if ((nent == null ? "" == null : nent.equals(""))
+                    || (nent2 == null ? "" == null : nent2.equals(""))) {
+                nent = "00";
+                nent2 = "00";
+            }
+            if ((noxt == null ? "" == null : noxt.equals(""))
+                    || (noxt == null ? "" == null : noxt.equals(""))) {
+                noxt = "00";
+                noxt2 = "00";
+            }
+            if ((terl == null ? "" == null : terl.equals(""))
+                    || (terl2 == null ? "" == null : terl2.equals(""))) {
+                terl = "00";
+                terl2 = "00";
+            }
+            if ((tlat == null ? "" == null : tlat.equals(""))
+                    || (tlat2 == null ? "" == null : tlat2.equals(""))) {
+                tlat = "00";
+                tlat2 = "00";
+            }
+
+            nent = nent + ":" + nent2 + ":00";
+            noxt = noxt + ":" + noxt2 + ":00";
+            terl = terl + ":" + terl2 + ":00";
+            tlat = tlat + ":" + tlat2 + ":00";
 
             AccomodationJpaController sj = new AccomodationJpaController();
             Accomodation s = new Accomodation();
@@ -50,6 +90,13 @@ public class EditAcco extends HttpServlet {
             s.setProductType(type);
             s.setDescription(desc);
             s.setImage(img);
+            s.setMaxPax(Integer.parseInt(max));
+            s.setNormalEntry(Time.valueOf(nent));
+            s.setNormalExit(Time.valueOf(noxt));
+            s.setWeekdayRate(Double.parseDouble(wday));
+            s.setWeekendRate(Double.parseDouble(wend));
+            s.setToleranceEarly(Time.valueOf(terl));
+            s.setToleranceLate(Time.valueOf(tlat));
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 
