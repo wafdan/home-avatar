@@ -41,8 +41,9 @@ public class EditHall extends HttpServlet {
             String type = request.getParameter("type");
             String desc = request.getParameter("desc");
             String nrate = request.getParameter("nrate");
+            String nrateunit = request.getParameter("nrateunit");
 
-            out.println(id + "///" + type + "///" + desc + "///" + nrate + "///");
+            //out.println(id + "///" + type + "///" + desc + "///" + nrate + "///");
 
             HallJpaController sj = new HallJpaController();
             Hall s = new Hall();
@@ -50,7 +51,8 @@ public class EditHall extends HttpServlet {
             //out.write("productId="+id);
             s.setProductType(type);
             s.setDescription(desc);
-            //s.setNormalRate(Double.parseDouble(nrate));
+            s.setNormalRate(Double.parseDouble(nrate));
+            s.setNormalRateUnit(nrateunit);
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 

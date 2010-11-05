@@ -5,11 +5,16 @@
 <%@page import="AvatarEntity.HallJpaController" %>
 <%@page import="AvatarEntity.OtherServices" %>
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
+<%@page import="java.text.NumberFormat" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
+<%@page import="java.util.Locale" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -76,7 +81,7 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Fasilitas</h1>
+                        <h1 class="title">List of Facilities</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
                             <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
@@ -84,7 +89,7 @@
                         </ul>
                         <div class="post">
                             <div class="fac1">
-                            Halls
+                            Packages
                             <%--<table width="603" border="1" style="table-layout:fixed">--%>
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
@@ -119,7 +124,7 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getProductId());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getProductType());%></div></td>
                                     <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getNormalRateUnit());%></div></td>
+                                    <td><div style="overflow:auto"><% out.write(currencyFormat.format(temp.getNormalRate()) + " per " + temp.getNormalRateUnit());%></div></td>
                                     <td align="center"><div style="overflow:auto"><a href="fac_hall_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></div></td>
                                     <td align="center"><div style="overflow:auto"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getProductId());%>">delete</a></div></td>
                                 </tr>
@@ -137,11 +142,11 @@
                                                 <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
                                             </tr>
                                             <tr>
-                                                <td>Product Id   :</td>
+                                                <td>Product ID :</td>
                                                 <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
                                             </tr>
                                             <tr>
-                                                <td>Product Type :</td>
+                                                <td>Package Name :</td>
                                                 <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
                                             </tr>
                                             <tr>
@@ -150,7 +155,11 @@
                                             </tr>
                                             <tr>
                                                 <td>Normal Rate  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrate" name="nrate" /></td>
+                                                <td><input type="text" value= "<%= temp.getNormalRate()%>" id="nrate" name="nrate" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Normal Rate Unit  :</td>
+                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrateunit" name="nrateunit" /></td>
                                             </tr>
                                             <tr>
                                                 <td>

@@ -14,7 +14,6 @@
 <%@page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -111,7 +110,7 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Tambah Hall</h1>
+                        <h1 class="title">Add Package</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
                             <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>

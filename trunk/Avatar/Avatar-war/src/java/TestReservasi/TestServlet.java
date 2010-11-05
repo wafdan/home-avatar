@@ -119,8 +119,8 @@ public class TestServlet extends HttpServlet {
             pay.setPaymentMethod("transfer");
             pjpa.create(pay);*/
             RoomJpaController rjpa = new RoomJpaController();
-            Date entryDate = df.parse("2010-11-10");
-            Date exitDate = df.parse("2010-11-11");
+            Date entryDate = df.parse("2010-10-28");
+            Date exitDate = df.parse("2010-10-30");
             for (Room rm : rjpa.findUnused("AC001", entryDate, exitDate)) {
                 out.println(rm.getRoomNo() + "<br />");
             }
