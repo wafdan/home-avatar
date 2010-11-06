@@ -17,7 +17,7 @@
 <body id="top">
     <%
         MelihatLayananController ctrl = new MelihatLayananController();
-        List<OtherServices> services = ctrl.getOtherServicesList();
+        List<OtherServices> services = ctrl.getPublishedOtherServicesList();
         OtherServices cur;
         String pid = request.getParameter("id");
         if (pid == null) {
@@ -57,7 +57,7 @@
             out.println("<a class='book' href='#'>Add to Cart</a>");
             }*/
             out.println("<div class='entry'>");
-            out.println("<p><img src='" + cur.getImage() + "' />" + cur.getDescription() + "</p>");
+            out.println("<p>" + cur.getDescription() + "</p><img src='" + cur.getImage() + "' />");
             out.println("</div>");
         }
       %>
