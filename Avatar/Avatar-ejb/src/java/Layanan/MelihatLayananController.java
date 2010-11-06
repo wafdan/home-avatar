@@ -13,6 +13,8 @@ import AvatarEntity.OtherServices;
 import AvatarEntity.OtherServicesJpaController;
 import AvatarEntity.Venue;
 import AvatarEntity.VenueJpaController;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -59,6 +61,19 @@ public class MelihatLayananController {
 
     public List<OtherServices> getOtherServicesList() {
         return osc.findOtherServicesEntities();
+    }
+
+    public List<OtherServices> getPublishedOtherServicesList() {
+        List<OtherServices> result = new ArrayList<OtherServices>();
+        List<OtherServices> all = osc.findOtherServicesEntities();
+        Iterator<OtherServices> i = all.iterator();
+        while (i.hasNext()) {
+            OtherServices r = i.next();
+            if (r.getPublished()) {
+                result.add(r);
+            }
+        }
+        return result;
     }
 
     public OtherServices getOtherServices(String id) {
