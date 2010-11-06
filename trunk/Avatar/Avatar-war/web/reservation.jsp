@@ -46,7 +46,32 @@
                 function() { $(this).removeClass('ui-state-hover'); }
             );
             });
-           
+
+            var roomSuccessStatus=-2;
+            /* -2 : Disabled
+             * -1 : Check out date nya harus setelah check in date
+             * 0 : tidak ada room yang tersedia
+             * 1 : selain yang di atas
+             * */
+
+            var onloadFunction=function(){
+                //Hilangkan checkbox nya
+                document.syalala.roomcheckbox.checked=false;
+                document.syalala.hallcheckbox.checked=false;
+                
+                //form buat room di disabled
+                document.syalala.roomcheckindate.disabled=true;
+                document.syalala.roomcheckoutdate.disabled=true;
+                document.syalala.roomtype.disabled=true;
+                document.syalala.totalroom.disabled=true;
+
+                //form buat hall di disabled
+                document.syalala.halldate.disabled=true;
+                document.syalala.packagetype.disabled=true;
+                document.syalala.totalhall.disabled=true;
+
+            }
+
             var checkDateKosong=function()
             {
                 //return false kalo ga valid
@@ -64,6 +89,15 @@
                 {
                     retval=retval&&!(halldate==0)
                 }
+
+                if(roomSuccessStatus==-1){
+                    alert("Check-in date must be before check-out date");
+                }
+
+                if(roomSuccessStatus==0){
+                    alert("There no vacant room for your dates");
+                }
+
                 if(!retval)
                     alert("Date field must be filled");
                 return retval;            
@@ -79,11 +113,24 @@
                     document.syalala.roomcheckoutdate.disabled=true;
                     document.syalala.roomtype.disabled=true;
                     document.syalala.totalroom.disabled=true;
+                    document.syalala.totalroom.length=0;
+                    var newOption1 = document.createElement('option');
+                    newOption1.text = "Please fill dates first";
+                    var selectObj=document.syalala.totalroom;
+                    try{
+                        selectObj.add(newOption1,null);
+                    }catch(ex){
+                        selectObj.add(newOption1);
+                    }
+
+                    roomSuccessStatus=-2;
                 }else{
                     document.syalala.roomcheckindate.disabled=false;
                     document.syalala.roomcheckoutdate.disabled=false;
                     document.syalala.roomtype.disabled=false;
-                    document.syalala.totalroom.disabled=false;
+                    //document.syalala.totalroom.disabled=false;
+                    roomSuccessStatus=1;
+                    getTotalRoomAvailable();
                 }
 
                 var kondisi2=document.syalala.hallcheckbox.checked;
@@ -129,29 +176,63 @@
                 var tanggalMulai=document.syalala.roomcheckindate.value;
                 var tanggalSelesai=document.syalala.roomcheckoutdate.value;
                 var productId=document.syalala.roomtype.value;
+                var selectObj=document.syalala.totalroom;
                 if(tanggalMulai.length==0 || tanggalSelesai==0){
-                    alert("Please fill up Check-in Date in Check-out Date first");
+                    //alert("Please fill up Check-in Date in Check-out Date first");
                     return;
                 }
                 if (ajaxpost) {
                     //var obj = document.getElementById('friendpanel');
+
                     ajaxpost.open("POST", "ReservationAjax");
                     ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    var selectObj=document.syalala.totalroom;
+                    
+                    selectObj.disabled=true;
                     ajaxpost.onreadystatechange = function() {
                         if (ajaxpost.readyState == 4 && ajaxpost.status == 200) {
-                            alert("Debug Data received :"+ajaxpost.responseText);
+                            //alert("Debug Data received :"+ajaxpost.responseText);
+                            var roomAvailable=parseInt(ajaxpost.responseText);
+                            var i;
+                            
+                            if(roomAvailable==0){
+                                //document.getElementById('errormessage').innerHTML="There no vacant room for your dates";
+                                alert("There no vacant room for your dates");
+                                roomSuccessStatus=0;
+                            }else if(roomAvailable==-1){
+                                roomSuccessStatus=-1;
+                                alert("Check-in date must be before check-out date");
+                            }else if(roomAvailable==-2){
+                                roomSuccessStatus=-2;
+                                alert("Date format must be in MM/dd/yyyy");
+                            }
+                            else{
+                                selectObj.length=0;
+                                selectObj.disabled=false;
+                                roomSuccessStatus=1;
+                                for(i=1;i<=roomAvailable;i++){
+                                    var newOption1 = document.createElement('option');
+                                    newOption1.text = i+'';
+                                    newOption1.value = i;
+                                    try{
+                                        selectObj.add(newOption1,null);
+                                    }catch(ex){
+                                        selectObj.add(newOption1);
+                                    }
+                                }
+                            }
                         }
                     }
                     var data;
                     data = "checkindate=" + tanggalMulai+"&checkoutdate="+tanggalSelesai+"&productid="+productId;
-                    alert("Debug data : "+data);
+                    //alert("Debug data : "+data);
                     ajaxpost.send(data);
                 }
             }
         </script>
     </head>
 
-    <body>
+    <body onload="onloadFunction();">
         <jsp:include page="header.jsp"/>
 
         <div class="wrapper col3">
@@ -189,7 +270,7 @@
                                                                     out.write("WARNING : Check in date must be BEFORE check out date");
                                                                 }
                                     %></div>
-                                <label>Room type</label> <select name="roomtype" disabled="true">
+                                <label>Room type</label> <select name="roomtype" disabled="true" onchange="getTotalRoomAvailable();">
                                         <%
                                                                     /*INI BUAT MASUKKIN TIPE ROOMTYPENYA DARI DATABASE*/
                                                                     List<Accomodation> listAccomodation = (new AccomodationJpaController()).findAccomodationEntities();
@@ -198,9 +279,12 @@
                                                                         Accomodation temp;
                                                                         temp = i.next();
                                         %>
-                                        <option value="<%=temp.getProductId()%>" <% try{if (id.equals(temp.getProductId())) {
-                                                                                                                    out.write("selected='true'");
-                                                                                                                }}catch(NullPointerException e){}%> ><%=temp.getProductType()%></option>
+                                        <option value="<%=temp.getProductId()%>" <% try {
+                                                                                                             if (id.equals(temp.getProductId())) {
+                                                                                                                 out.write("selected='true'");
+                                                                                                             }
+                                                                                                         } catch (NullPointerException e) {
+                                                                                                         }%> ><%=temp.getProductType()%></option>
                                     <%
                                                                 }
                                     %>
@@ -208,16 +292,11 @@
 
                             <!--li> <label>Total room</label> <input type="text" name="totalroom" /></li -->
 
-                            <li><label>Check-in date</label> <input disabled="true" name="roomcheckindate" type="text" class="datepicker" class="date-pick" /></li>
-                            <li><label>Check-out date</label> <input  disabled="true" name="roomcheckoutdate" type="text" class="datepicker" /></li>
-                            <input type="button" onclick="getTotalRoomAvailable();" name="tombol" value="Get Avalaible Room" />
+                            <li><label>Check-in date</label> <input onchange="getTotalRoomAvailable();" disabled="true" name="roomcheckindate" type="text" class="datepicker" class="date-pick" /></li>
+                            <li><label>Check-out date</label> <input onchange="getTotalRoomAvailable();" disabled="true" name="roomcheckoutdate" type="text" class="datepicker" /></li>
                             <li>
-                                <select name="totalroom" disabled="true">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                <label>Room needed</label> <select name="totalroom" disabled="true">
+                                    <option>Please fill dates first</option>
                                 </select>
                             </li>
                         </ul>
@@ -226,16 +305,20 @@
                         <ul>
                             <li><label>Package</label>
                                 <select name="packagetype" disabled="true">
-                                        <%
-                                                                    /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
-                                                                    List<Hall> listhall = (new HallJpaController()).findHallEntities();
-                                                                    Iterator<Hall> iHall = listhall.iterator();
-                                                                    while (iHall.hasNext()) {
-                                                                        Hall hall = iHall.next();
-                                        %>
-                                        <option value="<%=hall.getProductId()%>" <% if (id.equals(hall.getProductId())) {
-                                                                                                                    out.write("selected='true'");
-                                                                                                                }%> > <%=hall.getProductType()%> </option>
+                                    <%
+                                                                /*INI BUAT MASUKKIN TIPE HALLTYPE DARI DATABASE*/
+                                                                List<Hall> listhall = (new HallJpaController()).findHallEntities();
+                                                                Iterator<Hall> iHall = listhall.iterator();
+                                                                while (iHall.hasNext()) {
+                                                                    Hall hall = iHall.next();
+                                    %>
+                                    <option value="<%=hall.getProductId()%>" <% try {
+                                                                                                            if (id.equals(hall.getProductId())) {
+                                                                                                                out.write("selected='true'");
+                                                                                                            }
+                                                                                                        } catch (NullPointerException ex) {
+                                                                                                        }%> > <%=hall.getProductType()%> </option>
+
                                     <%
                                                                 }
                                     %>
@@ -250,7 +333,6 @@
                             <li><label>Date</label> <input name="halldate" type="text" class="datepicker" disabled="true"/></li>
                         </ul>
                         <input type="submit" value="SUBMIT" name="tombol" disabled="true">
-
                     </form>
                 </div>
                 <div id="column">
@@ -411,7 +493,6 @@
             <div class="clear"></div>
 
         </div>
-    </div>
-    <jsp:include page="footer.jsp"/>
-</body>
+        <jsp:include page="footer.jsp"/>
+    </body>
 </html>
