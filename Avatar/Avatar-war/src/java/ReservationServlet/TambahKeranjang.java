@@ -94,7 +94,7 @@ public class TambahKeranjang extends HttpServlet {
                     Calendar calIn=(Calendar.getInstance());
                     calIn.setTime(checkInDate);
 
-                    if(calOut.before(calIn)){
+                    if(!calOut.after(calIn)){
                         response.sendRedirect("reservation.jsp?step=1&error=1");
                         return;
                     }

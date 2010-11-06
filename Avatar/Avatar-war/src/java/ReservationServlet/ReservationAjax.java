@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,16 +37,6 @@ public class ReservationAjax extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ReservationAjax</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ReservationAjax at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            */
             String checkindate=request.getParameter("checkindate");
             String checkoutdate=request.getParameter("checkoutdate");
             String product_id=request.getParameter("productid");
@@ -53,11 +44,24 @@ public class ReservationAjax extends HttpServlet {
             SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
             Date checkIn=sdf.parse(checkindate);
             Date checkOut=sdf.parse(checkoutdate);
+
+            Calendar checkInCal=Calendar.getInstance();
+            Calendar checkOutCal=Calendar.getInstance();
+
+            checkInCal.setTime(checkIn);
+            checkOutCal.setTime(checkOut);
+
+            if(!checkOutCal.after(checkInCal)){
+                out.write(String.valueOf(-1));
+                return;
+            }
+
             int roomAvailable=(new RoomJpaController()).findUnused(product_id, checkIn, checkOut).size();
             System.out.println("Room Available="+roomAvailable);
             out.write(String.valueOf(roomAvailable));
 
         } catch (ParseException ex) {
+            out.write(String.valueOf(-2));
             Logger.getLogger(ReservationAjax.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
