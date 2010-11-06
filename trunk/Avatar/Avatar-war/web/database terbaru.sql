@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 05, 2010 at 12:54 
+-- Generation Time: Nov 06, 2010 at 11:25 
 -- Server version: 5.1.37
 -- PHP Version: 5.3.0
 
@@ -45,14 +45,14 @@ CREATE TABLE IF NOT EXISTS `accomodation` (
 --
 
 INSERT INTO `accomodation` (`product_id`, `product_type`, `description`, `image`, `max_pax`, `normal_entry`, `normal_exit`, `weekday_rate`, `weekend_rate`, `tolerance_early`, `tolerance_late`) VALUES
-('AC001', 'Standard Room', 'Comfort in budget-friendly room', NULL, 2, '12:30:00', '11:30:00', 545000, 605000, '00:30:00', '00:30:00'),
-('AC002', 'Deluxe Room', 'A good choice for more comfort and space', NULL, 2, '12:30:00', '11:30:00', 645000, 710000, '00:30:00', '00:30:00'),
-('AC003', 'Queen Room', 'Superior Non-smoking, Sweet Sleeper Bed, Private Balcony, Combined Shower/bath', NULL, 2, '12:30:00', '11:30:00', 555000, 600000, '00:30:00', '00:30:00'),
-('AC004', 'King Room', 'Club Floor Non-smoking, Sweet Sleeper Bed, Buffet Breakfast, Club Lounge-free Access, Internet For Free', NULL, 0, '12:30:00', '11:30:00', 700000, 750000, '00:00:00', '00:00:00'),
-('AC005', 'Princess Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', NULL, 0, '00:00:00', '00:00:00', 400000, 450000, '00:00:00', '00:00:00'),
-('AC006', 'Prince Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', NULL, 0, '00:00:00', '00:00:00', 500000, 550000, '00:00:00', '00:00:00'),
-('AC007', 'Minister Room', 'Superior Non-smoking, Sweet Sleeper Bed, Private Balcony, Combined Shower/bath', NULL, 0, '00:00:00', '00:00:00', 700000, 750000, '00:00:00', '00:00:00'),
-('AC008', 'Ambassador Room', 'Superior Lake View Non-smoking, Sweet Sleeper Bed, Spacious With Sitting Area, Comfortable Work Area, Coffee/tea Maker', NULL, 0, '00:00:00', '00:00:00', 780000, 800000, '00:00:00', '00:00:00');
+('AC001', 'Standard Room', 'Comfort in budget-friendly room', 'images/facilities/rooms/AC001.jpg', 2, '12:30:00', '11:30:00', 545000, 605000, '00:30:00', '00:30:00'),
+('AC002', 'Deluxe Room', 'A good choice for more comfort and space', 'images/facilities/rooms/AC002.jpg', 2, '12:30:00', '11:30:00', 645000, 710000, '00:30:00', '00:30:00'),
+('AC003', 'Queen Room', 'Superior Non-smoking, Sweet Sleeper Bed, Private Balcony, Combined Shower/bath', 'images/facilities/rooms/AC003.jpg', 2, '12:30:00', '11:30:00', 555000, 600000, '00:30:00', '00:30:00'),
+('AC004', 'King Room', 'Club Floor Non-smoking, Sweet Sleeper Bed, Buffet Breakfast, Club Lounge-free Access, Internet For Free', 'images/facilities/rooms/AC004.gif', 0, '12:30:00', '11:30:00', 700000, 750000, '00:00:00', '00:00:00'),
+('AC005', 'Princess Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', 'images/facilities/rooms/AC005.jpg', 0, '00:00:00', '00:00:00', 400000, 450000, '00:00:00', '00:00:00'),
+('AC006', 'Prince Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', 'images/facilities/rooms/AC006.jpg', 0, '00:00:00', '00:00:00', 500000, 550000, '00:00:00', '00:00:00'),
+('AC007', 'Minister Room', 'Superior Non-smoking, Sweet Sleeper Bed, Private Balcony, Combined Shower/bath', 'images/facilities/rooms/AC007.jpg', 0, '00:00:00', '00:00:00', 700000, 750000, '00:00:00', '00:00:00'),
+('AC008', 'Ambassador Room', 'Superior Lake View Non-smoking, Sweet Sleeper Bed, Spacious With Sitting Area, Comfortable Work Area, Coffee/tea Maker', 'images/facilities/rooms/AC008.gif', 0, '00:00:00', '00:00:00', 780000, 800000, '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
@@ -111,10 +111,10 @@ CREATE TABLE IF NOT EXISTS `hall` (
 --
 
 INSERT INTO `hall` (`product_id`, `product_type`, `description`, `normal_rate`, `normal_rate_unit`, `start_time`, `end_time`, `overcharge_unit`, `overcharge_rate`) VALUES
-('HL001', 'Half Day Meeting', 'Half Day Meeting Package from 08.00 - 13.00', 300000, 'pax', '08:00:00', '13:00:00', 'venue', 85000),
-('HL002', 'Full Day Meeting', 'Full Day Meeting Package from 08.00 - 18.00', 600000, 'pax', '08:00:00', '18:00:00', 'venue', 100000),
-('HL003', 'Wedding Party', 'Wedding Party', 700000, 'pax', '00:00:00', '00:00:00', 'venue', 50000),
-('HL004', 'Party', 'Any Party but Wedding', 500000, 'pax', '00:00:00', '00:00:00', 'venue', 50000);
+('HL001', 'Half Day Meeting', 'Half Day Meeting Package from 08.00 - 13.00. <br />Facilities: (Meeting Room and Meeting Room Amenities, Lunch or Dinner, 1x Coffe break) ', 300000, 'pax', '08:00:00', '13:00:00', 'venue', 85000),
+('HL002', 'Full Day Meeting', 'Full Day Meeting Package from 08.00 - 18.00. <br />Facilities: (Meeting Room and Meeting Room Amenities, Lunch or Dinner, 2x Coffe break) ', 600000, 'pax', '08:00:00', '18:00:00', 'venue', 100000),
+('HL003', 'Wedding Party', 'Wedding Party. We also provide wedding organizer. In cooperation with Bee Wedding & Party Organizer provide one stop wedding package, where all your wedding needs are included so the wedding couple have nothing to worry and can fully concentrate to their daily activities.', 700000, 'pax', '00:00:00', '00:00:00', 'venue', 50000),
+('HL004', 'Party', 'Any Party but Wedding. We also supported by Party Organizer who provides the entertainment for our guest as well as for public. <br />\r\n\r\nThe Party Organizer has successfully held some huge events like : <br />\r\n\r\n    * music concert of Maliq d´essential, Rio Febrian, Marcell, Glenn Fredly, Syahrani, Wong Pitoe, Buitenzorg Jazz with Idang Rasyidi & other Jazz Musicians, etc. <br />\r\n    * Bogor Auction, <br />\r\n    * Product Launching, <br />\r\n    * Exhibition, <br />\r\n    * etc', 500000, 'pax', '00:00:00', '00:00:00', 'venue', 50000);
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,7 @@ INSERT INTO `layout` (`layout_no`, `layout_name`) VALUES
 
 CREATE TABLE IF NOT EXISTS `other_services` (
   `product_id` varchar(6) NOT NULL,
-  `product_type` varchar(25) NOT NULL,
+  `product_type` varchar(30) NOT NULL,
   `description` text,
   `image` text,
   `pricing_unit` varchar(10) NOT NULL,
@@ -193,14 +193,14 @@ CREATE TABLE IF NOT EXISTS `other_services` (
 --
 
 INSERT INTO `other_services` (`product_id`, `product_type`, `description`, `image`, `pricing_unit`, `unit_price`, `published`) VALUES
-('C0001', 'Catering', 'Catering for meeting', NULL, 'pax', 30000, 0),
+('C0001', 'Catering', 'Catering for party/meeting.', NULL, 'pax', 30000, 0),
 ('F0001', 'Breakfast', 'Breakfast is served. Wake up slowly and enjoy a morning at a ready-laid breakfast table. Our popular breakfast buffet has everything from scrambled eggs to smoothies and our breakfast staff will serve you tea and coffee on demand. Served every day', NULL, 'person', 50000, 1),
 ('F0002', 'Lunch', 'Savour our delicious lunch buffet. The table is laid and the meal begins with a salad buffet, followed by soup, a fish course and a meat course with hot vegetables that vary from day to day. To finish, we have a splendid dessert table with ten or so different sweets. Served Monday to Friday.', NULL, 'person', 45000, 1),
 ('F0003', 'Dinner', 'The world is full of different tastes and at Spons threesixty° our aim is to enjoy them all. We serve tasty drinks and beautifully prepared food that finds its inspiration in every corner of the world, so we hope that you will feel at home, wherever you''re from. We are untiring in gathering ideas and flavours from different places, with the aim of exploring a whole world of taste.', NULL, 'person', 75000, 1),
-('G0001', 'Aerobic Exercise Guide', 'Learn Poco Poco dance from the instructor', NULL, '', 0, 1),
-('G0002', 'Gym Exercise Guide', 'Enlarge your muscle instructed by professional trainer.', NULL, '', 0, 1),
-('M0001', 'Classic Upper Body Massag', 'Our professional massage therapists provide treatments that will increase your well-being, give you new energy and relieve any pain. We accept reservations seven days a week 08:00 to 21:00 and we are happy to help you choose the treatment that best suits your needs. You can choose if you want the massage in your hotel room, In-Room Spa, or in our massage room, which is adjacent to the Fitness Centre on the first floor of the hotel. Welcome to relax!', NULL, '', 100000, 1),
-('M0002', 'Classic Full Body Massage', 'Classic Full Body Massage. Full Body!', NULL, '', 300000, 1);
+('G0001', 'Aerobic Exercise Guide', 'Learn Poco Poco dance from the instructor. This facility is free to used by all our guests and the members of our fitness club. ', NULL, '', 0, 1),
+('G0002', 'Gym Exercise Guide', 'Enlarge your muscle instructed by professional trainer. This facility is free to used by all our guests and the members of our fitness club. ', 'images/facilities/others/G0002.jpg', '', 0, 1),
+('M0001', 'Classic Upper Body Massage', 'Our professional massage therapists provide treatments that will increase your well-being, give you new energy and relieve any pain. We accept reservations seven days a week 08:00 to 21:00 and we are happy to help you choose the treatment that best suits your needs. You can choose if you want the massage in your hotel room, In-Room Spa, or in our massage room, which is adjacent to the Fitness Centre on the first floor of the hotel. Welcome to relax!', 'images/facilities/others/M0001.jpg', '', 100000, 1),
+('M0002', 'Classic Full Body Massage', 'Classic Full Body Massage. Full Body!', 'images/facilities/others/M0002.jpg', '', 300000, 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 --
 
 INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_phone`) VALUES
-(1, 'Spons Hotel', 'Jalan Spons 112', 'Kelurahan Ceu Kecamatan Ceuceu', 'Jakarta', 'Indonesia', 'contact@sponshotel.co.id', 'Hotel ini berada di kawasan elit jakarta, terbebas dari semrawut dan kemacetan kota Jakarta', '085220280021');
+(1, 'Hotel Graha', 'Jl. Ir. Hi. Djuanda 45', 'Kecamatan Coblong, Kelurahan Dago', 'Bandung', 'Indonesia', 'contact@hotelgraha.co.id', 'Welcome to Hotel Graha Bandung, a five star luxury hotel in Bandung, West Java. Located in the heart of Bandung, we provide a superior level of service to satisfy the needs of our global guests. As a member of the "Hotel Graha" group, the Hotel Graha Bandung offers an extraordinary level of service and coordinated interior designs. Restored to its original opulence, Hotel Graha Bandung sets the standard for elegance. From the magnificent columned lobby with its marble floors and stained-glass dome to the classic décor of the 250 guestrooms and suites, we ensures that every stay is a memorable one.', '+6222 786567');
 
 -- --------------------------------------------------------
 
@@ -540,9 +540,9 @@ CREATE TABLE IF NOT EXISTS `venue` (
 --
 
 INSERT INTO `venue` (`venue_no`, `venue_name`, `description`, `image`) VALUES
-('7601', 'Mahakarya Ballroom', NULL, NULL),
-('7602', 'Arjuna Lounge', NULL, NULL),
-('7603', 'Brahmastra Hall', NULL, NULL);
+('7601', 'Mahakarya Ballroom', 'The largest meeting room that we have. It is ideal for wedding receptions, conventions, incentives and exhibitions as well as company gathering. ', 'images/facilities/meetings/7601.jpg'),
+('7602', 'Arjuna Lounge', 'As a pleasant place for lobbying & relaxing, Arjuna Lounge has a perfect atmosphere for you to relax after your busy day. Chatting with friends, enjoying soft music, or watching national and international TV channels while having a wide range of tasty beverages and delicate light meals in a comfortable couch.', 'images/facilities/meetings/7602.jpg'),
+('7603', 'Brahmastra Hall', 'Ideal for wedding receptions, conventions, incentives and exhibitions as well as company gathering. ', 'images/facilities/meetings/7603.jpg');
 
 -- --------------------------------------------------------
 

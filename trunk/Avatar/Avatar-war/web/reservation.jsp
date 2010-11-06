@@ -231,8 +231,18 @@
             }
         </script>
     </head>
-
-    <body onload="onloadFunction();">
+    <%
+        String step = request.getParameter("step");
+        String id = null;
+        String type = null;
+        if (request.getParameter("id") != null) {
+            id = request.getParameter("id");
+        }
+        if (request.getParameter("type") != null) {
+            type = request.getParameter("type");
+        }
+    %>
+    <body <% if (step.equals("1") && type != null) { if (type.equals("1")) { out.write("onLoad='changeRoom();'");} else if (type.equals("2")) { out.write("onLoad='changeHall();'");} } else {out.write("onLoad='onloadfunction();'");}  %> >
         <jsp:include page="header.jsp"/>
 
         <div class="wrapper col3">
@@ -241,14 +251,9 @@
             </div>
         </div>
         <%
-                    try {
-                        /* *********************************************************** */
-                        /* *****************HALAMAN PERTAMA*************************** */
-                        /* *********************************************************** */
-
-
-                        String id = request.getParameter("id");
-                        if (request.getParameter("step").equals("1")) {
+            try {
+                /*HALAMAN PERTAMA*/
+                if (request.getParameter("step").equals("1")) {
         %>
 
 
@@ -258,8 +263,8 @@
                     <h1>Please fill up this form to book our facility. </h1>
 
                     <form action="TambahKeranjang?action=add" method="POST" name="syalala" onsubmit="return checkDateKosong();">
-                        <input type="checkbox" onclick="changeRoom();" name="roomcheckbox" value="1" /><label>Book Room</label>
-                        <input type="checkbox" onclick="changeHall();" name="hallcheckbox" value="1" /><label>Book Hall</label>
+                        <input type="checkbox" onclick="changeRoom();" name="roomcheckbox" value="1" <%if (type != null) {if (type.equals("1")) { out.write("checked");}} %> /><label>Book Room</label>
+                        <input type="checkbox" onclick="changeHall();" name="hallcheckbox" value="1" <%if (type != null) {if (type.equals("2")) { out.write("checked");}} %> /><label>Book Hall</label>
                         <ul>
                             <li>
                                 <h2>ROOM</h2>
@@ -312,13 +317,7 @@
                                                                 while (iHall.hasNext()) {
                                                                     Hall hall = iHall.next();
                                     %>
-                                    <option value="<%=hall.getProductId()%>" <% try {
-                                                                                                            if (id.equals(hall.getProductId())) {
-                                                                                                                out.write("selected='true'");
-                                                                                                            }
-                                                                                                        } catch (NullPointerException ex) {
-                                                                                                        }%> > <%=hall.getProductType()%> </option>
-
+                                    <option value="<%=hall.getProductId()%>" <% if (id != null) {if (id.equals(hall.getProductId())) { out.write("selected='true'");}} %> > <%=hall.getProductType()%> </option>
                                     <%
                                                                 }
                                     %>

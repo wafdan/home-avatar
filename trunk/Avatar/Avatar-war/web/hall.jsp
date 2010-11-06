@@ -69,18 +69,19 @@
             }
 
             if (type.equals("1")) {
-                out.println("<br /><p><img src='" + ((Venue) cur).getImage() + "' />" + ((Venue) cur).getDescription() + "</p>");
+                out.println("<br /><p>" + ((Venue) cur).getDescription() + "</p><img src='" + ((Venue) cur).getImage() + "' alt='' />");
             } else {
                 out.println("<br />");
                 if (!isLogin) {
-                    out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+                    out.println("<a class='book' href='index.jsp'>Reserve</a>");
                 } else {
-                    if (ctrl.c.isOnCart((Object) cur)) {
+                    /*if (ctrl.c.isOnCart((Object) cur)) {
                         out.println("<a class='book' href='cart.jsp?add=2&type=2&id=" + ((Hall) cur).getProductId() + "'>Remove from Cart</a>");
                     } else {
                         out.println("<a class='book' href='cart.jsp?add=1&type=2&id=" + ((Hall) cur).getProductId() + "'>Add to Cart</a>");
                         System.out.println(ctrl.c.count());
-                    }
+                    }*/
+                    out.println("<a class='book' href='reservation.jsp?step=1&type=2&id=" + ((Hall) cur).getProductId() + "'>Reserve</a>");
                 }
                 out.println("<div class='entry'>");
                 out.println("<p>" + ((Hall) cur).getDescription() + "</p>");

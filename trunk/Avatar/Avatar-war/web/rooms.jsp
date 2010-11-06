@@ -3,6 +3,8 @@
 <%@ page import="Layanan.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
@@ -42,6 +44,8 @@
   <div id="container">
     <div id="content">
        <%
+            Locale locale = Locale.getDefault();
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             if (rooms.size() < 1) {
                 out.println("<div class='entry'>");
                 out.println("<p>No Room Availaible</p>");
@@ -51,17 +55,21 @@
                 out.println("<br />");
 
                 if (!isLogin) {
-                    out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+                    out.println("<a class='book' href='index.jsp'>Reserve</a>");
                 } else {
-                    if (ctrl.c.isOnCart((Object) cur)) {
+                    /*if (ctrl.c.isOnCart((Object) cur)) {
                         out.println("<a class='book' href='cart.jsp?add=2&type=1&id=" + cur.getProductId() + "'>Remove from Cart</a>");
                     } else {
                         out.println("<a class='book' href='cart.jsp?add=1&type=1&id=" + cur.getProductId() + "'>Add to Cart</a>");
-                    }
+                    }*/
+                    out.println("<a class='book' href='reservation.jsp?step=1&type=1&id="+cur.getProductId()+"'>Reserve</a>");
                 }
 
                 out.println("<div class='entry'>");
-                out.println("<p><img src='" + cur.getImage() + "' />" + cur.getDescription() + "</p>");
+                out.println("<p>" + cur.getDescription() + "</p><img src='" + cur.getImage() + "' alt='' />");
+                out.println("<p>Room rates:<br />");
+                out.println("Weekday "+currencyFormat.format(cur.getWeekdayRate())+" <br />");
+                out.println("Weekend "+currencyFormat.format(cur.getWeekendRate())+" </p>");
                 out.println("</div>");
             }
         %>

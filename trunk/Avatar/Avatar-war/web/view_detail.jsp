@@ -28,20 +28,25 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         out.println("Reservation Items :<br />");
         KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
         Reservation r = c.getReservationById(Integer.parseInt(rid));
-        for (ReservationItem curRes : r.getReservationItemCollection()) {
-            if (curRes instanceof RoomReservation) {
-                out.println("- Room Reservation<br />");
-                out.println("Entry Date = "+formatter.format(((RoomReservation) curRes).getEntryDate())+"<br />");
-                out.println("Exit Date = "+formatter.format(((RoomReservation) curRes).getExitDate()));
-            } else if (curRes instanceof HallReservation) {
-                out.println("- Hall Reservation<br />");
-                out.println("Usage Time = "+formatter.format(((HallReservation) curRes).getUseDate())+","+timeformatter.format(((HallReservation) curRes).getBeginTime())+"-"+timeformatter.format(((HallReservation) curRes).getEndTime()));
-            } else if (curRes instanceof OtherServicesReservation) {
-                out.println("- Other Services Reservation<br />");
-                out.println(((OtherServicesReservation) curRes).getProductId().getProductType());
+        if (r.getReservationItemCollection().size() < 1) {
+            out.println("No Reservation Item <br />");
+        } else
+        {
+            for (ReservationItem curRes : r.getReservationItemCollection()) {
+                if (curRes instanceof RoomReservation) {
+                    out.println("- Room Reservation<br />");
+                    out.println("Entry Date = "+formatter.format(((RoomReservation) curRes).getEntryDate())+"<br />");
+                    out.println("Exit Date = "+formatter.format(((RoomReservation) curRes).getExitDate()));
+                } else if (curRes instanceof HallReservation) {
+                    out.println("- Hall Reservation<br />");
+                    out.println("Usage Time = "+formatter.format(((HallReservation) curRes).getUseDate())+","+timeformatter.format(((HallReservation) curRes).getBeginTime())+"-"+timeformatter.format(((HallReservation) curRes).getEndTime()));
+                } else if (curRes instanceof OtherServicesReservation) {
+                    out.println("- Other Services Reservation<br />");
+                    out.println(((OtherServicesReservation) curRes).getProductId().getProductType());
+                }
+                out.println("<br />");
+                out.println("Price = "+currencyFormat.format(curRes.getPrice())+"<br />");
             }
-            out.println("<br />");
-            out.println("Price = "+currencyFormat.format(curRes.getPrice())+"<br />");
         }
         out.println("<input class='button' type ='button' onclick='javascript:viewDetail("+rid+",0)' value='Hide Detail'>");
     } else {
