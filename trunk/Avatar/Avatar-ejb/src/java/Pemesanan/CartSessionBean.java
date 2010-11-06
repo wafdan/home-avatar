@@ -45,6 +45,18 @@ public class CartSessionBean implements CartLocal, SessionBean {
         roomCart = new ArrayList<RoomSessionInfo>();
     }
 
+        public void businessMethod() {
+    }
+
+    public CartLocal create() throws CreateException {
+        return null;
+    }
+
+    public void ejbCreate() throws CreateException {
+        hallCart = new ArrayList<HallSessionInfo>();
+        roomCart = new ArrayList<RoomSessionInfo>();
+    }
+
     public ArrayList<HallSessionInfo> getHallCart() {
         return this.hallCart;
     }
@@ -212,17 +224,5 @@ public class CartSessionBean implements CartLocal, SessionBean {
         for (Hall h : listhall) {
             MappingHall_Class.put(h.getProductId(), h.getProductType());
         }
-    }
-
-    public void businessMethod() {
-    }
-
-    public CartLocal create() throws CreateException {
-        return null;
-    }
-
-    public void ejbCreate() throws CreateException {
-        hallCart = new ArrayList<HallSessionInfo>();
-        roomCart = new ArrayList<RoomSessionInfo>();
     }
 }
