@@ -88,6 +88,14 @@
         <servlet-name>EditVenue</servlet-name>
         <servlet-class>MengelolaLayanan.EditVenue</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationServlet</servlet-name>
+        <servlet-class>ReservationServlet.ReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReservationAjax</servlet-name>
+        <servlet-class>ReservationServlet.ReservationAjax</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -175,6 +183,14 @@
     <servlet-mapping>
         <servlet-name>HapusCustomer</servlet-name>
         <url-pattern>/backend/HapusCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationServlet</servlet-name>
+        <url-pattern>/ReservationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationAjax</servlet-name>
+        <url-pattern>/ReservationAjax</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

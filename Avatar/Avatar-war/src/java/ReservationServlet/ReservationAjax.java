@@ -3,22 +3,26 @@
  * and open the template in the editor.
  */
 
-package TestStatistik;
+package ReservationServlet;
 
-import java.awt.image.RenderedImage;
+import AvatarEntity.RoomJpaController;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Christian
+ * @author zulfikar
  */
-public class StatistikServlet extends HttpServlet {
+public class ReservationAjax extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,37 +33,36 @@ public class StatistikServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("image/png");
-        ServletOutputStream os = response.getOutputStream();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            ImageIO.write(getChart(request), "png", os);
-        } finally { 
-            os.close();
-        }
-    }
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReservationAjax</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReservationAjax at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
+            String checkindate=request.getParameter("checkindate");
+            String checkoutdate=request.getParameter("checkoutdate");
+            String product_id=request.getParameter("productid");
 
-    private RenderedImage getChart(HttpServletRequest request) {
-        String desiredChart = request.getParameter("chart");
-        int width = Integer.parseInt(request.getParameter("width"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        /*
-        XYSeries series = new XYSeries("Average Weight");
-        series.add(20.0, 20.0);
-        series.add(40.0, 25.0);
-        series.add(55.0, 50.0);
-        series.add(70.0, 65.0);
-        XYDataset xyDataset = new XYSeriesCollection(series);
-        if (desiredChart.equals("myDesiredChart1")) {
-            JFreeChart chart = ChartFactory.createXYLineChart
-                    ("XYLine Chart using JFreeChart", "Age", "Weight", 
-                    xyDataset, PlotOrientation.VERTICAL, true, true, false);
-            return chart.createBufferedImage(width, height);
-        } else {
-            return null;
+            SimpleDateFormat sdf=new SimpleDateFormat("MM/dd/yyyy");
+            Date checkIn=sdf.parse(checkindate);
+            Date checkOut=sdf.parse(checkoutdate);
+            int roomAvailable=(new RoomJpaController()).findUnused(product_id, checkIn, checkOut).size();
+            System.out.println("Room Available="+roomAvailable);
+            out.write(String.valueOf(roomAvailable));
+
+        } catch (ParseException ex) {
+            Logger.getLogger(ReservationAjax.class.getName()).log(Level.SEVERE, null, ex);
+        } finally { 
+            out.close();
         }
-        */
-        return null;
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

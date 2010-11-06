@@ -3,22 +3,20 @@
  * and open the template in the editor.
  */
 
-package TestStatistik;
+package ReservationServlet;
 
-import java.awt.image.RenderedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Christian
+ * @author zulfikar
  */
-public class StatistikServlet extends HttpServlet {
+public class ReservationServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,37 +27,23 @@ public class StatistikServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("image/png");
-        ServletOutputStream os = response.getOutputStream();
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-            ImageIO.write(getChart(request), "png", os);
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReservationServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReservationServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            */
         } finally { 
-            os.close();
+            out.close();
         }
-    }
-
-    private RenderedImage getChart(HttpServletRequest request) {
-        String desiredChart = request.getParameter("chart");
-        int width = Integer.parseInt(request.getParameter("width"));
-        int height = Integer.parseInt(request.getParameter("height"));
-        /*
-        XYSeries series = new XYSeries("Average Weight");
-        series.add(20.0, 20.0);
-        series.add(40.0, 25.0);
-        series.add(55.0, 50.0);
-        series.add(70.0, 65.0);
-        XYDataset xyDataset = new XYSeriesCollection(series);
-        if (desiredChart.equals("myDesiredChart1")) {
-            JFreeChart chart = ChartFactory.createXYLineChart
-                    ("XYLine Chart using JFreeChart", "Age", "Weight", 
-                    xyDataset, PlotOrientation.VERTICAL, true, true, false);
-            return chart.createBufferedImage(width, height);
-        } else {
-            return null;
-        }
-        */
-        return null;
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
