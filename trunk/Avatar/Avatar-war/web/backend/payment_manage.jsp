@@ -129,6 +129,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         </ul>
                     </div>
                     <!-- end sidebar -->
+                <div style="clear:both;">&nbsp;</div>
                 </div>
             </div>
         </div>

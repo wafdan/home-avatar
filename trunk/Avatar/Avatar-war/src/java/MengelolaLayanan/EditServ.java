@@ -59,11 +59,11 @@ public class EditServ extends HttpServlet {
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 
-            //response.sendRedirect("../backend/fac_serv_manage.jsp");
 
         } catch (Exception ex) {
             Logger.getLogger(EditAcco.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            response.sendRedirect("../backend/fac_serv_manage.jsp");
             out.close();
         }
     } 

@@ -141,10 +141,12 @@
                                     <input type="text" name="ovu" id="ovu" value="" maxlength="10"/><br />
 
                                     <label for="stim">Start Time:</label>
-                                    <input type="text" name="stim" id="stim" value="00:00:00" /><br />
+                                    <input type="text" name="stim" id="stim" value="00" maxlength="2" style="width: 20px" />
+                                    <input type="text" name="stim2" id="stim2" value="00" maxlength="2" style="width: 20px" /><br />
 
                                     <label for="etim">End Time:</label>
-                                    <input type="text" name="etim" id="etim" value="00:00:00" /><br />
+                                    <input type="text" name="etim" id="etim" value="00" maxlength="2" style="width: 20px" />
+                                    <input type="text" name="etim2" id="etim2" value="00" maxlength="2" style="width: 20px" /><br />
 
                                     <input type="submit" name="submitbutton" id="submitbutton" value="Submit" />
                                     <a href="fac_hall_manage.jsp">  Cancel  </a>

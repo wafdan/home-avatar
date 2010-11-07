@@ -7,56 +7,21 @@
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
 <%@page import="AvatarEntity.OtherServices" %>
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
-        <style>
-            #fmenu {
-                border-bottom: 1px solid #ccc;
-                margin: 0;
-                padding-bottom: 19px;
-                padding-left: 10px;
-            }
-            #fmenu ul,#fmenu li {
-                display: inline;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            #fmenu a:link, #fmenu a:visited {
-                background: #E8EBF0;
-                border: 1px solid #ccc;
-                color: #666;
-                float: left;
-                font-size : small;
-                font-weight : normal;
-                line-height : 14px;
-                margin-right : 8px;
-                padding : 2px 10px 2px 10px;
-                text-decoration : none;
-            }
-            #fmenu a:link.active, #fmenu a:visited.active {
-                background: #fff;
-                border-bottom: 1px solid #fff;
-                color: #666;
-            }
-            #fmenu a:hover {
-                color: #ff0;
-            }
-            #sidebar .curtab a{
-                background: #666;
-                padding: 5px;
-                font-weight: bold;
-                font-size: large;
-            }
-        </style>
+        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             function confirmAction()
             {return confirm("Do you really want to delete?")}
@@ -110,18 +75,25 @@
                                     <th bgcolor="#262626" width="89">Product Type</th>
                                     <th bgcolor="#262626" width="100">Description</th>
                                     <th bgcolor="#262626" width="96">Image</th>
+                                    <th bgcolor="#262626">Pricing Unit</th>
+                                    <th bgcolor="#262626">Unit Price</th>
+                                    <th bgcolor="#262626">Published</th>
+                                    <th colspan="2" bgcolor="#262626"></th>
                                 </tr>
                                 <%for (Iterator<OtherServices> i = hList.iterator(); i.hasNext();) {
                                             OtherServices temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%index++;out.write(Integer.toString(index));%></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductId());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductType());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getImage());%></div></td>
-                                    <td align="center"><div style="overflow:auto"><a href="fac_serv_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></div></td>
-                                    <td align="center"><div style="overflow:auto"><a onclick="return confirmAction()" href="HapusServ?delete=<% out.write(temp.getProductId());%>">delete</a></div></td>
+                                    <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductId());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductType());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getDescription());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getImage());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getPricingUnit());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getUnitPrice()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getPublished()));%></td>
+                                    <td style="vertical-align: 0%;width: 20px;" align="center"><div style="overflow:auto"><a href="fac_serv_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></div></td>
+                                    <td style="vertical-align: 0%;width: 20px;" align="center"><div style="overflow:auto"><a onclick="return confirmAction()" href="HapusServ?delete=<% out.write(temp.getProductId());%>">delete</a></div></td>
                                 </tr>
                                 <%}
                                 } else {
@@ -133,8 +105,8 @@
                                         if(iterator == editIndex){%>
                                         <form action="EditServ" method="post">
                                             <tr>
-                                                <th bgcolor="#262626" width="20%">No</th>
-                                                <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
+                                                <th bgcolor="#262626" width="25%">No</th>
+                                                <th bgcolor="#262626" width="75%"><%out.write(Integer.toString(index));%></th>
                                             </tr>
                                             <tr>
                                                 <td>Product Id   :</td>
@@ -146,7 +118,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Description  :</td>
-                                                <td><textarea id="desc" name="desc" cols=80% rows=3><%= temp.getDescription()%></textarea></td>
+                                                <td><textarea id="desc" name="desc" cols=75% rows=3><%= temp.getDescription()%></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Image  :</td>

@@ -10,7 +10,7 @@
             <%
             if ((session.getAttribute("name")) != null) {
             %>
-            <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
+            <div id="loginstatus" style="text-align: right">Anda Login sebagai : <%=session.getAttribute("name")%>
                 <a href="../Logout">Logout</a>
             </div>
             <%}%>

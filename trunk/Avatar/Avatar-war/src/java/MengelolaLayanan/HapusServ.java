@@ -41,12 +41,12 @@ public class HapusServ extends HttpServlet {
             out.write(primaryKey);
             OtherServicesJpaController sjc = new OtherServicesJpaController();
             sjc.destroy(primaryKey);
-            response.sendRedirect("../backend/fac_serv_manage.jsp");
         } catch (IllegalOrphanException ex) {
             Logger.getLogger(HapusServ.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(HapusAcco.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            response.sendRedirect("../backend/fac_serv_manage.jsp");
             out.close();
         }
     }

@@ -11,47 +11,21 @@
 <%@page import="AvatarEntity.ProfileJpaController" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
         <style>
-            #fmenu {
-                border-bottom: 1px solid #ccc;
-                margin: 0;
-                padding-bottom: 19px;
-                padding-left: 10px;
-            }
-            #fmenu ul,#fmenu li {
-                display: inline;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            #fmenu a:link, #fmenu a:visited {
-                background: #E8EBF0;
-                border: 1px solid #ccc;
-                color: #666;
-                float: left;
-                font-size : small;
-                font-weight : normal;
-                line-height : 14px;
-                margin-right : 8px;
-                padding : 2px 10px 2px 10px;
-                text-decoration : none;
-            }
-            #fmenu a:link.active, #fmenu a:visited.active {
-                background: #fff;
-                border-bottom: 1px solid #fff;
-                color: #666;
-            }
-            #fmenu a:hover {
-                color: #ff0;
-            }
+            
         </style>
         <%--<script type="text/javascript" src="../script/backendHeader.js" />--%>
         <script type="text/javascript">
@@ -85,14 +59,14 @@
             </div>
         </div>
         <!-- start header -->
-        <jsp:include page="bheader.jsp"/>
+        <jsp:include page="bheader.jsp" flush="true"/>
         <!-- end header -->
         <!-- start page -->
-        <div id="wrapper" style="width: auto">
+        <div id="wrapper">
             <div id="wrapper-btm">
-                <div id="page" style="width: auto;">
+                <div id="page">
                     <!-- start content -->
-                    <div id="content" style="width: 980px; overflow: visible;">
+                    <div id="content">
                         <h1 class="title">Accomodation List</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="#">Rooms</a></li>
@@ -139,21 +113,21 @@
                                 %>
                                 
                                 <tr>
-                                    <td><%index++;out.write(Integer.toString(index));%></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductId());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductType());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getImage());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getMaxPax());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getNormalEntry().getHours()));%>:<% out.write(String.valueOf(temp.getNormalEntry().getMinutes()));%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getNormalExit().getHours()));%>:<% out.write(String.valueOf(temp.getNormalExit().getMinutes()));%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getWeekdayRate()));%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getWeekendRate()));%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getToleranceEarly().getHours()));%>:<% out.write(String.valueOf(temp.getToleranceEarly().getMinutes()));%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(String.valueOf(temp.getToleranceLate().getHours()));%>:<% out.write(String.valueOf(temp.getToleranceLate().getMinutes()));%></div></td>
+                                    <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductId());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductType());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getDescription());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getImage());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getMaxPax());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getNormalEntry().getHours()));%>:<% out.write(String.valueOf(temp.getNormalEntry().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getNormalExit().getHours()));%>:<% out.write(String.valueOf(temp.getNormalExit().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getWeekdayRate()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getWeekendRate()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getToleranceEarly().getHours()));%>:<% out.write(String.valueOf(temp.getToleranceEarly().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getToleranceLate().getHours()));%>:<% out.write(String.valueOf(temp.getToleranceLate().getMinutes()));%></td>
 
-                                    <td align="center"><a href="fac_room_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td align="center"><a onclick="return confirmAction()" href="HapusAcco?delete=<% out.write(temp.getProductId());%>">delete</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="fac_room_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusAcco?delete=<% out.write(temp.getProductId());%>">delete</a></td>
                                 </tr>
                                 <%}
                                 } else{

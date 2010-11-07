@@ -23,10 +23,10 @@ Layout toEdit = (Layout) request.getAttribute("toEdit");
     <body>
         <%
         if ((session.getAttribute("name")) != null) {
-        %>
+        %><%--
         <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
             <a href="../Logout">Logout</a>
-        </div>
+        </div>--%>
         <div id="logo-wrap">
             <div id="logo">
                 <h1><a href="#">AVATAR</a></h1>
@@ -68,6 +68,7 @@ Layout toEdit = (Layout) request.getAttribute("toEdit");
                     <!-- start sidebar -->
                     <jsp:include page="fac_sidebar.jsp" />
                     <!-- end sidebar -->
+                    <div style="clear:both;">&nbsp;</div>
                 </div>
             </div>
         </div>

@@ -10,47 +10,36 @@
 
 <!-- start sidebar -->
 <div id="sidebar">
+    <div id="sidebar-title">
+        <h2>Facilities Management</h2><br />
+    </div>
+    <%-- <label>ACCOMODATIONS</label>--%>
     <ul>
-        <li>
-            <div id="sidebar-title">
-                <h2>Facilities Management</h2><br />
-            </div>
-            <ul>
-                <li>ACCOMODATIONS
-                    <ul>
-                        <li><a href="fac_room_add.jsp">Add Accomodation</a></li>
-                        <li><a href="fac_room_manage.jsp">Manage Accomodation</a></li>
-                    </ul>
-                </li>
-                <li>MEETINGS & EVENTS
-                    <ul>
-                        <li><a href="fac_hall_add.jsp">Add New Package</a></li>
-                        <li><a href="fac_hall_manage.jsp">Manage Package</a></li>
-                    </ul>
-                </li>
-                <li>OTHER SERVICES
-                    <ul>
-                        <li><a href="fac_serv_add.jsp">Add New Service</a></li>
-                        <li><a href="fac_serv_manage.jsp">Manage Service</a></li>
-                    </ul>
-                </li>
-                <li>ROOMS
-                    <ul>
-                        <li><a href="room_add">Manage Room</a></li>
-                    </ul>
-                </li>
-                <li>VENUES
-                    <ul>
-                        <li><a href="venue_add">Manage Venue</a></li>
-                    </ul>
-                </li>
-                <li>LAYOUTS
-                    <ul>
-                        <li><a href="layout_add">Manage Layout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
+        <strong>ACCOMODATIONS</strong>
+        <li><a href="fac_room_add.jsp">Add Accomodation</a></li>
+        <li><a href="fac_room_manage.jsp">Manage Accomodation</a></li>
+    </ul>
+    <ul>
+        <strong>MEETINGS & EVENTS</strong>
+        <li><a href="fac_hall_add.jsp">Add New Hall</a></li>
+        <li><a href="fac_hall_manage.jsp">Manage Hall</a></li>
+    </ul>
+    <ul>
+        <strong>OTHER SERVICES</strong>
+        <li><a href="fac_serv_add.jsp">Add New Services</a></li>
+        <li><a href="fac_serv_manage.jsp">Manage Services</a></li>
+    </ul>
+    <ul>
+        <strong>ROOMS</strong>
+        <li><a href="room_add">Manage Room</a></li>
+    </ul>
+    <ul>
+        <strong>VENUES</strong>
+        <li><a href="venue_add">Manage Venue</a></li>
+    </ul>
+    <ul>
+        <strong>LAYOUTS</strong>
+        <li><a href="layout_add">Manage Layout</a></li>
     </ul>
 </div>
 <!-- end sidebar -->

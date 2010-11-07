@@ -27,11 +27,8 @@
     </head>
     <body>
         <%
-                    if ((session.getAttribute("name")) != null) {
+        if ((session.getAttribute("name")) != null) {
         %>
-        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
-            <a href="../Logout">Logout</a>
-        </div>
         <div id="logo-wrap">
             <div id="logo">
                 <h1><a href="#">AVATAR</a></h1>
@@ -60,8 +57,8 @@
                                     <td><input type="text" name="roomNo" id="roomNo" size="3" maxlength="6" /></td>
                                     <td><select name="roomType" id="roomType">
                                             <%
-                                                        AccomodationJpaController ajpa = new AccomodationJpaController();
-                                                        for (Accomodation ind : ajpa.findAccomodationEntities()) {
+                                            AccomodationJpaController ajpa = new AccomodationJpaController();
+                                            for (Accomodation ind : ajpa.findAccomodationEntities()) {
                                             %>
                                             <option value="<%= ind.getProductId()%>"><%= ind.getProductType()%></option>
                                             <% }%>
@@ -85,7 +82,7 @@
                                     <th>Action</th>
                                 </tr>
                                 <%
-                                            for (Room ind : lroom) {
+                                for (Room ind : lroom) {
                                 %>
                                 <tr>
                                     <td><%= ind.getRoomNo()%></td>
@@ -103,6 +100,7 @@
                     <!-- start sidebar -->
                     <jsp:include page="fac_sidebar.jsp" />
                     <!-- end sidebar -->
+                    <div style="clear:both;">&nbsp;</div>
                 </div>
             </div>
         </div>
