@@ -242,7 +242,7 @@
             type = request.getParameter("type");
         }
     %>
-    <body <% if (step.equals("1") && type != null) { if (type.equals("1")) { out.write("onLoad='changeRoom();'");} else if (type.equals("2")) { out.write("onLoad='changeHall();'");} } else {out.write("onLoad='onloadfunction();'");}  %> >
+    <body <% if (step.equals("1") && type != null) { if (type.equals("1")) { out.write("onLoad='changeRoom();onloadFunction();'");} else if (type.equals("2")) { out.write("onLoad='changeHall();onloadFunction();'");} } else {out.write("onLoad='onloadFunction();'");}  %> >
         <jsp:include page="header.jsp"/>
 
         <div class="wrapper col3">
