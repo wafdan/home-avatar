@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <definitions 
+ xmlns="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="WebServiceAvatarService" targetNamespace="http://webservice/" xmlns:tns="http://webservice/"
+ >
+    <message name="getAccomodation"/>
+    <message name="getAccomodationResponse"/>
+    <message name="confirmPayment"/>
+    <message name="confirmPaymentResponse"/>
+    <message name="reserveRoom"/>
+    <message name="reserveRoomResponse"/>
+    <portType name="WebServiceAvatar">
+        <operation name="getAccomodation">
+            <input message="tns:getAccomodation"/>
+            <output message="tns:getAccomodationResponse"/>
+        </operation>
+        <operation name="confirmPayment">
+            <input message="tns:confirmPayment"/>
+            <output message="tns:confirmPaymentResponse"/>
+        </operation>
+        <operation name="reserveRoom">
+            <input message="tns:reserveRoom"/>
+            <output message="tns:reserveRoomResponse"/>
+        </operation>
+    </portType>
+    <binding name="WebServiceAvatarPortBinding" type="tns:WebServiceAvatar">
+        <operation name="getAccomodation">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="confirmPayment">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="reserveRoom">
+            <input/>
+            <output/>
+        </operation>
+    </binding>
+    <service name="WebServiceAvatarService">
+        <port name="WebServiceAvatarPort" binding="tns:WebServiceAvatarPortBinding"/>
+    </service>
+</definitions>
+
