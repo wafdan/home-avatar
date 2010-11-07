@@ -9,6 +9,7 @@ import AvatarEntity.Hall;
 import AvatarEntity.HallJpaController;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -37,32 +38,61 @@ public class EditHall extends HttpServlet {
         PrintWriter out = response.getWriter();
         request.setCharacterEncoding("UTF-8");
         try {
-            String id = request.getParameter("pid");
+            String pid = request.getParameter("pid");
             String type = request.getParameter("type");
             String desc = request.getParameter("desc");
-            String nrate = request.getParameter("nrate");
+            String nrat = request.getParameter("nrat");
+            String nrtu = request.getParameter("nrtu");
+            String ovrt = request.getParameter("ovrt");
+            String ovu = request.getParameter("ovu");
+            String stim = request.getParameter("stim");
+            String stim2 = request.getParameter("stim2");
+            String etim = request.getParameter("etim");
+            String etim2 = request.getParameter("etim2");
             String nrateunit = request.getParameter("nrateunit");
 
-            //out.println(id + "///" + type + "///" + desc + "///" + nrate + "///");
+            if (nrat == null ? "" == null : nrat.equals("")) {
+                nrat = "0";
+            }
+            if (ovrt == null ? "" == null : ovrt.equals("")) {
+                ovrt = "0";
+            }
+            if ((stim == null ? "" == null : stim.equals(""))
+                    || (stim2 == null ? "" == null : stim2.equals(""))) {
+                stim = "00";
+                stim2 = "00";
+            }
+            if ((etim == null ? "" == null : etim.equals(""))
+                    || (etim2 == null ? "" == null : etim2.equals(""))) {
+                etim = "00";
+                etim2 = "00";
+            }
+
+            stim = stim + ":" + stim2 + ":00";
+            etim = etim + ":" + etim2 + ":00";
+
+            out.println(pid + "///" + type + "///" + desc + "///" + nrat + "///");
 
             HallJpaController sj = new HallJpaController();
             Hall s = new Hall();
-            s = sj.findHall(id);
-            //out.write("productId="+id);
+            s = sj.findHall(pid);
             s.setProductType(type);
             s.setDescription(desc);
-            s.setNormalRate(Double.parseDouble(nrate));
-            s.setNormalRateUnit(nrateunit);
+            s.setNormalRate(Double.parseDouble(nrat));
+            s.setNormalRateUnit(nrtu);
+            s.setOverchargeRate(Double.parseDouble(ovrt));
+            s.setOverchargeUnit(ovu);
+            s.setStartTime(Time.valueOf(stim));
+            s.setEndTime(Time.valueOf(etim));
+            //s.setNormalRate(Double.parseDouble(nrate));
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
-
-            response.sendRedirect("../backend/fac_hall_manage.jsp");
-
         } /*catch (NonexistentEntityException ex) {
         Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
         } */ catch (Exception ex) {
             Logger.getLogger(EditAcco.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+            response.sendRedirect("../backend/fac_hall_manage.jsp");
             out.close();
         }
     } 

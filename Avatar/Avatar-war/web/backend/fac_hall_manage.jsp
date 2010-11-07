@@ -6,9 +6,9 @@
 <%@page import="AvatarEntity.OtherServices" %>
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
 <%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
-<%@page import="java.util.Locale" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
@@ -19,47 +19,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
-        <style>
-            #fmenu {
-                border-bottom: 1px solid #ccc;
-                margin: 0;
-                padding-bottom: 19px;
-                padding-left: 10px;
-            }
-            #fmenu ul,#fmenu li {
-                display: inline;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            #fmenu a:link, #fmenu a:visited {
-                background: #E8EBF0;
-                border: 1px solid #ccc;
-                color: #666;
-                float: left;
-                font-size : small;
-                font-weight : normal;
-                line-height : 14px;
-                margin-right : 8px;
-                padding : 2px 10px 2px 10px;
-                text-decoration : none;
-            }
-            #fmenu a:link.active, #fmenu a:visited.active {
-                background: #fff;
-                border-bottom: 1px solid #fff;
-                color: #666;
-            }
-            #fmenu a:hover {
-                color: #ff0;
-            }
-            #sidebar .curtab a{
-                background: #666;
-                padding: 5px;
-                font-weight: bold;
-                font-size: large;
-            }
-        </style>
+        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             function confirmAction()
             {return confirm("Do you really want to delete?")}
@@ -114,18 +74,25 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     <th bgcolor="#262626" width="89">Product Type</th>
                                     <th bgcolor="#262626" width="100">Description</th>
                                     <th bgcolor="#262626" width="96">Normal Rate</th>
+                                    <th bgcolor="#262626" width="96">Start Time</th>
+                                    <th bgcolor="#262626" width="96">End Time</th>
+                                    <th bgcolor="#262626" width="96">Overcharge Rate</th>
+                                    <th colspan="2" bgcolor="#262626"></th>
                                 </tr>
                                 <%for (Iterator<Hall> i = hList.iterator(); i.hasNext();) {
                                             Hall temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%index++;out.write(Integer.toString(index));%></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductId());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getProductType());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(temp.getDescription());%></div></td>
-                                    <td><div style="overflow:auto"><% out.write(currencyFormat.format(temp.getNormalRate()) + " per " + temp.getNormalRateUnit());%></div></td>
-                                    <td align="center"><div style="overflow:auto"><a href="fac_hall_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></div></td>
-                                    <td align="center"><div style="overflow:auto"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getProductId());%>">delete</a></div></td>
+                                    <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductId());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductType());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getDescription());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getNormalRate()) + " per " + temp.getNormalRateUnit());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getStartTime().getHours()));%> : <% out.write(String.valueOf(temp.getStartTime().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getEndTime().getHours()));%> : <% out.write(String.valueOf(temp.getEndTime().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getOverchargeRate()) + " per " + temp.getOverchargeUnit());%></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="fac_hall_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getProductId());%>">delete</a></td>
                                 </tr>
                                 <%}
                                 } else {
@@ -150,15 +117,37 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                             </tr>
                                             <tr>
                                                 <td>Description  :</td>
-                                                <td><textarea id="desc" name="desc" cols=80% rows=3><%= temp.getDescription()%></textarea></td>
+                                                <td><textarea id="desc" name="desc" cols=70% rows=3><%= temp.getDescription()%></textarea></td>
                                             </tr>
                                             <tr>
                                                 <td>Normal Rate  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRate()%>" id="nrate" name="nrate" /></td>
+                                                <td><input type="text" value= "<%= temp.getNormalRate()%>" id="nrat" name="nrat" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Normal Rate Unit  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrateunit" name="nrateunit" /></td>
+                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrtu" name="nrtu" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Overcharge Rate  :</td>
+                                                <td><input type="text" value= "<%= temp.getOverchargeRate()%>" id="ovrt" name="ovrt" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Overcharge Rate Unit  :</td>
+                                                <td><input type="text" value= "<%= temp.getOverchargeUnit()%>" id="ovu" name="ovu" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Start Time  :</td>
+                                                <td>
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getHours()%>" id="stim" name="stim" />
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getMinutes()%>" id="stim2" name="stim2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>End Time  :</td>
+                                                <td>
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getHours()%>" id="etim" name="etim" />
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getMinutes()%>" id="etim2" name="etim2" />
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>

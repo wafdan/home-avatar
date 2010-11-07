@@ -88,6 +88,7 @@ Venue toEdit = (Venue) request.getAttribute("toEdit");
                     <!-- start sidebar -->
                     <jsp:include page="fac_sidebar.jsp" />
                     <!-- end sidebar -->
+                    <div style="clear:both;">&nbsp;</div>
                 </div>
             </div>
         </div>

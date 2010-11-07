@@ -106,6 +106,7 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
                     <!-- start sidebar -->
                     <jsp:include page="fac_sidebar.jsp" />
                     <!-- end sidebar -->
+                    <div style="clear:both;">&nbsp;</div>
                 </div>
             </div>
         </div>

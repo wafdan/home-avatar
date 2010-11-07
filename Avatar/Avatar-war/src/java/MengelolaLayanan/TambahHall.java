@@ -45,7 +45,29 @@ public class TambahHall extends HttpServlet {
             String ovrt = request.getParameter("ovrt");
             String ovu = request.getParameter("ovu");
             String stim = request.getParameter("stim");
+            String stim2 = request.getParameter("stim2");
             String etim = request.getParameter("etim");
+            String etim2 = request.getParameter("etim2");
+
+            if (nrat == null ? "" == null : nrat.equals("")) {
+                nrat = "0";
+            }
+            if (ovrt == null ? "" == null : ovrt.equals("")) {
+                ovrt = "0";
+            }
+            if ((stim == null ? "" == null : stim.equals(""))
+                    || (stim2 == null ? "" == null : stim2.equals(""))) {
+                stim = "00";
+                stim2 = "00";
+            }
+            if ((etim == null ? "" == null : etim.equals(""))
+                    || (etim2 == null ? "" == null : etim2.equals(""))) {
+                etim = "00";
+                etim2 = "00";
+            }
+
+            stim = stim + ":" + stim2 + ":00";
+            etim = etim + ":" + etim2 + ":00";
 
             Hall hoo = new Hall();
             HallJpaController ajc = new HallJpaController();
@@ -62,12 +84,15 @@ public class TambahHall extends HttpServlet {
 
             ajc.create(hoo);
             out.println("hoooo");
-            response.sendRedirect("fac_hall_manage.jsp");
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(TambahAcco.class.getName()).log(Level.SEVERE, null, ex);
+            response.sendRedirect("fac_hall_add.jsp");
         } catch (Exception ex) {
             Logger.getLogger(TambahAcco.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } catch (java.lang.NoClassDefFoundError ex){
+            response.sendRedirect("fac_hall_add.jsp");
+        }finally {
+            response.sendRedirect("fac_hall_manage.jsp");
             //response.sendRedirect("fac_room_add.jsp");
             out.close();
         }
