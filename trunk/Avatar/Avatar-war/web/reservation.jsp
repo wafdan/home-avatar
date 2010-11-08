@@ -16,11 +16,17 @@
 <%@page import="javax.naming.NamingException"%>
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
+<%@page import="java.util.Locale"%>
 <%@page import="Pemesanan.*" %>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.NumberFormat"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
+<%
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
     <head profile="http://gmpg.org/xfn/11">
         <%
