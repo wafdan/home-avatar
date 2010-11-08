@@ -69,13 +69,13 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>Statistics Views</h2><br />
+                                    <h2>Statistics</h2><br />
                                 </div>
                                 <ul>
-                                    <li>SWITCH VIEW
+                                    <li>VIEWS
                                         <ul>
-                                            <li><a href="statistic">Current Statistics (General)</a></li>
-                                            <li><a href="statistic_selector.jsp">Select View</a></li>
+                                            <li><a href="statistic">Current Statistics</a></li>
+                                            <li><a href="statistic_selector.jsp">Switch View</a></li>
                                         </ul>
                                     </li>
                                 </ul>
