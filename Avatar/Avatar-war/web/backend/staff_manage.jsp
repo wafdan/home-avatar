@@ -47,7 +47,7 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Staff</h1>
+                        <h1 class="title">List of Staffs</h1>
                         <div class="post">
                                 <%
                                     int editIndex = 0;
@@ -68,7 +68,7 @@
                                         <tr>
                                             <th bgcolor="#262626" width="29">No.</th>
                                             <th bgcolor="#262626" width="179">Username</th>
-                                            <th bgcolor="#262626" width="89">Nama</th>
+                                            <th bgcolor="#262626" width="89">Name</th>
                                             <th bgcolor="#262626" width="77">ID</th>
                                             <th bgcolor="#262626" width="96">Position</th>
                                         </tr>

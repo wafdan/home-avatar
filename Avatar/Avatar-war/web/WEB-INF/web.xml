@@ -96,6 +96,14 @@
         <servlet-name>ReservationAjax</servlet-name>
         <servlet-class>ReservationServlet.ReservationAjax</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestStatistik</servlet-name>
+        <servlet-class>TestStatistik.TestStatistikServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StatistikServlet</servlet-name>
+        <servlet-class>Statistik.StatistikServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>ReservationAjax</servlet-name>
         <url-pattern>/ReservationAjax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestStatistik</servlet-name>
+        <url-pattern>/TestStatistik/StatistikServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StatistikServlet</servlet-name>
+        <url-pattern>/backend/generator</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
