@@ -75,7 +75,9 @@ public class ControllerStatistikOther implements ControllerStatistik {
         OtherServicesReservationJpaController osrjpa = new OtherServicesReservationJpaController();
         for(OtherServicesReservation item : osrjpa.findByPeriod(fromCal.getTime(), toCal.getTime())) {
             Calendar resTimeCal = Calendar.getInstance();
-            resTimeCal.setTimeInMillis(item.getReservationTime().getTime() - item.getReservationTime().getTime() % 86400000);
+            resTimeCal.setTime(item.getReservationTime());
+            resTimeCal.set(Calendar.HOUR_OF_DAY, 0); resTimeCal.set(Calendar.MINUTE, 0);
+            resTimeCal.set(Calendar.SECOND, 0); resTimeCal.set(Calendar.MILLISECOND, 0);
             if (tabelPeriodik.get(item.getProductId()).containsKey(resTimeCal.getTime())) {
                 tabelPeriodik.get(item.getProductId()).put(resTimeCal.getTime(),
                         tabelPeriodik.get(item.getProductId()).get(resTimeCal.getTime()) + 1);
@@ -87,9 +89,9 @@ public class ControllerStatistikOther implements ControllerStatistik {
         DateFormat std = new SimpleDateFormat("dd MMM yyyy");
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries series;
-        for(Map.Entry<OtherServices,LinkedHashMap<Date,Integer>> acc : tabelPeriodik.entrySet()) {
-            series = new XYSeries(acc.getKey().getProductType());
-            for (Map.Entry<Date,Integer> date : acc.getValue().entrySet()) {
+        for(Map.Entry<OtherServices,LinkedHashMap<Date,Integer>> oth : tabelPeriodik.entrySet()) {
+            series = new XYSeries(oth.getKey().getProductType());
+            for (Map.Entry<Date,Integer> date : oth.getValue().entrySet()) {
                 series.add(date.getKey().getTime(), date.getValue());
             }
             dataset.addSeries(series);
@@ -108,6 +110,7 @@ public class ControllerStatistikOther implements ControllerStatistik {
         na.setNumberFormatOverride(decfor);
         na.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         chart.getXYPlot().setDomainAxis(da);
+        chart.getXYPlot().setRangeAxis(na);
         return chart;
     }
 

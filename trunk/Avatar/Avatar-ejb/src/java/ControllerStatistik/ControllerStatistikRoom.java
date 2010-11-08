@@ -104,7 +104,7 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         chart = ChartFactory.createXYLineChart("Statistics of Room Usage " + std.format(from) + " - " + std.format(to),
                 "Date", "Ammount of Occupancy", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYItemRenderer renderer = new XYLineAndShapeRenderer();
-        DecimalFormat decfor = new DecimalFormat("#");
+        DecimalFormat decfor = new DecimalFormat();
         renderer.setBaseItemLabelGenerator(new StandardXYItemLabelGenerator());
         renderer.setBaseItemLabelsVisible(true);
         chart.getXYPlot().setRenderer(renderer);
@@ -115,6 +115,7 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         na.setNumberFormatOverride(decfor);
         na.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         chart.getXYPlot().setDomainAxis(da);
+        chart.getXYPlot().setRangeAxis(na);
         return chart;
     }
 
