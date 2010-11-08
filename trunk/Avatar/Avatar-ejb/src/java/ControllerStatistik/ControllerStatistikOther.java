@@ -47,10 +47,10 @@ public class ControllerStatistikOther implements ControllerStatistik {
         int dayamount = toCal.getActualMaximum(Calendar.DAY_OF_MONTH);
         toCal.setTimeInMillis(0);
         toCal.set(year, mo, dayamount, 0, 0, 0);
-        return buatStatistik(fromCal.getTime(), toCal.getTime());
+        return buatStatistik(fromCal.getTime(), toCal.getTime(), 0);
     }
 
-    public JFreeChart buatStatistik(Date from, Date to) {
+    public JFreeChart buatPeriodik(Date from, Date to) {
         JFreeChart chart; //untuk nilai kembali
         //Inisialisasi kosong
         OtherServicesJpaController osjpa = new OtherServicesJpaController();
@@ -116,6 +116,20 @@ public class ControllerStatistikOther implements ControllerStatistik {
 
     public void print() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JFreeChart buatRekap(Date from, Date to) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JFreeChart buatStatistik(Date from, Date to, int mode) {
+        JFreeChart chart;
+        switch (mode) {
+            case 0: chart = buatPeriodik(from, to); break;
+            case 1: chart = buatRekap(from, to); break;
+            default: chart = null;
+        }
+        return chart;
     }
     
     // Add business logic below. (Right-click in editor and choose

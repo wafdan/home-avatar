@@ -16,6 +16,6 @@ import org.jfree.chart.JFreeChart;
 @Local
 public interface ControllerStatistik {
     public JFreeChart buatStatistik();
-    public JFreeChart buatStatistik(Date from, Date to);
+    public JFreeChart buatStatistik(Date from, Date to, int mode);
     public void print(); //TODO: eliminate
 }

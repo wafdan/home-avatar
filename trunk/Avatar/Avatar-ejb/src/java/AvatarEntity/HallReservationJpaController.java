@@ -219,6 +219,19 @@ public class HallReservationJpaController {
         }
     }
 
+    public List<HallReservation> findByPeriod(Hall hall, Date from, Date to) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("HallReservation.findByPeriod");
+            q.setParameter("hall", hall);
+            q.setParameter("from", from);
+            q.setParameter("to", to);
+            return (List<HallReservation>) q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getHallReservationCount() {
         EntityManager em = getEntityManager();
         try {
