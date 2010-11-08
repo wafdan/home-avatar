@@ -74,11 +74,10 @@ public class ControllerStatistikHall implements ControllerStatistik {
         //Ambil data reservasi
         HallReservationJpaController hrjpa = new HallReservationJpaController();
         for(HallReservation item : hrjpa.findByPeriod(fromCal.getTime(), toCal.getTime())) {
-            Calendar useDateCal = Calendar.getInstance();
-            useDateCal.setTime(item.getUseDate());
             if (tabelPeriodik.get(item.getProductId()).containsKey(item.getUseDate())) {
-                tabelPeriodik.get(item.getProductId()).put(current.getTime(),
-                        tabelPeriodik.get(item.getProductId()).get(current.getTime()) + item.getAttendees());
+                tabelPeriodik.get(item.getProductId()).put(item.getUseDate(),
+                        tabelPeriodik.get(item.getProductId()).get(item.getUseDate()) +
+                        item.getAttendees());
             }
         }
         
@@ -94,7 +93,6 @@ public class ControllerStatistikHall implements ControllerStatistik {
             }
             dataset.addSeries(series);
         }
-        DateFormat monthYear = new SimpleDateFormat("MMM yyyy");
         chart = ChartFactory.createXYLineChart("Statistics of Package by Pax Number "  + std.format(from) + " - " + std.format(to),
                 "Date", "Ammount of Occupancy", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYItemRenderer renderer = new XYLineAndShapeRenderer();
@@ -109,6 +107,7 @@ public class ControllerStatistikHall implements ControllerStatistik {
         na.setNumberFormatOverride(decfor);
         na.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         chart.getXYPlot().setDomainAxis(da);
+        chart.getXYPlot().setRangeAxis(na);
         return chart;
     }
 
