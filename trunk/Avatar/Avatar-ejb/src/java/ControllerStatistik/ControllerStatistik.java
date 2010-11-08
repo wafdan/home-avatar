@@ -7,6 +7,7 @@ package ControllerStatistik;
 
 import java.util.Date;
 import javax.ejb.Local;
+import org.jfree.chart.JFreeChart;
 
 /**
  *
@@ -14,5 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface ControllerStatistik {
-    public void buatStatistik(Date from, Date to);
+    public JFreeChart buatStatistik();
+    public JFreeChart buatStatistik(Date from, Date to);
+    public void print(); //TODO: eliminate
 }

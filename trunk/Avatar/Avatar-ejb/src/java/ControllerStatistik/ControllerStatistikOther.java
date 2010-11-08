@@ -5,10 +5,10 @@
 
 package ControllerStatistik;
 
-import AvatarEntity.Accomodation;
-import AvatarEntity.AccomodationJpaController;
-import AvatarEntity.RoomReservation;
-import AvatarEntity.RoomReservationJpaController;
+import AvatarEntity.OtherServices;
+import AvatarEntity.OtherServicesJpaController;
+import AvatarEntity.OtherServicesReservation;
+import AvatarEntity.OtherServicesReservationJpaController;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -35,8 +35,8 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Christian
  */
 @Stateless
-public class ControllerStatistikRoom implements ControllerStatistik {
-    private LinkedHashMap<Accomodation,LinkedHashMap<Date,Integer>> tabelPeriodik;
+public class ControllerStatistikOther implements ControllerStatistik {
+    private LinkedHashMap<OtherServices,LinkedHashMap<Date,Integer>> tabelPeriodik;
 
     public JFreeChart buatStatistik() {
         Calendar fromCal = Calendar.getInstance();
@@ -53,15 +53,15 @@ public class ControllerStatistikRoom implements ControllerStatistik {
     public JFreeChart buatStatistik(Date from, Date to) {
         JFreeChart chart; //untuk nilai kembali
         //Inisialisasi kosong
-        AccomodationJpaController ajpa = new AccomodationJpaController();
+        OtherServicesJpaController osjpa = new OtherServicesJpaController();
         Calendar fromCal = Calendar.getInstance();
         fromCal.setTime(from);
         Calendar toCal = Calendar.getInstance();
         toCal.setTime(to);
         Calendar current = Calendar.getInstance();
-        tabelPeriodik = new LinkedHashMap<Accomodation,LinkedHashMap<Date,Integer>>();
+        tabelPeriodik = new LinkedHashMap<OtherServices,LinkedHashMap<Date,Integer>>();
         LinkedHashMap<Date,Integer> temphash;
-        for (Accomodation item : ajpa.findAccomodationEntities()) {
+        for (OtherServices item : osjpa.findOtherServicesEntities()) {
             temphash = new LinkedHashMap<Date,Integer>();
             current.setTime(fromCal.getTime());
             while (!current.after(toCal)) {
@@ -72,39 +72,32 @@ public class ControllerStatistikRoom implements ControllerStatistik {
 
         }
         //Ambil data reservasi
-        RoomReservationJpaController rrjpa = new RoomReservationJpaController();
-        for(RoomReservation item : rrjpa.findByPeriod(fromCal.getTime(), toCal.getTime())) {
-            Calendar entryCal = Calendar.getInstance();
-            entryCal.setTime(item.getEntryDate());
-            Calendar exitCal = Calendar.getInstance();
-            exitCal.setTime(item.getExitDate());
-            current.setTime(entryCal.getTime());
-            while (current.before(exitCal)) {
-                if (tabelPeriodik.get(item.getRoomNo().getProductId()).
-                        containsKey(current.getTime())) {
-                    tabelPeriodik.get(item.getRoomNo().getProductId()).put(current.getTime(),
-                            tabelPeriodik.get(item.getRoomNo().getProductId()).get(current.getTime()) + 1);
-                }
-                current.add(Calendar.DATE, 1);
+        OtherServicesReservationJpaController osrjpa = new OtherServicesReservationJpaController();
+        for(OtherServicesReservation item : osrjpa.findByPeriod(fromCal.getTime(), toCal.getTime())) {
+            Calendar resTimeCal = Calendar.getInstance();
+            resTimeCal.setTimeInMillis(item.getReservationTime().getTime() - item.getReservationTime().getTime() % 86400000);
+            if (tabelPeriodik.get(item.getProductId()).containsKey(resTimeCal.getTime())) {
+                tabelPeriodik.get(item.getProductId()).put(resTimeCal.getTime(),
+                        tabelPeriodik.get(item.getProductId()).get(resTimeCal.getTime()) + 1);
             }
         }
-        
+
         //bentuk series dari seluruh jenis kamar
         DateFormat dateOnly = new SimpleDateFormat("d");
         DateFormat std = new SimpleDateFormat("dd MMM yyyy");
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries series;
-        for(Map.Entry<Accomodation,LinkedHashMap<Date,Integer>> acc : tabelPeriodik.entrySet()) {
+        for(Map.Entry<OtherServices,LinkedHashMap<Date,Integer>> acc : tabelPeriodik.entrySet()) {
             series = new XYSeries(acc.getKey().getProductType());
             for (Map.Entry<Date,Integer> date : acc.getValue().entrySet()) {
                 series.add(date.getKey().getTime(), date.getValue());
             }
             dataset.addSeries(series);
         }
-        chart = ChartFactory.createXYLineChart("Statistics of Room Usage " + std.format(from) + " - " + std.format(to),
-                "Date", "Ammount of Occupancy", dataset, PlotOrientation.VERTICAL, true, true, false);
+        chart = ChartFactory.createXYLineChart("Statistics of Other Services Reservation " + std.format(from) + " - " + std.format(to),
+                "Date", "Amount of Reservations", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYItemRenderer renderer = new XYLineAndShapeRenderer();
-        DecimalFormat decfor = new DecimalFormat("#");
+        DecimalFormat decfor = new DecimalFormat();
         renderer.setBaseItemLabelGenerator(new StandardXYItemLabelGenerator());
         renderer.setBaseItemLabelsVisible(true);
         chart.getXYPlot().setRenderer(renderer);
@@ -118,21 +111,11 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         return chart;
     }
 
-
     public void print() {
-        for(Map.Entry<Accomodation,LinkedHashMap<Date,Integer>> acc : tabelPeriodik.entrySet()) {
-            System.out.println("Accomodation is " + acc.getKey().getProductId());
-            for (Map.Entry<Date,Integer> date : acc.getValue().entrySet()) {
-                System.out.println(" > " + date.getKey() + " (" + date.getKey().getTime() + ") : " + date.getValue());
-            }
-        }
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void buatStatistikRekap(Date from, Date to) {
-        
-    }
-
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    
+ 
 }
