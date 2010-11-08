@@ -104,6 +104,10 @@
         <servlet-name>StatistikServlet</servlet-name>
         <servlet-class>Statistik.StatistikServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RequesterStatistik</servlet-name>
+        <servlet-class>Statistik.RequesterStatistik</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>StatistikServlet</servlet-name>
         <url-pattern>/backend/generator</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequesterStatistik</servlet-name>
+        <url-pattern>/backend/statistic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

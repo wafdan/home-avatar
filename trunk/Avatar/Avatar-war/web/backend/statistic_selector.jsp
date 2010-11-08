@@ -7,11 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%
-String period = "";
-if (request.getAttribute("from") != null && request.getAttribute("to") != null)
-    period = "&from=" + request.getAttribute("from") + "&to=" + request.getAttribute("to");
-%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,33 +31,28 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
                     <!-- start content -->
                     <div id="content">
                         <h1 class="title">Statistics of Services</h1>
-                        <% if (request.getAttribute("specify") == null ||
-                            (request.getAttribute("specify") != null && request.getAttribute("specify").equals("room"))) {
-                        %>
-                        <img src ="generator?type=room<%=period%>" alt="Statistics of room" />
-                        <% } %>
-                        <% if (request.getAttribute("specify") != null && request.getAttribute("specify").equals("room")) { %>
-                        <img src ="generator?type=room<%=period%>&subtype=1" alt="Statistics of room" />
-                        <!--<img src ="generator?type=room<%=period%>&subtype=2" alt="Statistics of room" /> -->
-                        <% } %>
-                        <% if (request.getAttribute("specify") == null ||
-                            (request.getAttribute("specify") != null && request.getAttribute("specify").equals("hall"))) {
-                        %>
-                        <img src ="generator?type=hall<%=period%>" alt="Statistics of hall" />
-                        <% } %>
-                        <% if (request.getAttribute("specify") != null && request.getAttribute("specify").equals("hall")) { %>
-                        <img src ="generator?type=hall<%=period%>&subtype=1" alt="Statistics of room" />
-                        <!--<img src ="generator?type=hall<%=period%>&subtype=2" alt="Statistics of room" />-->
-                        <% } %>
-                        <% if (request.getAttribute("specify") == null ||
-                            (request.getAttribute("specify") != null && request.getAttribute("specify").equals("other"))) {
-                        %>
-                        <img src ="generator?type=other<%=period%>" alt="Statistics of other facilites/services" />
-                        <% } %>
-                        <% if (request.getAttribute("specify") != null && request.getAttribute("specify").equals("other")) { %>
-                        <!--<img src ="generator?type=other<%=period%>&subtype=1" alt="Statistics of other facilites/services" />
-                        <img src ="generator?type=other<%=period%>&subtype=2" alt="Statistics of other facilites/services" />-->
-                        <% } %>
+                        <form method="post" name="statform" id="statform" action="statistic">
+                            <table border="0">
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Statistic Type</th>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" name="from" id="from" size="10" maxlength="10" /></td>
+                                    <td><input type="text" name="to" id="to" size="10" maxlength="10" /></td>
+                                    <td><select name="specify" id="specify">
+                                            <option value="">All</option>
+                                            <option value="room">Room</option>
+                                            <option value="hall">Hall</option>
+                                            <option value="other">Others</option>
+                                        </select></td>
+                                </tr>
+                                <tr><td colspan="3">
+                                        <input type="submit" name="view" id="view" value="View" />
+                                    </td></tr>
+                            </table>
+                        </form>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
