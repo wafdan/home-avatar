@@ -34,7 +34,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "RoomReservation.findByExitDate", query = "SELECT r FROM RoomReservation r WHERE r.exitDate = :exitDate"),
     @NamedQuery(name = "RoomReservation.findByActualEntry", query = "SELECT r FROM RoomReservation r WHERE r.actualEntry = :actualEntry"),
     @NamedQuery(name = "RoomReservation.findByActualExit", query = "SELECT r FROM RoomReservation r WHERE r.actualExit = :actualExit"),
-    @NamedQuery(name = "RoomReservation.findByPeriod", query = "SELECT r FROM RoomReservation r WHERE (r.entryDate BETWEEN :from AND :to) OR (r.exitDate BETWEEN :from AND :from)")})
+    @NamedQuery(name = "RoomReservation.findByPeriod", query = "SELECT r FROM RoomReservation r WHERE (r.entryDate BETWEEN :from AND :to) OR (r.exitDate BETWEEN :from AND :from)"),
+    @NamedQuery(name = "RoomReservation.findByPeriodRoom", query = "SELECT r FROM RoomReservation r WHERE r.roomNo = :room AND ((r.entryDate BETWEEN :from AND :to) OR (r.exitDate BETWEEN :from AND :from))")})
 public class RoomReservation extends ReservationItem implements Serializable {
 
     public static final String findByEntryDate = "RoomReservation.findByEntryDate";
@@ -53,9 +54,6 @@ public class RoomReservation extends ReservationItem implements Serializable {
     @Column(name = "actual_exit")
     @Temporal(TemporalType.TIMESTAMP)
     private Date actualExit;
-    /*@JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private ReservationItem reservationItem;*/
     @JoinColumn(name = "room_no", referencedColumnName = "room_no")
     @ManyToOne(optional = false)
     private Room roomNo;

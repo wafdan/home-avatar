@@ -5,6 +5,7 @@
 
 package ControllerStatistik;
 
+import AvatarEntity.Accomodation;
 import AvatarEntity.Hall;
 import AvatarEntity.HallJpaController;
 import AvatarEntity.HallReservation;
@@ -14,6 +15,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -24,10 +26,14 @@ import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -48,10 +54,10 @@ public class ControllerStatistikHall implements ControllerStatistik {
         int dayamount = toCal.getActualMaximum(Calendar.DAY_OF_MONTH);
         toCal.setTimeInMillis(0);
         toCal.set(year, mo, dayamount, 0, 0, 0);
-        return buatStatistik(fromCal.getTime(), toCal.getTime());
+        return buatStatistik(fromCal.getTime(), toCal.getTime(), 0);
     }
 
-    public JFreeChart buatStatistik(Date from, Date to) {
+    public JFreeChart buatPeriodik(Date from, Date to) {
         JFreeChart chart; //untuk nilai kembali
         //Inisialisasi kosong
         HallJpaController hjpa = new HallJpaController();
@@ -93,8 +99,8 @@ public class ControllerStatistikHall implements ControllerStatistik {
             }
             dataset.addSeries(series);
         }
-        chart = ChartFactory.createXYLineChart("Statistics of Package by Pax Number "  + std.format(from) + " - " + std.format(to),
-                "Date", "Ammount of Occupancy", dataset, PlotOrientation.VERTICAL, true, true, false);
+        chart = ChartFactory.createXYLineChart("Periodical Statistics of Package by Pax Number "  + std.format(from) + " - " + std.format(to),
+                "Date", "Pax Number", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYItemRenderer renderer = new XYLineAndShapeRenderer();
         DecimalFormat decfor = new DecimalFormat();
         renderer.setBaseItemLabelGenerator(new StandardXYItemLabelGenerator());
@@ -113,6 +119,62 @@ public class ControllerStatistikHall implements ControllerStatistik {
 
     public void print() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public JFreeChart buatRekap(Date from, Date to) {
+        JFreeChart chart = null;
+        Hashtable<Hall,Double> arrayAvg = new Hashtable<Hall,Double>();
+        Hashtable<Hall,Integer> arrayMax = new Hashtable<Hall,Integer>();
+        Hashtable<Hall,Integer> arrayMin = new Hashtable<Hall,Integer>();
+        Calendar fromCal = Calendar.getInstance();
+        fromCal.setTime(from);
+        Calendar toCal = Calendar.getInstance();
+        toCal.setTime(to);
+        //Inisialisasi kosong
+        HallJpaController hjpa = new HallJpaController();
+        HallReservationJpaController hrjpa = new HallReservationJpaController();
+        //Perhitungan rataaan, maksimum, dan minimum hadirin
+        int sum, count, max, min; // penghitung
+        for (Hall hall : hjpa.findHallEntities()) {
+            sum = 0; count = 0; //inisialisasi penghitung per jenis kamar
+            max = 0; min = 0;
+            for (HallReservation hr : hrjpa.findByPeriod(hall, from, to)) {
+                if (max < hr.getAttendees()) max = hr.getAttendees();
+                if (min > hr.getAttendees()) min = hr.getAttendees();
+                sum += hr.getAttendees();
+                count++;
+            }
+            arrayMax.put(hall, max); arrayMin.put(hall, min);
+            arrayAvg.put(hall, Double.valueOf(((double) sum)/((double) count)));
+        }
+        DateFormat std = new SimpleDateFormat("dd MMM yyyy");
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (Map.Entry<Hall,Integer> item : arrayMin.entrySet()) {
+            dataset.addValue(item.getValue(), "minimum", item.getKey().getProductType());
+        }
+        for (Map.Entry<Hall,Double> item : arrayAvg.entrySet()) {
+            dataset.addValue(item.getValue(), "average", item.getKey().getProductType());
+        }
+        for (Map.Entry<Hall,Integer> item : arrayMax.entrySet()) {
+            dataset.addValue(item.getValue(), "maximum", item.getKey().getProductType());
+        }
+        chart = ChartFactory.createBarChart("General Statistics of Event Attendees " + std.format(from) + " - " + std.format(to),
+                "Event Category", "Pax Number", dataset, PlotOrientation.VERTICAL, true, true, false);
+        CategoryItemRenderer renderer = new BarRenderer();
+        renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        renderer.setBaseItemLabelsVisible(true);
+        chart.getCategoryPlot().setRenderer(renderer);
+        return chart;
+    }
+
+    public JFreeChart buatStatistik(Date from, Date to, int mode) {
+        JFreeChart chart;
+        switch (mode) {
+            case 0: chart = buatPeriodik(from, to); break;
+            case 1: chart = buatRekap(from, to); break;
+            default: chart = null;
+        }
+        return chart;
     }
     
     // Add business logic below. (Right-click in editor and choose

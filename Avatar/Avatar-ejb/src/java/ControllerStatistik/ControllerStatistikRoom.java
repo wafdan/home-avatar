@@ -7,6 +7,8 @@ package ControllerStatistik;
 
 import AvatarEntity.Accomodation;
 import AvatarEntity.AccomodationJpaController;
+import AvatarEntity.Room;
+import AvatarEntity.RoomJpaController;
 import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
 import java.text.DateFormat;
@@ -14,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -23,10 +26,16 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.statistics.DefaultStatisticalCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -47,10 +56,10 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         int dayamount = toCal.getActualMaximum(Calendar.DAY_OF_MONTH);
         toCal.setTimeInMillis(0);
         toCal.set(year, mo, dayamount, 0, 0, 0);
-        return buatStatistik(fromCal.getTime(), toCal.getTime());
+        return buatStatistik(fromCal.getTime(), toCal.getTime(), 0);
     }
 
-    public JFreeChart buatStatistik(Date from, Date to) {
+    public JFreeChart buatPeriodik(Date from, Date to) {
         JFreeChart chart; //untuk nilai kembali
         //Inisialisasi kosong
         AccomodationJpaController ajpa = new AccomodationJpaController();
@@ -101,7 +110,7 @@ public class ControllerStatistikRoom implements ControllerStatistik {
             }
             dataset.addSeries(series);
         }
-        chart = ChartFactory.createXYLineChart("Statistics of Room Usage " + std.format(from) + " - " + std.format(to),
+        chart = ChartFactory.createXYLineChart("Periodical Statistics of Room Usage " + std.format(from) + " - " + std.format(to),
                 "Date", "Ammount of Occupancy", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYItemRenderer renderer = new XYLineAndShapeRenderer();
         DecimalFormat decfor = new DecimalFormat();
@@ -129,8 +138,63 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         }
     }
     
-    public void buatStatistikRekap(Date from, Date to) {
-        
+    public JFreeChart buatRekap(Date from, Date to) {
+        JFreeChart chart = null;
+        Hashtable<Accomodation,Double> arrayAvg = new Hashtable<Accomodation,Double>();
+        Hashtable<Accomodation,Integer> arrayMax = new Hashtable<Accomodation,Integer>();
+        Hashtable<Accomodation,Integer> arrayMin = new Hashtable<Accomodation,Integer>();
+        Calendar fromCal = Calendar.getInstance();
+        fromCal.setTime(from);
+        Calendar toCal = Calendar.getInstance();
+        toCal.setTime(to);
+        //Inisialisasi kosong
+        AccomodationJpaController ajpa = new AccomodationJpaController();
+        RoomReservationJpaController rrjpa = new RoomReservationJpaController();
+        //Perhitungan rataaan, maksimum, dan minimum lama tinggal
+        int length, sum, count, max, min; // penghitung
+        for (Accomodation acc : ajpa.findAccomodationEntities()) {
+            sum = 0; count = 0; //inisialisasi penghitung per jenis kamar
+            max = 0; min = 0;
+            for (Room rm : acc.getRoomCollection()) {
+                for (RoomReservation rr : rrjpa.findByPeriod(rm, from, to)) {
+                    length = (int) ((rr.getExitDate().getTime() - rr.getEntryDate().getTime()) / 86400000);
+                    if (max < length) max = length;
+                    if (min > length) min = length;
+                    sum += length;
+                    count++;
+                }
+            }
+            arrayMax.put(acc, max); arrayMin.put(acc, min);
+            arrayAvg.put(acc, Double.valueOf(((double) sum)/((double) count)));
+        }
+        DateFormat std = new SimpleDateFormat("dd MMM yyyy");
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (Map.Entry<Accomodation,Integer> acc : arrayMin.entrySet()) {
+            dataset.addValue(acc.getValue(), "minimum", acc.getKey().getProductType());
+        }
+        for (Map.Entry<Accomodation,Double> acc : arrayAvg.entrySet()) {
+            dataset.addValue(acc.getValue(), "average", acc.getKey().getProductType());
+        }
+        for (Map.Entry<Accomodation,Integer> acc : arrayMax.entrySet()) {
+            dataset.addValue(acc.getValue(), "maximum", acc.getKey().getProductType());
+        }
+        chart = ChartFactory.createBarChart("General Statistics of Length of Stay " + std.format(from) + " - " + std.format(to),
+                "Room Category", "Length of Stay", dataset, PlotOrientation.VERTICAL, true, true, false);
+        CategoryItemRenderer renderer = new BarRenderer();
+        renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        renderer.setBaseItemLabelsVisible(true);
+        chart.getCategoryPlot().setRenderer(renderer);
+        return chart;
+    }
+
+    public JFreeChart buatStatistik(Date from, Date to, int mode) {
+        JFreeChart chart;
+        switch (mode) {
+            case 0: chart = buatPeriodik(from, to); break;
+            case 1: chart = buatRekap(from, to); break;
+            default: chart = null;
+        }
+        return chart;
     }
 
     // Add business logic below. (Right-click in editor and choose
