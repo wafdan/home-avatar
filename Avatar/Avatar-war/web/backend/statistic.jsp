@@ -33,6 +33,7 @@
                         <h1 class="title">Statistics of Services</h1>
                         <img src ="generator?type=room" alt="Current month statistic of room" />
                         <img src ="generator?type=hall" alt="Current month statistic of hall" />
+                        <img src ="generator?type=other" alt="Current month statistic of other facilites/services" />
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->

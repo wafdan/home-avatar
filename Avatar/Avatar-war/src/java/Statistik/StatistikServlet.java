@@ -7,6 +7,7 @@ package Statistik;
 
 import ControllerStatistik.ControllerStatistik;
 import ControllerStatistik.ControllerStatistikHall;
+import ControllerStatistik.ControllerStatistikOther;
 import ControllerStatistik.ControllerStatistikRoom;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
@@ -72,6 +73,10 @@ public class StatistikServlet extends HttpServlet {
                 return chart.createBufferedImage(width, height);
             } else if (desiredChartType.equals("hall")) {
                 cstat = new ControllerStatistikHall();
+                chart = cstat.buatStatistik();
+                return chart.createBufferedImage(width, height);
+            } else if (desiredChartType.equals("other")) {
+                cstat = new ControllerStatistikOther();
                 chart = cstat.buatStatistik();
                 return chart.createBufferedImage(width, height);
             } else {
