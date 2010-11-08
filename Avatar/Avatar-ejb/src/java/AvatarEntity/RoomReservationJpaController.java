@@ -179,6 +179,18 @@ public class RoomReservationJpaController {
         }
     }
 
+    public List<RoomReservation> findByPeriod(Date from, Date to) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("RoomReservation.findByPeriod");
+            q.setParameter("from", from);
+            q.setParameter("to", to);
+            return (List<RoomReservation>) q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public int getRoomReservationCount() {
         EntityManager em = getEntityManager();
         try {

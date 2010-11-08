@@ -32,7 +32,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "HallReservation.findByBeginTime", query = "SELECT h FROM HallReservation h WHERE h.beginTime = :beginTime"),
     @NamedQuery(name = "HallReservation.findByEndTime", query = "SELECT h FROM HallReservation h WHERE h.endTime = :endTime"),
     @NamedQuery(name = "HallReservation.findByUseDate", query = "SELECT h FROM HallReservation h WHERE h.useDate = :useDate"),
-    @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees")})
+    @NamedQuery(name = "HallReservation.findByAttendees", query = "SELECT h FROM HallReservation h WHERE h.attendees = :attendees"),
+    @NamedQuery(name = "HallReservation.findByPeriod", query = "SELECT h FROM HallReservation h WHERE h.useDate BETWEEN :from AND :to")})
 public class HallReservation extends ReservationItem implements Serializable {
    //tambahan dari Zul
    public static final String findByUseDate="HallReservation.findByUseDate";
@@ -53,9 +54,6 @@ public class HallReservation extends ReservationItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "attendees")
     private int attendees;
-    /*@JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private ReservationItem reservationItem;*/
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     @ManyToOne(optional = false)
     private Hall productId;
@@ -109,14 +107,6 @@ public class HallReservation extends ReservationItem implements Serializable {
     public void setAttendees(int attendees) {
         this.attendees = attendees;
     }
-
-    /*public ReservationItem getReservationItem() {
-        return reservationItem;
-    }
-
-    public void setReservationItem(ReservationItem reservationItem) {
-        this.reservationItem = reservationItem;
-    }*/
 
     public Hall getProductId() {
         return productId;

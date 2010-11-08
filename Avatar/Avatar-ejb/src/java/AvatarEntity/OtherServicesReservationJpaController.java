@@ -6,6 +6,7 @@
 package AvatarEntity;
 
 import AvatarEntity.exceptions.NonexistentEntityException;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -178,6 +179,18 @@ public class OtherServicesReservationJpaController {
         }
     }
 
+    public List<OtherServicesReservation> findByPeriod(Date from, Date to) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("OtherServicesReservation.findByPeriod");
+            q.setParameter("from", from);
+            q.setParameter("to", to);
+            return (List<OtherServicesReservation>) q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
     public int getOtherServicesReservationCount() {
         EntityManager em = getEntityManager();
         try {
