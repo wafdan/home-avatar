@@ -19,9 +19,9 @@
                     <li><a id="bhm_prof" onclick="return switchid('bhm_prof')" href="profile_manage.jsp">Profile</a></li>
                     <li><a id="bhm_user" onclick="return switchid('bhm_user')" href="staff_manage.jsp">User</a></li>
                     <li><a id="bhm_facs" href="fac_room_manage.jsp">Facilities</a></li>
-                    <li><a id="bhm_stat" href="javascript:;">Statistic</a></li>
+                    <li><a id="bhm_stat" href="statistic">Statistic</a></li>
                     <li><a id="bhm_resv" href="reservation_manage.jsp">Reservation</a></li>
-                    <li><a id="bhm_pymt" href="payment_manage.jsp">Payment</a></li>
+                    <li><a id="bhm_pymt" href="payment_manage">Payment</a></li>
                 </ul>
             </div>
         </div>

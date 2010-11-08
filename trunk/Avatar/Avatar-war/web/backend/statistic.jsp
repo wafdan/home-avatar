@@ -72,16 +72,10 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
                                     <h2>Statistics Views</h2><br />
                                 </div>
                                 <ul>
-                                    <li>STAFF
+                                    <li>SWITCH VIEW
                                         <ul>
-                                            <li><a href="staff_add.jsp">Add New Staff</a></li>
-                                            <li><a href="staff_manage.jsp">Manage Staff</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>CUSTOMER
-                                        <ul>
-                                            <li><a href="customer_add.jsp">Add New Customer</a></li>
-                                            <li><a href="customer_manage.jsp">Manage Customer</a></li>
+                                            <li><a href="statistic">Current Statistics (General)</a></li>
+                                            <li><a href="statistic_selector.jsp">Select View</a></li>
                                         </ul>
                                     </li>
                                 </ul>
