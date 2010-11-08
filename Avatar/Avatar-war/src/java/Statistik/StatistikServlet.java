@@ -11,7 +11,6 @@ import ControllerStatistik.ControllerStatistikOther;
 import ControllerStatistik.ControllerStatistikRoom;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,7 +64,37 @@ public class StatistikServlet extends HttpServlet {
         ControllerStatistik cstat;
         JFreeChart chart;
         if (fromDate != null && toDate != null) {
-            return null; // not implemented
+            int subtype;
+            if (desiredChartType.equals("room")) {
+                cstat = new ControllerStatistikRoom();
+                if (request.getParameter("subtype") != null) {
+                    subtype = Integer.parseInt(request.getParameter("subtype"));
+                    chart = cstat.buatStatistik(fromDate, toDate, subtype);
+                } else {
+                    chart = cstat.buatStatistik(fromDate, toDate, 0);
+                }
+                return chart.createBufferedImage(width, height);
+            } else if (desiredChartType.equals("hall")) {
+                cstat = new ControllerStatistikHall();
+                if (request.getParameter("subtype") != null) {
+                    subtype = Integer.parseInt(request.getParameter("subtype"));
+                    chart = cstat.buatStatistik(fromDate, toDate, subtype);
+                } else {
+                    chart = cstat.buatStatistik(fromDate, toDate, 0);
+                }
+                return chart.createBufferedImage(width, height);
+            } else if (desiredChartType.equals("other")) {
+                cstat = new ControllerStatistikOther();
+                if (request.getParameter("subtype") != null) {
+                    subtype = Integer.parseInt(request.getParameter("subtype"));
+                    chart = cstat.buatStatistik(fromDate, toDate, subtype);
+                } else {
+                    chart = cstat.buatStatistik(fromDate, toDate, 0);
+                }
+                return chart.createBufferedImage(width, height);
+            } else {
+                return null;
+            }
         } else {
             if (desiredChartType.equals("room")) {
                 cstat = new ControllerStatistikRoom();
