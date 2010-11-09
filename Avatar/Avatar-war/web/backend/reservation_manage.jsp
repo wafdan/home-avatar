@@ -5,155 +5,185 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="AvatarEntity.CustomerJpaController" %>
-<%@ page import="AvatarEntity.Customer" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Iterator" %>
+<%@page import="AvatarEntity.Accomodation" %>
+<%@page import="AvatarEntity.AccomodationJpaController" %>
+<%@page import="AvatarEntity.Hall" %>
+<%@page import="AvatarEntity.HallJpaController" %>
+<%@page import="AvatarEntity.OtherServices" %>
+<%@page import="AvatarEntity.OtherServicesJpaController" %>
+
+<%@page import="AvatarEntity.RoomReservation" %>
+<%@page import="AvatarEntity.RoomReservationJpaController" %>
+<%@page import="AvatarEntity.HallReservation" %>
+<%@page import="AvatarEntity.HallReservationJpaController" %>
+<%@page import="AvatarEntity.OtherServicesReservation" %>
+<%@page import="AvatarEntity.OtherServicesReservationJpaController" %>
+<%@page import="AvatarEntity.Reservation" %>
+<%@page import="AvatarEntity.ReservationJpaController" %>
+<%@page import="AvatarEntity.ReservationItem" %>
+<%@page import="AvatarEntity.ReservationItemJpaController" %>
+<%@page import="java.text.NumberFormat" %>
+<%@page import="java.util.Locale" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<%! CustomerJpaController c = new CustomerJpaController();
-    List<Customer> l = null;
-%>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">
+            function confirmAction()
+            {return confirm("Do you really want to delete?")}
+        </script>
     </head>
     <body>
-
         <div id="logo-wrap">
             <div id="logo">
                 <h1><a href="#">AVATAR</a></h1>
                 <h2> Back End Management</h2>
             </div>
         </div>
-
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->
-
         <!-- start page -->
         <div id="wrapper">
             <div id="wrapper-btm">
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Customer</h1>
+                        <h1 class="title">Reservation List</h1>
+                        <ul id="fmenu">
+                            <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
+                            <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
+                            <li id="fmenu-item3"><a href="fac_serv_manage.jsp">Other Services</a></li>
+                        </ul>
                         <div class="post">
-                            <table width="603" border="1" style="table-layout:fixed">
-                                <tr>
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Name</th>
-                                    <th bgcolor="#262626" width="77">Identity Type</th>
-                                    <th bgcolor="#262626" width="96">Identity Number</th>
-
-                                </tr>
-
+                            <div class="fac1">
+                            <%--<table width="603" border="1" style="table-layout:fixed">--%>
+                            <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <%
+                                int editIndex=0;
+                                try {
+                                    String Index = request.getParameter("edit");
+                                    editIndex = Integer.parseInt(Index);
+                                } catch (NullPointerException ex) {
+                                    editIndex = -1;
+                                } catch (NumberFormatException ex) {
+                                    editIndex = -1;
+                                }
 
-                                            int editIndex = 0;
-                                            try {
-                                                String Index = request.getParameter("edit");
-                                                editIndex = Integer.parseInt(Index);
-                                            } catch (NullPointerException ex) {
-                                                editIndex = -1;
-                                            } catch (NumberFormatException ex) {
-                                                editIndex = -1;
-                                            }
-
-                                            int index = 0;
-                                            CustomerJpaController jpa = new CustomerJpaController();
-                                            List<Customer> staffList = jpa.findCustomerEntities();
-                                            if (editIndex == -1) {
-                                                l = c.findCustomerEntities();
-                                                for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
-                                                    Customer temp = i.next();
-                                                    index++;
+                                int index = 0;
+                                ReservationJpaController jpar = new ReservationJpaController();
+                                List<Reservation> rList = jpar.findReservationEntities();
+                                if (editIndex == -1) {
+                                    %>
+                                <tr>
+                                    <th bgcolor="#262626" width="20">No.</th>
+                                    <th bgcolor="#262626" width="50">Product Id</th>
+                                    <th bgcolor="#262626" width="89">Product Type</th>
+                                    <th bgcolor="#262626" width="100">Description</th>
+                                    <th bgcolor="#262626" width="96">Normal Rate</th>
+                                    <th bgcolor="#262626" width="96">Start Time</th>
+                                    <th bgcolor="#262626" width="96">End Time</th>
+                                    <th bgcolor="#262626" width="96">Overcharge Rate</th>
+                                    <th colspan="2" bgcolor="#262626"></th>
+                                </tr>
+                                <%for (Iterator<Reservation> i = rList.iterator(); i.hasNext();) {
+                                            Reservation temp = i.next();
                                 %>
                                 <tr>
-                                    <td><%=index%></td>
-                                    <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                    <td> <%= temp.getIdentityType()%> </td>
-                                    <td> <%= temp.getIdentityNumber()%> </td>
-                                    <td><a href="?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
+                                    <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductId());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getProductType());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getDescription());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getNormalRate()) + " per " + temp.getNormalRateUnit());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getStartTime().getHours()));%> : <% out.write(String.valueOf(temp.getStartTime().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getEndTime().getHours()));%> : <% out.write(String.valueOf(temp.getEndTime().getMinutes()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getOverchargeRate()) + " per " + temp.getOverchargeUnit());%></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="fac_hall_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getProductId());%>">delete</a></td>
                                 </tr>
-                                <% }
-                                                                            } else {
-                                                                                int iterator = 0;
-                                                                                for (Iterator<Customer> i = staffList.iterator(); i.hasNext();) {
-                                                                                    Customer temp = i.next();
-                                                                                    iterator++;
-
-                                %>
-                                <tr><td><%=iterator%></td>
-                                    <%
-                                                        if (iterator == editIndex) {
-                                    %>
-
-                                <form action="EditCustomer" method="get">
-                                    <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getUsername()%>"></td>
-                                    <td><input type="text" name="name" id="name" value="<%=temp.getName()%>"> </td>
-                                    <td><input type="text" name="itype" id="itype" value="<%=temp.getIdentityType()%>"></td>
-                                    <td><input type="text" name="inumber" id="inumber" value="<%=temp.getIdentityNumber()%>"></td>
-                                    <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
-                                </form>
-                                <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>"> delete</a></td>
-                                <td><a href="ManageCustomer.jsp"> cancel </a></td>
-
-
-
-                                <% } else {%>
-
-                                <td><div style="overflow:auto"><%= temp.getUsername()%></div></td>
-                                <td><div style="overflow:auto"><%= temp.getName()%></div></td>
-                                <td> <%= temp.getIdentityType()%> </td>
-                                <td> <%= temp.getIdentityNumber()%> </td>
-                                <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                <td><a href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
-
                                 <%}
-                           }
-                       }%>
+                                } else {
+                                    int iterator = 0;
+                                    for (Iterator<Hall> i = hList.iterator(); i.hasNext();) {
+                                        Hall temp = i.next();
+                                        iterator++;
+                                        index++;
+                                        if(iterator == editIndex){%>
+                                        <form action="EditHall" method="post">
+                                            <tr>
+                                                <th bgcolor="#262626" width="20%">No</th>
+                                                <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
+                                            </tr>
+                                            <tr>
+                                                <td>Product ID :</td>
+                                                <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Package Name :</td>
+                                                <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Description  :</td>
+                                                <td><textarea id="desc" name="desc" cols=70% rows=3><%= temp.getDescription()%></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Normal Rate  :</td>
+                                                <td><input type="text" value= "<%= temp.getNormalRate()%>" id="nrat" name="nrat" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Normal Rate Unit  :</td>
+                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrtu" name="nrtu" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Overcharge Rate  :</td>
+                                                <td><input type="text" value= "<%= temp.getOverchargeRate()%>" id="ovrt" name="ovrt" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Overcharge Rate Unit  :</td>
+                                                <td><input type="text" value= "<%= temp.getOverchargeUnit()%>" id="ovu" name="ovu" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Start Time  :</td>
+                                                <td>
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getHours()%>" id="stim" name="stim" />
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getMinutes()%>" id="stim2" name="stim2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>End Time  :</td>
+                                                <td>
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getHours()%>" id="etim" name="etim" />
+                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getMinutes()%>" id="etim2" name="etim2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="save" onclick="this.form.pid.disabled=false;" />
+                                                    <a onclick="return confirmAction()" href="HapusHall?delete=%3C%%20out.write(temp.getProductId());%%3E">
+                                                        delete</a>
+                                                    <a href="fac_hall_manage.jsp">
+                                                        cancel</a>
+                                                </td>
+                                            </tr>
+                                        </form>
 
+                                       <%}
+                                    }
+                                }%>
                             </table>
-                            <h2 class="title">&nbsp;</h2>
-                            <div class="post"></div>
+                            </div>
                         </div>
                     </div>
                     <!-- end content -->
-                    <!-- start sidebar -->
-                    <div id="sidebar">
-                        <ul>
-                            <li>
-                                <div id="sidebar-title">
-                                    <h2>User Management</h2>
-                                </div>
-                                <hr />
-                                <ul>
-                                    <li>STAFF
-                                        <ul>
-                                            <li><a href="staff_add.jsp">Add New Staff</a></li>
-                                            <li><a href="staff_manage.jsp">Manage Staff</a></li>
-                                        </ul>
-                                    </li>
-                                    <hr />
-                                    <li>CUSTOMER
-                                        <ul>
-                                            <li><a href="customer_add.jsp">Add New Customer</a></li>
-                                            <li><a href="customer_manage.jsp">Manage Customer</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <hr />
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- end sidebar -->
+                    <jsp:include page="fac_sidebar.jsp" />
                     <div style="clear: both;">&nbsp;</div>
                 </div>
                 <!-- end page -->

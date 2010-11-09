@@ -130,42 +130,7 @@
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-                    <div id="sidebar">
-                        <ul>
-                            <li>
-                                <div id="sidebar-title">
-                                    <h2>Reservation Management</h2>
-                                </div>
-                                <hr />
-                                <ul>
-                                    <li>Room
-Reservation                                        
-  <ul>
-                                            <li><a href="reservation_add_room.jsp">Add New Reservation</a></li>
-                                            <li><a href="reservation_manage_room.jsp">Manage Reservation</a></li>
-                                        </ul>
-                                    </li>
-                                    <hr />
-                                    <li>Hall
-Reservation                                        
-  <ul>
-                                            <li><a href="reservation_add_hall.jsp">Add New Reservation </a></li>
-                                            <li><a href="reservation_manage_hall.jsp">Manage Reservation </a></li>
-                                        </ul>
-                                    </li>
-                                    <hr/>
-                                    <li>Services Reservation 
-                                        <ul>
-                                            <li><a href="reservation_add_services.jsp">Add New Reservation</a></li>
-                                            <li><a href="reservation_manage_services.jsp">Manage Reservation</a></li>
-                                        </ul>
-                                    </li>                                    
-                                </ul>
-                                <hr />
-                                
-                            </li>
-                        </ul>
-            </div>
+                    <jsp:include page="resv_sidebar.jsp" flush="true"/>
                     <!-- end sidebar -->
                     <div style="clear: both;">&nbsp;</div>
                 </div>

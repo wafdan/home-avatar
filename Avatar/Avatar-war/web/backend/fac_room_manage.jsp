@@ -145,11 +145,11 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                                 </tr>
                                                 <tr>
                                                     <td>Product Id   :</td>
-                                                    <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
+                                                    <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" maxlength="6"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Product Type :</td>
-                                                    <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
+                                                    <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" maxlength="25"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Description  :</td>
