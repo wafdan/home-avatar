@@ -18,4 +18,10 @@ public class HallSessionInfo {
     public String venue_no;
     public short total;
     public boolean available;
+
+    //Modifikasi dari yang sebelumnya
+    public String product_name;
+    public int layout_id;
+    public String layout_name;
+    public int attendees;
 }

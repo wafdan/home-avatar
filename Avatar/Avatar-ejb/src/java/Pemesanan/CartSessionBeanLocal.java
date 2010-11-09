@@ -20,7 +20,7 @@ import javax.ejb.SessionContext;
  * @author zulfikar
  */
 @Local
-public interface CartLocal {
+public interface CartSessionBeanLocal {
 
      public ArrayList<HallSessionInfo> getHallCart();
      public ArrayList<RoomSessionInfo> getRoomCart();
@@ -38,7 +38,7 @@ public interface CartLocal {
 
     void businessMethod();
 
-    public void addHallCartElement(String packageType, Date hallDate, short totalHall);
+    public void addHallCartElement(String product_id, Date useDate, short total, int capacity, int layout_id);
 
     public void addRoomCartElement(String roomType, Date checkInDate, Date checkOutDate, short totalRoom);
 
@@ -48,7 +48,7 @@ public interface CartLocal {
 
     public void setListHall(List<Hall> input);
 
-    CartLocal create() throws CreateException;
+    CartSessionBeanLocal create() throws CreateException;
 }
 
 

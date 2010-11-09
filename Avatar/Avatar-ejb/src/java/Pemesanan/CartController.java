@@ -8,6 +8,7 @@ import AvatarEntity.Accomodation;
 import AvatarEntity.AccomodationJpaController;
 import AvatarEntity.Hall;
 import AvatarEntity.HallJpaController;
+import AvatarEntity.LayoutJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
 import AvatarEntity.RoomReservation;
@@ -170,6 +171,10 @@ public class CartController implements CartControllerLocal {
         }
         throw new Exception("Tidak ditemukan kamar yang kosong, mohon maaf");
 
+    }
+
+    public String getLayoutName(int parameter) {
+        return (new LayoutJpaController()).findLayout(parameter).getLayoutName();
     }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

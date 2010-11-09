@@ -30,5 +30,7 @@ public interface CartControllerLocal {
     public double countTotalBill(Date tanggalMasuk, Date tanggalKeluar, double normalRate, double weekendrate);
 
     public String generateRoomNumber(String product_id, Date entry_date, Date exit_date) throws Exception;
-    
+
+    String getLayoutName(int parameter);
+
 }
