@@ -32,12 +32,12 @@ import javax.persistence.Table;
 public class OtherServicesReservation extends ReservationItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @Column(name = "amount")
+    private int amount;
+    @Basic(optional = false)
     @Lob
     @Column(name = "note")
     private String note;
-    /*@JoinColumn(name = "reservation_item_id", referencedColumnName = "reservation_item_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private ReservationItem reservationItem;*/
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     @ManyToOne(optional = false)
     private OtherServices productId;
@@ -49,9 +49,18 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
         this.reservationItemId = reservationItemId;
     }
 
-    public OtherServicesReservation(Integer reservationItemId, Date reservationTime, double price, String note) {
+    public OtherServicesReservation(Integer reservationItemId, Date reservationTime, double price, int amount, String note) {
         super(reservationItemId, reservationTime, price);
+        this.amount = amount;
         this.note = note;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getNote() {
@@ -61,14 +70,6 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
     public void setNote(String note) {
         this.note = note;
     }
-
-    /*public ReservationItem getReservationItem() {
-        return reservationItem;
-    }
-
-    public void setReservationItem(ReservationItem reservationItem) {
-        this.reservationItem = reservationItem;
-    }*/
 
     public OtherServices getProductId() {
         return productId;
