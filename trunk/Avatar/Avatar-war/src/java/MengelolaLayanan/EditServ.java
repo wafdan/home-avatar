@@ -42,7 +42,7 @@ public class EditServ extends HttpServlet {
             String img = request.getParameter("img");
             String prcu = request.getParameter("prcu");
             String uprc = request.getParameter("uprc");
-            boolean pub = request.getParameter("pub").equals("true") ? true: false;
+            boolean pub = request.getParameter("pub").equals("true") ? true : false;
 
             out.println(id + "///" + type + "///" + desc + "///" + img + "///"+ pub);
 
