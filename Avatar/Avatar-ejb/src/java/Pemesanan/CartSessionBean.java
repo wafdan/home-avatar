@@ -48,7 +48,7 @@ public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
         public void businessMethod() {
     }
 
-    public CartLocal create() throws CreateException {
+    public CartSessionBeanLocal create() throws CreateException {
         return null;
     }
 
