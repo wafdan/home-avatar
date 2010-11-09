@@ -97,7 +97,7 @@ public class TambahKeranjang extends HttpServlet {
                 System.out.println("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
 
                 //out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
-                response.sendRedirect("reservation.jsp?step=2");
+                response.sendRedirect("reservation.jsp?step=1");
             } else if (action.equals("delete")) {
             } else if (action.equals("proceed")) {
                 ReservationJpaController resjpa = new ReservationJpaController();
