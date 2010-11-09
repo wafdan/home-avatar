@@ -30,7 +30,7 @@ import javax.annotation.PostConstruct;
  * @author zulfikar
  */
 @Stateful
-public class CartSessionBean implements CartLocal, SessionBean {
+public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
 
     private ArrayList<HallSessionInfo> hallCart;
     private ArrayList<RoomSessionInfo> roomCart;
@@ -80,7 +80,7 @@ public class CartSessionBean implements CartLocal, SessionBean {
     public void setListRoom(List<Room> input) {
         this.listroom = input;
     }
-    
+
     public void setSessionContext(SessionContext ctx) throws EJBException, RemoteException {
     }
 
@@ -101,12 +101,16 @@ public class CartSessionBean implements CartLocal, SessionBean {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     //Menambahkan elemen ke Cart Element untuk hall
-    public void addHallCartElement(String product_id, Date useDate, short total) {
+    public void addHallCartElement(String product_id, Date useDate, short total, int capacity, int layout_id) {
         HallSessionInfo h = new HallSessionInfo();
+        CartController c=new CartController();
         h.product_id = product_id;
+        h.product_name=c.getHallType(product_id);
         h.total = total;
         h.use_date = useDate;
-        h.available = checkAvailabilityHall(h.product_id, h.use_date, h.total);
+        h.layout_id=layout_id;
+        h.layout_name=c.getLayoutName(layout_id);
+        h.attendees=capacity;
         hallCart.add(h);
     }
 
