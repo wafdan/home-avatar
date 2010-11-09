@@ -14,8 +14,9 @@ import AvatarEntity.ReservationJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
+import Debug.Debug;
 import Pemesanan.CartController;
-import Pemesanan.CartLocal;
+import Pemesanan.CartSessionBeanLocal;
 import Pemesanan.HallSessionInfo;
 import Pemesanan.RoomSessionInfo;
 import java.io.IOException;
@@ -47,9 +48,9 @@ import javax.servlet.http.HttpSession;
  */
 public class TambahKeranjang extends HttpServlet {
 
-    CartLocal cartSessionBean1 = lookupCartSessionBeanLocal();
+    CartSessionBeanLocal cartSessionBean1 = lookupCartSessionBeanLocal();
 
-    /** 
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -67,57 +68,34 @@ public class TambahKeranjang extends HttpServlet {
             if (action.equals("add")) {
 
                 //Mendapatkan informasi buat roomnya
-                String roomCheckBox = request.getParameter("roomcheckbox");
-                String hallCheckBox = request.getParameter("hallcheckbox");
-
                 String roomType = (String) request.getParameter("roomtype");
                 String preCheckInDate = request.getParameter("roomcheckindate");
                 String preCheckOutDate = request.getParameter("roomcheckoutdate");
                 String preTotalRoom = request.getParameter("totalroom");
-
-                String packageType = (String) request.getParameter("packagetype");
-                String preHallDate = request.getParameter("halldate");
-                String preTotalHall = request.getParameter("totalhall");
 
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 Date checkInDate;
                 Date checkOutDate;
                 short totalRoom;
 
-                if (roomCheckBox != null) {
-                    checkInDate = df.parse(preCheckInDate);
-                    checkOutDate = df.parse(preCheckOutDate);
+                checkInDate = df.parse(preCheckInDate);
+                checkOutDate = df.parse(preCheckOutDate);
 
-                    Calendar calOut=(Calendar.getInstance());
-                    calOut.setTime(checkOutDate);
-                    
-                    Calendar calIn=(Calendar.getInstance());
-                    calIn.setTime(checkInDate);
+                Calendar calOut = (Calendar.getInstance());
+                calOut.setTime(checkOutDate);
 
-                    if(!calOut.after(calIn)){
-                        response.sendRedirect("reservation.jsp?step=1&error=1");
-                        return;
-                    }
+                Calendar calIn = (Calendar.getInstance());
+                calIn.setTime(checkInDate);
 
-                    totalRoom = Short.parseShort(preTotalRoom);
-                    cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
-                    session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
-                    out.write("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
-
+                if (!calOut.after(calIn)) {
+                    response.sendRedirect("reservation.jsp?step=1&error=1");
+                    return;
                 }
 
-                //Mendapatkan informasi buat hall nya
-
-                Date hallDate;
-                short totalHall;
-
-                if (hallCheckBox != null) {
-                    hallDate = df.parse(preHallDate);
-                    totalHall = Short.parseShort(preTotalHall);
-                    cartSessionBean1.addHallCartElement(packageType, hallDate, totalHall);
-                    session.setAttribute("hallcart", cartSessionBean1.getHallCart());
-                    out.write("Jumlah cart untuk hall : " + cartSessionBean1.getHallCart().size());
-                }
+                totalRoom = Short.parseShort(preTotalRoom);
+                cartSessionBean1.addRoomCartElement(roomType, checkInDate, checkOutDate, totalRoom);
+                session.setAttribute("roomcart", cartSessionBean1.getRoomCart());
+                System.out.println("Jumlah cart untuk room : " + cartSessionBean1.getRoomCart().size());
 
                 //out.write("<a href='reservation.jsp?step=2'>Lanjut </a>");
                 response.sendRedirect("reservation.jsp?step=2");
@@ -162,6 +140,26 @@ public class TambahKeranjang extends HttpServlet {
 
                 out.write("success");
                 response.sendRedirect("reservation.jsp?step=4");
+            } else if (action.equals("addhall")){
+                String package_str=request.getParameter("package");
+                String reservationdate_str=request.getParameter("reservationdate");
+                String layout_str=request.getParameter("layout");
+                String capacity_str=request.getParameter("capacity");
+                String hallneeded_str=request.getParameter("hallneeded");
+
+                Date reservationdate=(new SimpleDateFormat("MM/dd/yyyy")).parse(reservationdate_str);
+                int capacity=Integer.parseInt(capacity_str);
+                short hallneeded=Short.parseShort(hallneeded_str);
+                int layoutid=Integer.parseInt(layout_str);
+
+                cartSessionBean1.addHallCartElement(package_str, reservationdate,hallneeded , capacity, layoutid);
+                Debug.debug("Jumlah elemen cart untuk si Hall : "+cartSessionBean1.getHallCart().size());
+                response.sendRedirect("hallreservation.jsp?step=1");
+                session.setAttribute("hallcart", cartSessionBean1.getHallCart());
+
+
+
+
             }
         } catch (ParseException ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,7 +171,7 @@ public class TambahKeranjang extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -186,7 +184,7 @@ public class TambahKeranjang extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -199,7 +197,7 @@ public class TambahKeranjang extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
@@ -208,10 +206,10 @@ public class TambahKeranjang extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private CartLocal lookupCartSessionBeanLocal() {
+    private CartSessionBeanLocal lookupCartSessionBeanLocal() {
         try {
             Context c = new InitialContext();
-            return (CartLocal) c.lookup("java:global/Avatar/Avatar-ejb/CartSessionBean!Pemesanan.CartLocal");
+            return (CartSessionBeanLocal) c.lookup("java:global/Avatar/Avatar-ejb/CartSessionBean!Pemesanan.CartLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

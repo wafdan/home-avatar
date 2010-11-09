@@ -5,6 +5,10 @@
         <servlet-class>MengelolaPengguna.TambahStaf</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>HallReservationAjax</servlet-name>
+        <servlet-class>ReservationServlet.HallReservationAjax</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TambahCustomer</servlet-name>
         <servlet-class>MengelolaPengguna.TambahCustomer</servlet-class>
     </servlet>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>EditStaff</servlet-name>
         <url-pattern>/MengelolaPengguna/EditStaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HallReservationAjax</servlet-name>
+        <url-pattern>/HallReservationAjax</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TambahStaf</servlet-name>
