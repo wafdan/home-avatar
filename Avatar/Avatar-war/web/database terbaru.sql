@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2010 at 07:20 PM
+-- Generation Time: Nov 09, 2010 at 05:04 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -204,6 +204,7 @@ INSERT INTO `other_services` (`product_id`, `product_type`, `description`, `imag
 CREATE TABLE IF NOT EXISTS `other_services_reservation` (
   `reservation_item_id` int(11) NOT NULL,
   `product_id` varchar(6) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT '1',
   `note` text NOT NULL,
   PRIMARY KEY (`reservation_item_id`),
   KEY `product_id` (`product_id`)
@@ -213,8 +214,8 @@ CREATE TABLE IF NOT EXISTS `other_services_reservation` (
 -- Dumping data for table `other_services_reservation`
 --
 
-INSERT INTO `other_services_reservation` (`reservation_item_id`, `product_id`, `note`) VALUES
-(4, 'F0001', 'breakfast included');
+INSERT INTO `other_services_reservation` (`reservation_item_id`, `product_id`, `amount`, `note`) VALUES
+(4, 'F0001', 1, 'breakfast included');
 
 -- --------------------------------------------------------
 
