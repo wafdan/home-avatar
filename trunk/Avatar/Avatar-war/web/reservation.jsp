@@ -9,7 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="Pemesanan.CartLocal"%>
+<%@page import="Pemesanan.CartSessionBeanLocal"%>
 <%@page import="javax.ejb.EJB"%>
 <%@page import="javax.naming.Context"%>
 <%@page import="javax.naming.InitialContext"%>

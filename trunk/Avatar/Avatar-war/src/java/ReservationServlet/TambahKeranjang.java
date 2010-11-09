@@ -47,7 +47,6 @@ import javax.servlet.http.HttpSession;
  * @author zulfikar
  */
 public class TambahKeranjang extends HttpServlet {
-
     CartSessionBeanLocal cartSessionBean1 = lookupCartSessionBeanLocal();
 
     /**
@@ -209,7 +208,7 @@ public class TambahKeranjang extends HttpServlet {
     private CartSessionBeanLocal lookupCartSessionBeanLocal() {
         try {
             Context c = new InitialContext();
-            return (CartSessionBeanLocal) c.lookup("java:global/Avatar/Avatar-ejb/CartSessionBean!Pemesanan.CartLocal");
+            return (CartSessionBeanLocal) c.lookup("java:global/Avatar/Avatar-ejb/CartSessionBean!Pemesanan.CartSessionBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
