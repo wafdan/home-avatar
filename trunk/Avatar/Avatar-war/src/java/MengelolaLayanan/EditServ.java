@@ -42,7 +42,7 @@ public class EditServ extends HttpServlet {
             String img = request.getParameter("img");
             String prcu = request.getParameter("prcu");
             String uprc = request.getParameter("uprc");
-            String pub = request.getParameter("pub");
+            boolean pub = request.getParameter("pub").equals("true") ? true: false;
 
             out.println(id + "///" + type + "///" + desc + "///" + img + "///"+ pub);
 
@@ -55,7 +55,7 @@ public class EditServ extends HttpServlet {
             s.setImage(img);
             s.setPricingUnit(prcu);
             s.setUnitPrice(Double.parseDouble(uprc));
-            s.setPublished(Boolean.getBoolean(pub));
+            s.setPublished(pub);
             //sj.getEntityManager().getTransaction().commit();
             sj.edit(s);
 

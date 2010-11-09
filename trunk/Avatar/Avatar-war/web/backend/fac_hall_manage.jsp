@@ -109,11 +109,11 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                             </tr>
                                             <tr>
                                                 <td>Product ID :</td>
-                                                <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
+                                                <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" maxlength="6"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Package Name :</td>
-                                                <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
+                                                <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" maxlength="25"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Description  :</td>
@@ -125,7 +125,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                             </tr>
                                             <tr>
                                                 <td>Normal Rate Unit  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrtu" name="nrtu" /></td>
+                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrtu" name="nrtu" maxlength="10"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Overcharge Rate  :</td>
@@ -133,7 +133,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                             </tr>
                                             <tr>
                                                 <td>Overcharge Rate Unit  :</td>
-                                                <td><input type="text" value= "<%= temp.getOverchargeUnit()%>" id="ovu" name="ovu" /></td>
+                                                <td><input type="text" value= "<%= temp.getOverchargeUnit()%>" id="ovu" name="ovu" maxlength="10"/></td>
                                             </tr>
                                             <tr>
                                                 <td>Start Time  :</td>
