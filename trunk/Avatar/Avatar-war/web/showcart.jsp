@@ -120,8 +120,11 @@
 </table>
 <%
             }
+            if(!(cartRoom==null && cartHall==null)){
             session.setAttribute("totalprice", totalBill);
 %>
-<a href="reservation.jsp?step=1">Request more...</a>
 <p>Your bill : Rp. <%= totalBill%></p>
 <a href="reservation.jsp?step=3">Proceed</a>
+<%
+
+}%>
