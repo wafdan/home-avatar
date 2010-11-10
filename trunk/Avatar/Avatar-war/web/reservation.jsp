@@ -342,8 +342,7 @@
                     </li>
                 </ol>
 
-                <a href="TambahKeranjang?action=proceed">Save Reservation</a>
-                <a href="reservation.jsp?step=1">Request more facility</a>
+                <a href="reservation.jsp?step=1">Request more facility</a><br>
                 <a href="index.jsp">Go to main page</a>
 
                 <%  } else if (request.getParameter("step").equals("4")) {
