@@ -229,4 +229,11 @@ public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
             MappingHall_Class.put(h.getProductId(), h.getProductType());
         }
     }
+
+    public void clearCart() {
+        hallCart.clear();
+        roomCart.clear();
+    }
+
+
 }

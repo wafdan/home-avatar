@@ -327,7 +327,8 @@
                                             /* INI HALAMAN KETIGA */
                                             double totalPrice = (Double) session.getAttribute("totalprice");
                 %>
-                <p>Please transfer Rp. <%=totalPrice%> to one of these account number : </p>
+                <p>Your reservation has been saved on our system.
+                    Please transfer Rp. <%=totalPrice%> to one of these account number : </p>
                 <ol>
                     <li>
                         Bank : BRI
@@ -341,22 +342,17 @@
                         Holder name : Zulfikar Hakim
                     </li>
                 </ol>
-
+                <p>please tranfer and confirm your within 5 days. However, your
+                reservation will be deleted after 5 days if you do not confirm payment
+                in the specified time</p>
                 <a href="reservation.jsp?step=1">Request more facility</a><br>
                 <a href="index.jsp">Go to main page</a>
 
-                <%  } else if (request.getParameter("step").equals("4")) {
-                                            /* INI HALAMAN KEEMPAT */
-                %>
-                <p> Your reservation has been saved. Please pay and confirm in 5 workdays. If you have paid, go to confirmation page below</p>
-                <a href="#">Confirm know</a>
-                <%
-                %>
-
-                <%                    }
+                <%  } 
+                
                             } catch (NullPointerException ex) {
-                                //response.sendRedirect("reservation.jsp?step=1");
-                                ex.printStackTrace();
+                                response.sendRedirect("reservation.jsp?step=1");
+                                //ex.printStackTrace();
 
                             }
                 %>

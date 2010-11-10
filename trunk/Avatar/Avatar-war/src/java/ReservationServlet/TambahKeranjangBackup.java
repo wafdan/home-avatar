@@ -155,13 +155,13 @@ public class TambahKeranjangBackup extends HttpServlet {
                     roomReservation.setEntryDate(temp.entry_date);
                     roomReservation.setExitDate(temp.exit_date);
                     roomReservation.setReservationTime(new Date());
-                    roomReservation.setRoomNo(new Room(cartController.generateRoomNumber(temp.product_id, temp.entry_date, temp.exit_date)));
+                    //roomReservation.setRoomNo(new Room(cartController.generateRoomNumber(temp.product_id, temp.entry_date, temp.exit_date)));
                     roomReservation.setReservationId(res);
                     (new RoomReservationJpaController()).create(roomReservation);
                 }
-
+                
                 out.write("success");
-                response.sendRedirect("reservation.jsp?step=4");
+                response.sendRedirect("reservation.jsp?step=3");
             }
         } catch (ParseException ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);

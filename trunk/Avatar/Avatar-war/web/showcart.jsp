@@ -128,7 +128,7 @@
             session.setAttribute("totalprice", totalBill);
 %>
 <p>Your bill : Rp. <%= totalBill%></p>
-<a href="reservation.jsp?step=3">Proceed</a>
+<a href="TambahKeranjang?action=proceed">Proceed</a>
 <br> <br> 
 <%}%>
 
