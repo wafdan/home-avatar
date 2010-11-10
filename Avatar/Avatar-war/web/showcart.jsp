@@ -24,7 +24,7 @@
 <%@page import="Pemesanan.*" %>
 <%@page import="java.text.SimpleDateFormat"%>
 
-<h1>YOUR RESERVATION CART</h1>
+
 
 <% /* ******************************************************************
             Menampilan reservation dari si room nya */
@@ -34,12 +34,16 @@
             ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
             CartController chartController = new CartController();
             double totalBill = 0;
-            if ((cartRoom != null)) {
+            if(cartRoom!=null && cartHall!=null){
+%>
+<h1>YOUR RESERVATION CART</h1>
+<%
+            }if ((cartRoom != null)) {
                 Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
                 int i = 0;
 
 %>
-<p>Your reservation will not saved until you click "SAVE"</p>
+<p>Your reservation will not saved until you click <b>"PROCEED" </b></p>
 <h2>Room Reservation</h2>
 <table>
     <tr>
@@ -125,6 +129,7 @@
 %>
 <p>Your bill : Rp. <%= totalBill%></p>
 <a href="reservation.jsp?step=3">Proceed</a>
-<%
+<br> <br> 
+<%}%>
 
-}%>
+
