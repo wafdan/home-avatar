@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -45,6 +46,7 @@ import javax.servlet.http.HttpSession;
  * @author zulfikar
  */
 public class TambahKeranjang extends HttpServlet {
+
     CartSessionBeanLocal cartSessionBean1 = lookupCartSessionBeanLocal();
 
     /**
@@ -62,7 +64,7 @@ public class TambahKeranjang extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            if (action.equals("add")) {
+            if (action.equals("")) {
 
                 //Mendapatkan informasi buat roomnya
                 String roomType = (String) request.getParameter("roomtype");
@@ -101,7 +103,6 @@ public class TambahKeranjang extends HttpServlet {
                 ReservationJpaController resjpa = new ReservationJpaController();
                 Reservation res = new Reservation();
                 res.setIsOnspot(false);
-                /*Ini harus diubah*/
                 String usernameCustomer = (String) session.getAttribute("username");
                 Customer cust = (new CustomerJpaController()).findCustomer(usernameCustomer);
                 res.setUsername(cust);
@@ -112,7 +113,9 @@ public class TambahKeranjang extends HttpServlet {
                 Iterator<HallSessionInfo> iHallCart = listHallCart.iterator();
                 Iterator<RoomSessionInfo> iRoomCart = listRoomCart.iterator();
 
-                while (iHallCart.hasNext()) {
+                //yang room gw masih belum yakin harus divalidasi dulu ini sama ceha.
+
+             /* while (iHallCart.hasNext()) {
                     HallSessionInfo temp = iHallCart.next();
                     HallReservation hallReservation = new HallReservation();
                     hallReservation.setProductId(new Hall(temp.product_id));
@@ -120,43 +123,46 @@ public class TambahKeranjang extends HttpServlet {
                     hallReservation.setReservationTime(new Date());
                     hallReservation.setReservationId(res);
                     (new HallReservationJpaController()).create(hallReservation);
-                }
+                }*/
 
                 CartController cartController = new CartController();
 
                 while (iRoomCart.hasNext()) {
                     RoomSessionInfo temp = iRoomCart.next();
-                    RoomReservation roomReservation = new RoomReservation();
-                    roomReservation.setEntryDate(temp.entry_date);
-                    roomReservation.setExitDate(temp.exit_date);
-                    roomReservation.setReservationTime(new Date());
-                    roomReservation.setRoomNo(new Room(cartController.generateRoomNumber(temp.product_id, temp.entry_date, temp.exit_date)));
-                    roomReservation.setReservationId(res);
-                    (new RoomReservationJpaController()).create(roomReservation);
+                    List<Room> roomKosong = cartController.generateRoomNumber(temp.product_id, temp.entry_date, temp.exit_date, temp.total);
+                    for (int i = 0; i < temp.total; i++) {
+                        RoomReservation roomReservation = new RoomReservation();
+                        roomReservation.setEntryDate(temp.entry_date);
+                        roomReservation.setExitDate(temp.exit_date);
+                        roomReservation.setReservationTime(new Date());
+                        Room r=roomKosong.get(0);
+                        roomReservation.setRoomNo(r);
+                        roomKosong.remove(r);
+                        roomReservation.setReservationId(res);
+                        (new RoomReservationJpaController()).create(roomReservation);
+                    } 
+                    
                 }
 
                 out.write("success");
-                response.sendRedirect("reservation.jsp?step=4");
-            } else if (action.equals("addhall")){
-                String package_str=request.getParameter("package");
-                String reservationdate_str=request.getParameter("reservationdate");
-                String layout_str=request.getParameter("layout");
-                String capacity_str=request.getParameter("capacity");
-                String hallneeded_str=request.getParameter("hallneeded");
+                cartSessionBean1.clearCart();
+                response.sendRedirect("reservation.jsp?step=3");
+            } else if (action.equals("addhall")) {
+                String package_str = request.getParameter("package");
+                String reservationdate_str = request.getParameter("reservationdate");
+                String layout_str = request.getParameter("layout");
+                String capacity_str = request.getParameter("capacity");
+                String hallneeded_str = request.getParameter("hallneeded");
 
-                Date reservationdate=(new SimpleDateFormat("MM/dd/yyyy")).parse(reservationdate_str);
-                int capacity=Integer.parseInt(capacity_str);
-                short hallneeded=Short.parseShort(hallneeded_str);
-                int layoutid=Integer.parseInt(layout_str);
+                Date reservationdate = (new SimpleDateFormat("MM/dd/yyyy")).parse(reservationdate_str);
+                int capacity = Integer.parseInt(capacity_str);
+                short hallneeded = Short.parseShort(hallneeded_str);
+                int layoutid = Integer.parseInt(layout_str);
 
-                cartSessionBean1.addHallCartElement(package_str, reservationdate,hallneeded , capacity, layoutid);
-                Debug.debug("Jumlah elemen cart untuk si Hall : "+cartSessionBean1.getHallCart().size());
+                cartSessionBean1.addHallCartElement(package_str, reservationdate, hallneeded, capacity, layoutid);
+                Debug.debug("Jumlah elemen cart untuk si Hall : " + cartSessionBean1.getHallCart().size());
                 response.sendRedirect("hallreservation.jsp?step=1");
                 session.setAttribute("hallcart", cartSessionBean1.getHallCart());
-
-
-
-
             }
         } catch (ParseException ex) {
             Logger.getLogger(TambahKeranjang.class.getName()).log(Level.SEVERE, null, ex);

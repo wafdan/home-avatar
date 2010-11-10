@@ -13,6 +13,7 @@ import AvatarEntity.Room;
 import AvatarEntity.RoomJpaController;
 import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -122,55 +123,13 @@ public class CartController implements CartControllerLocal {
         return retval;
     }
 
-    public String generateRoomNumber(String product_id, Date entry_date, Date exit_date) throws Exception {
-        String retval;
-        List<Room> allRoom = (new RoomJpaController()).findRoomEntities();
-        Iterator<Room> iAllRoom = allRoom.iterator();
+    public List<Room> generateRoomNumber(String product_id, Date entry_date, Date exit_date, int totalRoom) throws RoomNotEnoughException {
 
-        //Filter dulu room nya sesuai dengan tipe accomodation yang diinginkan
-        while (iAllRoom.hasNext()) {
-            Room temp = iAllRoom.next();
-            if (!temp.getProductId().getProductId().equals(product_id)) {
-                allRoom.remove(temp);
-            }
-        }
-
-        //Udah gitu filter room reservation sesuai dengan tipe accomodation yang diinginkan
-        List<RoomReservation> roomReservations = (new RoomReservationJpaController()).findReservationByEntryDate(entry_date);
-        if (roomReservations != null) {
-            Iterator<RoomReservation> iRoomReservation = roomReservations.iterator();
-
-            while (iRoomReservation.hasNext()) {
-                RoomReservation temp = iRoomReservation.next();
-                if (!temp.getRoomNo().getProductId().getProductId().equals(product_id)) {
-                    roomReservations.remove(temp);
-                }
-            }
-        }
-
-        //Masukkan ke hashmap semua elemen yang udah terisi, yaitu yang ada di reservationnya.
-        HashMap<String, Boolean> hashTerisi = new HashMap<String, Boolean>();
-        if (roomReservations != null) {
-            Iterator<RoomReservation> iRoomReservation2 = roomReservations.iterator();
-            while (iRoomReservation2.hasNext()) {
-                RoomReservation temp = iRoomReservation2.next();
-                hashTerisi.put(temp.getRoomNo().getRoomNo(), Boolean.TRUE);
-            }
-        }
-
-        //udah gitu tinggal didapatkan satu nomor kamar kosong pertama yang ditemukan
-
-        iAllRoom = allRoom.iterator();
-        while (iAllRoom.hasNext()) {
-            Room temp = iAllRoom.next();
-            Boolean adakah = hashTerisi.get(temp.getRoomNo());
-            if (adakah == null) {
-                retval = temp.getRoomNo();
-                return retval;
-            }
-        }
-        throw new Exception("Tidak ditemukan kamar yang kosong, mohon maaf");
-
+       List<Room> listRoomKosong=(new RoomJpaController()).findUnused(product_id, entry_date, exit_date);
+       if(listRoomKosong.size()<totalRoom){
+            throw new RoomNotEnoughException("Ruangan yang diminta tidak cukup. ");
+       }
+        return listRoomKosong;
     }
 
     public String getLayoutName(int parameter) {

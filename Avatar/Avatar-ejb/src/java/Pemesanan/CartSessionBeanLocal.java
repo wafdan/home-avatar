@@ -49,6 +49,8 @@ public interface CartSessionBeanLocal {
     public void setListHall(List<Hall> input);
 
     CartSessionBeanLocal create() throws CreateException;
+
+    void clearCart();
 }
 
 
