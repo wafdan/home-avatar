@@ -148,7 +148,7 @@ public class TambahKeranjang extends HttpServlet {
                 cartSessionBean1.clearCart();
                 response.sendRedirect("reservation.jsp?step=3");
             } else if (action.equals("addhall")) {
-                String package_str = request.getParameter("package");
+                String package_str = request.getParameter("hallpackage");
                 String reservationdate_str = request.getParameter("reservationdate");
                 String layout_str = request.getParameter("layout");
                 String capacity_str = request.getParameter("capacity");
