@@ -103,6 +103,23 @@
                 }
             }
 
+            var validateLogoExtension=function(){
+                var target=document.logouploader.file1.value;
+                if(target!=""){
+                    var regex=/[.jpg]$/;
+                    if(!regex.test(target)){
+                        document.getElementById("uploadererror").innerHTML="<em> &nbsp; &nbsp;&nbsp;&nbsp; Logo only .JPG</em>";
+                        document.logouploader.logosubmit.disabled=true;
+                    }
+                    else{
+                        document.getElementById("uploadererror").innerHTML="";
+                        document.logouploader.logosubmit.disabled=false;
+                    }
+                }else{
+                    document.logouploader.logosubmit.disabled=true;
+                }
+            }
+
         </script>
     </head>
     <body>
@@ -384,12 +401,14 @@
                                     <br/>
                                 </form>
                                 <hr/>
-                                <form action="CommonsFileUploadServlet" enctype="multipart/form-data" method="POST">
+                                <form name="logouploader" action="CommonsFileUploadServlet" enctype="multipart/form-data" method="POST">
                                     <div class="required">
                                         <label for="file1">Logo Hotel :</label>
-                                        <input type="file" name="file1" class="input_text" /><br/>
+                                        <input type="file" name="file1" class="input_text" onchange="validateLogoExtension();"/>
+                                        <span id="uploadererror">
+                                        </span><br/>
                                     </div>
-                                    <input type="Submit" value="Upload File"><br/>
+                                    <input name="logosubmit" type="Submit" value="Upload File" disabled="true"><br/>
                                 </form>
                             </div>
                         </div>

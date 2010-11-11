@@ -8,6 +8,7 @@ import Debug.Debug;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,7 +29,7 @@ public class CommonsFileUploadServlet extends HttpServlet {
 
     private static final String TMP_DIR_PATH = "c:\\tmp";
     private File tmpDir;
-    private static final String DESTINATION_DIR_PATH = "/files";
+    private static final String DESTINATION_DIR_PATH = "/images";
     private File destinationDir;
 
     public void init(ServletConfig config) throws ServletException {
