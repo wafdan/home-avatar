@@ -58,11 +58,7 @@
             var validateDate=function(){
                 var regex=/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$/;
                 var target=document.syalala.reservationdate.value;
-                if(target==null){
-                    alert("Reservation date can not be left blank");
-                    return false;
-                }
-                else if(!regex.test(target)){
+                if(!regex.test(target)){
                     alert("Date format must be MM/dd/yyyy");
                     dateValid=false;
                     return false;
@@ -74,13 +70,8 @@
             }
 
             var validateCapacity=function(){
-                var regex=/[0-9]{1,3}/;
                 var target=document.syalala.capacity.value;
-                if(target==""){
-                    alert("This field can not left blank");
-                    return false;
-                }
-                else if(isNaN(target)){
+                if(isNaN(target)){
                     alert("Capacity should be number between 0 and 999");
                     return false;
                 }else if (parseInt(target)>999){
@@ -90,6 +81,24 @@
                     getTotalHallAvailable();
                 }
             }
+
+            var validateLayout=function(){
+                if(document.syalala.layout.value=="notchoosed"){
+                    document.syalala.tombol.disabled=true;
+                }else{
+                    getTotalHallAvailable();
+                }
+            }
+
+            var validatePackage=function(){
+                if(document.syalala.hallpackage.value=="notchoosed"){
+                    document.syalala.tombol.disabled=true;
+                }
+                else{
+                    getTotalHallAvailable();
+                }
+            }
+
 
             var getTotalHallAvailable=function(){
                 //Mendapatkan kapasitas maksimal yang ada di basis data untuk layout tertentu yang disediaan hotel
@@ -112,11 +121,12 @@
                         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         ajaxpost.onreadystatechange = function() {
                             if (ajaxpost.readyState == 4 && ajaxpost.status == 200) {
-                                alert(ajaxpost.responseText);
+                                //alert(ajaxpost.responseText);
                                 var i;
                                 var batasAtas=parseInt(ajaxpost.responseText);
                                 document.syalala.hallneeded.length=0;
                                 document.syalala.hallneeded.disabled=false;
+                                document.syalala.tombol.disabled=false;
                                 for(i=1;i<=batasAtas;i++){
                                     var optionObj=document.createElement('option');
                                     optionObj.text=i+"";
@@ -130,7 +140,7 @@
                             }
                         }
                         var data= "layout=" + layoutSelectObjValue+"&reservationdate="+date+"&capacity="+capacity;
-                        alert(data);
+                        //alert(data);
                         ajaxpost.send(data);
                     }
 
@@ -164,7 +174,8 @@
         <ul>
             <li>
                 <label>Package :</label>
-                <select name="package">
+                <select name="hallpackage" onchange="validatePackage();">
+                    <option value="notchoosed">Please choose package...</option>
                     <% // di sini buat masukkin packagenya secara dinamis
                                             while (iHall.hasNext()) {
                                                 Hall temp = iHall.next();
@@ -176,12 +187,12 @@
 
             <li>
                 <label>Date : </label>
-                <input type="text" name="reservationdate" class="datepicker" onblur="return validateDate();">
+                <input type="text" name="reservationdate" class="datepicker" onchange="validateDate();">
             </li>
 
             <li>
                 <label for="layout">Layout : </label>
-                <select name="layout" onchange="getTotalHallAvailable();">
+                <select name="layout" onchange="validateLayout();">
                     <option value="notchoosed">Please choose layout...</option>
                     <% // di sini buat masukkin layoutnya secara dinamis ambil dari database
                                             while (iLayout.hasNext()) {
@@ -194,18 +205,18 @@
 
             <li>
                 <label for="capacity">Attendees: </label>
-                <input name="capacity" type="text" onblur="return validateCapacity();"/>person
+                <input name="capacity" type="text" onchange="validateCapacity();"/>person
             </li>
 
             <li>
                 <label for="hallneeded">Hall needed : </label>
-                <select name="hallneeded" onchange="getTotalHallAvailable();">
+                <select name="hallneeded">
                     <% //di sini buat masukkin hall yang available buat user nya. %>
                 </select>
             </li>
 
             <li>
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit" disabled="true" name="tombol"/>
             </li>
         </ul>
 
