@@ -11,6 +11,7 @@
 <%-- start object initialization --%>
 <%
 List<Reservation> lres = (List<Reservation>) request.getAttribute("returnList");
+int totalpage = (Integer) request.getAttribute("totalpage");
 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
 Locale locale = Locale.getDefault();
@@ -76,7 +77,8 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     pay = item.getPayment();
                                 %>
                                 <tr>
-                                    <td><%= formatter.format(item.getReservationTime()) %></td>
+                                    <td><a name="#<%= item.getReservationId() %>"></a>
+                                        <%= formatter.format(item.getReservationTime()) %></td>
                                     <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
                                     <td><%= (item.getIsOnspot() ? "yes" : "no") %></td>
@@ -106,6 +108,8 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 }
                                 %>
                             </table>
+                            <center>Page: <% for (int i = 1; i <= totalpage; i++) { %>
+                                <a href="payment_manage?pg=<%=i%>"><%=i%></a>&nbsp;<% } %></center>
                         </div>
                     </div>
                     <!-- end content -->
@@ -119,8 +123,11 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 <hr />
                                 <ul>
                                     <li>PAYMENT
-                                        <ul>
-                                            <li><a href="payment_manage">Payment Management</a></li>
+                                        <ul id="fmenu">
+                                            <li id="fmenu-item1"><a href="payment_manage">All</a></li>
+                                            <li id="fmenu-item2"><a href="payment_manage?mode=unconf">Unconfirmed</a></li>
+                                            <li id="fmenu-item3"><a href="payment_manage?mode=unver">Unverified Confirmed</a></li>
+                                            <li id="fmenu-item4"><a href="payment_manage?mode=ver">Verified</a></li>
                                         </ul>
                                     </li>
                                 </ul>

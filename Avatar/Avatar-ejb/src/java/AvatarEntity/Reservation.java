@@ -38,6 +38,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
     @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NULL"),
     @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NOT NULL"),
+    @NamedQuery(name = "Reservation.findUnverified", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NOT NULL AND r.payment.username IS NULL"),
+    @NamedQuery(name = "Reservation.findVerified", query = "SELECT r FROM Reservation r WHERE r.payment.paymentId IS NOT NULL AND r.payment.username IS NOT NULL"),
     @NamedQuery(name = "Reservation.findReservationByName", query = "SELECT r FROM Reservation r WHERE r.username.name = :name AND r.isOnspot = :isOnspot ORDER BY r.reservationId"),
     @NamedQuery(name = "Reservation.findOnlineReservationByName", query = "SELECT r FROM Reservation r WHERE r.username.name = :name AND r.isOnspot = false ORDER BY r.reservationId"),
     @NamedQuery(name = "Reservation.findPaidOnlineReservationByName", query = "SELECT r FROM Reservation r WHERE r.username.name = :name AND r.isOnspot = false AND r.payment.paymentId IS NOT NULL ORDER BY r.reservationId")})

@@ -18,6 +18,8 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 
 /**
  *
@@ -224,6 +226,7 @@ public class ReservationJpaController {
         }
     }
 
+    // Find All Reservations
     public List<Reservation> findReservationEntities() {
         return findReservationEntities(true, -1, -1);
     }
@@ -248,20 +251,79 @@ public class ReservationJpaController {
         }
     }
 
-    public Reservation findReservation(Integer id) {
+    // Find Unpaid Reservations
+    public List<Reservation> findUnpaidReservationEntities() {
+        return findUnpaidReservationEntities(true, -1, -1);
+    }
+
+    public List<Reservation> findUnpaidReservationEntities(int maxResults, int firstResult) {
+        return findUnpaidReservationEntities(false, maxResults, firstResult);
+    }
+
+    private List<Reservation> findUnpaidReservationEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Reservation.class, id);
+            Query q = em.createNamedQuery("Reservation.findUnpaid");
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
         } finally {
             em.close();
         }
     }
 
-    public List<Reservation> findUnpaid() {
+    // Find Unverified Reservations
+    public List<Reservation> findUnverifiedReservationEntities() {
+        return findUnverifiedReservationEntities(true, -1, -1);
+    }
+
+    public List<Reservation> findUnverifiedReservationEntities(int maxResults, int firstResult) {
+        return findUnverifiedReservationEntities(false, maxResults, firstResult);
+    }
+
+    private List<Reservation> findUnverifiedReservationEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNamedQuery("Reservation.findUnpaid");
+            Query q = em.createNamedQuery("Reservation.findUnverified");
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
             return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Find Verified Reservations
+    public List<Reservation> findVerifiedReservationEntities() {
+        return findVerifiedReservationEntities(true, -1, -1);
+    }
+
+    public List<Reservation> findVerifiedReservationEntities(int maxResults, int firstResult) {
+        return findVerifiedReservationEntities(false, maxResults, firstResult);
+    }
+
+    private List<Reservation> findVerifiedReservationEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Reservation.findVerified");
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Reservation findReservation(Integer id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Reservation.class, id);
         } finally {
             em.close();
         }
