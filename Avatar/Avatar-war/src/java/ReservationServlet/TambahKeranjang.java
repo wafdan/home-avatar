@@ -64,8 +64,8 @@ public class TambahKeranjang extends HttpServlet {
 
         try {
             String action = request.getParameter("action");
-            if (action.equals("")) {
-
+            if (action.equals("add")) {
+                System.out.println("Masuk sini");
                 //Mendapatkan informasi buat roomnya
                 String roomType = (String) request.getParameter("roomtype");
                 String preCheckInDate = request.getParameter("roomcheckindate");

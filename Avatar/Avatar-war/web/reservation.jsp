@@ -345,6 +345,7 @@
                 <p>please tranfer and confirm your within 5 days. However, your
                 reservation will be deleted after 5 days if you do not confirm payment
                 in the specified time</p>
+                <a href="reservation_status.jsp">Confirm now</a>
                 <a href="reservation.jsp?step=1">Request more facility</a><br>
                 <a href="index.jsp">Go to main page</a>
 
