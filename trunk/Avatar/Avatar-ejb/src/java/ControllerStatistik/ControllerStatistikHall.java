@@ -5,7 +5,6 @@
 
 package ControllerStatistik;
 
-import AvatarEntity.Accomodation;
 import AvatarEntity.Hall;
 import AvatarEntity.HallJpaController;
 import AvatarEntity.HallReservation;
@@ -25,7 +24,6 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardXYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
@@ -134,18 +132,19 @@ public class ControllerStatistikHall implements ControllerStatistik {
         HallJpaController hjpa = new HallJpaController();
         HallReservationJpaController hrjpa = new HallReservationJpaController();
         //Perhitungan rataaan, maksimum, dan minimum hadirin
-        int sum, count, max, min; // penghitung
+        float sum, count, max, min; // penghitung
         for (Hall hall : hjpa.findHallEntities()) {
             sum = 0; count = 0; //inisialisasi penghitung per jenis kamar
-            max = 0; min = 0;
+            max = 0; min = Float.POSITIVE_INFINITY;
             for (HallReservation hr : hrjpa.findByPeriod(hall, from, to)) {
                 if (max < hr.getAttendees()) max = hr.getAttendees();
                 if (min > hr.getAttendees()) min = hr.getAttendees();
                 sum += hr.getAttendees();
                 count++;
             }
-            arrayMax.put(hall, max); arrayMin.put(hall, min);
-            arrayAvg.put(hall, Double.valueOf(((double) sum)/((double) count)));
+            if (min == Float.POSITIVE_INFINITY) min = 0;
+            arrayMax.put(hall, (int) max); arrayMin.put(hall, (int) min);
+            arrayAvg.put(hall, Double.valueOf(sum/count));
         }
         DateFormat std = new SimpleDateFormat("dd MMM yyyy");
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -163,6 +162,11 @@ public class ControllerStatistikHall implements ControllerStatistik {
         CategoryItemRenderer renderer = new BarRenderer();
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         renderer.setBaseItemLabelsVisible(true);
+        NumberAxis na = new NumberAxis();
+        DecimalFormat decfor = new DecimalFormat();
+        na.setNumberFormatOverride(decfor);
+        na.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getCategoryPlot().setRangeAxis(na);
         chart.getCategoryPlot().setRenderer(renderer);
         return chart;
     }

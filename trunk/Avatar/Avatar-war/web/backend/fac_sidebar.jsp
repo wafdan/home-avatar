@@ -16,8 +16,8 @@
     <%-- <label>ACCOMODATIONS</label>--%>
     <ul>
         <strong>ACCOMODATIONS</strong>
-        <li><a href="fac_room_add.jsp">Add Accomodation</a></li>
-        <li><a href="fac_room_manage.jsp">Manage Accomodation</a></li>
+        <li><a href="fac_room_add.jsp">Add New Room Type</a></li>
+        <li><a href="fac_room_manage.jsp">Manage Room Type</a></li>
     </ul>
     <ul>
         <strong>MEETINGS & EVENTS</strong>

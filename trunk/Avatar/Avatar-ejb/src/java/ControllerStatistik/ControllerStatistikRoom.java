@@ -8,7 +8,6 @@ package ControllerStatistik;
 import AvatarEntity.Accomodation;
 import AvatarEntity.AccomodationJpaController;
 import AvatarEntity.Room;
-import AvatarEntity.RoomJpaController;
 import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
 import java.text.DateFormat;
@@ -33,9 +32,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.statistics.DefaultStatisticalCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -151,10 +148,10 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         AccomodationJpaController ajpa = new AccomodationJpaController();
         RoomReservationJpaController rrjpa = new RoomReservationJpaController();
         //Perhitungan rataaan, maksimum, dan minimum lama tinggal
-        int length, sum, count, max, min; // penghitung
+        float length, sum, count, max, min; // penghitung
         for (Accomodation acc : ajpa.findAccomodationEntities()) {
             sum = 0; count = 0; //inisialisasi penghitung per jenis kamar
-            max = 0; min = 0;
+            max = 0; min = Float.POSITIVE_INFINITY;
             for (Room rm : acc.getRoomCollection()) {
                 for (RoomReservation rr : rrjpa.findByPeriod(rm, from, to)) {
                     length = (int) ((rr.getExitDate().getTime() - rr.getEntryDate().getTime()) / 86400000);
@@ -164,8 +161,9 @@ public class ControllerStatistikRoom implements ControllerStatistik {
                     count++;
                 }
             }
-            arrayMax.put(acc, max); arrayMin.put(acc, min);
-            arrayAvg.put(acc, Double.valueOf(((double) sum)/((double) count)));
+            if (min == Float.POSITIVE_INFINITY) min = 0;
+            arrayMax.put(acc, (int) max); arrayMin.put(acc, (int) min);
+            arrayAvg.put(acc, Double.valueOf(sum/count));
         }
         DateFormat std = new SimpleDateFormat("dd MMM yyyy");
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -183,6 +181,11 @@ public class ControllerStatistikRoom implements ControllerStatistik {
         CategoryItemRenderer renderer = new BarRenderer();
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         renderer.setBaseItemLabelsVisible(true);
+        NumberAxis na = new NumberAxis();
+        DecimalFormat decfor = new DecimalFormat();
+        na.setNumberFormatOverride(decfor);
+        na.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getCategoryPlot().setRangeAxis(na);
         chart.getCategoryPlot().setRenderer(renderer);
         return chart;
     }
