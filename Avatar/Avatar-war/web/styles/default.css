@@ -3,7 +3,7 @@
 body {
     margin-top: 49px;
     padding: 0;
-    background: #242424;
+    background-color: #FFFFFF;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     color: #BBBBBB;
@@ -161,7 +161,7 @@ form .button{
     text-decoration: none;
 
     font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 #menu a:hover { 
@@ -195,10 +195,10 @@ form .button{
 
 #logo h1 a {
     text-decoration: none;
-    color: #FFFFFF;
+    color: #000000;
 }
 
-#logo h1 a:hover { text-decoration: underline; }
+#logo h1 a:hover { text-decoration: underline; color: #48ACDE;}
 
 #logo h2 {
     padding: 20px 0 0 5px;
@@ -306,10 +306,10 @@ form .button{
 #sidebar {
     float: left;
     width: 150px;
-    padding-left: 30px;
-    background-color:#242424;
+    padding: 10px;
+    background-color:#E7E7E7;
     margin-left: 20px;
-    color:#FFFFFF;
+    color:#000000;
 }
 
 #sidebar ul {
@@ -337,7 +337,7 @@ form .button{
     height: 32px;
     margin-bottom: 10px;
     font-size: 18px;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 /* Footer */
