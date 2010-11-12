@@ -83,13 +83,10 @@
                                     %>
                                 <tr>
                                     <th bgcolor="#262626" width="20">No.</th>
-                                    <th bgcolor="#262626" width="50">Product Id</th>
-                                    <th bgcolor="#262626" width="89">Product Type</th>
-                                    <th bgcolor="#262626" width="100">Description</th>
-                                    <th bgcolor="#262626" width="96">Normal Rate</th>
-                                    <th bgcolor="#262626" width="96">Start Time</th>
-                                    <th bgcolor="#262626" width="96">End Time</th>
-                                    <th bgcolor="#262626" width="96">Overcharge Rate</th>
+                                    <th bgcolor="#262626" width="50">Reservation Id</th>
+                                    <th bgcolor="#262626" width="89">Is Onspot</th>
+                                    <th bgcolor="#262626" width="100">Username</th>
+                                    <th bgcolor="#262626" width="96">Note</th>
                                     <th colspan="2" bgcolor="#262626"></th>
                                 </tr>
                                 <%for (Iterator<Reservation> i = rList.iterator(); i.hasNext();) {
@@ -97,21 +94,17 @@
                                 %>
                                 <tr>
                                     <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
-                                    <td style="vertical-align: 0%"><% out.write(temp.getProductId());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(temp.getProductType());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(temp.getDescription());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getNormalRate()) + " per " + temp.getNormalRateUnit());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getStartTime().getHours()));%> : <% out.write(String.valueOf(temp.getStartTime().getMinutes()));%></td>
-                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getEndTime().getHours()));%> : <% out.write(String.valueOf(temp.getEndTime().getMinutes()));%></td>
-                                    <td style="vertical-align: 0%"><% out.write(currencyFormat.format(temp.getOverchargeRate()) + " per " + temp.getOverchargeUnit());%></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="fac_hall_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getProductId());%>">delete</a></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getReservationId());%></td>
+                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getIsOnspot()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(temp.getNote());%></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getReservationId());%>">delete</a></td>
                                 </tr>
                                 <%}
                                 } else {
                                     int iterator = 0;
-                                    for (Iterator<Hall> i = hList.iterator(); i.hasNext();) {
-                                        Hall temp = i.next();
+                                    for (Iterator<Reservation> i = rList.iterator(); i.hasNext();) {
+                                        Reservation temp = i.next();
                                         iterator++;
                                         index++;
                                         if(iterator == editIndex){%>
@@ -122,49 +115,16 @@
                                             </tr>
                                             <tr>
                                                 <td>Product ID :</td>
-                                                <td><input type="text" value= "<%= temp.getProductId()%>" id="pid" name="pid" disabled="true" /></td>
+                                                <td><input type="text" value= "<%= temp.getReservationId()%>" id="pid" name="pid" disabled="true" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Package Name :</td>
-                                                <td><input type="text" value= "<%= temp.getProductType()%>" id="type" name="type" /></td>
+                                                <td><input type="text" value= "<%= temp.getUsername()%>" id="type" name="type" /></td>
                                             </tr>
                                             <tr>
                                                 <td>Description  :</td>
-                                                <td><textarea id="desc" name="desc" cols=70% rows=3><%= temp.getDescription()%></textarea></td>
+                                                <td><textarea id="desc" name="desc" cols=70% rows=3><%= temp.getNote()%></textarea></td>
                                             </tr>
-                                            <tr>
-                                                <td>Normal Rate  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRate()%>" id="nrat" name="nrat" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Normal Rate Unit  :</td>
-                                                <td><input type="text" value= "<%= temp.getNormalRateUnit()%>" id="nrtu" name="nrtu" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Overcharge Rate  :</td>
-                                                <td><input type="text" value= "<%= temp.getOverchargeRate()%>" id="ovrt" name="ovrt" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Overcharge Rate Unit  :</td>
-                                                <td><input type="text" value= "<%= temp.getOverchargeUnit()%>" id="ovu" name="ovu" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Start Time  :</td>
-                                                <td>
-                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getHours()%>" id="stim" name="stim" />
-                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getStartTime().getMinutes()%>" id="stim2" name="stim2" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>End Time  :</td>
-                                                <td>
-                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getHours()%>" id="etim" name="etim" />
-                                                    <input type="text" maxlength="2" style="width: 20px" value= "<%= temp.getEndTime().getMinutes()%>" id="etim2" name="etim2" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                </td>
                                                 <td>
                                                     <input type="submit" value="save" onclick="this.form.pid.disabled=false;" />
                                                     <a onclick="return confirmAction()" href="HapusHall?delete=%3C%%20out.write(temp.getProductId());%%3E">
@@ -172,9 +132,18 @@
                                                     <a href="fac_hall_manage.jsp">
                                                         cancel</a>
                                                 </td>
-                                            </tr>
                                         </form>
 
+                                       <%}else{%>
+                                       <tr>
+                                           <td style="vertical-align: 0%"><%index++;
+                                                                                out.write(Integer.toString(index));%></td>
+                                           <td style="vertical-align: 0%"><% out.write(temp.getReservationId());%></td>
+                                           <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getIsOnspot()));%></td>
+                                           <td style="vertical-align: 0%"><% out.write(temp.getNote());%></td>
+                                           <td style="vertical-align: 0%;width:20px;" align="center"><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
+                                           <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getReservationId());%>">delete</a></td>
+                                       </tr>
                                        <%}
                                     }
                                 }%>
