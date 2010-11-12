@@ -1,7 +1,14 @@
+<%@page import="AvatarEntity.Profile" %>
+<%@page import="AvatarEntity.ProfileJpaController" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
+<%
+    ProfileJpaController pc = new ProfileJpaController();
+    Profile p = pc.findProfile(true);
+%>
 <div class="wrapper col5">
   <div id="footer">
     <div id="newsletter">
@@ -18,11 +25,11 @@
     </div>
     <div class="footbox">
       <h2>Contact Us</h2>
-         <p>Hotel Graha Bandung</p>
-          <p>Jalan Pahlawan 123, Bandung, </p>
-          <p>West Java, Indonesia</p>
-          <p>ZIP code : 40123</p>
-          <p>Phone : +6222 254123 | Fax : +6222 254124</p>
+      <p><% out.write(p.getHotelName()); %></p>
+          <p><% out.write(p.getHotelAddress1()+", "+ p.getHotelCity()); %></p>
+          <p><% out.write(p.getHotelCountry()); %></p>
+          <p><% out.write("Phone : "+p.getHotelPhone()); %></p>
+          <p><% out.write("Email : "+p.getHotelEmail()); %></p>
     </div>
     	<br class="clear" />
   	</div>

@@ -156,6 +156,10 @@
     <%
 
                 String step = request.getParameter("step");
+                String id = null;
+                if (request.getParameter("id") != null) {
+                    id = request.getParameter("id");
+                }
                 if (step == null) {
                     response.sendRedirect("hallreservation.jsp?step=1");
                 } else if (step.equals("1")) {
@@ -177,13 +181,13 @@
                 <select name="hallpackage" onchange="validatePackage();">
                     <option value="notchoosed">Please choose package...</option>
                     <% // di sini buat masukkin packagenya secara dinamis
-                                            while (iHall.hasNext()) {
-                                                Hall temp = iHall.next();
-                                                out.write("<option value=" + temp.getProductId() + ">" + temp.getProductType() + "</option>");
-                                            }
+                        while (iHall.hasNext()) {
+                            Hall temp = iHall.next(); %>
+                            <option value=<% out.write("'"+temp.getProductId()+"'"); if (id != null) {if (id.equals(temp.getProductId())) {out.write(" selected='true'");}} %>><% out.write(temp.getProductType()); %></option>
+                     <% }
                     %>
                 </select>
-            </li>
+            </li
 
             <li>
                 <label>Date : </label>

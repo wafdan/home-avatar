@@ -6,7 +6,10 @@
 <meta http-equiv="imagetoolbar" content="no" />
 <link rel="stylesheet" href="styles/layout.css" type="text/css" />
 </head>
-
+<%
+    ProfileJpaController pjc=new ProfileJpaController();
+    Profile p=pjc.findProfile(Boolean.TRUE);
+%>
 <body id="top">
 <jsp:include page="header.jsp"/>
 
@@ -27,8 +30,8 @@
     <div id="content">
       <h2>About Us</h2>
       <img class="imgl" src="images/demo/logohotelgraha.png" alt="" width="125" height="125" />
-      <p><strong>Hotel Graha Bandung</strong></p>
-      <p>Welcome to Hotel Graha Bandung, a five star luxury hotel in Bandung, West Java. Located in the heart of Bandung, we provide a superior level of service to satisfy the needs of our global guests. As a member of the "Hotel Graha" group, the Hotel Graha Bandung offers an extraordinary level of service and coordinated interior designs. Restored to its original opulence, Hotel Graha Bandung sets the standard for elegance. From the magnificent columned lobby with its marble floors and stained-glass dome to the classic décor of the 250 guestrooms and suites, we ensures that every stay is a memorable one.</p>
+      <p><strong><% out.write(p.getHotelName()+" "+p.getHotelCity()); %></strong></p>
+      <p><% out.write(p.getHotelDescription()); %></p>
   	</div>
     <div id="column">
       <div class="holder">
