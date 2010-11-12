@@ -159,7 +159,8 @@
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>User Management</h2><br />
+                                    <h2>User Management</h2>
+
                                 </div>
                                 <ul>
                                     <li>STAFF
