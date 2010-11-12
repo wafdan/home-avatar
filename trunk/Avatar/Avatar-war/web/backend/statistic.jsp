@@ -69,7 +69,7 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
                         <ul>
                             <li>
                                 <div id="sidebar-title">
-                                    <h2>Statistics</h2><br />
+                                    <h2>Statistics</h2>
                                 </div>
                                 <ul>
                                     <li>VIEWS
