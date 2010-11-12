@@ -124,12 +124,8 @@
     <%
                 String step = request.getParameter("step");
                 String id = null;
-                String type = null;
                 if (request.getParameter("id") != null) {
                     id = request.getParameter("id");
-                }
-                if (request.getParameter("type") != null) {
-                    type = request.getParameter("type");
                 }
     %>
     <body>
@@ -197,14 +193,6 @@
                         <input type="submit" value="SUBMIT" name="tombol" disabled="true">
                     </form>
                 </div>
-                <div id="column">
-
-                    <div class="subnav">
-                        <h2>Promotion</h2>
-                        <p>For best room rate and booking service, please contact our customer service.</p>
-                    </div>
-
-                </div>
                 <%
                                         } else if (request.getParameter("step").equals("3")) {
                                             /* INI HALAMAN KETIGA */
@@ -240,17 +228,18 @@
 
                             }
                 %>
-            </div>
             <div id="column">
-
+                <div class="subnav">
+                    <h2>Reservation Status</h2>
+                    <p>See your reservation status <a href="reservation_status.jsp">here</a></p>
+                </div>
                 <div class="subnav">
                     <h2>Promotion</h2>
                     <p>For best room rate and booking service, please contact our customer service.</p>
                 </div>
-
+            </div>
             </div>
             <div class="clear"></div>
-
         </div>
         <jsp:include page="footer.jsp"/>
     </body>

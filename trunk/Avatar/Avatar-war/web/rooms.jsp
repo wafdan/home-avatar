@@ -59,7 +59,7 @@
                     } else {
                         out.println("<a class='book' href='cart.jsp?add=1&type=1&id=" + cur.getProductId() + "'>Add to Cart</a>");
                     }*/
-                    out.println("<a class='book' href='reservation.jsp?step=1&type=1&id="+cur.getProductId()+"'>Reserve</a>");
+                    out.println("<a class='book' href='reservation.jsp?step=1&id="+cur.getProductId()+"'>Reserve</a>");
                 }
 
                 out.println("<div class='entry'>");

@@ -95,18 +95,15 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                 }
             }
         %>
-        </div>
         <div id="column">
-
-                    <div class="subnav">
-                        <h2>Promotion</h2>
-                        <p>For best room rate and booking service, please contact our customer service.</p>
-                    </div>
-
+            <div class="subnav">
+                <h2>Promotion</h2>
+                <p>For best room rate and booking service, please contact our customer service.</p>
+            </div>
         </div>
         </div>
-       </div>
+        <div class="clear"></div>
+        </div>
         <jsp:include page="footer.jsp"/>
-        </div>
     </body>
 </html>

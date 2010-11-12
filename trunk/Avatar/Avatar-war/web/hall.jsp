@@ -78,7 +78,7 @@
                         out.println("<a class='book' href='cart.jsp?add=1&type=2&id=" + ((Hall) cur).getProductId() + "'>Add to Cart</a>");
                         System.out.println(ctrl.c.count());
                     }*/
-                    out.println("<a class='book' href='reservation.jsp?step=1&type=2&id=" + ((Hall) cur).getProductId() + "'>Reserve</a>");
+                    out.println("<a class='book' href='hallreservation.jsp?step=1&id=" + ((Hall) cur).getProductId() + "'>Reserve</a>");
                 }
                 out.println("<div class='entry'>");
                 out.println("<p>" + ((Hall) cur).getDescription() + "</p>");
