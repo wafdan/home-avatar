@@ -138,12 +138,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             </ul>
         </div>
 
-        <div class="subnav">
-            <h2>Reservation Status</h2>
-            <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
         </div>
-
-    </div>
         </div>
         <div class="clear"></div>
         </div>
