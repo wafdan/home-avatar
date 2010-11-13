@@ -83,17 +83,24 @@
                             //alert("Debug Data received :"+ajaxpost.responseText);
                             var roomAvailable=parseInt(ajaxpost.responseText);
                             var i;
+                            document.syalala.tombol.disabled=true;
                             
                             if(roomAvailable==0){
                                 //document.getElementById('errormessage').innerHTML="There no vacant room for your dates";
                                 alert("There no vacant room for your dates");
                                 roomSuccessStatus=0;
+                                selectObj.disabled=true;
+                                document.syalala.tombol.disabled=true;
                             }else if(roomAvailable==-1){
                                 roomSuccessStatus=-1;
                                 alert("Check-in date must be before check-out date");
+                                selectObj.disabled=true;
+                                document.syalala.tombol.disabled=true;
                             }else if(roomAvailable==-2){
                                 roomSuccessStatus=-2;
                                 alert("Date format must be in MM/dd/yyyy");
+                                document.syalala.tombol.disabled=true;
+                                selectObj.disabled=true;
                             }
                             else{
                                 selectObj.length=0;
