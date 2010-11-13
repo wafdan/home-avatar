@@ -1,7 +1,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.*,java.sql.*" %>
-<%@ page import="Layanan.*" %>
+<%@page import="Layanan.*" %>
 <%@page import="AvatarEntity.Accomodation"%>
 <%@page import="AvatarEntity.Hall"%>
 <%@page import="AvatarEntity.HallJpaController"%>
@@ -39,7 +39,7 @@
         <link rel="stylesheet" href="styles/layout.css" type="text/css" />
         <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="jquery/jqueryui.js"></script>
-        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />
         <script type="text/javascript">
             $(function(){
                 // Datepicker
@@ -133,7 +133,7 @@
 
         <div class="wrapper col3">
             <div id="breadcrumb">
-                <h1>Reservations</h1>
+                <h1>Room Reservations</h1>
             </div>
         </div>
         <%
@@ -231,7 +231,7 @@
             <div id="column">
                 <div class="subnav">
                     <h2>Reservation Status</h2>
-                    <p>See your reservation status <a href="reservation_status.jsp">here</a></p>
+                    <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
                 </div>
                 <div class="subnav">
                     <h2>Promotion</h2>

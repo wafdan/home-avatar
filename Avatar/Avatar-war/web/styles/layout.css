@@ -399,6 +399,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	padding:4px;
 	}
 
+#column .subnav .link_res_stat {
+    color:#982216;
+    background:#F9F9F9;
+    border:none;
+    padding:0;
+    display:inline;
+}
+
 /* ----------------------------------------------Footer-------------------------------------*/
 
 #footer{

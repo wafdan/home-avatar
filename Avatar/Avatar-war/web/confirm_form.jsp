@@ -23,13 +23,13 @@
     <td><label for="acc_no">Account Number</label></td>
     <td><label for="bank">Bank</label></td>
     <td><label for="amount">Amount</label></td>
-    <td><label for="payment_date">Payment Date (dd/mm/yyyy)</label></td>
+    <td><label for="payment_date">Payment Date</label></td>
     </tr>
     <tr>
-    <td><input size="35" type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>
-    <td><input size="35" type="text" id="bank<%= r.getReservationId() %>" name="bank" /></td>
-    <td><input size="35" type="text" id="amount<%= r.getReservationId() %>" name="amount" /></td>
-    <td><input size="35" type="text" id="payment_date<%= r.getReservationId() %>" name="payment_date" />
+    <td><input type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>
+    <td><input type="text" id="bank<%= r.getReservationId() %>" name="bank" /></td>
+    <td><input type="text" id="amount<%= r.getReservationId() %>" name="amount" /></td>
+    <td><input type="text" onchange="getPaymentDate();" id="payment_date<%= r.getReservationId() %>" name="payment_date" class="datepicker" onchange="validateDate();" />
     </td>
     </tr>
     </table>
