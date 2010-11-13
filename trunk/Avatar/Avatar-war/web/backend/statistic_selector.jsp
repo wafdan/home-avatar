@@ -13,6 +13,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../jquery/jqueryui.js"></script>
+        <link rel="stylesheet" type="text/css" href="../styles/jquerystyle.css" />"
+        <script type="text/javascript">
+            $(function(){
+                // Datepicker
+                $('.datepicker').datepicker({
+                    inline: true, dateFormat : "yy-mm-dd"
+                });
+                //hover states on the static widgets
+                $('#dialog_link, ul#icons li').hover(
+                function() { $(this).addClass('ui-state-hover'); },
+                function() { $(this).removeClass('ui-state-hover'); }
+            );
+            });
+
+        </script>
+
     </head>
     <body>
         <!-- start header -->
@@ -33,8 +51,8 @@
                                     <th>Statistic Type</th>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" name="from" id="from" size="10" maxlength="10" /></td>
-                                    <td><input type="text" name="to" id="to" size="10" maxlength="10" /></td>
+                                    <td><input type="text" name="from" id="from" size="10" class="datepicker" maxlength="10" /></td>
+                                    <td><input type="text" name="to" id="to" size="10" class="datepicker" maxlength="10" /></td>
                                     <td><select name="specify" id="specify">
                                             <option value="">All</option>
                                             <option value="room">Room</option>
