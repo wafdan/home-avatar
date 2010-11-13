@@ -237,14 +237,20 @@
                 %>
             <div id="column">
                 <div class="subnav">
+                    <h2>Reservation</h2>
+                    <ul>
+                        <li><a href="reservation.jsp?step=1">Room Reservation</a></li>
+                        <li><a href="hallreservation.jsp?step=1">Hall Reservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="subnav">
                     <h2>Reservation Status</h2>
                     <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
                 </div>
-                <div class="subnav">
-                    <h2>Promotion</h2>
-                    <p>For best room rate and booking service, please contact our customer service.</p>
-                </div>
+                
             </div>
+
             </div>
             <div class="clear"></div>
         </div>
