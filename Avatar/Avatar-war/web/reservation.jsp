@@ -144,9 +144,9 @@
             </div>
         </div>
         <%
-                    try {
-                        /*HALAMAN PERTAMA*/
-                        if (request.getParameter("step").equals("1")) {
+            try {
+                /*HALAMAN PERTAMA*/
+                if (request.getParameter("step").equals("1")) {
         %>
 
 
@@ -201,31 +201,38 @@
                     </form>
                 </div>
                 <%
-                                        } else if (request.getParameter("step").equals("3")) {
-                                            /* INI HALAMAN KETIGA */
-                                            double totalPrice = (Double) session.getAttribute("totalprice");
+                    } else if (request.getParameter("step").equals("3")) {
+                        /* INI HALAMAN KETIGA */
+                        double totalPrice = (Double) session.getAttribute("totalprice");
                 %>
-                <p>Your reservation has been saved on our system.
-                    Please transfer Rp. <%=totalPrice%> to one of these account number : </p>
-                <ol>
-                    <li>
-                        Bank : BRI
-                        Acc. No. : 0992-19920776-1
-                        Holder name : Zulfikar Hakim
-                    </li>
+                <div class="wrapper col4">
+                <div id="container">
+                    <div id="content" style="width:500px;">
+                        <jsp:include page="showcart.jsp" />
+                            <p>Your reservation has been saved on our system.</p>
+                            <p>Please transfer Rp. <%=totalPrice%> to one of these account number : </p>
+                            <ol>
+                                <li>
+                                    Bank : BRI
+                                    Acc. No. : 0992-19920776-1
+                                    Holder name : Zulfikar Hakim
+                                </li>
 
-                    <li>
-                        Bank : BCA
-                        Acc No. : 03976-1-374-1
-                        Holder name : Zulfikar Hakim
-                    </li>
-                </ol>
-                <p>please tranfer and confirm your within 5 days. However, your
+                                <li>
+                                    Bank : BCA
+                                    Acc No. : 03976-1-374-1
+                                    Holder name : Zulfikar Hakim
+                                </li>
+                            </ol>
+                            <p>please tranfer and confirm your within 5 days. However, your
                 reservation will be deleted after 5 days if you do not confirm payment
                 in the specified time</p>
                 <a href="reservation_status.jsp">Confirm now</a> <br>
                 <a href="reservation.jsp?step=1">Request more facility</a><br>
                 <a href="index.jsp">Go to main page</a>
+                            
+                            </div>
+
 
                 <%  } 
                 
