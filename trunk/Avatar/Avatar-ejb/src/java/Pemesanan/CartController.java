@@ -95,6 +95,7 @@ public class CartController implements CartControllerLocal {
     }
 
     public double getHallPrice(String prod_id) {
+        Debug.Debug.debug(prod_id);
         return pemetaanKodeHargaHall.get(prod_id);
     }
 
@@ -102,7 +103,7 @@ public class CartController implements CartControllerLocal {
         return pemetaanKodeTipeHall.get(prod_id);
     }
 
-    public double countTotalBill(Date tanggalMasuk, Date tanggalKeluar, double normalRate, double weekendrate) {
+    public double countTotalBill(Date tanggalMasuk, Date tanggalKeluar, double normalRate, double weekendrate, short totalRoom) {
         Calendar calMasuk = Calendar.getInstance();
         calMasuk.setTime(tanggalMasuk);
 
@@ -120,7 +121,7 @@ public class CartController implements CartControllerLocal {
             }
             calMasuk.add(Calendar.DATE, 1);
         }
-        return retval;
+        return retval*totalRoom;
     }
 
     public List<Room> generateRoomNumber(String product_id, Date entry_date, Date exit_date, int totalRoom) throws RoomNotEnoughException {

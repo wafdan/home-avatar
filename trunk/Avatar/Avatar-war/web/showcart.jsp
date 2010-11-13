@@ -50,6 +50,8 @@
     <tr>
         <th>No.</th>
         <th>Facility</th>
+        <th>Total</th>
+        <th style="width:150px;">Check-in date</th>
         <th>Duration (days)</th>
         <th>Unit price weekend</th>
         <th>Unit price weekday</th>
@@ -61,17 +63,19 @@
                                 i++;
                                 RoomSessionInfo temp = iRoom.next();
                                 double singleRowPrice = 0;
-                                singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
+                                singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id), temp.total);
                                 totalBill += singleRowPrice;
 
         %>
     <tr>
         <td><%=i%></td>
         <td><%=chartController.getRoomProductType(temp.product_id)%></td>
+        <td><%=temp.total%></td>
+        <td><%=(new SimpleDateFormat("EEE, d MMM yyyy")).format(temp.entry_date) %></td>
         <td><%=chartController.getDuration(temp.entry_date, temp.exit_date)%></td>
         <td><%=chartController.getRoomPriceWeekend(temp.product_id)%></td>
         <td><%=chartController.getRoomPriceWeekday(temp.product_id)%></td>
-        <td><%=singleRowPrice%></td>
+        <td><%=singleRowPrice %></td>
     </tr>
     <%
                         }
@@ -115,6 +119,7 @@
         <td><%=i%></td>
         <td><%=(new SimpleDateFormat("dd/MM/yyyy")).format(temp.use_date)%></td>
         <td><%=temp.product_name%></td>
+        <td><%=temp.total%></td>
         <td><%=temp.layout_name%></td>
         <td><%=temp.attendees%></td>
         <td><%=temp.total%></td>

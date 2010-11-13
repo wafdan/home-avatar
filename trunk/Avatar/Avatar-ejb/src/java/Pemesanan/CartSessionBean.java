@@ -233,6 +233,8 @@ public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
     public void clearCart() {
         hallCart.clear();
         roomCart.clear();
+        hallCart=null;
+        roomCart=null;
     }
 
 
