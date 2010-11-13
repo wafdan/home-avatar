@@ -41,6 +41,34 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <script type="text/javascript" src="script/showConfirmForm.js"></script>
         <script type="text/javascript" src="script/viewReservationDetail.js"></script>
         <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
+        <script type="text/javascript">
+            $(function(){
+                // Datepicker
+                $('.datepicker').datepicker({
+                    inline: true
+                });
+                //hover states on the static widgets
+                $('#dialog_link, ul#icons li').hover(
+                function() { $(this).addClass('ui-state-hover'); },
+                function() { $(this).removeClass('ui-state-hover'); }
+            );
+            });
+
+            var dateValid=false;
+
+            var validateDate=function(){
+                var regex=/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$/;
+                var target=document.confirmPayment.payment_date.value;
+                if(!regex.test(target)){
+                    alert("Date format must be MM/dd/yyyy");
+                    dateValid=false;
+                    return false;
+                }
+                else{
+                    dateValid=true;
+                }
+            }
+        </script>>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
@@ -52,6 +80,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 
         <div class="wrapper col4">
         <div id="container">
+        <div id="content" style="width:500px;">
         <%
             KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
             String name = (String) session.getAttribute("name");
@@ -63,15 +92,16 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             } else {
                 for (Reservation r : Reserv) {
                     out.println("Reservation Id : "+r.getReservationId());
+                    out.println("<div class='tabres'>");
                     out.println("<table>");
                     out.println("<tr>");
-                    out.println("<td>Total Price</td><td align='right'>"+currencyFormat.format(r.getTotalPrice())+"</td>");
+                    out.println("<td class='col1'>Total Price</td><td class='col2'>"+currencyFormat.format(r.getTotalPrice())+"</td>");
                     out.println("</tr>");
                     out.println("<tr>");
-                    out.println("<td>Note</td><td>"+r.getNote()+"</td>");
+                    out.println("<td class='col1'>Note</td><td class='col2'>"+r.getNote()+"</td>");
                     out.println("</tr>");
                     out.println("<tr>");
-                    out.println("<td>Payment Status</td><td>");
+                    out.println("<td class='col1'>Payment Status</td><td class='col2'>");
                     if (kpc.getPaymentStatus(r) == 1) {
                         out.println("Unpaid");
                     } else if (kpc.getPaymentStatus(r) == 2) {
@@ -80,7 +110,9 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         out.println("Not Verified");
                     }
                     out.println("</td></tr></table>");
+                    out.println("</div>");
                     out.println("<div id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
+                    out.println("<div class='tabconfirm_form'>");
                     if (kpc.getPaymentStatus(r) == 1) {
                         out.println("<div id=confirm_form"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:showForm("+r.getReservationId()+",1)' value='Confirm'></div>");
                     } else {
@@ -91,10 +123,12 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                             out.println("</form>");
                         }
                     }
+                    out.println("</div>");
                     out.println("<br /><br />");
                 }
             }
         %>
+        </div>
         <div id="column">
             <div class="subnav">
                 <h2>Promotion</h2>

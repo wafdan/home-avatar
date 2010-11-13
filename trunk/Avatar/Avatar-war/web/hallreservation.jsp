@@ -28,17 +28,29 @@
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
 <%@page import="Pemesanan.*" %>
+<%@page import="java.util.Locale"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.NumberFormat"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
+<%
+            Locale locale = Locale.getDefault();
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+%>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+    <head profile="http://gmpg.org/xfn/11">
+        <%
+                    ProfileJpaController pjc = new ProfileJpaController();
+                    Profile p = pjc.findProfile(Boolean.TRUE);
+        %>
+        <title><%=p.getHotelName()%> - Reservation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <link rel="stylesheet" href="styles/layout.css" type="text/css" />
         <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="jquery/jqueryui.js"></script>
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />
         <script type="text/javascript">
             $(function(){
                 // Datepicker
@@ -153,6 +165,13 @@
         </script>
     </head>
     <body>
+        <jsp:include page="header.jsp"/>
+
+        <div class="wrapper col3">
+            <div id="breadcrumb">
+                <h1>Hall Reservations</h1>
+            </div>
+        </div>
     <%
 
                 String step = request.getParameter("step");
@@ -173,6 +192,9 @@
 
 
     %>
+    <div class="wrapper col4">
+    <div id="container">
+    <div id="content" style="width:500px;">
     <jsp:include page="showcart.jsp" />
     <form method="POST" name="syalala" action="TambahKeranjang?action=addhall">
         <ul>
@@ -225,8 +247,22 @@
         </ul>
 
     </form>
+    </div>
     <% //endif untuk step==1
                             }%>
-
+    <div id="column">
+        <div class="subnav">
+            <h2>Reservation Status</h2>
+            <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
+        </div>
+        <div class="subnav">
+            <h2>Promotion</h2>
+            <p>For best room rate and booking service, please contact our customer service.</p>
+        </div>
+    </div>
+    </div>
+    <div class="clear"></div>
+     </div>
+    <jsp:include page="footer.jsp"/>
 </body>
 </html>
