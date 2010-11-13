@@ -19,12 +19,6 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2> Back End Management</h2>
-            </div>
-        </div>
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->
@@ -50,7 +44,7 @@ if (request.getAttribute("from") != null && request.getAttribute("to") != null)
                         <img src ="generator?type=hall<%=period%>" alt="Statistics of hall" />
                         <% } %>
                         <% if (request.getAttribute("specify") != null && request.getAttribute("specify").equals("hall")) { %>
-                        <img src ="generator?type=hall<%=period%>&subtype=1" alt="Statistics of room" />
+                        <img src ="generator?type=hall<%=period%>&subtype=1" alt="Statistics of hall" />
                         <!--<img src ="generator?type=hall<%=period%>&subtype=2" alt="Statistics of room" />-->
                         <% } %>
                         <% if (request.getAttribute("specify") == null ||

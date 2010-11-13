@@ -44,12 +44,7 @@
                 }
             }
         </script>
-        <div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2> Back End Management</h2>
-            </div>
-        </div>
+        
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->

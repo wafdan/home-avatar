@@ -123,12 +123,7 @@
         </script>
     </head>
     <body>
-        <div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2> Back End Management</h2>
-            </div>
-        </div>
+       
         <%
                     Profile p;
                     ProfileJpaController pjc = new ProfileJpaController();
@@ -146,8 +141,8 @@
                     <!-- start content -->
                     <div id="content">
                         <div class="post">
-                            <div class="box">
-                                <h1>Edit Profil Hotel</h1>
+                            <h1>Edit Hotel's Profile</h1>
+                        
                                 <form method="POST" action="EditProfilHotel">
                                     <div class="required">
                                         <label> <span>Hotel name :</span></label>
@@ -410,7 +405,7 @@
                                     </div>
                                     <input name="logosubmit" type="Submit" value="Upload File" disabled="true"><br/>
                                 </form>
-                            </div>
+                        
                         </div>
                     </div>
                     <!-- end content -->
