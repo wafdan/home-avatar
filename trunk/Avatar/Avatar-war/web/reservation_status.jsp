@@ -40,7 +40,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <script type="text/javascript" src="jquery/jqueryui.js"></script>
         <script type="text/javascript" src="script/showConfirmForm.js"></script>
         <script type="text/javascript" src="script/viewReservationDetail.js"></script>
-        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />"
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />
         <script type="text/javascript">
             $(function(){
                 // Datepicker
@@ -68,7 +68,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     dateValid=true;
                 }
             }
-        </script>>
+        </script>
     </head>
     <body>
         <jsp:include page="header.jsp"/>
