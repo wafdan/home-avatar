@@ -136,6 +136,10 @@
                                 //alert(ajaxpost.responseText);
                                 var i;
                                 var batasAtas=parseInt(ajaxpost.responseText);
+                                if(batasAtas==0){
+                                    alert("There is no available room on requested date or capacity");
+                                    return;
+                                }
                                 document.syalala.hallneeded.length=0;
                                 document.syalala.hallneeded.disabled=false;
                                 document.syalala.tombol.disabled=false;
@@ -236,8 +240,9 @@
 
             <li>
                 <label for="hallneeded">Hall needed : </label>
-                <select name="hallneeded">
-                    <% //di sini buat masukkin hall yang available buat user nya. %>
+                <select name="hallneeded" disabled="true">
+                    <option value="notchoosed">Please fill data above...</option>
+                    <%  %>
                 </select>
             </li>
 

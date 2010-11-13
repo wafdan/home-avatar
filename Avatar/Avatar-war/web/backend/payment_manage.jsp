@@ -114,7 +114,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 <div id="sidebar-title">
                                     <h2>Payment Management</h2>
                                 </div>
-                                <hr />
+                                
                                 <ul>
                                     <li>PAYMENT
                                         <ul id="fmenu">
@@ -125,7 +125,6 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                         </ul>
                                     </li>
                                 </ul>
-                                <hr />
                             </li>
                         </ul>
                     </div>

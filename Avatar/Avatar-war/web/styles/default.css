@@ -31,12 +31,12 @@ p, ul, ol {
 }
 
 a:link {
-    color: #48ACDE;
+    color: #000000;
 }
 
 a:hover, a:active {
     text-decoration: none;
-    color: #48ACDE;
+    color: #EEEEEE;
 }
 
 a:visited {
@@ -229,6 +229,8 @@ form .button{
     width: 860px;
     margin: 0 auto;
     padding-top: 20px;
+    background-color:#CCCCCC;
+    color: #000000;
 }
 
 /* Content */
@@ -324,6 +326,7 @@ form .button{
 
 #sidebar-title {
     border-bottom: 2px double #333333;
+    padding-bottom: 10px;
 }
 
 #sidebar li ul {

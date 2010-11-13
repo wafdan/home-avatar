@@ -30,7 +30,7 @@
     <div id="topnav">
       <ul>
            <%if ((session.getAttribute("name")) == null) {%>
-                <li class="last"><a href="index.jsp">Reservation</a><span>make an order</span></li>
+           <li class="last"><a href="index.jsp" onclick="alert('Please Login!');">Reservation</a><span>make an order</span></li>
             <%} else {%>
                  <li class="last"><a href="reservation.jsp?step=1">Reservation</a><span>make an order</span></li>
             <%}%>
