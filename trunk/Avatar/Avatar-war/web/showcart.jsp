@@ -34,13 +34,14 @@
             ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
             CartController chartController = new CartController();
             double totalBill = 0;
-            if(cartRoom!=null && cartHall!=null){
+            if (cartRoom != null && cartHall != null) {
 %>
 <h1>YOUR RESERVATION CART</h1>
-<%
-            }if ((cartRoom != null)) {
-                Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
-                int i = 0;
+<%            }
+            if ((cartRoom != null)) {
+                if (cartRoom.size() != 0) {
+                    Iterator<RoomSessionInfo> iRoom = cartRoom.iterator();
+                    int i = 0;
 
 %>
 <p>Your reservation will not saved until you click <b>"PROCEED" </b></p>
@@ -56,12 +57,12 @@
     </tr>
     <tr>
         <% /*ini buat produce isi td-nya*/
-                                while (iRoom.hasNext()) {
-                                    i++;
-                                    RoomSessionInfo temp = iRoom.next();
-                                    double singleRowPrice = 0;
-                                    singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
-                                    totalBill += singleRowPrice;
+                            while (iRoom.hasNext()) {
+                                i++;
+                                RoomSessionInfo temp = iRoom.next();
+                                double singleRowPrice = 0;
+                                singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id));
+                                totalBill += singleRowPrice;
 
         %>
     <tr>
@@ -73,18 +74,20 @@
         <td><%=singleRowPrice%></td>
     </tr>
     <%
-                            }
+                        }
     %>
 </tr>
 </table>
 <%
 
+                }
             }
 
             /* ******************************************************************
             Menampilkan reservasi dari Hall nya*/
             if (!(cartHall == null)) {
-                Iterator<HallSessionInfo> iHall = cartHall.iterator();
+                if (cartHall.size() != 0) {
+                    Iterator<HallSessionInfo> iHall = cartHall.iterator();
 %>
 
 <h2>Hall</h2>
@@ -123,13 +126,19 @@
 
 </table>
 <%
+                }
             }
-            if(!(cartRoom==null && cartHall==null)){
-            session.setAttribute("totalprice", totalBill);
+            try {
+                    session.setAttribute("totalprice", totalBill);
+                    if(totalBill!=0){
 %>
 <p>Your bill : Rp. <%= totalBill%></p>
 <a href="TambahKeranjang?action=proceed">Proceed</a>
 <br> <br> 
-<%}%>
+<%}
+            } catch (NullPointerException ex) {
+            }
+
+            %>
 
 
