@@ -23,15 +23,6 @@ List<Layout> lLay = (List<Layout>) request.getAttribute("returnList");
         <%
         if ((session.getAttribute("name")) != null) {
         %>
-        <div id="loginstatus">Anda Login sebagai : <%=session.getAttribute("name")%>
-            <a href="../Logout">Logout</a>
-        </div>
-        <div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2>Back End Management</h2>
-            </div>
-        </div>
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->

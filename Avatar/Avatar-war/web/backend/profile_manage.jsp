@@ -29,13 +29,7 @@ border:1px solid #262626;
     </head>
 <body>
 
-        <div id="logo-wrap">
-            <div id="logo">
-                <h1><a href="#">AVATAR</a></h1>
-                <h2> Back End Management</h2>
-            </div>
-        </div>
-        <!-- start header -->
+         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->
         <!-- start page -->
@@ -44,6 +38,7 @@ border:1px solid #262626;
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
+                        <h1 class="title">Hotel's Profile</h1>
                       <div class="post">
                         <table width="592" border="0" style="table-layout: fixed">
                           <tr>
@@ -75,9 +70,7 @@ border:1px solid #262626;
                             <td><textarea style=" color:#FFF; background-color:#000; border-color:#000" cols="55" rows="6"><%=p.getHotelDescription() %></textarea></td>
                           </tr>
                         </table>
-                        <h2 class="title">&nbsp;</h2>
-                        <div class="post"></div>
-                      </div>
+                       </div>
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->

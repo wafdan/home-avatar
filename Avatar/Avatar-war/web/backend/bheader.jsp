@@ -6,6 +6,13 @@
     Modified   : Nov 4, 2010
 --%>
         <!-- start header -->
+        <div id="logo-wrap">
+            <div id="logo">
+                <h1><a href="index.jsp">AVATAR</a></h1>
+                <h2> Back End Management</h2>
+            </div>
+        </div>
+        
         <div id="header">
             <%
             if ((session.getAttribute("name")) != null) {
@@ -24,5 +31,6 @@
                     <li><a id="bhm_pymt" href="payment_manage">Payment</a></li>
                 </ul>
             </div>
+            
         </div>
         <!-- end header -->
