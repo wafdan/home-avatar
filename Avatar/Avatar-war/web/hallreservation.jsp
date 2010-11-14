@@ -200,6 +200,7 @@
     <div id="container">
     <div id="content" style="width:500px;">
     <jsp:include page="showcart.jsp" />
+    <h1>Please fill up this form to book our facility. </h1>
     <form method="POST" name="syalala" action="TambahKeranjang?action=addhall">
         <ul>
             <li>
