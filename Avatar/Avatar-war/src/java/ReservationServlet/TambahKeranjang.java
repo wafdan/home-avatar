@@ -9,7 +9,9 @@ import AvatarEntity.CustomerJpaController;
 import AvatarEntity.Hall;
 import AvatarEntity.HallReservation;
 import AvatarEntity.HallReservationJpaController;
+import AvatarEntity.Payment;
 import AvatarEntity.Reservation;
+import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationJpaController;
 import AvatarEntity.Room;
 import AvatarEntity.RoomReservation;
@@ -107,6 +109,7 @@ public class TambahKeranjang extends HttpServlet {
                 Customer cust = (new CustomerJpaController()).findCustomer(usernameCustomer);
                 res.setUsername(cust);
                 res.setNote("");
+
                 resjpa.create(res);
                 ArrayList<HallSessionInfo> listHallCart = cartSessionBean1.getHallCart();
                 ArrayList<RoomSessionInfo> listRoomCart = cartSessionBean1.getRoomCart();
@@ -138,6 +141,7 @@ public class TambahKeranjang extends HttpServlet {
                         Room r=roomKosong.get(0);
                         roomReservation.setRoomNo(r);
                         roomKosong.remove(r);
+                        //roomReservation.setPrice(cartController.countTotalBill(temp.entry_date,temp.exit_date, temp., i, totalRoom));
                         roomReservation.setReservationId(res);
                         (new RoomReservationJpaController()).create(roomReservation);
                     } 
