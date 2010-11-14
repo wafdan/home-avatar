@@ -15,6 +15,23 @@
 
     if (show.equals("true")) {
 %>
+    <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="jquery/jqueryui.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles/jquerystyle.css" />
+        <script type="text/javascript">
+            $(function(){
+                // Datepicker
+                $('.datepicker').datepicker({
+                    inline: true, dateFormat : "yy-mm-dd"
+                });
+                //hover states on the static widgets
+                $('#dialog_link, ul#icons li').hover(
+                function() { $(this).addClass('ui-state-hover'); },
+                function() { $(this).removeClass('ui-state-hover'); }
+            );
+            });
+
+        </script>
     <br />
     <form method="post" name="confirmPayment" id="confirmPayment" action="ConfirmPayment">
     <input type="hidden" name="reservationId" id="reservationId" value="<%= r.getReservationId() %>" />
@@ -29,7 +46,9 @@
     <td><input type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>
     <td><input type="text" id="bank<%= r.getReservationId() %>" name="bank" /></td>
     <td><input type="text" id="amount<%= r.getReservationId() %>" name="amount" /></td>
-    <td><input type="text" onchange="getPaymentDate();" id="payment_date<%= r.getReservationId() %>" name="payment_date" class="datepicker" onchange="validateDate();" />
+    <!--<td><input type="text" onchange="getPaymentDate();" id="payment_date<%= r.getReservationId() %>" name="payment_date" class="datepicker" onchange="validateDate();" />
+    </td>-->
+    <td><input type="text" id="payment_date<%= r.getReservationId() %>" name="payment_date" class="datepicker" />
     </td>
     </tr>
     </table>
