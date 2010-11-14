@@ -18,7 +18,7 @@
     <class>AvatarEntity.VenueLayout</class>
     <class>AvatarEntity.Customer</class>
     <class>AvatarEntity.Payment</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
 </persistence>
