@@ -5,7 +5,6 @@
 
 package KelolaPembayaran;
 
-import AvatarEntity.Customer;
 import AvatarEntity.HallReservation;
 import AvatarEntity.OtherServicesReservation;
 import AvatarEntity.Reservation;
@@ -21,7 +20,6 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

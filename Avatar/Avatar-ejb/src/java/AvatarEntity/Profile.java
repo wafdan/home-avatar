@@ -29,7 +29,14 @@ import javax.persistence.Table;
     @NamedQuery(name = "Profile.findByHotelAddress2", query = "SELECT p FROM Profile p WHERE p.hotelAddress2 = :hotelAddress2"),
     @NamedQuery(name = "Profile.findByHotelCity", query = "SELECT p FROM Profile p WHERE p.hotelCity = :hotelCity"),
     @NamedQuery(name = "Profile.findByHotelCountry", query = "SELECT p FROM Profile p WHERE p.hotelCountry = :hotelCountry"),
-    @NamedQuery(name = "Profile.findByHotelPhone", query = "SELECT p FROM Profile p WHERE p.hotelPhone = :hotelPhone")})
+    @NamedQuery(name = "Profile.findByHotelPhone", query = "SELECT p FROM Profile p WHERE p.hotelPhone = :hotelPhone"),
+    @NamedQuery(name = "Profile.findByHotelFax", query = "SELECT p FROM Profile p WHERE p.hotelFax = :hotelFax"),
+    @NamedQuery(name = "Profile.findByAccountNumber1", query = "SELECT p FROM Profile p WHERE p.accountNumber1 = :accountNumber1"),
+    @NamedQuery(name = "Profile.findByBankName1", query = "SELECT p FROM Profile p WHERE p.bankName1 = :bankName1"),
+    @NamedQuery(name = "Profile.findByAccountName1", query = "SELECT p FROM Profile p WHERE p.accountName1 = :accountName1"),
+    @NamedQuery(name = "Profile.findByAccountNumber2", query = "SELECT p FROM Profile p WHERE p.accountNumber2 = :accountNumber2"),
+    @NamedQuery(name = "Profile.findByBankName2", query = "SELECT p FROM Profile p WHERE p.bankName2 = :bankName2"),
+    @NamedQuery(name = "Profile.findByAccountName2", query = "SELECT p FROM Profile p WHERE p.accountName2 = :accountName2")})
 public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,9 +63,29 @@ public class Profile implements Serializable {
     @Lob
     @Column(name = "hotel_description")
     private String hotelDescription;
+    @Lob
+    @Column(name = "hotel_logo")
+    private String hotelLogo;
     @Basic(optional = false)
     @Column(name = "hotel_phone")
     private String hotelPhone;
+    @Column(name = "hotel_fax")
+    private String hotelFax;
+    @Basic(optional = false)
+    @Column(name = "account_number1")
+    private String accountNumber1;
+    @Basic(optional = false)
+    @Column(name = "bank_name1")
+    private String bankName1;
+    @Basic(optional = false)
+    @Column(name = "account_name1")
+    private String accountName1;
+    @Column(name = "account_number2")
+    private String accountNumber2;
+    @Column(name = "bank_name2")
+    private String bankName2;
+    @Column(name = "account_name2")
+    private String accountName2;
 
     public Profile() {
     }
@@ -67,13 +94,16 @@ public class Profile implements Serializable {
         this.id = id;
     }
 
-    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone) {
+    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone, String accountNumber1, String bankName1, String accountName1) {
         this.id = id;
         this.hotelName = hotelName;
         this.hotelAddress1 = hotelAddress1;
         this.hotelCity = hotelCity;
         this.hotelCountry = hotelCountry;
         this.hotelPhone = hotelPhone;
+        this.accountNumber1 = accountNumber1;
+        this.bankName1 = bankName1;
+        this.accountName1 = accountName1;
     }
 
     public Boolean getId() {
@@ -140,12 +170,76 @@ public class Profile implements Serializable {
         this.hotelDescription = hotelDescription;
     }
 
+    public String getHotelLogo() {
+        return hotelLogo;
+    }
+
+    public void setHotelLogo(String hotelLogo) {
+        this.hotelLogo = hotelLogo;
+    }
+
     public String getHotelPhone() {
         return hotelPhone;
     }
 
     public void setHotelPhone(String hotelPhone) {
         this.hotelPhone = hotelPhone;
+    }
+
+    public String getHotelFax() {
+        return hotelFax;
+    }
+
+    public void setHotelFax(String hotelFax) {
+        this.hotelFax = hotelFax;
+    }
+
+    public String getAccountNumber1() {
+        return accountNumber1;
+    }
+
+    public void setAccountNumber1(String accountNumber1) {
+        this.accountNumber1 = accountNumber1;
+    }
+
+    public String getBankName1() {
+        return bankName1;
+    }
+
+    public void setBankName1(String bankName1) {
+        this.bankName1 = bankName1;
+    }
+
+    public String getAccountName1() {
+        return accountName1;
+    }
+
+    public void setAccountName1(String accountName1) {
+        this.accountName1 = accountName1;
+    }
+
+    public String getAccountNumber2() {
+        return accountNumber2;
+    }
+
+    public void setAccountNumber2(String accountNumber2) {
+        this.accountNumber2 = accountNumber2;
+    }
+
+    public String getBankName2() {
+        return bankName2;
+    }
+
+    public void setBankName2(String bankName2) {
+        this.bankName2 = bankName2;
+    }
+
+    public String getAccountName2() {
+        return accountName2;
+    }
+
+    public void setAccountName2(String accountName2) {
+        this.accountName2 = accountName2;
     }
 
     @Override

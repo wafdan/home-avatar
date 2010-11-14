@@ -2,7 +2,6 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="AvatarPersistenceUnit" transaction-type="JTA">
     <jta-data-source>AvatarJNDI</jta-data-source>
-    <class>AvatarEntity.Profile</class>
     <class>AvatarEntity.HotelInfo</class>
     <class>AvatarEntity.Accomodation</class>
     <class>AvatarEntity.Hall</class>
@@ -19,7 +18,6 @@
     <class>AvatarEntity.VenueLayout</class>
     <class>AvatarEntity.Customer</class>
     <class>AvatarEntity.Payment</class>
-    <class>AvatarEntity.Reservation</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>
