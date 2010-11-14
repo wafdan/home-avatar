@@ -141,7 +141,7 @@ public class TambahKeranjang extends HttpServlet {
                         Room r=roomKosong.get(0);
                         roomReservation.setRoomNo(r);
                         roomKosong.remove(r);
-                        //roomReservation.setPrice(cartController.countTotalBill(temp.entry_date,temp.exit_date, temp., i, totalRoom));
+                        roomReservation.setPrice(temp.price);
                         roomReservation.setReservationId(res);
                         (new RoomReservationJpaController()).create(roomReservation);
                     } 
