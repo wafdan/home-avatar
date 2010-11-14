@@ -204,6 +204,7 @@
     <form method="POST" name="syalala" action="TambahKeranjang?action=addhall">
         <ul>
             <li>
+                <h2>HALL</h2>
                 <label>Package :</label>
                 <select name="hallpackage" onchange="validatePackage();">
                     <option value="notchoosed">Please choose package...</option>
@@ -246,12 +247,8 @@
                     <%  %>
                 </select>
             </li>
-
-            <li>
-                <input type="submit" value="submit" disabled="true" name="tombol"/>
-            </li>
         </ul>
-
+    <input type="submit" value="SUBMIT" disabled="true" name="tombol"/>
     </form>
     </div>
     <% //endif untuk step==1
