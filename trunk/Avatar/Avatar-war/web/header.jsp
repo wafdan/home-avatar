@@ -43,7 +43,7 @@
 
     <div id="logo">
     	<div id="logokiri">
-        	<img class="imglogo" src="images/demo/logohotelgrahamini.png" alt="" />
+        	<img class="imglogo" src="images/logo.png" alt="" />
         </div>
         <div id="logokanan">
                 <%
