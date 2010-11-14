@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 09, 2010 at 05:04 PM
+-- Generation Time: Nov 14, 2010 at 02:05 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -236,14 +236,15 @@ CREATE TABLE IF NOT EXISTS `payment` (
   PRIMARY KEY (`payment_id`),
   UNIQUE KEY `reservation_id` (`reservation_id`),
   KEY `fk_checks` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `payment`
 --
 
 INSERT INTO `payment` (`payment_id`, `reservation_id`, `confirm_time`, `username`, `payment_date`, `payment_method`, `payment_bank`, `account_number`, `amount`) VALUES
-(1, 2, '2010-11-01 03:00:01', NULL, '2010-11-01', 'cheque', 'BNI', '0129332544', 545000);
+(1, 2, '2010-11-01 03:00:01', NULL, '2010-11-01', 'cheque', 'BNI', '0129332544', 545000),
+(2, 1, '2010-11-11 17:43:00', 'admin', '3910-12-11', 'Transfer', 'BNI', '0000000000000', 545000);
 
 -- --------------------------------------------------------
 
@@ -260,7 +261,15 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `hotel_country` varchar(25) NOT NULL,
   `hotel_email` text,
   `hotel_description` text,
+  `hotel_logo` text,
   `hotel_phone` varchar(15) NOT NULL,
+  `hotel_fax` varchar(15) DEFAULT NULL,
+  `account_number1` varchar(25) NOT NULL,
+  `bank_name1` varchar(50) NOT NULL,
+  `account_name1` varchar(50) NOT NULL,
+  `account_number2` varchar(25) DEFAULT NULL,
+  `bank_name2` varchar(50) DEFAULT NULL,
+  `account_name2` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -268,8 +277,8 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_phone`) VALUES
-(1, 'Spons Hotel', 'Jalan Spons 112', 'Kelurahan Ceu Kecamatan Ceuceu', 'Jakarta', 'Indonesia', 'contact@sponshotel.co.id', 'Hotel ini berada di kawasan elit jakarta, terbebas dari semrawut dan kemacetan kota Jakarta', '085220280021');
+INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_logo`, `hotel_phone`, `hotel_fax`, `account_number1`, `bank_name1`, `account_name1`, `account_number2`, `bank_name2`, `account_name2`) VALUES
+(1, 'Hotel Grao', 'Jalan Spons 112', 'Kelurahan Ceu Kecamatan Ceuceu', 'Jakarta', '', 'contact@sponshotel.co.id', 'Hotel ini berada di kawasan elit jakarta, terbebas dari semrawut dan kemacetan kota Jakarta', NULL, '085220280021', '', '', '', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -282,17 +291,19 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `is_onspot` tinyint(1) NOT NULL,
   `username` varchar(25) NOT NULL,
   `note` text NOT NULL,
+  `parent` int(11) DEFAULT NULL,
   PRIMARY KEY (`reservation_id`),
-  KEY `username` (`username`)
+  KEY `username` (`username`),
+  KEY `parent` (`parent`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`) VALUES
-(1, 0, 'christian.h6191', 'tes saja'),
-(2, 0, 'ponimin4070', 'juga tes');
+INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`, `parent`) VALUES
+(1, 0, 'christian.h6191', 'tes saja', NULL),
+(2, 0, 'ponimin4070', 'juga tes', NULL);
 
 -- --------------------------------------------------------
 
@@ -416,26 +427,6 @@ INSERT INTO `staff` (`username`, `name`, `password`, `email`, `employment_id`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `telephone`
---
-
-CREATE TABLE IF NOT EXISTS `telephone` (
-  `phone_type` varchar(10) NOT NULL,
-  `phone_number` varchar(15) NOT NULL,
-  PRIMARY KEY (`phone_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `telephone`
---
-
-INSERT INTO `telephone` (`phone_type`, `phone_number`) VALUES
-('office', '+622270470470'),
-('fax', '+622270470471');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `venue`
 --
 
@@ -525,7 +516,8 @@ ALTER TABLE `payment`
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservation_item`
