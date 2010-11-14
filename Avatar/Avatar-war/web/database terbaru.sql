@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 14, 2010 at 08:13 
+-- Generation Time: Nov 14, 2010 at 08:34 
 -- Server version: 5.1.37
 -- PHP Version: 5.3.0
 
@@ -288,7 +288,15 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `hotel_country` varchar(25) NOT NULL,
   `hotel_email` text,
   `hotel_description` text,
+  `hotel_logo` text,
   `hotel_phone` varchar(15) NOT NULL,
+  `hotel_fax` varchar(15) DEFAULT NULL,
+  `account_number1` varchar(25) NOT NULL,
+  `bank_name1` varchar(50) NOT NULL,
+  `account_name1` varchar(50) NOT NULL,
+  `account_number2` varchar(25) DEFAULT NULL,
+  `bank_name2` varchar(50) DEFAULT NULL,
+  `account_name2` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -296,8 +304,8 @@ CREATE TABLE IF NOT EXISTS `profile` (
 -- Dumping data for table `profile`
 --
 
-INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_phone`) VALUES
-(1, 'Hotel Graha', 'Jl. Ir. Hi. Djuanda 45', 'Kecamatan Coblong, Kelurahan Dago', 'Bandung', 'Indonesia', 'contact@hotelgraha.co.id', 'Welcome to Hotel Graha Bandung, a five star luxury hotel in Bandung, West Java. Located in the heart of Bandung, we provide a superior level of service to satisfy the needs of our global guests. As a member of the "Hotel Graha" group, the Hotel Graha Bandung offers an extraordinary level of service and coordinated interior designs. Restored to its original opulence, Hotel Graha Bandung sets the standard for elegance. From the magnificent columned lobby with its marble floors and stained-glass dome to the classic décor of the 250 guestrooms and suites, we ensures that every stay is a memorable one.', '+6222 786567');
+INSERT INTO `profile` (`id`, `hotel_name`, `hotel_address1`, `hotel_address2`, `hotel_city`, `hotel_country`, `hotel_email`, `hotel_description`, `hotel_logo`, `hotel_phone`, `hotel_fax`, `account_number1`, `bank_name1`, `account_name1`, `account_number2`, `bank_name2`, `account_name2`) VALUES
+(1, 'Hotel Graha', 'Jl. Ir. Hi. Djuanda 45', 'Kecamatan Coblong, Kelurahan Dago', 'Bandung', 'Indonesia', 'contact@hotelgraha.co.id', 'Welcome to Hotel Graha Bandung, a five star luxury hotel in Bandung, West Java. Located in the heart of Bandung, we provide a superior level of service to satisfy the needs of our global guests. As a member of the "Hotel Graha" group, the Hotel Graha Bandung offers an extraordinary level of service and coordinated interior designs. Restored to its original opulence, Hotel Graha Bandung sets the standard for elegance. From the magnificent columned lobby with its marble floors and stained-glass dome to the classic décor of the 250 guestrooms and suites, we ensures that every stay is a memorable one.', NULL, '+6222 786567', '+6222 786568', '0129903495', 'BNI', 'Hotel Graha Bandung', '12338838', 'BCA', 'Hotel Graha Bandung');
 
 -- --------------------------------------------------------
 
@@ -310,30 +318,32 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `is_onspot` tinyint(1) NOT NULL,
   `username` varchar(25) NOT NULL,
   `note` text NOT NULL,
+  `parent` int(11) DEFAULT NULL,
   PRIMARY KEY (`reservation_id`),
-  KEY `username` (`username`)
+  KEY `username` (`username`),
+  KEY `parent` (`parent`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`) VALUES
-(1, 1, 'customer', ''),
-(2, 0, 'customer', ''),
-(3, 1, 'customer', 'reservation id: 2'),
-(4, 1, 'christian.h6191', ''),
-(5, 0, 'customer', ''),
-(6, 1, 'christian.h6191', ''),
-(7, 1, 'customer', 'reservation id: 5'),
-(8, 1, 'customer', 'reservation id: 5'),
-(9, 1, 'customer', ''),
-(10, 0, 'christian.h6191', ''),
-(11, 0, 'customer', '(payment invalid)'),
-(12, 0, 'christian.h6191', ''),
-(13, 0, 'joy123', ''),
-(14, 0, 'joy123', ''),
-(15, 0, 'customer', '');
+INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`, `parent`) VALUES
+(1, 1, 'customer', '', NULL),
+(2, 0, 'customer', '', NULL),
+(3, 1, 'customer', 'reservation id: 2', 2),
+(4, 1, 'christian.h6191', '', NULL),
+(5, 0, 'customer', '', NULL),
+(6, 1, 'christian.h6191', '', NULL),
+(7, 1, 'customer', 'reservation id: 5', 5),
+(8, 1, 'customer', 'reservation id: 5', 5),
+(9, 1, 'customer', '', NULL),
+(10, 0, 'christian.h6191', '', NULL),
+(11, 0, 'customer', '(payment invalid)', NULL),
+(12, 0, 'christian.h6191', '', NULL),
+(13, 0, 'joy123', '', NULL),
+(14, 0, 'joy123', '', NULL),
+(15, 0, 'customer', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -506,26 +516,6 @@ INSERT INTO `staff` (`username`, `name`, `password`, `email`, `employment_id`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `telephone`
---
-
-CREATE TABLE IF NOT EXISTS `telephone` (
-  `phone_type` varchar(10) NOT NULL,
-  `phone_number` varchar(15) NOT NULL,
-  PRIMARY KEY (`phone_number`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `telephone`
---
-
-INSERT INTO `telephone` (`phone_type`, `phone_number`) VALUES
-('office', '+622270470470'),
-('fax', '+622270470471');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `venue`
 --
 
@@ -615,6 +605,7 @@ ALTER TABLE `payment`
 -- Constraints for table `reservation`
 --
 ALTER TABLE `reservation`
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`parent`) REFERENCES `reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`username`) REFERENCES `customer` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
