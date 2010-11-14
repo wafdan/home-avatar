@@ -112,7 +112,7 @@
                             i++;
                             HallSessionInfo temp = iHall.next();
                             double singleRowPrice = 0;
-                            singleRowPrice = chartController.getHallPrice(temp.product_id);
+                            singleRowPrice = temp.price*temp.total;
                             totalBill += singleRowPrice;
     %>
     <tr>

@@ -112,6 +112,7 @@ public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
         h.layout_name=c.getLayoutName(layout_id);
         h.attendees=capacity;
        // h.price=c.countTotalBill(useDate, useDate, total, capacity, total)
+        h.price=c.getHallPrice(product_id);
         hallCart.add(h);
     }
 
