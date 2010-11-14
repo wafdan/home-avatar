@@ -117,18 +117,18 @@ public class TambahKeranjang extends HttpServlet {
                 Iterator<RoomSessionInfo> iRoomCart = listRoomCart.iterator();
 
                 //yang room gw masih belum yakin harus divalidasi dulu ini sama ceha.
+                CartController cartController = new CartController();
 
-             /* while (iHallCart.hasNext()) {
+                while (iHallCart.hasNext()) {
                     HallSessionInfo temp = iHallCart.next();
                     HallReservation hallReservation = new HallReservation();
                     hallReservation.setProductId(new Hall(temp.product_id));
                     hallReservation.setUseDate(temp.use_date);
                     hallReservation.setReservationTime(new Date());
                     hallReservation.setReservationId(res);
+                    hallReservation.setPrice(temp.price);
                     (new HallReservationJpaController()).create(hallReservation);
-                }*/
-
-                CartController cartController = new CartController();
+                }
 
                 while (iRoomCart.hasNext()) {
                     RoomSessionInfo temp = iRoomCart.next();
@@ -138,14 +138,14 @@ public class TambahKeranjang extends HttpServlet {
                         roomReservation.setEntryDate(temp.entry_date);
                         roomReservation.setExitDate(temp.exit_date);
                         roomReservation.setReservationTime(new Date());
-                        Room r=roomKosong.get(0);
+                        Room r = roomKosong.get(0);
                         roomReservation.setRoomNo(r);
                         roomKosong.remove(r);
                         roomReservation.setPrice(temp.price);
                         roomReservation.setReservationId(res);
                         (new RoomReservationJpaController()).create(roomReservation);
-                    } 
-                    
+                    }
+
                 }
 
                 out.write("success");
