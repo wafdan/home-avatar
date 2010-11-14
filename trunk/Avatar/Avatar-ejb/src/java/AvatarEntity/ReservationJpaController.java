@@ -18,8 +18,6 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import javax.persistence.metamodel.EntityType;
-import javax.persistence.metamodel.Metamodel;
 
 /**
  *
@@ -40,6 +38,9 @@ public class ReservationJpaController {
         if (reservation.getReservationItemCollection() == null) {
             reservation.setReservationItemCollection(new ArrayList<ReservationItem>());
         }
+        if (reservation.getReservationCollection() == null) {
+            reservation.setReservationCollection(new ArrayList<Reservation>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,6 +49,11 @@ public class ReservationJpaController {
             if (payment != null) {
                 payment = em.getReference(payment.getClass(), payment.getPaymentId());
                 reservation.setPayment(payment);
+            }
+            Reservation parent = reservation.getParent();
+            if (parent != null) {
+                parent = em.getReference(parent.getClass(), parent.getReservationId());
+                reservation.setParent(parent);
             }
             Customer username = reservation.getUsername();
             if (username != null) {
@@ -60,6 +66,12 @@ public class ReservationJpaController {
                 attachedReservationItemCollection.add(reservationItemCollectionReservationItemToAttach);
             }
             reservation.setReservationItemCollection(attachedReservationItemCollection);
+            Collection<Reservation> attachedReservationCollection = new ArrayList<Reservation>();
+            for (Reservation reservationCollectionReservationToAttach : reservation.getReservationCollection()) {
+                reservationCollectionReservationToAttach = em.getReference(reservationCollectionReservationToAttach.getClass(), reservationCollectionReservationToAttach.getReservationId());
+                attachedReservationCollection.add(reservationCollectionReservationToAttach);
+            }
+            reservation.setReservationCollection(attachedReservationCollection);
             em.persist(reservation);
             if (payment != null) {
                 Reservation oldReservationIdOfPayment = payment.getReservationId();
@@ -69,6 +81,10 @@ public class ReservationJpaController {
                 }
                 payment.setReservationId(reservation);
                 payment = em.merge(payment);
+            }
+            if (parent != null) {
+                parent.getReservationCollection().add(reservation);
+                parent = em.merge(parent);
             }
             if (username != null) {
                 username.getReservationCollection().add(reservation);
@@ -81,6 +97,15 @@ public class ReservationJpaController {
                 if (oldReservationIdOfReservationItemCollectionReservationItem != null) {
                     oldReservationIdOfReservationItemCollectionReservationItem.getReservationItemCollection().remove(reservationItemCollectionReservationItem);
                     oldReservationIdOfReservationItemCollectionReservationItem = em.merge(oldReservationIdOfReservationItemCollectionReservationItem);
+                }
+            }
+            for (Reservation reservationCollectionReservation : reservation.getReservationCollection()) {
+                Reservation oldParentOfReservationCollectionReservation = reservationCollectionReservation.getParent();
+                reservationCollectionReservation.setParent(reservation);
+                reservationCollectionReservation = em.merge(reservationCollectionReservation);
+                if (oldParentOfReservationCollectionReservation != null) {
+                    oldParentOfReservationCollectionReservation.getReservationCollection().remove(reservationCollectionReservation);
+                    oldParentOfReservationCollectionReservation = em.merge(oldParentOfReservationCollectionReservation);
                 }
             }
             em.getTransaction().commit();
@@ -99,10 +124,14 @@ public class ReservationJpaController {
             Reservation persistentReservation = em.find(Reservation.class, reservation.getReservationId());
             Payment paymentOld = persistentReservation.getPayment();
             Payment paymentNew = reservation.getPayment();
+            Reservation parentOld = persistentReservation.getParent();
+            Reservation parentNew = reservation.getParent();
             Customer usernameOld = persistentReservation.getUsername();
             Customer usernameNew = reservation.getUsername();
             Collection<ReservationItem> reservationItemCollectionOld = persistentReservation.getReservationItemCollection();
             Collection<ReservationItem> reservationItemCollectionNew = reservation.getReservationItemCollection();
+            Collection<Reservation> reservationCollectionOld = persistentReservation.getReservationCollection();
+            Collection<Reservation> reservationCollectionNew = reservation.getReservationCollection();
             List<String> illegalOrphanMessages = null;
             if (paymentOld != null && !paymentOld.equals(paymentNew)) {
                 if (illegalOrphanMessages == null) {
@@ -125,6 +154,10 @@ public class ReservationJpaController {
                 paymentNew = em.getReference(paymentNew.getClass(), paymentNew.getPaymentId());
                 reservation.setPayment(paymentNew);
             }
+            if (parentNew != null) {
+                parentNew = em.getReference(parentNew.getClass(), parentNew.getReservationId());
+                reservation.setParent(parentNew);
+            }
             if (usernameNew != null) {
                 usernameNew = em.getReference(usernameNew.getClass(), usernameNew.getUsername());
                 reservation.setUsername(usernameNew);
@@ -136,6 +169,13 @@ public class ReservationJpaController {
             }
             reservationItemCollectionNew = attachedReservationItemCollectionNew;
             reservation.setReservationItemCollection(reservationItemCollectionNew);
+            Collection<Reservation> attachedReservationCollectionNew = new ArrayList<Reservation>();
+            for (Reservation reservationCollectionNewReservationToAttach : reservationCollectionNew) {
+                reservationCollectionNewReservationToAttach = em.getReference(reservationCollectionNewReservationToAttach.getClass(), reservationCollectionNewReservationToAttach.getReservationId());
+                attachedReservationCollectionNew.add(reservationCollectionNewReservationToAttach);
+            }
+            reservationCollectionNew = attachedReservationCollectionNew;
+            reservation.setReservationCollection(reservationCollectionNew);
             reservation = em.merge(reservation);
             if (paymentNew != null && !paymentNew.equals(paymentOld)) {
                 Reservation oldReservationIdOfPayment = paymentNew.getReservationId();
@@ -145,6 +185,14 @@ public class ReservationJpaController {
                 }
                 paymentNew.setReservationId(reservation);
                 paymentNew = em.merge(paymentNew);
+            }
+            if (parentOld != null && !parentOld.equals(parentNew)) {
+                parentOld.getReservationCollection().remove(reservation);
+                parentOld = em.merge(parentOld);
+            }
+            if (parentNew != null && !parentNew.equals(parentOld)) {
+                parentNew.getReservationCollection().add(reservation);
+                parentNew = em.merge(parentNew);
             }
             if (usernameOld != null && !usernameOld.equals(usernameNew)) {
                 usernameOld.getReservationCollection().remove(reservation);
@@ -162,6 +210,23 @@ public class ReservationJpaController {
                     if (oldReservationIdOfReservationItemCollectionNewReservationItem != null && !oldReservationIdOfReservationItemCollectionNewReservationItem.equals(reservation)) {
                         oldReservationIdOfReservationItemCollectionNewReservationItem.getReservationItemCollection().remove(reservationItemCollectionNewReservationItem);
                         oldReservationIdOfReservationItemCollectionNewReservationItem = em.merge(oldReservationIdOfReservationItemCollectionNewReservationItem);
+                    }
+                }
+            }
+            for (Reservation reservationCollectionOldReservation : reservationCollectionOld) {
+                if (!reservationCollectionNew.contains(reservationCollectionOldReservation)) {
+                    reservationCollectionOldReservation.setParent(null);
+                    reservationCollectionOldReservation = em.merge(reservationCollectionOldReservation);
+                }
+            }
+            for (Reservation reservationCollectionNewReservation : reservationCollectionNew) {
+                if (!reservationCollectionOld.contains(reservationCollectionNewReservation)) {
+                    Reservation oldParentOfReservationCollectionNewReservation = reservationCollectionNewReservation.getParent();
+                    reservationCollectionNewReservation.setParent(reservation);
+                    reservationCollectionNewReservation = em.merge(reservationCollectionNewReservation);
+                    if (oldParentOfReservationCollectionNewReservation != null && !oldParentOfReservationCollectionNewReservation.equals(reservation)) {
+                        oldParentOfReservationCollectionNewReservation.getReservationCollection().remove(reservationCollectionNewReservation);
+                        oldParentOfReservationCollectionNewReservation = em.merge(oldParentOfReservationCollectionNewReservation);
                     }
                 }
             }
@@ -212,10 +277,20 @@ public class ReservationJpaController {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
+            Reservation parent = reservation.getParent();
+            if (parent != null) {
+                parent.getReservationCollection().remove(reservation);
+                parent = em.merge(parent);
+            }
             Customer username = reservation.getUsername();
             if (username != null) {
                 username.getReservationCollection().remove(reservation);
                 username = em.merge(username);
+            }
+            Collection<Reservation> reservationCollection = reservation.getReservationCollection();
+            for (Reservation reservationCollectionReservation : reservationCollection) {
+                reservationCollectionReservation.setParent(null);
+                reservationCollectionReservation = em.merge(reservationCollectionReservation);
             }
             em.remove(reservation);
             em.getTransaction().commit();

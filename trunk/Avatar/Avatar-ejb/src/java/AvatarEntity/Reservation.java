@@ -13,7 +13,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -61,6 +60,11 @@ public class Reservation implements Serializable {
     private Payment payment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
     private Collection<ReservationItem> reservationItemCollection;
+    @OneToMany(mappedBy = "parent")
+    private Collection<Reservation> reservationCollection;
+    @JoinColumn(name = "parent", referencedColumnName = "reservation_id")
+    @ManyToOne
+    private Reservation parent;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne(optional = false)
     private Customer username;
@@ -116,6 +120,22 @@ public class Reservation implements Serializable {
 
     public void setReservationItemCollection(Collection<ReservationItem> reservationItemCollection) {
         this.reservationItemCollection = reservationItemCollection;
+    }
+
+    public Collection<Reservation> getReservationCollection() {
+        return reservationCollection;
+    }
+
+    public void setReservationCollection(Collection<Reservation> reservationCollection) {
+        this.reservationCollection = reservationCollection;
+    }
+
+    public Reservation getParent() {
+        return parent;
+    }
+
+    public void setParent(Reservation parent) {
+        this.parent = parent;
     }
 
     public Customer getUsername() {
