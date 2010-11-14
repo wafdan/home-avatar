@@ -7,6 +7,7 @@ package ReservationServlet;
 import AvatarEntity.Customer;
 import AvatarEntity.CustomerJpaController;
 import AvatarEntity.Hall;
+import AvatarEntity.HallJpaController;
 import AvatarEntity.HallReservation;
 import AvatarEntity.HallReservationJpaController;
 import AvatarEntity.Payment;
@@ -23,6 +24,7 @@ import Pemesanan.HallSessionInfo;
 import Pemesanan.RoomSessionInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,15 +120,18 @@ public class TambahKeranjang extends HttpServlet {
 
                 //yang room gw masih belum yakin harus divalidasi dulu ini sama ceha.
                 CartController cartController = new CartController();
-
+                Hall thisHall;
                 while (iHallCart.hasNext()) {
                     HallSessionInfo temp = iHallCart.next();
+                    thisHall = (new HallJpaController()).findHall(temp.product_id);
                     HallReservation hallReservation = new HallReservation();
-                    hallReservation.setProductId(new Hall(temp.product_id));
+                    hallReservation.setProductId(thisHall);
                     hallReservation.setUseDate(temp.use_date);
                     hallReservation.setReservationTime(new Date());
                     hallReservation.setReservationId(res);
                     hallReservation.setPrice(temp.price);
+                    hallReservation.setBeginTime(thisHall.getStartTime());
+                    hallReservation.setEndTime(thisHall.getEndTime());
                     (new HallReservationJpaController()).create(hallReservation);
                 }
 
