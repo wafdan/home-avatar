@@ -124,6 +124,8 @@ public class CartController implements CartControllerLocal {
         return retval*totalRoom;
     }
 
+    
+
     public List<Room> generateRoomNumber(String product_id, Date entry_date, Date exit_date, int totalRoom) throws RoomNotEnoughException {
 
        List<Room> listRoomKosong=(new RoomJpaController()).findUnused(product_id, entry_date, exit_date);

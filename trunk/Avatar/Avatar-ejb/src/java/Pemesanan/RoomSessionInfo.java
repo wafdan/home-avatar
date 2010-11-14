@@ -15,6 +15,7 @@ public class RoomSessionInfo {
     public String product_id;
     public Date entry_date;
     public Date exit_date;
+    public double price;
     public short total;
     public boolean available;   
 }

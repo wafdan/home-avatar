@@ -63,7 +63,7 @@
                                 i++;
                                 RoomSessionInfo temp = iRoom.next();
                                 double singleRowPrice = 0;
-                                singleRowPrice = chartController.countTotalBill(temp.entry_date, temp.exit_date, chartController.getRoomPriceWeekday(temp.product_id), chartController.getRoomPriceWeekend(temp.product_id), temp.total);
+                                singleRowPrice = temp.price*temp.total;
                                 totalBill += singleRowPrice;
 
         %>

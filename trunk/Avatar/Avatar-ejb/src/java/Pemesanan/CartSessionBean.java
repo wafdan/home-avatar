@@ -111,17 +111,21 @@ public class CartSessionBean implements CartSessionBeanLocal, SessionBean {
         h.layout_id=layout_id;
         h.layout_name=c.getLayoutName(layout_id);
         h.attendees=capacity;
+       // h.price=c.countTotalBill(useDate, useDate, total, capacity, total)
         hallCart.add(h);
     }
 
     //Menambahkan elemen ke Cart element untuk room
     public void addRoomCartElement(String product_id, Date entry_date, Date exit_date, short total) {
         RoomSessionInfo r = new RoomSessionInfo();
+        CartController c=new CartController();
+        short totalnya=1;
         r.entry_date = entry_date;
         r.exit_date = exit_date;
         r.total = total;
         r.product_id = product_id;
         r.available = checkAvailabilityRoom(r.product_id, r.entry_date, r.exit_date, r.total);
+        r.price=c.countTotalBill(entry_date, exit_date, c.getRoomPriceWeekday(product_id), c.getRoomPriceWeekend(product_id), totalnya);
         roomCart.add((r));
     }
 

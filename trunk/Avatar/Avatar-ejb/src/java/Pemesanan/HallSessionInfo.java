@@ -24,4 +24,5 @@ public class HallSessionInfo {
     public int layout_id;
     public String layout_name;
     public int attendees;
+    public double price;
 }
