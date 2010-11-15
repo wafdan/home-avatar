@@ -302,12 +302,12 @@
     <div id="column">
     	
       <div class="subnav">
-          <%if ((session.getAttribute("name")) == null) {%>
+          <% if ((session.getAttribute("name")) == null) {%>
             <h2 class="title">  Become our member!</h2>
             <p>Discover just how rewarding membership can be.</p>
             <p>Join our membership now to access exclusive benefits, flexible reward options, fast online booking and the finest hotels and resorts in the world. </p>
             <p>Enrollment is quick, easy and free.</p>
-          <%}/*else {*/%>
+          <% } %>
       </div>
 
     </div>

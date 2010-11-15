@@ -24,8 +24,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -55,11 +57,12 @@ public class KelolaPembayaran extends HttpServlet {
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
         String popup = "";
+        SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
         try {
             if (request.getParameter("verify") != null) {
                 Locale locale = Locale.getDefault();
                 NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 ReservationJpaController rjpa = new ReservationJpaController();
                 Integer reservationId = Integer.parseInt(request.getParameter("reservationId"));
                 Reservation res = rjpa.findReservation(reservationId);
@@ -85,7 +88,7 @@ public class KelolaPembayaran extends HttpServlet {
                 if (request.getParameter("verify").equals("Remind")) {
                     messageContent += "Dear customer,\n\n";
                     messageContent += ("Please be reminded that you have made reservation on " +
-                            formatter.format(res.getReservationTime()) + " as follows:\n");
+                            detail.format(res.getReservationTime()) + " as follows:\n");
                     messageContent += messageItemList;
                     messageContent += "    ------\n";
                     messageContent += ("    Total = " + currencyFormat.format(res.getTotalPrice()) + "\n\n");
@@ -122,7 +125,7 @@ public class KelolaPembayaran extends HttpServlet {
                         String attfile = recgen.generateDocument(res);
                         messageContent += "Dear customer,\n\n";
                         messageContent += ("You have completed payment for your reservation made on " +
-                                formatter.format(res.getReservationTime()) + " as follows:\n");
+                                detail.format(res.getReservationTime()) + " as follows:\n");
                         messageContent += messageItemList;
                         messageContent += "    ------\n";
                         messageContent += ("    Total = " + currencyFormat.format(res.getTotalPrice()) + "\n\n");
@@ -143,6 +146,21 @@ public class KelolaPembayaran extends HttpServlet {
                         }
                     }
                 }
+            } else if (request.getParameter("confirm") != null) {
+                Integer reservationId = Integer.parseInt(request.getParameter("reservationId"));
+                String username = request.getParameter("username");
+                Date paymentDate = dateOnly.parse(request.getParameter("paymentDate"));
+                String paymentMethod = request.getParameter("paymentMethod");
+                String paymentBank = request.getParameter("paymentBank");
+                String accountNumber = request.getParameter("accountNumber");
+                double amount = Double.parseDouble(request.getParameter("amount"));
+                PaymentJpaController pjpa = new PaymentJpaController();
+                ReservationJpaController resjpa = new ReservationJpaController();
+                StaffJpaController stjpa = new StaffJpaController();
+                Payment pay = new Payment(new Date(), paymentDate, paymentMethod, paymentBank, accountNumber, amount);
+                pay.setReservationId(resjpa.findReservation(reservationId));
+                pay.setUsername(stjpa.findStaff(username));
+                pjpa.create(pay);
             }
             // Inisialisasi Kontroler JPA dan Kelas Entity
             ReservationJpaController resjc = new ReservationJpaController();
@@ -167,6 +185,10 @@ public class KelolaPembayaran extends HttpServlet {
             // Tampilkan ke JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
             dispatcher.forward(request, response);
+        } catch (IllegalOrphanException ex) {
+            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(KelolaPembayaran.class.getName()).log(Level.SEVERE, null, ex);
         } finally { 
             out.close();
         }

@@ -15,7 +15,7 @@
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="../jquery/jqueryui.js"></script>
-        <link rel="stylesheet" type="text/css" href="../styles/jquerystyle.css" />"
+        <link rel="stylesheet" type="text/css" href="../styles/jquerystyle.css" />
         <script type="text/javascript">
             $(function(){
                 // Datepicker
