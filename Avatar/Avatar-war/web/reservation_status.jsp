@@ -53,21 +53,6 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                 function() { $(this).removeClass('ui-state-hover'); }
             );
             });
-
-            var dateValid=false;
-
-            var validateDate=function(){
-                var regex=/^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$/;
-                var target=document.confirmPayment.payment_date.value;
-                if(!regex.test(target)){
-                    alert("Date format must be MM/dd/yyyy");
-                    dateValid=false;
-                    return false;
-                }
-                else{
-                    dateValid=true;
-                }
-            }
         </script>
     </head>
     <body>
@@ -111,6 +96,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     }
                     out.println("</td></tr></table>");
                     out.println("</div>");
+                    //out.println("<input type='text' id='payment_date"+r.getReservationId()+"' name='payment_date' class='datepicker' />");
                     out.println("<div id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
                     out.println("<div class='tabconfirm_form'>");
                     if (kpc.getPaymentStatus(r) == 1) {

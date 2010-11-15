@@ -5,6 +5,7 @@
 
 package ReservationServlet;
 
+import KelolaReservasi.MengelolaReservasiController;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -29,9 +30,14 @@ public class HapusResv extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        Integer reservId;
+        reservId =  Integer.parseInt(request.getParameter("id"));
+
+        //response.setContentType("text/html;charset=UTF-8");
+        //PrintWriter out = response.getWriter();
         try {
+            MengelolaReservasiController ctrl = new MengelolaReservasiController();
+            ctrl.deleteReservation(reservId);
             /* TODO output your page here
             out.println("<html>");
             out.println("<head>");
@@ -42,8 +48,10 @@ public class HapusResv extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             */
-        } finally { 
-            out.close();
+            response.sendRedirect("reservation_manage_notification.jsp?status_delete=success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect("reservation_manage_notification.jsp?status_delete=fail");
         }
     } 
 
