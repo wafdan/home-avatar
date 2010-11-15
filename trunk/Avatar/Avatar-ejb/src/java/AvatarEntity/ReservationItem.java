@@ -6,6 +6,7 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -37,7 +38,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "ReservationItem.findByReservationItemId", query = "SELECT r FROM ReservationItem r WHERE r.reservationItemId = :reservationItemId"),
     @NamedQuery(name = "ReservationItem.findByReservationTime", query = "SELECT r FROM ReservationItem r WHERE r.reservationTime = :reservationTime"),
     @NamedQuery(name = "ReservationItem.findByPrice", query = "SELECT r FROM ReservationItem r WHERE r.price = :price")})
-public class ReservationItem implements Serializable {
+public abstract class ReservationItem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,14 +99,6 @@ public class ReservationItem implements Serializable {
         this.price = price;
     }
 
-    /*public HallReservation getHallReservation() {
-        return hallReservation;
-    }
-
-    public void setHallReservation(HallReservation hallReservation) {
-        this.hallReservation = hallReservation;
-    }*/
-
     public Reservation getReservationId() {
         return reservationId;
     }
@@ -114,21 +107,7 @@ public class ReservationItem implements Serializable {
         this.reservationId = reservationId;
     }
 
-    /*public OtherServicesReservation getOtherServicesReservation() {
-        return otherServicesReservation;
-    }
-
-    public void setOtherServicesReservation(OtherServicesReservation otherServicesReservation) {
-        this.otherServicesReservation = otherServicesReservation;
-    }
-
-    public RoomReservation getRoomReservation() {
-        return roomReservation;
-    }
-
-    public void setRoomReservation(RoomReservation roomReservation) {
-        this.roomReservation = roomReservation;
-    }*/
+    public abstract Date getPaymentLimit();
 
     @Override
     public int hashCode() {

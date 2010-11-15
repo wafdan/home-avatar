@@ -46,35 +46,23 @@ public class MengelolaReservasiController {
         return rc.findUnpaidReservationEntities();
     }
 
-    public List<DueReservation> getDuePaymentReservation() {
+    /*public List<DueReservation> getDuePaymentReservation() {
         Date current = new Date();
-        List<Reservation> resv = rc.findUnpaidOnlineReservation();
+        List<Reservation> resv = rc.findUnpaidReservationEntities();
         List<DueReservation> due = new ArrayList<DueReservation>();
         Iterator<Reservation> i = resv.iterator();
         while (i.hasNext()) {
             Date earliestDate = null;
-            ReservationItem dueResvItem = new ReservationItem();
+            ReservationItem dueResvItem = null;
             Reservation cur = i.next();
             Iterator<ReservationItem> rii = cur.getReservationItemCollection().iterator();
             int index = 0;
             while (rii.hasNext()) {
                 ReservationItem curRes = rii.next();
-                if (curRes instanceof RoomReservation) {
-                    if (index == 0) {
-                        earliestDate = ((RoomReservation) curRes).getEntryDate();
-                        dueResvItem = curRes;
-                    } else if (earliestDate.after(((RoomReservation) curRes).getEntryDate())) {
-                        earliestDate = ((RoomReservation) curRes).getEntryDate();
-                        dueResvItem = curRes;
-                    }
-                } else if (curRes instanceof HallReservation) {
-                    if (index == 0) {
-                        earliestDate = ((HallReservation) curRes).getUseDate();
-                        dueResvItem = curRes;
-                    } else if (earliestDate.after(((HallReservation) curRes).getUseDate())) {
-                        earliestDate = ((HallReservation) curRes).getUseDate();
-                        dueResvItem = curRes;
-                    }
+                if (index == 0) {
+                    dueResvItem = curRes;
+                } else if (earliestDate.after(((RoomReservation) curRes).getEntryDate())) {
+                    dueResvItem = curRes;
                 }
                 index++;
             }
@@ -86,7 +74,7 @@ public class MengelolaReservasiController {
             }
         }
         return due;
-    }
+    }*/
 
     public void deleteReservation (Integer reservationId) throws IllegalOrphanException, NonexistentEntityException {
         Reservation res = rc.findReservation(reservationId);

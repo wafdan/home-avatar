@@ -36,7 +36,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Profile.findByAccountName1", query = "SELECT p FROM Profile p WHERE p.accountName1 = :accountName1"),
     @NamedQuery(name = "Profile.findByAccountNumber2", query = "SELECT p FROM Profile p WHERE p.accountNumber2 = :accountNumber2"),
     @NamedQuery(name = "Profile.findByBankName2", query = "SELECT p FROM Profile p WHERE p.bankName2 = :bankName2"),
-    @NamedQuery(name = "Profile.findByAccountName2", query = "SELECT p FROM Profile p WHERE p.accountName2 = :accountName2")})
+    @NamedQuery(name = "Profile.findByAccountName2", query = "SELECT p FROM Profile p WHERE p.accountName2 = :accountName2"),
+    @NamedQuery(name = "Profile.findByPaylimitConstant", query = "SELECT p FROM Profile p WHERE p.paylimitConstant = :paylimitConstant")})
 public class Profile implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -86,6 +87,9 @@ public class Profile implements Serializable {
     private String bankName2;
     @Column(name = "account_name2")
     private String accountName2;
+    @Basic(optional = false)
+    @Column(name = "paylimit_constant")
+    private int paylimitConstant;
 
     public Profile() {
     }
@@ -94,7 +98,7 @@ public class Profile implements Serializable {
         this.id = id;
     }
 
-    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone, String accountNumber1, String bankName1, String accountName1) {
+    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone, String accountNumber1, String bankName1, String accountName1, int paylimitConstant) {
         this.id = id;
         this.hotelName = hotelName;
         this.hotelAddress1 = hotelAddress1;
@@ -104,6 +108,7 @@ public class Profile implements Serializable {
         this.accountNumber1 = accountNumber1;
         this.bankName1 = bankName1;
         this.accountName1 = accountName1;
+        this.paylimitConstant = paylimitConstant;
     }
 
     public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone) {
@@ -249,6 +254,14 @@ public class Profile implements Serializable {
 
     public void setAccountName2(String accountName2) {
         this.accountName2 = accountName2;
+    }
+
+    public int getPaylimitConstant() {
+        return paylimitConstant;
+    }
+
+    public void setPaylimitConstant(int paylimitConstant) {
+        this.paylimitConstant = paylimitConstant;
     }
 
     @Override

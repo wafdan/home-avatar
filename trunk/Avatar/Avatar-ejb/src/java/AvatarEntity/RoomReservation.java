@@ -5,6 +5,7 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -141,5 +142,15 @@ public class RoomReservation extends ReservationItem implements Serializable {
     @Override
     public String toString() {
         return "AvatarEntity.RoomReservation[reservationItemId=" + reservationItemId + "]";
+    }
+
+    @Override
+    public Date getPaymentLimit() {
+        ProfileJpaController prjpa = new ProfileJpaController();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(0);
+        cal.setTime(entryDate);
+        cal.add(Calendar.DATE, -1 * prjpa.findProfile(Boolean.TRUE).getPaylimitConstant());
+        return cal.getTime();
     }
 }

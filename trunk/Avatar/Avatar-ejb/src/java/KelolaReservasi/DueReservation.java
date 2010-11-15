@@ -5,18 +5,15 @@
 
 package KelolaReservasi;
 
-import AvatarEntity.Customer;
-import AvatarEntity.HallReservation;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
-import AvatarEntity.RoomReservation;
 import java.util.Date;
 
 /**
  *
  * @author kamoe
  */
-public class DueReservation extends Reservation{
+public class DueReservation extends Reservation {
     ReservationItem resvItem;
     Date dueDate;
 
@@ -27,11 +24,7 @@ public class DueReservation extends Reservation{
     public DueReservation(Reservation r, ReservationItem rt) {
         super(r.getReservationId(), r.getIsOnspot(), r.getNote());
         this.resvItem = rt;
-        if (rt instanceof RoomReservation) {
-            this.dueDate = ((RoomReservation) rt).getEntryDate();
-        } else if (rt instanceof HallReservation) {
-            this.dueDate = ((HallReservation) rt).getBeginTime();
-        }
+        this.dueDate = rt.getPaymentLimit();
         this.username = r.getUsername();
     }
     

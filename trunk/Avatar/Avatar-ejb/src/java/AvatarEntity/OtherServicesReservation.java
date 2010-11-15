@@ -104,4 +104,8 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
         return "AvatarEntity.OtherServicesReservation[reservationItemId=" + reservationItemId + "]";
     }
 
+    @Override
+    public Date getPaymentLimit() {
+        return null;
+    }
 }
