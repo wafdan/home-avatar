@@ -37,23 +37,38 @@ public class EditProfilHotel extends HttpServlet {
             String hotelname = request.getParameter("hotelname");
             String hoteldesc = request.getParameter("hoteldesc");
             String city = request.getParameter("city");
-            String phonenumber = request.getParameter("phonenumber");
+            String phonenumber = request.getParameter("hotel_phone");
+            String faxnumber=request.getParameter("hotel_fax");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String address2 = request.getParameter("address2");
             String country = request.getParameter("country");
 
-            /*ProfileJpaController pjc = new ProfileJpaController();
+            String accno1=request.getParameter("account_no_1");
+            String accno2=request.getParameter("account_no_2");
+            String bankname1=request.getParameter("bank_name_1");
+            String bankname2=request.getParameter("bank_name_2");
+            String accname1=request.getParameter("account_name_1");
+            String accname2=request.getParameter("account_name_2");
+
+            ProfileJpaController pjc = new ProfileJpaController();
             Profile p = new Profile(Boolean.TRUE, hotelname, address, city, country, phonenumber);
             p.setHotelDescription(hoteldesc);
             p.setHotelAddress2(address2);
             p.setHotelEmail(email);
             p.setHotelDescription(hoteldesc);
+            p.setHotelFax(faxnumber);
+            p.setAccountName1(accname1);
+            p.setAccountName2(accname2);
+            p.setAccountNumber1(accno1);
+            p.setAccountName2(accno2);
+            p.setBankName1(bankname1);
+            p.setBankName2(bankname2);
             pjc.edit(p);
 
 
         } catch (NonexistentEntityException ex) {
-            out.write(ex.getMessage());*/
+            out.write(ex.getMessage());
         } catch (Exception ex) {
             out.write(ex.getMessage());
         } finally {
