@@ -106,6 +106,15 @@ public class Profile implements Serializable {
         this.accountName1 = accountName1;
     }
 
+    public Profile(Boolean id, String hotelName, String hotelAddress1, String hotelCity, String hotelCountry, String hotelPhone) {
+        this.id = id;
+        this.hotelName = hotelName;
+        this.hotelAddress1 = hotelAddress1;
+        this.hotelCity = hotelCity;
+        this.hotelCountry = hotelCountry;
+        this.hotelPhone = hotelPhone;
+    }
+
     public Boolean getId() {
         return id;
     }
