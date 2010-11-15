@@ -48,7 +48,7 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "reservation_id")
-    private Integer reservationId;
+    protected Integer reservationId;
     @Basic(optional = false)
     @Column(name = "is_onspot")
     private boolean isOnspot;
@@ -67,7 +67,7 @@ public class Reservation implements Serializable {
     private Reservation parent;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne(optional = false)
-    private Customer username;
+    protected Customer username;
 
     public Reservation() {
     }

@@ -438,6 +438,21 @@ public class ReservationJpaController {
         }
     }
 
+    public List<Reservation> findUnpaidOnlineReservation() {
+        List<Reservation> result = new ArrayList<Reservation>();
+        List<Reservation> all = findReservationEntities();
+        Iterator<Reservation> i = all.iterator();
+        while (i.hasNext()) {
+            Reservation r = i.next();
+            if (r.getIsOnspot() == false) {
+                if (r.getPayment() == null) {
+                    result.add(r);
+                }
+            }
+        }
+        return result;
+    }
+
     public List<Reservation> findUnpaidOnlineReservationByName(String name) {
         List<Reservation> result = new ArrayList<Reservation>();
         List<Reservation> all = findOnlineReservationByName(name);
