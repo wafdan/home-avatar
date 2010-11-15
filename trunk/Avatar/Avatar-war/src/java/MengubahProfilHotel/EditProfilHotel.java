@@ -43,7 +43,7 @@ public class EditProfilHotel extends HttpServlet {
             String address2 = request.getParameter("address2");
             String country = request.getParameter("country");
 
-            ProfileJpaController pjc = new ProfileJpaController();
+            /*ProfileJpaController pjc = new ProfileJpaController();
             Profile p = new Profile(Boolean.TRUE, hotelname, address, city, country, phonenumber);
             p.setHotelDescription(hoteldesc);
             p.setHotelAddress2(address2);
@@ -53,7 +53,7 @@ public class EditProfilHotel extends HttpServlet {
 
 
         } catch (NonexistentEntityException ex) {
-            out.write(ex.getMessage());
+            out.write(ex.getMessage());*/
         } catch (Exception ex) {
             out.write(ex.getMessage());
         } finally {

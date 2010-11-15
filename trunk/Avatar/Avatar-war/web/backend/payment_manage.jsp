@@ -51,13 +51,10 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                         <div class="post">
                             <table width="*" border="1" style="table-layout:fixed">
                                 <tr>
-                                    <th>Reservation Time</th>
-                                    <th>Username</th>
-                                    <th>Total</th>
-                                    <th>On Spot?</th>
-                                    <th>Confirmed</th>
-                                    <th>Verified?</th>
-                                    <th>Reservation Notes</th>
+                                    <th>Reservation Status</th>
+                                    <th>Customer</th>
+                                    <th>Total Bill</th>
+                                    <th>Payment Status</th>
                                 </tr>
                                 <%
                                 Payment pay;
@@ -71,24 +68,31 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     pay = item.getPayment();
                                 %>
                                 <tr>
-                                    <td><a name="#<%= item.getReservationId() %>"></a>
-                                        <%= formatter.format(item.getReservationTime()) %></td>
+                                    <td>
+                                        <%= formatter.format(item.getReservationTime()) %>
+                                        (<%= item.getIsOnspot() ? "on-spot" : "online" %>)
+                                    </td>
                                     <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
-                                    <td><%= (item.getIsOnspot() ? "yes" : "no") %></td>
-                                    <td>
-                                        <%= (pay == null ? "not yet" :
-                                            (currencyFormat.format(pay.getAmount()) + "<br />" +
-                                            "date: " + onlyDate.format(pay.getPaymentDate()) + "<br />" +
-                                            "method: " + pay.getPaymentMethod() + "<br />" +
-                                            "bank acc.: " + pay.getAccountNumber() + " (" + pay.getPaymentBank() + ")" + "<br />")) %>
+                                    <td style="white-space:nowrap"><% if (pay == null) { %>
+                                        not yet
+                                        <% } else { %>
+                                        confirmed <%= formatter.format(pay.getConfirmTime()) %><br />
+                                        amount <%= currencyFormat.format(pay.getAmount()) %><br />
+                                        paid at <%= onlyDate.format(pay.getPaymentDate()) %><br />
+                                        <% if (pay.getUsername() == null) { %>
+                                        <em>not verified</em>
+                                        <% } else { %>
+                                        verified by <%= pay.getUsername().getUsername() %>
+                                        <% } %>
+                                        <% } %>
                                     </td>
-                                    <td>
-                                        <%= (item.getPayment() != null ?
-                                        (item.getPayment().getUsername() != null ? "yes" : "no") : "no") %>
-                                    </td>
-                                    <td><%= item.getNote() %></td>
-                                    <td>
+                                    <td><% if (item.getPayment() == null) { %>
+                                        <form method="post" name="confirmForm<%= item.getReservationId() %>" id="confirmForm<%= item.getReservationId() %>" action="payment_form.jsp">
+                                            <input type="hidden" name="reservationId" id="reservationId" value="<%= item.getReservationId() %>" />
+                                            <input type="submit" name="confirm" id="confirm" value="Direct Confirm" />
+                                        </form>
+                                        <% } %>
                                         <% if (item.getPayment() == null || (item.getPayment() != null && item.getPayment().getUsername() == null)) { %>
                                         <form method="post" name="verifyForm<%= item.getReservationId() %>" id="verifyForm<%= item.getReservationId() %>" action="payment_manage">
                                             <input type="hidden" name="reservationId" id="reservationId" value="<%= item.getReservationId() %>" />
