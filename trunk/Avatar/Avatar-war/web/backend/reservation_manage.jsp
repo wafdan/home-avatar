@@ -146,7 +146,7 @@
                         </div>
                     </div>
                     <!-- end content -->
-                    <jsp:include page="fac_sidebar.jsp" />
+                    <jsp:include page="resv_sidebar.jsp" />
                     <div style="clear: both;">&nbsp;</div>
                 </div>
                 <!-- end page -->

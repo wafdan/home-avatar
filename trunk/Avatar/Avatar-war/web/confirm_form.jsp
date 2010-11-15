@@ -8,12 +8,12 @@
 <%@page import="KonfirmasiPembayaran.*" %>
 
 <%
-    String rid = request.getParameter("id");
-    String show = request.getParameter("show");
-    KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
-    Reservation r = c.getReservationById(Integer.parseInt(rid));
+            String rid = request.getParameter("id");
+            String show = request.getParameter("show");
+            KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
+            Reservation r = c.getReservationById(Integer.parseInt(rid));
 
-    if (show.equals("true")) {
+            if (show.equals("true")) {
 %>
     <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="jquery/jqueryui.js"></script>
@@ -53,9 +53,9 @@
     </tr>
     </table>
     <input class="button" type="submit" value="Confirm">
-    <input class="button" type ="button" onclick="javascript:showForm(<%= r.getReservationId() %>,0)" value="Cancel">
-    </form>
+    <input class="button" type ="button" onclick="javascript:showForm(<%= r.getReservationId()%>,0)" value="Cancel">
+</form>
 
-<%  } else { %>
-        <input class="button" type ="button" onclick="javascript:showForm(<%= r.getReservationId() %>,1)" value="Confirm">
-<%  }   %>
+<%  } else {%>
+<input class="button" type ="button" onclick="javascript:showForm(<%= r.getReservationId()%>,1)" value="Confirm">
+<%  }%>

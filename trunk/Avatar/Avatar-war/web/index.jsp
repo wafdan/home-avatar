@@ -29,7 +29,7 @@
   <div id="container">
     <div id="content">
       <h2>About Us</h2>
-      <img id="logoabout" class="imgl" src="images/logo.png" alt="" width="125" height="125" />
+      <img id="logoabout" class="imgl" src="images/logohotel.png" alt="" width="125" height="125" />
       <p><strong><% out.write(p.getHotelName()+" "+p.getHotelCity()); %></strong></p>
       <p><% out.write(p.getHotelDescription()); %></p>
   	</div>

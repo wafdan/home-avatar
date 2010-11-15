@@ -29,5 +29,9 @@
         <li><a href="reservation_add_services.jsp">Add Reservation</a></li>
         <li><a href="reservation_manage_services.jsp">Manage Reservation</a></li>
     </ul>
+    <ul>
+        <strong>NOTIFICATIONS</strong>
+        <li><a href="reservation_manage_notification.jsp">Due Payment</a></li>
+    </ul>
 </div>
 <!-- end sidebar -->
