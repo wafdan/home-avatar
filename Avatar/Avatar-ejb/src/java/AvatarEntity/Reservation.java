@@ -6,6 +6,7 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -164,6 +165,28 @@ public class Reservation implements Serializable {
         } else {
             return null;
         }
+    }
+
+    public Date getReservationPaymentLimit() {
+        Calendar cal = Calendar.getInstance();
+        Calendar tmp = Calendar.getInstance();
+        cal.setTimeInMillis(0);
+        tmp.setTimeInMillis(0);
+        Date limit = null;
+        for (ReservationItem ri : reservationItemCollection) {
+            if (ri.getPaymentLimit() != null) {
+                cal.setTime(ri.getPaymentLimit());
+                if (limit == null) {
+                    limit = ri.getPaymentLimit();
+                } else {
+                    tmp.setTime(limit);
+                    if (cal.before(tmp)) {
+                        limit = ri.getPaymentLimit();
+                    }
+                }
+            }
+        }
+        return limit;
     }
 
     @Override
