@@ -199,12 +199,12 @@ public class SendEmail extends HttpServlet {
                     }
                     body += newline+newline+"Pay your reservation to our bank account before expired payment time: ";
                     body += newline+"- "+hotel.getBankName1();
-                    body += newline+"  A/C Number : "+hotel.getAccountNumber1();
-                    body += newline+"  A/C Name   : "+hotel.getAccountName1();
+                    body += newline+"  Acc. Number : "+hotel.getAccountNumber1();
+                    body += newline+"  Acc. Name   : "+hotel.getAccountName1();
                     if (hotel.getAccountName2() != null) {
                         body += newline+"- "+hotel.getBankName2();
-                        body += newline+"  A/C Number : "+hotel.getAccountNumber2();
-                        body += newline+"  A/C Name   : "+hotel.getAccountName2();
+                        body += newline+"  Acc. Number : "+hotel.getAccountNumber2();
+                        body += newline+"  Acc. Name   : "+hotel.getAccountName2();
                     }
                     body += newline+newline+"And visit our website to confirm your payment.";
                     body += newline+newline;
