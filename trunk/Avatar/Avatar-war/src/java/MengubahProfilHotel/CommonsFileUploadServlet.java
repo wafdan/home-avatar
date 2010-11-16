@@ -4,6 +4,8 @@
  */
 package MengubahProfilHotel;
 
+import AvatarEntity.Profile;
+import AvatarEntity.ProfileJpaController;
 import Debug.Debug;
 import java.io.File;
 import java.io.IOException;
@@ -90,10 +92,15 @@ public class CommonsFileUploadServlet extends HttpServlet {
                     String namaFile = item.getName();
                     int indexTitik = namaFile.lastIndexOf(".");
                     String ekstensi = namaFile.substring(indexTitik + 1);
-                    String namaFileBaru="logo."+ekstensi;
+                    String namaFileBaru="logohotel."+ekstensi;
                     Debug.debug("Nama file logo : "+namaFileBaru);
                     File file = new File(destinationDir, namaFileBaru);
                     item.write(file);
+                    ProfileJpaController pjc=new ProfileJpaController();
+                    Profile p=pjc.findProfile(Boolean.TRUE);
+                    p.setHotelLogo("images/"+namaFileBaru);
+                    pjc.edit(p);
+
                 }
                 out.close();
             }
@@ -101,6 +108,8 @@ public class CommonsFileUploadServlet extends HttpServlet {
             Logger.getLogger(CommonsFileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CommonsFileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+            response.sendRedirect("profile_manage.jsp");
         }
     }
 }

@@ -40,34 +40,70 @@
                     <div id="content">
                         <h1 class="title">Hotel's Profile</h1>
                         <div class="post">
-                            <table width="592" border="0" style="table-layout: fixed">
+                            <table width="600" border="0" style="table-layout: fixed">
                                 <tr>
                                     <%
                                                 ProfileJpaController pjc = new ProfileJpaController();
                                                 Profile p = pjc.findProfile(Boolean.TRUE);
                                     %>
-                                    <td width="136" height="35">Hotel Name:</td>
+                                    <td width="136" height="35" class="tablekiri">Hotel Name :</td>
                                     <td width="389"><%=p.getHotelName()%></td>
                                 </tr>
                                 <tr>
-                                    <td height="37">Address:</td>
+                                    <td height="37" class="tablekiri">Address:</td>
                                     <td><%=p.getHotelAddress1()%></td>
                                 </tr>
                                 <tr>
-                                    <td height="37">&nbsp;</td>
-                                    <td><%=p.getHotelAddress2()%></td>
+                                    <td class="tablekiri">Phone :</td>
+                                    <td><%=p.getHotelPhone() %></td>
                                 </tr>
                                 <tr>
-                                    <td height="34">Email: </td>
+                                    <td class="tablekiri">Fax : </td>
+                                    <td><%=p.getHotelFax() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">City</td>
+                                    <td><%=p.getHotelCity() %></td>
+                                </tr>
+                                <tr>
+                                    <td height="34" class="tablekiri">Email: </td>
                                     <td><%=p.getHotelEmail()%></td>
                                 </tr>
                                 <tr>
-                                    <td height="142">Logo</td>
-                                    <td><img src="../images/cooltext471355125.png" width="235" height="103" alt="logo"></td>
+                                    <td class="tablekiri">Country :</td>
+                                    <td><%=p.getHotelCountry() %></td>
                                 </tr>
                                 <tr>
-                                    <td height="144">Description</td>
-                                    <td><textarea style=" color:#FFF; background-color:#000; border-color:#000" cols="55" rows="6"><%=p.getHotelDescription()%></textarea></td>
+                                    <td class="tablekiri">Hotel Account No 1 : </td>
+                                    <td><%=p.getAccountNumber1() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">Hotel Bank Name 1 : </td>
+                                    <td><%=p.getBankName1() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">Hotel Account Name 1 :</td>
+                                    <td><%=p.getAccountName1() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">Hotel Account No 2 : </td>
+                                    <td><%=p.getAccountNumber2() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">Hotel Bank Name 2 : </td>
+                                    <td><%=p.getBankName2() %></td>
+                                </tr>
+                                <tr>
+                                    <td class="tablekiri">Hotel Account Name 2 :</td>
+                                    <td><%=p.getAccountName2() %></td>
+                                </tr>
+                                <tr>
+                                    <td height="142" class="tablekiri">Logo</td>
+                                    <td><img src="../<%=p.getHotelLogo() %>" width="125" height="125" alt="logo"></td>
+                                </tr>
+                                <tr>
+                                    <td height="144" class="tablekiri">Description</td>
+                                    <td><textarea disabled="true" style=" color:#FFF; background-color:#000; border-color:#000" cols="55" rows="6"><%=p.getHotelDescription()%></textarea></td>
                                 </tr>
                             </table>
                         </div>
