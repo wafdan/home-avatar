@@ -352,7 +352,7 @@ public class ReservationJpaController {
     public int getUnpaidReservationCount() {
         EntityManager em = getEntityManager();
         Query q = em.createNamedQuery("Reservation.countUnpaid");
-        return (Integer) q.getSingleResult();
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     // Find Unverified Reservations
@@ -381,7 +381,7 @@ public class ReservationJpaController {
     public int getUnverifiedReservationCount() {
         EntityManager em = getEntityManager();
         Query q = em.createNamedQuery("Reservation.countUnverified");
-        return (Integer) q.getSingleResult();
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     // Find Verified Reservations
@@ -410,7 +410,7 @@ public class ReservationJpaController {
     public int getVerifiedReservationCount() {
         EntityManager em = getEntityManager();
         Query q = em.createNamedQuery("Reservation.countVerified");
-        return (Integer) q.getSingleResult();
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     public Reservation findReservation(Integer id) {
