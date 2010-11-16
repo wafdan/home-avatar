@@ -97,7 +97,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     out.println("</td></tr></table>");
                     out.println("</div>");
                     //out.println("<input type='text' id='payment_date"+r.getReservationId()+"' name='payment_date' class='datepicker' />");
-                    out.println("<div id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
+                    out.println("<div class='detail' id=detail"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:viewDetail("+r.getReservationId()+",1)' value='View Detail'></div>");
                     out.println("<div class='tabconfirm_form'>");
                     if (kpc.getPaymentStatus(r) == 1) {
                         out.println("<div id=confirm_form"+r.getReservationId()+"><input class='button' type ='button' onclick='javascript:showForm("+r.getReservationId()+",1)' value='Confirm'></div>");
