@@ -26,6 +26,7 @@
 <%@page import="java.text.SimpleDateFormat" %>
 <%@page import="KelolaReservasi.*" %>
 <%@page import="java.util.Locale" %>
+<%@page import="java.util.Date" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -58,6 +59,24 @@
                     <div id="content">
                         <h1 class="title">Due Payment Reservation List</h1>
                         <div class="post">
+                            <div class="error_msg">
+                                <%
+                                    String status = request.getParameter("status");
+                                    String id = request.getParameter("id");
+                                    if (status != null) {
+                                        if (status.equals("delete_success")) {
+                                            out.println("Reservation #"+id+" successfully deleted and notification email has been sent");
+                                        } else if (status.equals("delete_failed")) {
+                                            out.println("Reservation #"+id+" failed to be deleted");
+                                        } else if (status.equals("send_email_success")) {
+                                            out.println("Reservation #"+id+" reminder email has been sent");
+                                        } else if (status.equals("send_email_failed")) {
+                                            out.println("Reservation #"+id+" reminder email failed to be sent");
+                                        }
+                                    }
+                                %>
+                            </div>
+                            <div class="today">Today : <%out.write(formatter.format(new Date()));%></div>
                             <div class="fac1">
                             <%
                             MengelolaReservasiController ctrl = new MengelolaReservasiController();
@@ -86,8 +105,8 @@
                                     <td style="vertical-align: 0%"><% out.write(temp.getReservationId().toString());%></td>
                                     <td style="vertical-align: 0%"><% out.write(temp.getUsername().getName());%></td>
                                     <td style="vertical-align: 0%"><% out.write(formatter.format(temp.getDueDate()));%></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmSendEmail()" href="#">Send email</a></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmDelete()" href=<%out.write("'HapusResv?id="+temp.getReservationId()+"'");%>>Delete</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmSendEmail()" href=<%out.write("'SendEmail?id="+temp.getReservationId()+"&ref=notif&action=reminder'");%>>Send email</a></td>
+                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmDelete()" href=<%out.write("'SendEmail?id="+temp.getReservationId()+"&ref=notif&action=delete'");%>>Delete</a></td>
                                 </tr>
                                 <%}
                                 }
