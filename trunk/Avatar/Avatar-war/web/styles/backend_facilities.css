@@ -410,3 +410,15 @@ html>body #footer {
 
 #legal a {
 }
+
+table {
+    vertical-align: 0%;
+}
+
+th {
+    /*max-width: 50px;*/
+}
+
+td textarea {
+    min-width: 40px;
+}
