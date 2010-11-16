@@ -166,25 +166,30 @@ public class KelolaPembayaran extends HttpServlet {
             // Inisialisasi Kontroler JPA dan Kelas Entity
             ReservationJpaController resjc = new ReservationJpaController();
             List<Reservation> lres = null;
-            int page = 1, numperpage = 20;
+            int page = 1, numperpage = 20, total = 0;
             if (request.getParameter("pg") != null)
                 page = Integer.parseInt(request.getParameter("pg"));
             if (request.getParameter("mode") != null) {
                 if (request.getParameter("mode").equals("unconf")) {
                     lres = resjc.findUnpaidReservationEntities(numperpage, numperpage * (page - 1));
+                    total = resjc.getUnpaidReservationCount();
                 } else if (request.getParameter("mode").equals("unver")) {
                     lres = resjc.findUnverifiedReservationEntities(numperpage, numperpage * (page - 1));
+                    total = resjc.getUnverifiedReservationCount();
                 } else if (request.getParameter("mode").equals("ver")) {
                     lres = resjc.findVerifiedReservationEntities(numperpage, numperpage * (page - 1));
+                    total = resjc.getVerifiedReservationCount();
                 } else if (request.getParameter("mode").equals("problem")) {
                     MengelolaReservasiController rescon = new MengelolaReservasiController();
                     lres = rescon.getReservationToWarn();
+                    numperpage = total = lres.size();
                 }
             } else {
                 lres = resjc.findReservationEntities(numperpage, numperpage * (page - 1));
+                total = resjc.getReservationCount();
             }
             request.setAttribute("returnList", lres);
-            request.setAttribute("totalpage", (int) Math.ceil(((double) resjc.getReservationCount()) / numperpage));
+            request.setAttribute("totalpage", (int) Math.ceil(((double) total) / numperpage));
             request.setAttribute("popup", popup);
             // Tampilkan ke JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
