@@ -17,6 +17,10 @@ public class DueReservation extends Reservation {
     ReservationItem resvItem;
     Date dueDate;
 
+    public DueReservation() {
+
+    }
+    
     public DueReservation(Reservation r) {
         this.reservationId = r.getReservationId();
     }
