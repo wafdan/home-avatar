@@ -261,8 +261,8 @@
                                 </div>
                                 <br/>
                                 <div class="required">
-                                    <label for="hotel_phone">Hotel Phone Number</label><input name="hotel_phone" type="text" value="+" onkeyup="validateHotelPhoneFax(1);"/><div id="phoneerror" style="color: red"></div><br />
-                                    <label for="hotel_fax">Hotel Fax Number</label> <input name="hotel_fax" type="text" value="+" onkeyup="validateHotelPhoneFax(2);" /><div id="faxerror" style="color: red" ></div>
+                                    <label for="hotel_phone">Hotel Phone Number</label><input name="hotel_phone" type="text" value="<%= p.getHotelPhone() %>" onkeyup="validateHotelPhoneFax(1);"/><div id="phoneerror" style="color: red"></div><br />
+                                    <label for="hotel_fax">Hotel Fax Number</label> <input name="hotel_fax" type="text" value="<%= p.getHotelFax() %>" onkeyup="validateHotelPhoneFax(2);" /><div id="faxerror" style="color: red" ></div>
                                 </div>
                                 <br/>
                                 <div class="required">
@@ -488,13 +488,13 @@
                                 <br/>
 
 
-                                <label for="account_number_1">Account Number 1</label> <input name="account_no_1" type="text" onblur="validateAccountNumber(1);"/> <div id="account_no_1_err"></div> <br /><br />
-                                <label for="bank_name_1">Bank Name 1</label> <input name="bank_name_1" type="text" onblur="validateBankName(1);"/> <div id="bank_name_1_err"></div><br /><br />
-                                <label for="account_name_1">Account Name 1</label><input name="account_name_1" type="text" onblur="validateAccountName(1);"/> <div id="account_name_1_err"></div><br /><br />
+                                <label for="account_number_1">Account Number 1</label> <input name="account_no_1" type="text" value="<%=p.getAccountNumber1() %>" onblur="validateAccountNumber(1);"/> <div id="account_no_1_err"></div> <br /><br />
+                                <label for="bank_name_1">Bank Name 1</label> <input name="bank_name_1" type="text" value="<%=p.getBankName1() %>" onblur="validateBankName(1);"/> <div id="bank_name_1_err"></div><br /><br />
+                                <label for="account_name_1">Account Name 1</label><input name="account_name_1" type="text" value="<%=p.getAccountName1() %>" onblur="validateAccountName(1);"/> <div id="account_name_1_err"></div><br /><br />
 
-                                <label for="account_number_2">Account Number 2</label> <input name="account_no_2" type="text" onblur="validateAccountNumber(2);"/><div id="account_no_2_err"></div> <br /><br />
-                                <label for="bank_name_2">Bank Name 2</label> <input name="bank_name_2" type="text" onblur="validateBankName(2);"/> <div id="bank_name_2_err"></div><br /><br />
-                                <label for="account_name_2">Account Name 2</label><input name="account_name_2" type="text" onblur="validateAccountName(2);"/> <div id="account_name_2_err"></div><br /><br />
+                                <label for="account_number_2">Account Number 2</label> <input name="account_no_2" value="<%=p.getAccountName2() %>" type="text" onblur="validateAccountNumber(2);"/><div id="account_no_2_err"></div> <br /><br />
+                                <label for="bank_name_2">Bank Name 2</label> <input name="bank_name_2" type="text" value="<%=p.getBankName2() %>" onblur="validateBankName(2);"/> <div id="bank_name_2_err"></div><br /><br />
+                                <label for="account_name_2">Account Name 2</label><input name="account_name_2" value="<%=p.getAccountName2() %>" type="text" onblur="validateAccountName(2);"/> <div id="account_name_2_err"></div><br /><br />
 
                                 <div style="text-align: left;">
                                     <label style="visibility: hidden;">dummy</label>
