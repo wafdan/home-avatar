@@ -179,6 +179,17 @@ public class StaffJpaController {
         }
     }
 
+    public Staff findStaffByUsername(String username) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Staff.findByUsername");
+            q.setParameter("username", username);
+            return (Staff) q.getResultList().get(0);
+        } finally {
+            em.close();
+        }
+    }
+
     public int getStaffCount() {
         EntityManager em = getEntityManager();
         try {

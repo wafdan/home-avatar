@@ -22,7 +22,6 @@ import java.util.List;
  * @author kamoe
  */
 public class MelihatLayananController {
-    public static Cart c = new Cart();
     AccomodationJpaController ac;
     VenueJpaController vc;
     HallJpaController hc;
