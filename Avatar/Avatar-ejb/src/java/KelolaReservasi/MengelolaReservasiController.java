@@ -47,7 +47,7 @@ public class MengelolaReservasiController {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0); today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0); today.set(Calendar.MILLISECOND, 0);
-        Calendar limit = null;
+        Calendar limit = Calendar.getInstance(); limit.setTimeInMillis(0);
         for (Reservation res : rc.findUnpaidReservationEntities()) {
             if (res.getReservationPaymentLimit() != null) {
                 limit.setTime(res.getReservationPaymentLimit());

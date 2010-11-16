@@ -11,12 +11,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -104,13 +102,6 @@ public class RoomReservation extends ReservationItem implements Serializable {
         this.actualExit = actualExit;
     }
 
-    /*public ReservationItem getReservationItem() {
-    return reservationItem;
-    }
-
-    public void setReservationItem(ReservationItem reservationItem) {
-    this.reservationItem = reservationItem;
-    }*/
     public Room getRoomNo() {
         return roomNo;
     }

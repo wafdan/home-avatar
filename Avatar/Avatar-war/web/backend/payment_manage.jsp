@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %>
-<%@ page import="java.util.List, java.util.Iterator, java.util.Locale, AvatarEntity.Payment, AvatarEntity.Reservation, java.text.SimpleDateFormat, java.text.NumberFormat" %>
+<%@ page import="java.util.List, java.util.Calendar, java.util.Iterator, java.util.Locale, AvatarEntity.Payment, AvatarEntity.Reservation, java.text.SimpleDateFormat, java.text.NumberFormat" %>
 
 <%-- start object initialization --%>
 <%
@@ -16,6 +16,10 @@ SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
 Locale locale = Locale.getDefault();
 NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+Calendar today = Calendar.getInstance();
+today.set(Calendar.HOUR_OF_DAY, 0); today.set(Calendar.MINUTE, 0);
+today.set(Calendar.SECOND, 0); today.set(Calendar.MILLISECOND, 0);
+Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
 %>
 <%-- end object initialization --%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -26,6 +30,10 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
         <title>BackEnd Avatar</title>
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
+    <style type="text/css">
+        .onDue { font-weight: bold; }
+        .overDue { font-weight: bold; color: #FF0000 }
+    </style>
     <script language="javascript" type="text/javascript">
     <!--
         function verifyConfirm(formname, username) {
@@ -66,8 +74,9 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                         verifyAction = "Verify";
                                     }
                                     pay = item.getPayment();
+                                    curr.setTime(item.getReservationPaymentLimit());
                                 %>
-                                <tr>
+                                <tr<%= (pay != null ? "" : (curr.before(today) ? " class=\"overDue\"" : (curr.equals(today) ? " class=\"onDue\"" : ""))) %>>
                                     <td>
                                         <%= formatter.format(item.getReservationTime()) %>
                                         (<%= item.getIsOnspot() ? "on-spot" : "online" %>)
@@ -75,7 +84,9 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                     <td><%= item.getUsername().getUsername() %></td>
                                     <td><%= currencyFormat.format(item.getTotalPrice()) %></td>
                                     <td style="white-space:nowrap"><% if (pay == null) { %>
-                                        not yet
+                                        not yet<% if (item.getReservationPaymentLimit() != null) {
+                                            %>, due <%= onlyDate.format(item.getReservationPaymentLimit()) %>
+                                        <% } %>
                                         <% } else { %>
                                         confirmed <%= formatter.format(pay.getConfirmTime()) %><br />
                                         amount <%= currencyFormat.format(pay.getAmount()) %><br />
