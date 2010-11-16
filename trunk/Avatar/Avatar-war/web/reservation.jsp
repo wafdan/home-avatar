@@ -213,16 +213,17 @@
                             <p>Please transfer Rp. <%=totalPrice%> to one of these account number : </p>
                             <ol>
                                 <li>
-                                    Bank : BRI
-                                    Acc. No. : 0992-19920776-1
-                                    Holder name : Zulfikar Hakim
+                                    Bank : <% out.write(p.getBankName1()); %>
+                                    Acc. Number : <% out.write(p.getAccountNumber1()); %>
+                                    Acc. Name : <% out.write(p.getAccountName1()); %>
                                 </li>
-
+                                <% if (p.getAccountName2() != null) { %>
                                 <li>
-                                    Bank : BCA
-                                    Acc No. : 03976-1-374-1
-                                    Holder name : Zulfikar Hakim
+                                    Bank : <% out.write(p.getBankName2()); %>
+                                    Acc. Number : <% out.write(p.getAccountNumber2()); %>
+                                    Acc. Name : <% out.write(p.getAccountName2()); %>
                                 </li>
+                                <% } %>
                             </ol>
                             <p>please tranfer and confirm your within 5 days. However, your
                 reservation will be deleted after 5 days if you do not confirm payment
