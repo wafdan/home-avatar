@@ -2,9 +2,13 @@
     Document   : TambahCustomer
     Created on : 29 Sep 10, 19:47:02
     Author     : zulfikar
+    Modifier   : Wafdan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="AvatarEntity.Customer" %>
+<%@page import="AvatarEntity.CustomerJpaController" %>
+
 <%@page import="AvatarEntity.Accomodation" %>
 <%@page import="AvatarEntity.AccomodationJpaController" %>
 <%@page import="AvatarEntity.Hall" %>
@@ -28,16 +32,33 @@
 <%@page import="java.util.Iterator" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
+<%
+Locale locale = Locale.getDefault();
+NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
+ReservationJpaController jpar = new ReservationJpaController();
+List<Reservation> rList = jpar.findReservationEntities();
+ReservationItemJpaController jpari = new ReservationItemJpaController();
+List<ReservationItem> riList = jpari.findReservationItemEntities();
+%>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
         <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="../jquery/jquery_hoo.js"></script>
         <script type="text/javascript">
             function confirmAction()
             {return confirm("Do you really want to delete?")}
         </script>
+        <style>
+ table.detail, table.detail td, table.detail th {
+         border-collapse:collapse;
+         border:1px solid white;
+ }
+ table.detail tr.parent {
+         font-weight:bold;
+ }
+        </style>
     </head>
     <body>
         <!-- start header -->
@@ -49,100 +70,111 @@
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Reservation List</h1>
-                        <ul id="fmenu">
-                            <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
-                            <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
-                            <li id="fmenu-item3"><a href="fac_serv_manage.jsp">Other Services</a></li>
-                        </ul>
                         <div class="post">
-                            <div class="fac1">
-                            <%--<table width="603" border="1" style="table-layout:fixed">--%>
-                            <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
-                                <%
-                                int editIndex=0;
-                                try {
-                                    String Index = request.getParameter("edit");
-                                    editIndex = Integer.parseInt(Index);
-                                } catch (NullPointerException ex) {
-                                    editIndex = -1;
-                                } catch (NumberFormatException ex) {
-                                    editIndex = -1;
-                                }
+                            <h1 class="title">Reservation Management</h1>
+                            <form method="post" name="addResv" id="addResv" action="resv_add">
+                                <h2>Add Reservation</h2>
+                                <table border="0">
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Is On Spot</th>
+                                        <th>Note</th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="uname" id="uname" size="20" maxlength="25" /></td>
+                                        <td>
+                                            <input type="radio" name="ison" id="ison" value="true"/>Yes<br/>
+                                            <input type="radio" name="ison" id="ison" value="false"  checked="true"/>No
 
-                                int index = 0;
-                                ReservationJpaController jpar = new ReservationJpaController();
-                                List<Reservation> rList = jpar.findReservationEntities();
-                                if (editIndex == -1) {
-                                    %>
-                                <tr>
-                                    <th bgcolor="#262626" width="20">No.</th>
-                                    <th bgcolor="#262626" width="50">Reservation Id</th>
-                                    <th bgcolor="#262626" width="89">Is Onspot</th>
-                                    <th bgcolor="#262626" width="100">Username</th>
-                                    <th bgcolor="#262626" width="96">Note</th>
-                                    <th colspan="2" bgcolor="#262626"></th>
-                                </tr>
-                                <%for (Iterator<Reservation> i = rList.iterator(); i.hasNext();) {
-                                            Reservation temp = i.next();
+                                        </td>
+                                        <td><textarea name="description" id="description" cols="25" rows="2"></textarea></td>
+                                    </tr>
+                                </table><br/>
+
+                                <h2>Reservation List</h2>
+                                <script>
+                                    $(function() {
+                                        $('tr.parent')
+                                        .css("cursor","pointer")
+                                        .attr("title","Click to expand/collapse")
+                                        .click(function(){
+                                            $(this).siblings('.child-'+this.id).toggle();
+                                        });
+                                        $('tr[@class^=child-]').hide().children('td');
+                                    });
+                                    $(function(){
+                                        $('tr[@class^=child-]')
+                                        .css("cursor","pointer")
+                                        .attr("title","Click to expand/collapse")
+                                        .click(function(){
+                                            $(this).siblings('.child2-'+this.id).toggle();
+                                        });
+                                        $('tr[@class^=child2-]').hide().children('td');
+                                    });
+                                </script>
+                                <table id="detail_table" border="1"class="detail" cellpadding="3">
+                                    <col style="width: 20px;"/>
+                                    <col style="width: 20px;"/>
+                                    <col style="width: 20px;"/>
+                                    <col style="width: 60px;"/>
+                                    <col style="width: 40px;"/>
+                                    <col style="width: 90px;"/>
+                                    <thead>
+                                    <tr>
+                                        <%--<th bgcolor="#262626"></th>--%>
+                                        <th bgcolor="#262626">Reservation Id</th>
+                                        <th bgcolor="#262626">Is Onspot</th>
+                                        <th bgcolor="#262626">Username</th>
+                                        <th bgcolor="#262626" colspan="2">Note</th>
+                                        <th bgcolor="#262626">Action</th>
+                                    </tr>
+                                    </thead>
+                                <%
+                                for (Reservation resv: rList){
                                 %>
-                                <tr>
-                                    <td style="vertical-align: 0%"><%index++;out.write(Integer.toString(index));%></td>
-                                    <td style="vertical-align: 0%"><% out.write(temp.getReservationId());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getIsOnspot()));%></td>
-                                    <td style="vertical-align: 0%"><% out.write(temp.getNote());%></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getReservationId());%>">delete</a></td>
+                                <tr class="parent" id="row<%= resv.getReservationId()%>">
+                                    <%--<td><a href="#" style="font-size: large">+</a></td>--%>
+                                    <td><%= resv.getReservationId()%></td>
+                                    <td><%= resv.getIsOnspot()%></td>
+                                    <td><%= resv.getUsername().getUsername()%></td>
+                                    <td colspan="2"><%= resv.getNote()%></td>
+                                    <td>
+                                        <a href="HapusResv?rid=<%= resv.getReservationId()%>">delete</a> |
+                                        <a href="EditResv?rid=<%= resv.getReservationId()%>">edit</a>
+                                    </td>
+                                </tr>
+                                <tr class="child-row<%= resv.getReservationId()%>">
+                                    <td>&nbsp;</td>
+                                    <td bgcolor="#262626">Item Id</td>
+                                    <td bgcolor="#262626">Reservation Time</td>
+                                    <td bgcolor="#262626">Price</td>
+                                    <td bgcolor="#262626">DTYPE</td>
+                                    <td bgcolor="#262626">Action</td>
+                                </tr>
+                                <%
+                                for (ReservationItem resvi: riList){
+                                if(resvi.getReservationId().equals(resv)){
+                                %>
+                                <tr class="child-row<%= resv.getReservationId()%>">
+                                    <td>&nbsp;</td>
+                                    <td><%= resvi.getReservationItemId()%></td>
+                                    <td><%= resvi.getReservationTime()%></td>
+                                    <td><%= currencyFormat.format(resvi.getPrice())%></td>
+                                    <td>DTYPE</td>
+                                    <td>
+                                        <a href="#">edit</a>|
+                                        <a href="#">delete</a>
+                                    </td>
+                                </tr>
+                                <tr class="child2-row<%= resvi.getReservationItemId()%>">
+                                    <td>&nsbp;</td>
+                                    <td>HOOOOOO</td>
                                 </tr>
                                 <%}
-                                } else {
-                                    int iterator = 0;
-                                    for (Iterator<Reservation> i = rList.iterator(); i.hasNext();) {
-                                        Reservation temp = i.next();
-                                        iterator++;
-                                        index++;
-                                        if(iterator == editIndex){%>
-                                        <form action="EditHall" method="post">
-                                            <tr>
-                                                <th bgcolor="#262626" width="20%">No</th>
-                                                <th bgcolor="#262626" width="80%"><%out.write(Integer.toString(index));%></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Product ID :</td>
-                                                <td><input type="text" value= "<%= temp.getReservationId()%>" id="pid" name="pid" disabled="true" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Package Name :</td>
-                                                <td><input type="text" value= "<%= temp.getUsername()%>" id="type" name="type" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Description  :</td>
-                                                <td><textarea id="desc" name="desc" cols=70% rows=3><%= temp.getNote()%></textarea></td>
-                                            </tr>
-                                                <td>
-                                                    <input type="submit" value="save" onclick="this.form.pid.disabled=false;" />
-                                                    <a onclick="return confirmAction()" href="HapusHall?delete=%3C%%20out.write(temp.getProductId());%%3E">
-                                                        delete</a>
-                                                    <a href="fac_hall_manage.jsp">
-                                                        cancel</a>
-                                                </td>
-                                        </form>
-
-                                       <%}else{%>
-                                       <tr>
-                                           <td style="vertical-align: 0%"><%index++;
-                                                                                out.write(Integer.toString(index));%></td>
-                                           <td style="vertical-align: 0%"><% out.write(temp.getReservationId());%></td>
-                                           <td style="vertical-align: 0%"><% out.write(String.valueOf(temp.getIsOnspot()));%></td>
-                                           <td style="vertical-align: 0%"><% out.write(temp.getNote());%></td>
-                                           <td style="vertical-align: 0%;width:20px;" align="center"><a href="reservation_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                           <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmAction()" href="HapusHall?delete=<% out.write(temp.getReservationId());%>">delete</a></td>
-                                       </tr>
-                                       <%}
-                                    }
                                 }%>
-                            </table>
-                            </div>
+                                <%}%>
+                                </table>
+                            </form>
                         </div>
                     </div>
                     <!-- end content -->
