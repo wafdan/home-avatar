@@ -45,7 +45,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
             $(function(){
                 // Datepicker
                 $('.datepicker').datepicker({
-                    inline: true
+                    inline: true, dateFormat : "yy-mm-dd"
                 });
                 //hover states on the static widgets
                 $('#dialog_link, ul#icons li').hover(

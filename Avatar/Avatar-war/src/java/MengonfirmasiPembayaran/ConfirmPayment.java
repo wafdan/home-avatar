@@ -7,6 +7,7 @@ package MengonfirmasiPembayaran;
 
 import KonfirmasiPembayaran.KonfirmasiPembayaranController;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,14 +46,14 @@ public class ConfirmPayment extends HttpServlet {
         try {
             if (!reservId.isEmpty() || !accNo.isEmpty() || !bank.isEmpty() || !amount.isEmpty() || !paymentDate.isEmpty())
             {
-                Date pd = new Date();
-                String[] arrpd = paymentDate.split("/");
-                //System.out.println("1."+arrpd[0]+"-2."+arrpd[1]+"-3."+arrpd[2]);
-                pd.setDate(Integer.parseInt(arrpd[0]));
-                pd.setMonth(Integer.parseInt(arrpd[1]));
-                pd.setYear(Integer.parseInt(arrpd[2]));
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(0);
+                String[] arrpd = paymentDate.split("-");
+                cal.set(Integer.parseInt(arrpd[2]),
+                        Integer.parseInt(arrpd[1]),
+                        Integer.parseInt(arrpd[0]));
                 KonfirmasiPembayaranController kpc = new KonfirmasiPembayaranController();
-                kpc.confirmPayment(reservId, accNo, bank, amount, pd);
+                kpc.confirmPayment(reservId, accNo, bank, amount, cal.getTime());
             }
             response.sendRedirect("reservation_status.jsp");
         } catch (Exception e) {

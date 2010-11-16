@@ -12,7 +12,6 @@ import AvatarEntity.ProfileJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.RoomReservation;
-import KelolaReservasi.DueReservation;
 import KelolaReservasi.MengelolaReservasiController;
 import Support.EmailSender;
 import java.io.IOException;
@@ -56,7 +55,7 @@ public class SendEmail extends HttpServlet {
             ProfileJpaController pctrl = new ProfileJpaController();
             Profile hotel = pctrl.findProfile(Boolean.TRUE);
 
-            DueReservation res = ctrl.getDueReservation(reservId);
+            Reservation res = ctrl.getReservation(reservId);
 
             String to = res.getUsername().getEmail();
             String from = hotel.getHotelEmail();
@@ -73,8 +72,8 @@ public class SendEmail extends HttpServlet {
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Cancellation Due To Expired Payment Time";
                     body = "Your reservation #"+reservId+" has been cancelled due to expired payment time. "+newline;
                     body += newline+"Reservation Id = "+reservId;
-                    body += newline+"Reservation Time = "+formatter.format(res.getDueReservationItem().getReservationTime());
-                    body += newline+"Expired Payment Date = "+formatter.format(res.getDueDate());
+                    body += newline+"Reservation Time = "+formatter.format(res.getReservationTime());
+                    body += newline+"Expired Payment Date = "+formatter.format(res.getReservationPaymentLimit());
                     body += newline+newline+"Reservation Items cancelled: ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);
@@ -91,7 +90,7 @@ public class SendEmail extends HttpServlet {
                             body += newline+"Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
                             body += newline+"Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
                         } else if (curRes instanceof OtherServicesReservation) {
-
+                            body += ((OtherServicesReservation) curRes).getProductId().getProductType();
                         }
                         i++;
                     }
@@ -108,8 +107,8 @@ public class SendEmail extends HttpServlet {
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Payment Reminder";
                     body = "Your reservation #"+reservId+" is in due payment time. "+newline;
                     body += newline+"Reservation Id = "+reservId;
-                    body += newline+"Reservation Time = "+formatter.format(res.getDueReservationItem().getReservationTime());
-                    body += newline+"Expired Payment Date = "+formatter.format(res.getDueDate())+newline;
+                    body += newline+"Reservation Time = "+formatter.format(res.getReservationTime());
+                    body += newline+"Expired Payment Date = "+formatter.format(res.getReservationPaymentLimit())+newline;
                     body += newline+"Reservation Items: ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);

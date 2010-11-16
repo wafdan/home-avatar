@@ -19,6 +19,7 @@ import AvatarEntity.StaffJpaController;
 import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import KelolaPembayaran.ReceiptGenerator;
+import KelolaReservasi.MengelolaReservasiController;
 import Support.EmailSender;
 import java.io.File;
 import java.io.IOException;
@@ -175,6 +176,9 @@ public class KelolaPembayaran extends HttpServlet {
                     lres = resjc.findUnverifiedReservationEntities(numperpage, numperpage * (page - 1));
                 } else if (request.getParameter("mode").equals("ver")) {
                     lres = resjc.findVerifiedReservationEntities(numperpage, numperpage * (page - 1));
+                } else if (request.getParameter("mode").equals("problem")) {
+                    MengelolaReservasiController rescon = new MengelolaReservasiController();
+                    lres = rescon.getReservationToWarn();
                 }
             } else {
                 lres = resjc.findReservationEntities(numperpage, numperpage * (page - 1));
