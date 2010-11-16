@@ -40,16 +40,16 @@
         <li><a href="index.jsp">Home</a><span></span></li>
       </ul>
     </div>
-
+    <%
+        ProfileJpaController pjc=new ProfileJpaController();
+        Profile p=pjc.findProfile(Boolean.TRUE);
+    %>
     <div id="logo">
     	<div id="logokiri">
-        	<img class="imglogo" src="images/logohotelthumbnail.png" alt="" />
+            <!--img class="imglogo" src="images/demo/logohotel.png" alt="" /-->
+            <%out.write("<img class='imglogo' src='"+p.getHotelLogo()+"' alt='' />");%>
         </div>
         <div id="logokanan">
-                <%
-                    ProfileJpaController pjc=new ProfileJpaController();
-                    Profile p=pjc.findProfile(Boolean.TRUE);
-                %>
         	<h1><a href="index.jsp"><%=p.getHotelName() %></a></h1>
       		<p>The Best Luxury Hotel in Bandung</p>
         </div>
