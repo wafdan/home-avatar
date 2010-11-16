@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.Accomodation" %>
 <%@page import="AvatarEntity.AccomodationJpaController" %>
+<%@page import="AvatarEntity.Profile" %>
+<%@page import="AvatarEntity.ProfileJpaController" %>
 <%@page import="AvatarEntity.Hall" %>
 <%@page import="AvatarEntity.HallJpaController" %>
 <%@page import="AvatarEntity.OtherServices" %>
@@ -29,6 +31,8 @@
 <%@page import="java.util.Date" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.Iterator" %>
+<%@page import="javax.management.timer.Timer" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -61,6 +65,9 @@
                         <div class="post">
                             <div class="error_msg">
                                 <%
+                                    ProfileJpaController pc = new ProfileJpaController();
+                                    Profile hotel = pc.findProfile(Boolean.TRUE);
+                                    
                                     String status = request.getParameter("status");
                                     String id = request.getParameter("id");
                                     if (status != null) {
@@ -80,8 +87,8 @@
                             <div class="fac1">
                             <%
                             MengelolaReservasiController ctrl = new MengelolaReservasiController();
-                            List<DueReservation> rList = ctrl.getDuePaymentReservation();
-                            if (rList.isEmpty() == true) {
+                            List<Reservation> rList = ctrl.getReservationToWarn();
+                            if (rList == null) {
                                     out.println("No Reservation Item on Due Payment");
                                 } else {
                             %>
@@ -89,22 +96,24 @@
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
                                 <tr>
                                     <th bgcolor="#262626" width="5%">No.</th>
-                                    <th bgcolor="#262626" width="15%">Reservation Id</th>
-                                    <th bgcolor="#262626" width="35%">Username</th>
-                                    <th bgcolor="#262626" width="35%">Due Date</th>
-                                    <th colspan="2" bgcolor="#262626" width="10%">Action</th>
+                                    <th bgcolor="#262626" width="10%">Reservation Id</th>
+                                    <th bgcolor="#262626" width="30%">Customer</th>
+                                    <th bgcolor="#262626" width="20%">Due Date</th>
+                                    <th bgcolor="#262626" width="20%">Expired Date</th>
+                                    <th colspan="2" bgcolor="#262626" width="15%">Action</th>
                                 </tr>
                                 <%
                                 int index=0;
-                                Iterator<DueReservation> i = rList.iterator();
+                                Iterator<Reservation> i = rList.iterator();
                                 while (i.hasNext()) {
-                                    DueReservation temp = i.next();
+                                    Reservation temp = i.next();
                                 %>
                                 <tr>
                                     <td style="vertical-align: 0%"><% index++;out.write(Integer.toString(index));%></td>
                                     <td style="vertical-align: 0%"><% out.write(temp.getReservationId().toString());%></td>
                                     <td style="vertical-align: 0%"><% out.write(temp.getUsername().getName());%></td>
-                                    <td style="vertical-align: 0%"><% out.write(formatter.format(temp.getDueDate()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(formatter.format(temp.getReservationPaymentLimit()));%></td>
+                                    <td style="vertical-align: 0%"><% out.write(formatter.format(ctrl.getExpiredDate(temp.getReservationId())));%></td>
                                     <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmSendEmail()" href=<%out.write("'SendEmail?id="+temp.getReservationId()+"&ref=notif&action=reminder'");%>>Send email</a></td>
                                     <td style="vertical-align: 0%;width:20px;" align="center"><a onclick="return confirmDelete()" href=<%out.write("'SendEmail?id="+temp.getReservationId()+"&ref=notif&action=delete'");%>>Delete</a></td>
                                 </tr>
