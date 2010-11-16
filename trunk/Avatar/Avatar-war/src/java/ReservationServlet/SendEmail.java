@@ -17,12 +17,16 @@ import Support.EmailSender;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
+import javax.management.timer.Timer;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  *
@@ -66,14 +70,18 @@ public class SendEmail extends HttpServlet {
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
             SimpleDateFormat timeformatter = new SimpleDateFormat("HH:mm");
+            Locale locale = Locale.getDefault();
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 
             if (act != null) {
                 if (act.equals("delete")) {
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Cancellation Due To Expired Payment Time";
                     body = "Your reservation #"+reservId+" has been cancelled due to expired payment time. "+newline;
-                    body += newline+"Reservation Id = "+reservId;
-                    body += newline+"Reservation Time = "+formatter.format(res.getReservationTime());
-                    body += newline+"Expired Payment Date = "+formatter.format(res.getReservationPaymentLimit());
+                    body += newline+"Reservation Id   : "+reservId;
+                    body += newline+"Reservation Time : "+formatter.format(res.getReservationTime());
+                    body += newline+"Due Date         : "+formatter.format(res.getReservationPaymentLimit());
+                    body += newline+"Expired Date     : "+formatter.format(ctrl.getExpiredDate(reservId));
+                    body += newline+"Total Price      : "+currencyFormat.format(res.getTotalPrice())+newline;
                     body += newline+newline+"Reservation Items cancelled: ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);
@@ -83,12 +91,14 @@ public class SendEmail extends HttpServlet {
                         body += newline+i+". ";
                         if (curRes instanceof RoomReservation) {
                             body += "Room "+((RoomReservation) curRes).getRoomNo().getRoomNo()+", "+((RoomReservation) curRes).getRoomNo().getProductId().getProductType();
-                            body += newline+"Entry Date : "+formatter.format(((RoomReservation) curRes).getEntryDate());
-                            body += newline+"Exit Date : "+formatter.format(((RoomReservation) curRes).getExitDate());
+                            body += newline+"# Entry Date : "+formatter.format(((RoomReservation) curRes).getEntryDate());
+                            body += newline+"# Exit Date  : "+formatter.format(((RoomReservation) curRes).getExitDate());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof HallReservation) {
                             body += "Package "+((HallReservation) curRes).getProductId().getProductType()+", Hall "+((HallReservation) curRes).getVenueNo().getVenueNo()+", "+((HallReservation) curRes).getVenueNo().getVenueName();
-                            body += newline+"Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
-                            body += newline+"Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
+                            body += newline+"# Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
+                            body += newline+"# Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof OtherServicesReservation) {
                             body += ((OtherServicesReservation) curRes).getProductId().getProductType();
                         }
@@ -106,9 +116,11 @@ public class SendEmail extends HttpServlet {
                 } else if (act.equals("reminder")) {
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Payment Reminder";
                     body = "Your reservation #"+reservId+" is in due payment time. "+newline;
-                    body += newline+"Reservation Id = "+reservId;
-                    body += newline+"Reservation Time = "+formatter.format(res.getReservationTime());
-                    body += newline+"Expired Payment Date = "+formatter.format(res.getReservationPaymentLimit())+newline;
+                    body += newline+"Reservation Id   : "+reservId;
+                    body += newline+"Reservation Time : "+formatter.format(res.getReservationTime());
+                    body += newline+"Due Date         : "+formatter.format(res.getReservationPaymentLimit());
+                    body += newline+"Expired Date     : "+formatter.format(ctrl.getExpiredDate(reservId));
+                    body += newline+"Total Price      : "+currencyFormat.format(res.getTotalPrice())+newline;
                     body += newline+"Reservation Items: ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);
@@ -118,21 +130,27 @@ public class SendEmail extends HttpServlet {
                         body += newline+i+". ";
                         if (curRes instanceof RoomReservation) {
                             body += "Room "+((RoomReservation) curRes).getRoomNo().getRoomNo()+", "+((RoomReservation) curRes).getRoomNo().getProductId().getProductType();
-                            body += newline+"Entry Date : "+formatter.format(((RoomReservation) curRes).getEntryDate());
-                            body += newline+"Exit Date : "+formatter.format(((RoomReservation) curRes).getExitDate());
+                            body += newline+"# Entry Date : "+formatter.format(((RoomReservation) curRes).getEntryDate());
+                            body += newline+"# Exit Date  : "+formatter.format(((RoomReservation) curRes).getExitDate());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof HallReservation) {
                             body += "Package "+((HallReservation) curRes).getProductId().getProductType()+", Hall "+((HallReservation) curRes).getVenueNo().getVenueNo()+", "+((HallReservation) curRes).getVenueNo().getVenueName();
-                            body += newline+"Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
-                            body += newline+"Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
+                            body += newline+"# Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
+                            body += newline+"# Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof OtherServicesReservation) {
 
                         }
                         i++;
                     }
                     body += newline+newline+"Pay your reservation to our bank account before expired payment time: ";
-                    body += newline+hotel.getAccountName1()+newline+hotel.getBankName1()+" - "+hotel.getAccountNumber1();
+                    body += newline+"- "+hotel.getBankName1();
+                    body += newline+"  A/C Number : "+hotel.getAccountNumber1();
+                    body += newline+"  A/C Name   : "+hotel.getAccountName1();
                     if (hotel.getAccountName2() != null) {
-                        body += newline+"OR "+newline+hotel.getAccountName2()+newline+hotel.getBankName2()+" - "+hotel.getAccountNumber2();
+                        body += newline+"- "+hotel.getBankName2();
+                        body += newline+"  A/C Number : "+hotel.getAccountNumber2();
+                        body += newline+"  A/C Name   : "+hotel.getAccountName2();
                     }
                     body += newline+newline+"And visit our website to confirm your payment.";
                     body += newline+newline;
