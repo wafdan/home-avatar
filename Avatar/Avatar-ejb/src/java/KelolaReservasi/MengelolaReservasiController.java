@@ -5,18 +5,24 @@
 
 package KelolaReservasi;
 
+import AvatarEntity.HallReservation;
 import AvatarEntity.HallReservationJpaController;
 import AvatarEntity.OtherServicesReservationJpaController;
+import AvatarEntity.Profile;
+import AvatarEntity.ProfileJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.ReservationItemJpaController;
 import AvatarEntity.ReservationJpaController;
+import AvatarEntity.RoomReservation;
 import AvatarEntity.RoomReservationJpaController;
 import AvatarEntity.exceptions.IllegalOrphanException;
 import AvatarEntity.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,6 +35,8 @@ public class MengelolaReservasiController {
     RoomReservationJpaController roc;
     HallReservationJpaController hc;
     OtherServicesReservationJpaController oc;
+    ProfileJpaController pc;
+    Profile p;
 
     public MengelolaReservasiController() {
         rc = new ReservationJpaController();
@@ -36,6 +44,8 @@ public class MengelolaReservasiController {
         roc = new RoomReservationJpaController();
         hc = new HallReservationJpaController();
         oc = new OtherServicesReservationJpaController();
+        pc = new ProfileJpaController();
+        p = pc.findProfile(Boolean.TRUE);
     }
 
     public List<Reservation> getReservation() {
@@ -62,10 +72,39 @@ public class MengelolaReservasiController {
     }
 
     public void deleteReservation (Integer reservationId) throws IllegalOrphanException, NonexistentEntityException {
+        Object[] ris = rc.findReservation(reservationId).getReservationItemCollection().toArray();
+        for (int index=0;index<ris.length;index++) {
+            ric.destroy(((ReservationItem) ris[index]).getReservationItemId());
+        }
         rc.destroy(reservationId);
     }
 
     public Collection<ReservationItem> getReservationItemById(Integer id) {
         return rc.findReservation(id).getReservationItemCollection();
+    }
+
+    public Date getExpiredDate(Integer reservationId) {
+        Reservation cur = rc.findReservation(reservationId);
+        Iterator<ReservationItem> rii = cur.getReservationItemCollection().iterator();
+        int index = 0;
+        Date earliestDate = null;
+        while (rii.hasNext()) {
+            ReservationItem curRes = rii.next();
+            if (curRes instanceof RoomReservation) {
+                if (index == 0) {
+                    earliestDate = ((RoomReservation) curRes).getEntryDate();
+                } else if (earliestDate.after(((RoomReservation) curRes).getEntryDate())) {
+                    earliestDate = ((RoomReservation) curRes).getEntryDate();
+                }
+            } else if (curRes instanceof HallReservation) {
+                if (index == 0) {
+                    earliestDate = ((HallReservation) curRes).getUseDate();
+                } else if (earliestDate.after(((HallReservation) curRes).getUseDate())) {
+                    earliestDate = ((HallReservation) curRes).getUseDate();
+                }
+            }
+            index++;
+        }
+        return earliestDate;
     }
 }
