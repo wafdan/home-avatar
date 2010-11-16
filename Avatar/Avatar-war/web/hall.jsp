@@ -44,18 +44,24 @@
     <h1>Events</h1>
   </div>
 </div>
-
+<jsp:include page="cart.jsp"/>
 <div class="wrapper col4">
   <div id="container">
     <div id="content">
       <%
             if (type == null) {
-                if (venues.size() < 1) {
+                if (venues == null) {
                     out.println("<div class='entry'>");
                     out.println("<p>No Venue Availaible</p>");
-                    out.println("</div>");
+                    out.println("</div>");                
                 } else {
-                    out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
+                    if (venues.size() < 1) {
+                        out.println("<div class='entry'>");
+                        out.println("<p>No Venue Availaible</p>");
+                        out.println("</div>");
+                    } else {
+                        out.println("<h2 class='title'>" + ((Venue) cur).getVenueName() + "</h2>");
+                    }
                 }
             } else {
                 if (type.equals("1")) {
@@ -90,7 +96,7 @@
     <div id="column">
     	<div class="holder">
             <%if ((session.getAttribute("name")) != null) {%>
-            <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(ctrl.c.count()); %> Item(s) in Your Cart</h2>
+            <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(session.getAttribute("cartSize")); %> Item(s) in Your Cart</h2>
             <%}/*else {*/%>
         </div>
 

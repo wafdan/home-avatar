@@ -36,26 +36,32 @@
     <h1>Services</h1>
   </div>
 </div>
-
+<jsp:include page="cart.jsp"/>
 <div class="wrapper col4">
   <div id="container">
     <div id="content">
       <%
-        if (services.size() < 1) {
+        if (services == null) {
             out.println("<div class='entry'>");
             out.println("<p>No Service Availaible</p>");
             out.println("</div>");
         } else {
-            out.println("<h2 class='title'>" + cur.getProductType() + "</h2>");
-            out.println("<br />");
-            /*if (!isLogin) {
-            out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+            if (services.size() < 1) {
+                out.println("<div class='entry'>");
+                out.println("<p>No Service Availaible</p>");
+                out.println("</div>");
             } else {
-            out.println("<a class='book' href='#'>Add to Cart</a>");
-            }*/
-            out.println("<div class='entry'>");
-            out.println("<p>" + cur.getDescription() + "</p><img src='" + cur.getImage() + "' />");
-            out.println("</div>");
+                out.println("<h2 class='title'>" + cur.getProductType() + "</h2>");
+                out.println("<br />");
+                /*if (!isLogin) {
+                out.println("<a class='book' href='index.jsp'>Add to Cart</a>");
+                } else {
+                out.println("<a class='book' href='#'>Add to Cart</a>");
+                }*/
+                out.println("<div class='entry'>");
+                out.println("<p>" + cur.getDescription() + "</p><img src='" + cur.getImage() + "' />");
+                out.println("</div>");
+            }
         }
       %>
     </div>
@@ -63,7 +69,7 @@
     <div id="column">
     	<div class="holder">
             <%if ((session.getAttribute("name")) != null) {%>
-                <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(ctrl.c.count()); %> Item(s) in Your Cart</h2>
+                <h2 class="title"><img src="images/demo/cart.png" alt="" /><% out.print(session.getAttribute("cartSize")); %> Item(s) in Your Cart</h2>
             <%}/*else {*/%>
         </div>
 

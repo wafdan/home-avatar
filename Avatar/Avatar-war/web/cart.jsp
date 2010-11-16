@@ -4,32 +4,18 @@
     Author     : kamoe
 --%>
 
-<%@ page import="Layanan.MelihatLayananController" %>
-<%@ page import="Layanan.Cart" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Pemesanan.*" %>
 
 <%
-    MelihatLayananController ctrl = new MelihatLayananController();
-    String add = request.getParameter("add");
-    int type = Integer.parseInt(request.getParameter("type"));
-    String id = request.getParameter("id");
-
-    if (add.equals("1")) {
-        if (type == 1) {
-            ctrl.c.addCart(type, (Object) ctrl.getAccomodation(id));
-        } else {
-            ctrl.c.addCart(type, (Object) ctrl.getHall(id));
-        }
-    } else {
-        if (type == 1) {
-            ctrl.c.deleteCart((Object) ctrl.getAccomodation(id));
-        } else {
-            ctrl.c.deleteCart((Object) ctrl.getHall(id));
-        }
+    ArrayList<RoomSessionInfo> cartRoom = (ArrayList<RoomSessionInfo>) session.getAttribute("roomcart");
+    ArrayList<HallSessionInfo> cartHall = (ArrayList<HallSessionInfo>) session.getAttribute("hallcart");
+    int size = 0;
+    if (cartRoom != null) {
+        size += cartRoom.size();
     }
-
-    if (type == 1) { %>
-        <jsp:forward page="rooms.jsp?id=<=%id%>" />
-    <% } else { %>
-        <jsp:forward page="hall.jsp?type=2&id=<=%id%>" />
-    <%}
+    if (cartHall != null) {
+        size += cartHall.size();
+    }
+    session.setAttribute("cartSize", size);
 %>
