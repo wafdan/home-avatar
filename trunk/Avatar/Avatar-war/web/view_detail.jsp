@@ -25,28 +25,31 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
     String show = request.getParameter("show");
 
     if (show.equals("true")) {
-        out.println("Reservation Items :<br />");
+        out.println("Reservation Item(s) :<br />");
         KonfirmasiPembayaranController c = new KonfirmasiPembayaranController();
         Reservation r = c.getReservationById(Integer.parseInt(rid));
         if (r.getReservationItemCollection().size() < 1) {
             out.println("No Reservation Item <br />");
         } else
         {
+            out.println("<table>");
+            int i = 1;
             for (ReservationItem curRes : r.getReservationItemCollection()) {
                 if (curRes instanceof RoomReservation) {
-                    out.println("- Room Reservation<br />");
-                    out.println("Entry Date = "+formatter.format(((RoomReservation) curRes).getEntryDate())+"<br />");
-                    out.println("Exit Date = "+formatter.format(((RoomReservation) curRes).getExitDate()));
+                    out.println("<tr>"+i+". Room Reservation - Room "+((RoomReservation) curRes).getRoomNo().getRoomNo()+", "+((RoomReservation) curRes).getRoomNo().getProductId().getProductType()+"</tr>");
+                    out.println("<tr><td># Entry Date</td><td>"+formatter.format(((RoomReservation) curRes).getEntryDate())+"</td></tr>");
+                    out.println("<tr><td># Exit Date</td><td>"+formatter.format(((RoomReservation) curRes).getExitDate())+"</td></tr>");
                 } else if (curRes instanceof HallReservation) {
-                    out.println("- Hall Reservation<br />");
-                    out.println("Usage Time = "+formatter.format(((HallReservation) curRes).getUseDate())+","+timeformatter.format(((HallReservation) curRes).getBeginTime())+"-"+timeformatter.format(((HallReservation) curRes).getEndTime()));
+                    out.println("<tr>"+i+". Hall Reservation - Package "+((HallReservation) curRes).getProductId().getProductType()+", Hall "+((HallReservation) curRes).getVenueNo().getVenueNo()+", "+((HallReservation) curRes).getVenueNo().getVenueName()+"</tr>");
+                    out.println("<tr><td># Usage Time</td><td>"+formatter.format(((HallReservation) curRes).getUseDate())+","+timeformatter.format(((HallReservation) curRes).getBeginTime())+"-"+timeformatter.format(((HallReservation) curRes).getEndTime())+"</td></tr>");
                 } else if (curRes instanceof OtherServicesReservation) {
-                    out.println("- Other Services Reservation<br />");
-                    out.println(((OtherServicesReservation) curRes).getProductId().getProductType());
+                    out.println("<tr>"+i+". Other Services Reservation</tr>");
+                    out.println("<tr># "+((OtherServicesReservation) curRes).getProductId().getProductType()+" x "+((OtherServicesReservation) curRes).getAmount()+"</tr>");
                 }
-                out.println("<br />");
-                out.println("Price = "+currencyFormat.format(curRes.getPrice())+"<br />");
+                out.println("<tr><td># Price</td><td>"+currencyFormat.format(curRes.getPrice())+"</td></tr>");
+                i++;
             }
+            out.println("</table>");
         }
         out.println("<input class='button' type ='button' onclick='javascript:viewDetail("+rid+",0)' value='Hide Detail'>");
     } else {

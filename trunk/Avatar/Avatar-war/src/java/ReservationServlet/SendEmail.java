@@ -12,6 +12,8 @@ import AvatarEntity.ProfileJpaController;
 import AvatarEntity.Reservation;
 import AvatarEntity.ReservationItem;
 import AvatarEntity.RoomReservation;
+import AvatarEntity.Staff;
+import AvatarEntity.StaffJpaController;
 import KelolaReservasi.MengelolaReservasiController;
 import Support.EmailSender;
 import java.io.IOException;
@@ -76,13 +78,14 @@ public class SendEmail extends HttpServlet {
             if (act != null) {
                 if (act.equals("delete")) {
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Cancellation Due To Expired Payment Time";
+                    // email ke customer
                     body = "Your reservation #"+reservId+" has been cancelled due to expired payment time. "+newline;
                     body += newline+"Reservation Id   : "+reservId;
                     body += newline+"Reservation Time : "+formatter.format(res.getReservationTime());
                     body += newline+"Due Date         : "+formatter.format(res.getReservationPaymentLimit());
                     body += newline+"Expired Date     : "+formatter.format(ctrl.getExpiredDate(reservId));
                     body += newline+"Total Price      : "+currencyFormat.format(res.getTotalPrice())+newline;
-                    body += newline+newline+"Reservation Items cancelled: ";
+                    body += newline+newline+"Reservation Item(s) cancelled: ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);
                     Iterator<ReservationItem> it = col.iterator();
@@ -100,7 +103,8 @@ public class SendEmail extends HttpServlet {
                             body += newline+"# Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
                             body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof OtherServicesReservation) {
-                            body += ((OtherServicesReservation) curRes).getProductId().getProductType();
+                            body += ((OtherServicesReservation) curRes).getProductId().getProductType()+" x "+((OtherServicesReservation) curRes).getAmount();
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         }
                         i++;
                     }
@@ -112,8 +116,57 @@ public class SendEmail extends HttpServlet {
                     body += newline+"Phone : "+hotel.getHotelPhone();
                     body += newline+"Email : "+hotel.getHotelEmail();
                     EmailSender.sendEmail(to, from, cc, subject, body);
+                    
+                    // email ke pegawai
+                    StaffJpaController sc = new StaffJpaController();
+                    Staff s = sc.findStaffByUsername(request.getSession().getAttribute("username").toString());
+                    to = s.getEmail();
+                    
+                    body = "You've cancelled reservation #"+reservId+" due to expired payment time. "+newline;
+                    body += newline+"Reservation Id   : "+reservId;
+                    body += newline+"Customer Name    : "+res.getUsername().getName()+" ("+res.getUsername().getUsername()+")";
+                    body += newline+"Customer Address : "+res.getUsername().getAddress1()+", "+res.getUsername().getAddress2();
+                    body += newline+"                   "+res.getUsername().getCountry()+", "+res.getUsername().getCountry();
+                    body += newline+"Customer Phone   : "+res.getUsername().getName();
+                    body += newline+"Customer Email   : "+res.getUsername().getEmail();
+                    body += newline+newline+"Reservation Time : "+formatter.format(res.getReservationTime());
+                    body += newline+"Due Date         : "+formatter.format(res.getReservationPaymentLimit());
+                    body += newline+"Expired Date     : "+formatter.format(ctrl.getExpiredDate(reservId));
+                    body += newline+"Total Price      : "+currencyFormat.format(res.getTotalPrice())+newline;
+                    body += newline+newline+"Reservation Item(s) cancelled: ";
+                    col = ctrl.getReservationItemById(reservId);
+                    it = col.iterator();
+                    i=1;
+                    while (it.hasNext()) {
+                        ReservationItem curRes = it.next();
+                        body += newline+i+". ";
+                        if (curRes instanceof RoomReservation) {
+                            body += "Room "+((RoomReservation) curRes).getRoomNo().getRoomNo()+", "+((RoomReservation) curRes).getRoomNo().getProductId().getProductType();
+                            body += newline+"# Entry Date : "+formatter.format(((RoomReservation) curRes).getEntryDate());
+                            body += newline+"# Exit Date  : "+formatter.format(((RoomReservation) curRes).getExitDate());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
+                        } else if (curRes instanceof HallReservation) {
+                            body += "Package "+((HallReservation) curRes).getProductId().getProductType()+", Hall "+((HallReservation) curRes).getVenueNo().getVenueNo()+", "+((HallReservation) curRes).getVenueNo().getVenueName();
+                            body += newline+"# Usage Date : "+formatter.format(((HallReservation) curRes).getUseDate());
+                            body += newline+"# Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
+                        } else if (curRes instanceof OtherServicesReservation) {
+                            body += ((OtherServicesReservation) curRes).getProductId().getProductType()+" x "+((OtherServicesReservation) curRes).getAmount();
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
+                        }
+                        i++;
+                    }
+                    body += newline+newline;
+                    body += newline+hotel.getHotelName();
+                    body += newline+hotel.getHotelAddress1()+", "+ hotel.getHotelCity();
+                    body += newline+hotel.getHotelCountry();
+                    body += newline+"Phone : "+hotel.getHotelPhone();
+                    body += newline+"Email : "+hotel.getHotelEmail();
+
+                    EmailSender.sendEmail(to, from, cc, subject, body);
                     response.sendRedirect("HapusResv?id="+reservId+"&ref="+ref);
                 } else if (act.equals("reminder")) {
+                    // email ke customer
                     subject = hotel.getHotelName() + " [Reservation #"+reservId+"] Reservation Payment Reminder";
                     body = "Your reservation #"+reservId+" is in due payment time. "+newline;
                     body += newline+"Reservation Id   : "+reservId;
@@ -121,7 +174,7 @@ public class SendEmail extends HttpServlet {
                     body += newline+"Due Date         : "+formatter.format(res.getReservationPaymentLimit());
                     body += newline+"Expired Date     : "+formatter.format(ctrl.getExpiredDate(reservId));
                     body += newline+"Total Price      : "+currencyFormat.format(res.getTotalPrice())+newline;
-                    body += newline+"Reservation Items: ";
+                    body += newline+"Reservation Item(s): ";
                     int i=1;
                     Collection<ReservationItem> col = ctrl.getReservationItemById(reservId);
                     Iterator<ReservationItem> it = col.iterator();
@@ -139,7 +192,8 @@ public class SendEmail extends HttpServlet {
                             body += newline+"# Usage Time : "+timeformatter.format(((HallReservation) curRes).getBeginTime())+" - "+timeformatter.format(((HallReservation) curRes).getEndTime());
                             body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         } else if (curRes instanceof OtherServicesReservation) {
-
+                            body += ((OtherServicesReservation) curRes).getProductId().getProductType()+" x "+((OtherServicesReservation) curRes).getAmount();
+                            body += newline+"# Price      : "+currencyFormat.format(curRes.getPrice());
                         }
                         i++;
                     }
