@@ -68,3 +68,13 @@ tr .col1{
     margin-bottom:15px;
     border:1px solid #CCCCCC;
 }
+
+.detail table {
+    border:none;
+    margin-bottom: 0px;
+}
+
+.detail table tr td{
+    border:none;
+    width: 50%;
+}
