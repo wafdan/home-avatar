@@ -6,10 +6,8 @@
 package AvatarEntity;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +19,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,15 +49,9 @@ public abstract class ReservationItem implements Serializable {
     @Basic(optional = false)
     @Column(name = "price")
     protected double price;
-    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
-    protected HallReservation hallReservation;*/
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
     @ManyToOne(optional = false)
     protected Reservation reservationId;
-    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
-    protected OtherServicesReservation otherServicesReservation;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationItem")
-    protected RoomReservation roomReservation;*/
 
     public ReservationItem() {
     }
