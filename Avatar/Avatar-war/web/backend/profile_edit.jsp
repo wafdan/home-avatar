@@ -102,7 +102,7 @@
         var validateLogoExtension=function(){
             var target=document.logouploader.file1.value;
             if(target!=""){
-                var regex=/[.jpg]$/;
+                var regex=/[.jpg|.jpeg|.bmp|.png]$/;
                 if(!regex.test(target)){
                     document.getElementById("uploadererror").innerHTML="<em> &nbsp; &nbsp;&nbsp;&nbsp; Logo only .JPG</em>";
                     document.logouploader.logosubmit.disabled=true;
@@ -492,7 +492,7 @@
                                 <label for="bank_name_1">Bank Name 1</label> <input name="bank_name_1" type="text" value="<%=p.getBankName1() %>" onblur="validateBankName(1);"/> <div id="bank_name_1_err"></div><br /><br />
                                 <label for="account_name_1">Account Name 1</label><input name="account_name_1" type="text" value="<%=p.getAccountName1() %>" onblur="validateAccountName(1);"/> <div id="account_name_1_err"></div><br /><br />
 
-                                <label for="account_number_2">Account Number 2</label> <input name="account_no_2" value="<%=p.getAccountName2() %>" type="text" onblur="validateAccountNumber(2);"/><div id="account_no_2_err"></div> <br /><br />
+                                <label for="account_number_2">Account Number 2</label> <input name="account_no_2" value="<%=p.getAccountNumber2() %>" type="text" onblur="validateAccountNumber(2);"/><div id="account_no_2_err"></div> <br /><br />
                                 <label for="bank_name_2">Bank Name 2</label> <input name="bank_name_2" type="text" value="<%=p.getBankName2() %>" onblur="validateBankName(2);"/> <div id="bank_name_2_err"></div><br /><br />
                                 <label for="account_name_2">Account Name 2</label><input name="account_name_2" value="<%=p.getAccountName2() %>" type="text" onblur="validateAccountName(2);"/> <div id="account_name_2_err"></div><br /><br />
 

@@ -303,6 +303,14 @@ form .button{
     display: none;
 }
 
+.post table td {
+    padding : 5px;
+}
+
+.post table .tablekiri {
+    text-align: right;
+    font-weight: bold;
+}
 /* Sidebar */
 
 #sidebar {

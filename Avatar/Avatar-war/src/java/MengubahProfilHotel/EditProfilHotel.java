@@ -61,7 +61,7 @@ public class EditProfilHotel extends HttpServlet {
             p.setAccountName1(accname1);
             p.setAccountName2(accname2);
             p.setAccountNumber1(accno1);
-            p.setAccountName2(accno2);
+            p.setAccountNumber2(accno2);
             p.setBankName1(bankname1);
             p.setBankName2(bankname2);
             pjc.edit(p);
