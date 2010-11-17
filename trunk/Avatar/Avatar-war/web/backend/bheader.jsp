@@ -8,8 +8,7 @@
         <!-- start header -->
         <div id="logo-wrap">
             <div id="logo">
-                <h1><a href="index.jsp">AVATAR</a></h1>
-                <h2> Back End Management</h2>
+                <img src="../images/avatarlogo.png" alt="logo avatar"/>
             </div>
         </div>
         
