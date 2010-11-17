@@ -129,7 +129,6 @@ form .button{
     width: 860px;
     height: 52px;
     margin: 0 auto;
-    background: url(images/img02.jpg) no-repeat left top;
 }
 
 /* Menu */
@@ -138,7 +137,6 @@ form .button{
     width: 860px;
     height: 54px;
     padding-left: 10px;
-    background: url(images/img01.jpg) no-repeat left top;
 }
 
 #menu ul {
@@ -249,13 +247,11 @@ form .button{
 
 
 #wrapper {
-    width: 1150px;
+    width: auto;
     margin: 0 auto;
-    background: #000000 url(images/img02.jpg) no-repeat left top;
 }
 
 #wrapper-btm {
-    background: url(images/img03.jpg) no-repeat left bottom;
 }
 /* Page */
 
@@ -269,8 +265,8 @@ form .button{
 
 #content {
     float: right;
+    width: 70%;
     clear: none;
-    width: 900px;
     border: 2px dotted #333333;
     margin-right: 10px;
     padding:10px;
@@ -325,12 +321,10 @@ form .button{
 
 .post .meta .more {
     padding: 0 20px 0 18px;
-    background: url(images/img11.gif) no-repeat left center;
 }
 
 .post .meta .comments {
     padding-left: 22px;
-    background: url(images/img12.gif) no-repeat left center;
 }
 
 .post .meta b {
@@ -341,7 +335,7 @@ form .button{
 
 #sidebar {
     float: left;
-    width: 150px;
+    width: 20%;
     padding-left: 30px;
     background-color:#242424;
     margin-left: 20px;

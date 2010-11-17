@@ -6,6 +6,7 @@
 package AvatarEntity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -159,5 +160,16 @@ public class HallReservation extends ReservationItem implements Serializable {
         cal.setTime(useDate);
         cal.add(Calendar.DATE, -1 * prjpa.findProfile(Boolean.TRUE).getPaylimitConstant());
         return cal.getTime();
+    }
+
+    @Override
+    public String getDescription() {
+        return this.productId.getProductType();
+    }
+
+    @Override
+    public String getDetails() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return "(" + sdf.format(this.getUseDate()) + ")";
     }
 }

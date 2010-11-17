@@ -12,7 +12,7 @@
 <%
 List<Reservation> lres = (List<Reservation>) request.getAttribute("returnList");
 int totalpage = (Integer) request.getAttribute("totalpage");
-SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 SimpleDateFormat onlyDate = new SimpleDateFormat("yyyy-MM-dd");
 Locale locale = Locale.getDefault();
 NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
