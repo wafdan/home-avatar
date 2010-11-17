@@ -108,4 +108,14 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
     public Date getPaymentLimit() {
         return null;
     }
+
+    @Override
+    public String getDescription() {
+        return this.productId.getProductType() + " @" + this.getAmount() + " " + this.productId.getPricingUnit();
+    }
+
+    @Override
+    public String getDetails() {
+        return null;
+    }
 }

@@ -30,7 +30,7 @@ Integer id = Integer.parseInt(request.getParameter("reservationId"));
 ReservationJpaController resjpa = new ReservationJpaController();
 Reservation res = resjpa.findReservation(id);
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 Locale locale = Locale.getDefault();
 NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 %>

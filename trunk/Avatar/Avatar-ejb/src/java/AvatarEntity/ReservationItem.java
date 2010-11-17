@@ -99,6 +99,8 @@ public abstract class ReservationItem implements Serializable {
     }
 
     public abstract Date getPaymentLimit();
+    public abstract String getDescription();
+    public abstract String getDetails();
 
     @Override
     public int hashCode() {

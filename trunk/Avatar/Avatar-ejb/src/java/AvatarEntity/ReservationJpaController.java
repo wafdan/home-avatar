@@ -313,9 +313,7 @@ public class ReservationJpaController {
     private List<Reservation> findReservationEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Reservation.class));
-            Query q = em.createQuery(cq);
+            Query q = em.createNamedQuery("Reservation.findAll");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -324,6 +322,35 @@ public class ReservationJpaController {
         } finally {
             em.close();
         }
+    }
+
+    // Find Only Parent Reservations
+    public List<Reservation> findParentReservationEntities() {
+        return findParentReservationEntities(true, -1, -1);
+    }
+
+    public List<Reservation> findParentReservationEntities(int maxResults, int firstResult) {
+        return findParentReservationEntities(false, maxResults, firstResult);
+    }
+
+    private List<Reservation> findParentReservationEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Reservation.findParent");
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getParentReservationCount() {
+        EntityManager em = getEntityManager();
+        Query q = em.createNamedQuery("Reservation.countParent");
+        return ((Long) q.getSingleResult()).intValue();
     }
 
     // Find Unpaid Reservations

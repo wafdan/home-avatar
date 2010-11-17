@@ -33,15 +33,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "reservation")
 @NamedQueries({
-    @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r"),
+    @NamedQuery(name = "Reservation.findAll", query = "SELECT r FROM Reservation r ORDER BY r.reservationId DESC"),
     @NamedQuery(name = "Reservation.findByReservationId", query = "SELECT r FROM Reservation r WHERE r.reservationId = :reservationId"),
     @NamedQuery(name = "Reservation.findByIsOnspot", query = "SELECT r FROM Reservation r WHERE r.isOnspot = :isOnspot"),
-    @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.reservationId NOT IN (SELECT p.reservationId.reservationId FROM Payment p)"),
+    @NamedQuery(name = "Reservation.findParent", query = "SELECT r FROM Reservation r WHERE r.reservationId NOT IN (SELECT re.reservationId FROM Reservation re WHERE re.parent.reservationId IS NOT NULL) ORDER BY r.reservationId DESC"),
+    @NamedQuery(name = "Reservation.countParent", query = "SELECT COUNT(r.reservationId) FROM Reservation r WHERE r.reservationId NOT IN (SELECT re.reservationId FROM Reservation re WHERE re.parent.reservationId IS NOT NULL)"),
+    @NamedQuery(name = "Reservation.findUnpaid", query = "SELECT r FROM Reservation r WHERE r.reservationId NOT IN (SELECT p.reservationId.reservationId FROM Payment p) ORDER BY r.reservationId DESC"),
     @NamedQuery(name = "Reservation.countUnpaid", query = "SELECT COUNT(r.reservationId) FROM Reservation r WHERE r.reservationId NOT IN (SELECT p.reservationId.reservationId FROM Payment p)"),
-    @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p)"),
-    @NamedQuery(name = "Reservation.findUnverified", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NULL"),
+    @NamedQuery(name = "Reservation.findPaid", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) ORDER BY r.reservationId DESC"),
+    @NamedQuery(name = "Reservation.findUnverified", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NULL ORDER BY r.reservationId DESC"),
     @NamedQuery(name = "Reservation.countUnverified", query = "SELECT COUNT(r.reservationId) FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NULL"),
-    @NamedQuery(name = "Reservation.findVerified", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NOT NULL"),
+    @NamedQuery(name = "Reservation.findVerified", query = "SELECT r FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NOT NULL ORDER BY r.reservationId DESC"),
     @NamedQuery(name = "Reservation.countVerified", query = "SELECT COUNT(r.reservationId) FROM Reservation r WHERE r.reservationId IN (SELECT p.reservationId.reservationId FROM Payment p) AND r.payment.username IS NOT NULL"),
     @NamedQuery(name = "Reservation.findReservationByName", query = "SELECT r FROM Reservation r WHERE r.username.name = :name AND r.isOnspot = :isOnspot ORDER BY r.reservationId"),
     @NamedQuery(name = "Reservation.findOnlineReservationByName", query = "SELECT r FROM Reservation r WHERE r.username.name = :name AND r.isOnspot = false ORDER BY r.reservationId"),

@@ -116,6 +116,10 @@
         <servlet-name>CommonsFileUploadServlet</servlet-name>
         <servlet-class>MengubahProfilHotel.CommonsFileUploadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HallReservationAjaxBack</servlet-name>
+        <servlet-class>MengelolaReservasi.HallReservationAjaxBack</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>CommonsFileUploadServlet</servlet-name>
         <url-pattern>/backend/CommonsFileUploadServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HallReservationAjaxBack</servlet-name>
+        <url-pattern>/backend/HallReservationAjax</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
