@@ -64,7 +64,7 @@ public class Reservation implements Serializable {
     private Payment payment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
     private Collection<ReservationItem> reservationItemCollection;
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
     private Collection<Reservation> reservationCollection;
     @JoinColumn(name = "parent", referencedColumnName = "reservation_id")
     @ManyToOne
@@ -159,6 +159,10 @@ public class Reservation implements Serializable {
         return sum;
     }
 
+    /*
+     * Mencari timestamp reservasi dari reservation item pertama
+     * return null jika reservasi kosong/tidak wajar
+     */
     public Date getReservationTime() {
         Iterator<ReservationItem> iter = this.getReservationItemCollection().iterator();
         ReservationItem res = null;

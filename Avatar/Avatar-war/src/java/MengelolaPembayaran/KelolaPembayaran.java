@@ -191,6 +191,29 @@ public class KelolaPembayaran extends HttpServlet {
             request.setAttribute("returnList", lres);
             request.setAttribute("totalpage", (int) Math.ceil(((double) total) / numperpage));
             request.setAttribute("popup", popup);
+            // Periksa Isi List :: TODO: Hapus
+            /*Payment pay = null;
+            for (Reservation res : lres) {
+                System.out.println("Reservation ID: #" + res.getReservationId());
+                System.out.println("Reservation Date: " + res.getReservationTime() + " aka " + detail.format(res.getReservationTime()));
+                System.out.println("Reservation made " + (res.getIsOnspot() ? "on-spot" : "online"));
+                System.out.println("Customer: " + res.getUsername().getUsername());
+                System.out.println("Total: " + res.getTotalPrice());
+                System.out.println("Reservation due: " + (res.getReservationPaymentLimit() == null ? "-" : dateOnly.format(res.getReservationPaymentLimit())));
+                System.out.println("--- Payment Info ----");
+                pay = res.getPayment();
+                System.out.println("    " + (pay == null ? "not yet" : "confirmed"));
+                if (pay != null) {
+                    System.out.println("    at " + detail.format(pay.getConfirmTime()));
+                    System.out.println("    payment date: " + dateOnly.format(pay.getPaymentDate()));
+                    System.out.println("    amount: " + pay.getAmount());
+                    System.out.println("    method: " + pay.getPaymentMethod());
+                    System.out.println("    bank: " + pay.getPaymentBank());
+                    System.out.println("    ac: " + pay.getAccountNumber());
+                    System.out.println("    verifier: " + (pay.getUsername() == null ? "not verified" : pay.getUsername().getUsername()));
+                }
+                System.out.println("========#####========");
+            }*/
             // Tampilkan ke JSP
             RequestDispatcher dispatcher = request.getRequestDispatcher("/backend/payment_manage.jsp");
             dispatcher.forward(request, response);

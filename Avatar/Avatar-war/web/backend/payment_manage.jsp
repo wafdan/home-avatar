@@ -31,6 +31,7 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
         <link href="../styles/default.css" rel="stylesheet" type="text/css" />
     </head>
     <style type="text/css">
+        table { vertical-align: top; }
         .onDue { font-weight: bold; }
         .overDue { font-weight: bold; color: #FF0000 }
     </style>
@@ -74,11 +75,13 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                                         verifyAction = "Verify";
                                     }
                                     pay = item.getPayment();
-                                    curr.setTime(item.getReservationPaymentLimit());
+                                    if (item.getReservationPaymentLimit() != null) {
+                                        curr.setTime(item.getReservationPaymentLimit());
+                                    }
                                 %>
-                                <tr<%= (pay != null ? "" : (curr.before(today) ? " class=\"overDue\"" : (curr.equals(today) ? " class=\"onDue\"" : ""))) %>>
+                                <tr<%= (item.getReservationPaymentLimit() == null ? "" : (pay != null ? "" : (curr.before(today) ? " class=\"overDue\"" : (curr.equals(today) ? " class=\"onDue\"" : "")))) %>>
                                     <td>
-                                        <%= formatter.format(item.getReservationTime()) %>
+                                        <%= (item.getReservationTime() != null ? formatter.format(item.getReservationTime()) : "<strong><em>reservation empty!</em></strong>") %><br />
                                         (<%= item.getIsOnspot() ? "on-spot" : "online" %>)
                                     </td>
                                     <td><%= item.getUsername().getUsername() %></td>
@@ -90,7 +93,8 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                                         <% } else { %>
                                         confirmed <%= formatter.format(pay.getConfirmTime()) %><br />
                                         amount <%= currencyFormat.format(pay.getAmount()) %><br />
-                                        paid at <%= onlyDate.format(pay.getPaymentDate()) %><br />
+                                        paid at <%= onlyDate.format(pay.getPaymentDate()) %> (<%= pay.getPaymentMethod() %>)<br />
+                                        <%= pay.getPaymentBank() %> acc. <%= pay.getAccountNumber() %><br />
                                         <% if (pay.getUsername() == null) { %>
                                         <em>not verified</em>
                                         <% } else { %>
