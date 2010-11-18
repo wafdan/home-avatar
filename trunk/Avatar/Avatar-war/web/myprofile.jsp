@@ -1,6 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.*,java.sql.*" %>
-<%@ page import="Layanan.Cart" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 <%@page import = "java.util.List,java.util.Iterator,AvatarEntity.Customer,AvatarEntity.CustomerJpaController" %>

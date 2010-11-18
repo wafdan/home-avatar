@@ -49,9 +49,24 @@ LayoutJpaController ljpa = new LayoutJpaController();
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript" src="../jquery/jquery_hoo.js"></script>
+        <script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="../jquery/jqueryui.js"></script>
+        <link rel="stylesheet" type="text/css" href="../styles/jquerystyle.css" />
         <script type="text/javascript">
+            $(function(){
+                // Datepicker
+                $('.datepicker').datepicker({
+                    inline: true
+                });
+                //hover states on the static widgets
+                $('#dialog_link, ul#icons li').hover(
+                function() { $(this).addClass('ui-state-hover'); },
+                function() { $(this).removeClass('ui-state-hover'); }
+            );
+            });
+
             var getDefaults = function() {
                 var hall = document.addHallForm.productId.value;
                 var layoutSelectObjValue = document.addHallForm.layout.value;
@@ -146,7 +161,7 @@ LayoutJpaController ljpa = new LayoutJpaController();
                                 </select><br />
 
                                 <label for="useDate">Date</label>
-                                <input type="text" name="useDate" id="useDate" size="10" maxlength="10" onblur="getDefaults();" /><br />
+                                <input type="text" name="useDate" id="useDate" size="10" class="datepicker" maxlength="10" onblur="getDefaults();" /><br />
                                 
                                 <label for="venue">Venue</label>
                                 <select name="venue" id="venue">
