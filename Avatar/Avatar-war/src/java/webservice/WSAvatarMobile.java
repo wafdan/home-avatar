@@ -760,7 +760,7 @@ public class WSAvatarMobile {
 
                         if(amount < total_price)
                         {
-                            return "Failed";
+                            return "Not Enough";
                         }
                         else
                         {
@@ -790,10 +790,11 @@ public class WSAvatarMobile {
                     }
                     else
                     {
-                        return "Failed";
+                        return "Not Found";
                     }
                     //return "a";
-                } else
+                }
+                else
                 {
                     return "Failed";
                 }
@@ -838,9 +839,9 @@ public class WSAvatarMobile {
                     java.util.Date entry = new java.util.Date(Integer.parseInt(entrydate[0]) - 1900, Integer.parseInt(entrydate[1]) - 1, Integer.parseInt(entrydate[2]));
                     java.util.Date exit = new java.util.Date(Integer.parseInt(exitdate[0]) - 1900, Integer.parseInt(exitdate[1]) - 1, Integer.parseInt(exitdate[2]));
 
-                   if((entry.before(new Date()) || exit.before(new Date())) || exit.before(entry))
+                    if((entry.before(new Date()) || exit.before(new Date())) || exit.before(entry))
                     {
-                        return "Failed";
+                        return "Not Valid";
                     }
 
                     RoomJpaController rojpa = new RoomJpaController();
@@ -908,7 +909,8 @@ public class WSAvatarMobile {
                         return "Unavailable";
                     }
 
-                } else {
+                }
+                else {
                     return "Failed";
                 }
             } catch (NoSuchAlgorithmException ex) {
@@ -953,7 +955,7 @@ public class WSAvatarMobile {
 
                     if(use.before(new Date()))
                     {
-                        return "Failed";
+                        return "Not Valid";
                     }
 
                     VenueJpaController vjpa = new VenueJpaController();
@@ -1013,7 +1015,8 @@ public class WSAvatarMobile {
                         return "Unavailable";
                     }
 
-                } else {
+                }
+                else {
                     return "Failed";
                 }
             } catch (NoSuchAlgorithmException ex) {
