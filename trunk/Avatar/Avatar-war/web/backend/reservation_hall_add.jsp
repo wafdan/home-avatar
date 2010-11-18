@@ -36,6 +36,8 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
+String res = request.getParameter("res");
+String dep = request.getParameter("dep");
 Locale locale = Locale.getDefault();
 SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
 SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -83,7 +85,7 @@ LayoutJpaController ljpa = new LayoutJpaController();
             function process(xmlDocument) {
                 var venue, hall, startHour, startMin, endHour, endMin, i;
                 var selVenue = document.getElementById("venue");
-                hall = xmlDocument.getElementsByTagName('hall');
+                hall = xmlDocument.getElementsByTagName("hall");
                 venue = xmlDocument.getElementsByTagName("venue");
                 startHour = hall[0].firstChild.data; startMin = hall[1].firstChild.data;
                 endHour = hall[2].firstChild.data; endMin = hall[3].firstChild.data;
@@ -123,6 +125,8 @@ LayoutJpaController ljpa = new LayoutJpaController();
                         </ul>
                         <div class="post">
                             <form method="post" name="addHallForm" id="addHallForm" action="">
+                                <% if (res != null) { %><input type="hidden" name="reservationId" id="reservationId" value="<%= res %>" />
+                                <% } else if (dep != null) { %><input type="hidden" name="parent" id="parent" value="<%= dep %>" /><% } %>
                                 <label for="productId">Hall Type</label>
                                 <select name="productId" id="productId">
                                     <% for (Hall hall : hjpa.findHallEntities()) { %>

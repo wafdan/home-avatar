@@ -58,7 +58,7 @@ public class KelolaPembayaran extends HttpServlet {
         HttpSession session = request.getSession();
         PrintWriter out = response.getWriter();
         String popup = "";
-        SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
         try {
             if (request.getParameter("verify") != null) {
