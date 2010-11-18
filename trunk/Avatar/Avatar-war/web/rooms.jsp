@@ -56,9 +56,7 @@
                     out.println("<h1 class='title'>" + cur.getProductType() + "</h1>");
                     out.println("<br />");
 
-                    if (!isLogin) {
-                        out.println("<a class='book' href='index.jsp'>Reserve</a>");
-                    } else {
+                    if (isLogin){
                         /*if (ctrl.c.isOnCart((Object) cur)) {
                             out.println("<a class='book' href='cart.jsp?add=2&type=1&id=" + cur.getProductId() + "'>Remove from Cart</a>");
                         } else {
