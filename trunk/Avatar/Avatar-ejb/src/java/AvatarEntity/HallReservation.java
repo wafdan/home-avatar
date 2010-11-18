@@ -71,8 +71,8 @@ public class HallReservation extends ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public HallReservation(Integer reservationItemId, Date reservationTime, double price, Date beginTime, Date endTime, Date useDate, int attendees) {
-        super(reservationItemId, reservationTime, price);
+    public HallReservation(Date reservationTime, double price, Date beginTime, Date endTime, Date useDate, int attendees) {
+        super(reservationTime, price);
         this.beginTime = beginTime;
         this.endTime = endTime;
         this.useDate = useDate;

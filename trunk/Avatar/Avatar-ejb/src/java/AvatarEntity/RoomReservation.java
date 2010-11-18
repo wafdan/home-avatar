@@ -65,8 +65,8 @@ public class RoomReservation extends ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public RoomReservation(Integer reservationItemId, Date reservationTime, double price, Date entryDate, Date exitDate) {
-        super(reservationItemId, reservationTime, price);
+    public RoomReservation(Date reservationTime, double price, Date entryDate, Date exitDate) {
+        super(reservationTime, price);
         this.entryDate = entryDate;
         this.exitDate = exitDate;
     }

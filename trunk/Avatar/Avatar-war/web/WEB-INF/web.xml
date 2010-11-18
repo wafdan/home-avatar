@@ -120,6 +120,10 @@
         <servlet-name>HallReservationAjaxBack</servlet-name>
         <servlet-class>MengelolaReservasi.HallReservationAjaxBack</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddHallReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.AddHallReservation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -239,6 +243,10 @@
     <servlet-mapping>
         <servlet-name>HallReservationAjaxBack</servlet-name>
         <url-pattern>/backend/HallReservationAjax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddHallReservation</servlet-name>
+        <url-pattern>/backend/hall_reservation_add</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

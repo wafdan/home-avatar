@@ -60,8 +60,7 @@ public abstract class ReservationItem implements Serializable {
         this.reservationItemId = reservationItemId;
     }
 
-    public ReservationItem(Integer reservationItemId, Date reservationTime, double price) {
-        this.reservationItemId = reservationItemId;
+    public ReservationItem(Date reservationTime, double price) {
         this.reservationTime = reservationTime;
         this.price = price;
     }
