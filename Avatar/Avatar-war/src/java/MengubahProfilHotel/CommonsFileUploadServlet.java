@@ -100,9 +100,8 @@ public class CommonsFileUploadServlet extends HttpServlet {
                     Profile p=pjc.findProfile(Boolean.TRUE);
                     p.setHotelLogo("images/"+namaFileBaru);
                     pjc.edit(p);
-
                 }
-                out.close();
+               
             }
         } catch (FileUploadException ex) {
             Logger.getLogger(CommonsFileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,6 +109,7 @@ public class CommonsFileUploadServlet extends HttpServlet {
             Logger.getLogger(CommonsFileUploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         } finally{
             response.sendRedirect("profile_manage.jsp");
+            out.close();
         }
     }
 }
