@@ -838,6 +838,11 @@ public class WSAvatarMobile {
                     java.util.Date entry = new java.util.Date(Integer.parseInt(entrydate[0]) - 1900, Integer.parseInt(entrydate[1]) - 1, Integer.parseInt(entrydate[2]));
                     java.util.Date exit = new java.util.Date(Integer.parseInt(exitdate[0]) - 1900, Integer.parseInt(exitdate[1]) - 1, Integer.parseInt(exitdate[2]));
 
+                   if((entry.before(new Date()) || exit.before(new Date())) || exit.before(entry))
+                    {
+                        return "Failed";
+                    }
+
                     RoomJpaController rojpa = new RoomJpaController();
                     List<Room> rooms = rojpa.findUnused(product_id, entry, exit);
 
@@ -945,6 +950,11 @@ public class WSAvatarMobile {
                     String[] usedate = use_date.split("-");
 
                     java.util.Date use = new java.util.Date(Integer.parseInt(usedate[0]) - 1900, Integer.parseInt(usedate[1]) - 1, Integer.parseInt(usedate[2]));
+
+                    if(use.before(new Date()))
+                    {
+                        return "Failed";
+                    }
 
                     VenueJpaController vjpa = new VenueJpaController();
                     List<Venue> venues = vjpa.findUnused(use, layout_no, attendees);

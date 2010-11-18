@@ -195,6 +195,11 @@ public class WebServiceAvatar {
                     java.util.Date entry = new java.util.Date(Integer.parseInt(entrydate[0]) - 1900, Integer.parseInt(entrydate[1]) - 1, Integer.parseInt(entrydate[2]));
                     java.util.Date exit = new java.util.Date(Integer.parseInt(exitdate[0]) - 1900, Integer.parseInt(exitdate[1]) - 1, Integer.parseInt(exitdate[2]));
 
+                    if((entry.before(new Date()) || exit.before(new Date())) || exit.before(entry))
+                    {
+                        return "Failed";
+                    }
+                    
                     RoomJpaController rojpa = new RoomJpaController();
                     List<Room> rooms = rojpa.findUnused(product_id, entry, exit);
 
