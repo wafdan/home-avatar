@@ -8,14 +8,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="AvatarEntity.Customer" %>
 <%@page import="AvatarEntity.CustomerJpaController" %>
-
 <%@page import="AvatarEntity.Accomodation" %>
 <%@page import="AvatarEntity.AccomodationJpaController" %>
 <%@page import="AvatarEntity.Hall" %>
 <%@page import="AvatarEntity.HallJpaController" %>
 <%@page import="AvatarEntity.OtherServices" %>
 <%@page import="AvatarEntity.OtherServicesJpaController" %>
-
 <%@page import="AvatarEntity.RoomReservation" %>
 <%@page import="AvatarEntity.RoomReservationJpaController" %>
 <%@page import="AvatarEntity.HallReservation" %>
@@ -38,12 +36,9 @@
 <%
 String res = request.getParameter("res");
 String dep = request.getParameter("dep");
-Locale locale = Locale.getDefault();
-SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
-SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
 HallJpaController hjpa = new HallJpaController();
 LayoutJpaController ljpa = new LayoutJpaController();
+CustomerJpaController cjpa = new CustomerJpaController();
 %>
 <html>
     <head>
@@ -58,7 +53,7 @@ LayoutJpaController ljpa = new LayoutJpaController();
             $(function(){
                 // Datepicker
                 $('.datepicker').datepicker({
-                    inline: true
+                    inline: true, dateFormat : "yy-mm-dd"
                 });
                 //hover states on the static widgets
                 $('#dialog_link, ul#icons li').hover(
@@ -139,9 +134,13 @@ LayoutJpaController ljpa = new LayoutJpaController();
                             <li id="fmenu-item3"><a href="#">Other Services</a></li>
                         </ul>
                         <div class="post">
-                            <form method="post" name="addHallForm" id="addHallForm" action="">
+                            <form method="post" name="addHallForm" id="addHallForm" action="hall_reservation_add">
                                 <% if (res != null) { %><input type="hidden" name="reservationId" id="reservationId" value="<%= res %>" />
-                                <% } else if (dep != null) { %><input type="hidden" name="parent" id="parent" value="<%= dep %>" /><% } %>
+                                <% } else if (dep != null) { %><input type="hidden" name="parent" id="parent" value="<%= dep %>" />
+                                <% } else { %><label for="username">User</label>
+                                <select name="username" id="username">
+                                    <% for (Customer cust : cjpa.findCustomerEntities()) { %><option value="<%= cust.getUsername() %>"><%= cust.getName() %></option><% } %>
+                                </select><br /><% } %>
                                 <label for="productId">Hall Type</label>
                                 <select name="productId" id="productId">
                                     <% for (Hall hall : hjpa.findHallEntities()) { %>
@@ -161,7 +160,7 @@ LayoutJpaController ljpa = new LayoutJpaController();
                                 </select><br />
 
                                 <label for="useDate">Date</label>
-                                <input type="text" name="useDate" id="useDate" size="10" class="datepicker" maxlength="10" onblur="getDefaults();" /><br />
+                                <input type="text" name="useDate" id="useDate" size="10" class="datepicker" maxlength="10" onchange="getDefaults();" /><br />
                                 
                                 <label for="venue">Venue</label>
                                 <select name="venue" id="venue">
@@ -173,7 +172,9 @@ LayoutJpaController ljpa = new LayoutJpaController();
 
                                 <label for="endTimeHour">End</label>
                                 <input type="text" name="endTimeHour" id="endTimeHour" size="2" maxlength="2" value="" />:
-                                <input type="text" name="endTimeMin" id="endTimeMin" size="2" maxlength="2" value="" />
+                                <input type="text" name="endTimeMin" id="endTimeMin" size="2" maxlength="2" value="" /><br />
+
+                                <input type="submit" name="add" id="add" value="Add" />
                             </form>
                         </div>
                         <!-- end content -->    

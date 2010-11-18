@@ -49,8 +49,8 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
         this.reservationItemId = reservationItemId;
     }
 
-    public OtherServicesReservation(Integer reservationItemId, Date reservationTime, double price, int amount, String note) {
-        super(reservationItemId, reservationTime, price);
+    public OtherServicesReservation(Date reservationTime, double price, int amount, String note) {
+        super(reservationTime, price);
         this.amount = amount;
         this.note = note;
     }

@@ -82,8 +82,7 @@ public class Reservation implements Serializable {
         this.reservationId = reservationId;
     }
 
-    public Reservation(Integer reservationId, boolean isOnspot, String note) {
-        this.reservationId = reservationId;
+    public Reservation(boolean isOnspot, String note) {
         this.isOnspot = isOnspot;
         this.note = note;
     }
