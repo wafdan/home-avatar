@@ -4,6 +4,8 @@
     Author     : TOSHIBA
 --%>
 
+<%@page import="KelolaReservasi.*" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -29,9 +31,14 @@
         <li><a href="reservation_add_services.jsp">Add Reservation</a></li>
         <li><a href="reservation_manage_services.jsp">Manage Reservation</a></li>
     </ul>
+    <%
+        int nresv = 0;
+        MengelolaReservasiController ctrl = new MengelolaReservasiController();
+        nresv = ctrl.getNreservationToWarn();
+    %>
     <ul>
         <strong>NOTIFICATIONS</strong>
-        <li><a href="reservation_manage_notification.jsp" id="menu_due">Due Payment</a></li>
+        <li><a href="reservation_manage_notification.jsp" id="menu_due">Due Payment <% if (nresv > 0) {out.write("("+nresv+")");} %> </a></li>
     </ul>
 </div>
 <!-- end sidebar -->
