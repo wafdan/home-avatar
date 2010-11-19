@@ -5,7 +5,6 @@
     <class>AvatarEntity.HotelInfo</class>
     <class>AvatarEntity.Accomodation</class>
     <class>AvatarEntity.Hall</class>
-    <class>AvatarEntity.HallReservation</class>
     <class>AvatarEntity.Layout</class>
     <class>AvatarEntity.OtherServices</class>
     <class>AvatarEntity.OtherServicesReservation</class>

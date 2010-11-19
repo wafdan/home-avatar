@@ -39,7 +39,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Reservasi Kamar</h1>
+                        <h1 class="title">List of Room Reservations</h1>
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
                                 <tr>

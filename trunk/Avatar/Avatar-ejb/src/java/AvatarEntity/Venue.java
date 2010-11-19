@@ -47,7 +47,7 @@ public class Venue implements Serializable {
     private String image;
     @OneToMany(mappedBy = "venueNo")
     private Collection<HallReservation> hallReservationCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venue")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "venue", orphanRemoval = true)
     private Collection<VenueLayout> venueLayoutCollection;
 
     public Venue() {

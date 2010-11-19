@@ -62,14 +62,14 @@ public class Reservation implements Serializable {
     @Lob
     @Column(name = "note")
     private String note;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationId")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "reservationId", orphanRemoval = true)
     private Payment payment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "reservationId", orphanRemoval = true)
     private Collection<ReservationItem> reservationItemCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent", orphanRemoval = true)
     private Collection<Reservation> reservationCollection;
     @JoinColumn(name = "parent", referencedColumnName = "reservation_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Reservation parent;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne(optional = false)

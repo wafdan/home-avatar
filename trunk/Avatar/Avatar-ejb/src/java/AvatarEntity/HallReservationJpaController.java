@@ -185,9 +185,7 @@ public class HallReservationJpaController {
     private List<HallReservation> findHallReservationEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(HallReservation.class));
-            Query q = em.createQuery(cq);
+            Query q = em.createNamedQuery("HallReservation.findAll");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);

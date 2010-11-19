@@ -130,8 +130,7 @@ HallReservation hr = hrjpa.findHallReservation(Integer.parseInt(request.getParam
                         <div class="post">
                             <form method="post" name="editHallForm" id="editHallForm" action="hall_reservation_edit">
                                 <input type="hidden" name="reservationItemId" id="reservationItemId" value="<%= hr.getReservationItemId() %>" />
-                                <label for="productId">Hall Type</label>
-                                <div id="productId"><%= hr.getProductId().getProductType() %></div>
+                                Hall Type : <b><%= hr.getProductId().getProductType() %></b><br />
                                 <%--<select name="productId" id="productId">
                                     <% for (Hall hall : hjpa.findHallEntities()) { %>
                                     <option value="<%= hall.getProductId() %>"<%= (hall.getProductId().equals(hr.getProductId().getProductId()) ? " selected=\"selected\"" : "") %>><%= hall.getProductType() %></option>
@@ -156,8 +155,8 @@ HallReservation hr = hrjpa.findHallReservation(Integer.parseInt(request.getParam
                                 <select name="venue" id="venue">
                                 </select><br />--%>
 
-                                <label for="useDate">Date</label><div id="useDate"><%= sdf.format(hr.getUseDate()) %></div>
-                                <label for="venue">Venue</label><div id="venue"><%= hr.getVenueNo().getVenueName() %></div><br/>
+                                Date : <b><%= sdf.format(hr.getUseDate()) %></b><br />
+                                Venue : <b><%= hr.getVenueNo().getVenueName() %></b><br/>
 
                                 <label for="beginTimeHour">Begin</label>
                                 <input type="text" name="beginTimeHour" id="beginTimeHour" size="2" maxlength="2" value="<%= hour.format(hr.getBeginTime()) %>" />:

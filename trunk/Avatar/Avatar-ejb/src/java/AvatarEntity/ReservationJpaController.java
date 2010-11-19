@@ -259,24 +259,6 @@ public class ReservationJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The reservation with id " + id + " no longer exists.", enfe);
             }
-            List<String> illegalOrphanMessages = null;
-            Payment paymentOrphanCheck = reservation.getPayment();
-            if (paymentOrphanCheck != null) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Reservation (" + reservation + ") cannot be destroyed since the Payment " + paymentOrphanCheck + " in its payment field has a non-nullable reservationId field.");
-            }
-            Collection<ReservationItem> reservationItemCollectionOrphanCheck = reservation.getReservationItemCollection();
-            for (ReservationItem reservationItemCollectionOrphanCheckReservationItem : reservationItemCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Reservation (" + reservation + ") cannot be destroyed since the ReservationItem " + reservationItemCollectionOrphanCheckReservationItem + " in its reservationItemCollection field has a non-nullable reservationId field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             Reservation parent = reservation.getParent();
             if (parent != null) {
                 parent.getReservationCollection().remove(reservation);
@@ -535,4 +517,5 @@ public class ReservationJpaController {
             em.close();
         }
     }
+
 }
