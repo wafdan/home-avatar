@@ -157,9 +157,7 @@ public class OtherServicesReservationJpaController {
     private List<OtherServicesReservation> findOtherServicesReservationEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(OtherServicesReservation.class));
-            Query q = em.createQuery(cq);
+            Query q = em.createNamedQuery("OtherServicesReservation.findAll");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);

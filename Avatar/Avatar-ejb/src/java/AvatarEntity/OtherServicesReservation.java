@@ -26,7 +26,7 @@ import javax.persistence.Table;
 @Table(name = "other_services_reservation")
 @DiscriminatorValue("O")
 @NamedQueries({
-    @NamedQuery(name = "OtherServicesReservation.findAll", query = "SELECT o FROM OtherServicesReservation o"),
+    @NamedQuery(name = "OtherServicesReservation.findAll", query = "SELECT o FROM OtherServicesReservation o ORDER BY o.reservationTime DESC"),
     @NamedQuery(name = "OtherServicesReservation.findByReservationItemId", query = "SELECT o FROM OtherServicesReservation o WHERE o.reservationItemId = :reservationItemId"),
     @NamedQuery(name = "OtherServicesReservation.findByPeriod", query = "SELECT o FROM OtherServicesReservation o WHERE o.reservationTime BETWEEN :from AND :to")})
 public class OtherServicesReservation extends ReservationItem implements Serializable {

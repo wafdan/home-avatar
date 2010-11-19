@@ -9,13 +9,14 @@
 <%@ page import="AvatarEntity.OtherServicesReservation" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
 if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
-%>
-<%! OtherServicesReservationJpaController c = new OtherServicesReservationJpaController();
+    OtherServicesReservationJpaController c = new OtherServicesReservationJpaController();
     List<OtherServicesReservation> l = null;
+    SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -34,88 +35,31 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Daftar Reservasi Layanan</h1>
+                        <h1 class="title">List of Other Services Reservations</h1>
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
                                 <tr class="headertable">
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Username</th>
-                                    <th bgcolor="#262626" width="89">Name</th>
-                                    <th bgcolor="#262626" width="77">Product Id</th>
-                                    <th bgcolor="#262626">Options</th>
+                                    <th bgcolor="#262626">Timestamp</th>
+                                    <th bgcolor="#262626">Customer</th>
+                                    <th bgcolor="#262626">Product Name</th>
+                                    <th bgcolor="#262626">Quantity</th>
+                                    <th bgcolor="#262626">Resrv</th>
                                 </tr>
 
                                 <%
-                                            out.write("tes masuk 1");
-                                                int editIndex = 0;
-                                            try {
-                                                String Index = request.getParameter("edit");
-                                                editIndex = Integer.parseInt(Index);
-                                            } catch (NullPointerException ex) {
-                                                editIndex = -1;
-                                            } catch (NumberFormatException ex) {
-                                                editIndex = -1;
-                                            }
-
-                                            int index = 0;
-                                            OtherServicesReservationJpaController jpa = new OtherServicesReservationJpaController();
-                                            List<OtherServicesReservation> staffList = jpa.findOtherServicesReservationEntities();
-                                            if (editIndex == -1) {
-                                                out.write("tes masuk 2");
-                                                l = c.findOtherServicesReservationEntities();
-                                                for (Iterator<OtherServicesReservation> i = l.iterator(); i.hasNext();) {
-                                                    out.write("tes masuk 3");
-                                                    OtherServicesReservation temp = i.next();
-                                                    index++;
+                                    l = c.findOtherServicesReservationEntities();
+                                    for (OtherServicesReservation temp : l) {
                                 %>
                                 <tr>
-                                    <td><%=index %></td>
-                                    <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getProductId().toString() %></div></td>
-                                    <td> <%= temp.getNote() %> </td>
-                                    
-                                    <td><a href="?edit=<%=index%>">edit</a>
-                                        <a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>">delete</a></td>
+                                    <td><%= datetime.format(temp.getReservationTime()) %></td>
+                                    <td><%= temp.getReservationId().getUsername().getName() %></td>
+                                    <td><%= temp.getProductId().getProductType() %></td>
+                                    <td><%= temp.getAmount() %> <%= temp.getProductId().getPricingUnit() %></td>
+                                    <td><a href="reservation_manage.jsp#res<%= temp.getReservationId().getReservationId() %>"><%= temp.getReservationId().getReservationId() %></a></td>
+                                    <td><a href="reservation_<%= temp.getDiscriminator() %>_edit?item=<%= temp.getReservationId().getReservationId() %>">edit</a> |
+                                        <a href="reservation_item_delete?item=<%= temp.getReservationItemId() %>">delete</a></td>
                                 </tr>
-                                <% }
-                                                }
-            else
-            {
-                int iterator=0;
-                for(Iterator<OtherServicesReservation> i = staffList.iterator(); i.hasNext();)
-                {
-                    OtherServicesReservation temp=i.next();
-                    iterator++;
-
-                %>
-                <tr><td><%=iterator%></td>
-                <%
-                if(iterator==editIndex){
-                 %>
-
-                 <form action="EditCustomer" method="get">
-                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getReservationItemId() %>"></td>
-                     <td><input type="text" name="name" id="name" value="<%=temp.getProductId().toString() %>"> </td>
-                     <td><input type="text" name="itype" id="itype" value="<%=temp.getNote() %>"></td>
-                     
-                     <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
-                 </form>
-                <td><a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>"> delete</a></td>
-                <td><a href="ManageCustomer.jsp"> cancel </a></td>
-
-
-
-                 <% }else{%>
-
-       <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getProductId().toString() %></div></td>
-                                    <td> <%= temp.getNote() %> </td>
-                                    
-                                    <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                    <td><a href="HapusCustomer?delete=<%= temp.getReservationItemId() %>">delete</a></td>
-
-           <%}}}%>
-
+                                <% } %>
                             </table>
                             <h2 class="title">&nbsp;</h2>
                             <div class="post"></div>
