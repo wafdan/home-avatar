@@ -9,6 +9,7 @@ import KelolaPengguna.MengelolaPenggunaController;
 import AvatarEntity.Staff;
 import AvatarEntity.StaffJpaController;
 import AvatarEntity.exceptions.PreexistingEntityException;
+import Support.EmailSender;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -52,7 +53,10 @@ public class TambahStaf extends HttpServlet {
             StaffJpaController sjc=new StaffJpaController();
             sjc.create(s);
             //Mengecek user udah ada atau belum
-            
+            String body = "Welcome, "+fullname+"\nYour Hotel Reservation System Account has been successfully made.\n\n" +
+                        "Please take note of your username and password to access our system.\n" +
+                        "Username: " + username + "\n" + "Password: " + password + "\n";
+            EmailSender.sendEmail(email, "avatarhomeapp@gmail.com", "", "Hotel Reservation Registration", body);
 
         } catch(PreexistingEntityException ex){
             String fullname = request.getParameter("fullname");

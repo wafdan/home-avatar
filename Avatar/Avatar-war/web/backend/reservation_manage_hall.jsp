@@ -62,7 +62,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     <td><%= sdf.format(temp.getUseDate()) %></td>
                                     <td><%= time.format(temp.getBeginTime()) %> - <%= time.format(temp.getEndTime()) %></td>
                                     <td><a href="reservation_manage.jsp#res<%= temp.getReservationId().getReservationId() %>"><%= temp.getReservationId().getReservationId() %></a></td>
-                                    <td><a href="reservation_<%= temp.getDiscriminator() %>_edit?item=<%= temp.getReservationId().getReservationId() %>">edit</a> |
+                                    <td><a href="reservation_<%= temp.getDiscriminator() %>_edit.jsp?item=<%= temp.getReservationId().getReservationId() %>">edit</a> |
                                         <a href="reservation_item_delete?item=<%= temp.getReservationItemId() %>">delete</a></td>
                                 </tr>
                                 <% } %>
