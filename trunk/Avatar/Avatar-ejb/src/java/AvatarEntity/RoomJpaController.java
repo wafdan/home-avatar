@@ -225,6 +225,20 @@ public class RoomJpaController {
         }
     }
 
+    public List<Room> findUnusedEx(String productId, Date entryDate, Date exitDate, Integer reservationItemId) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Room.findUnusedEx");
+            q.setParameter("reservationItemId", reservationItemId);
+            q.setParameter("productId", productId);
+            q.setParameter("entryDate", entryDate);
+            q.setParameter("exitDate", exitDate);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public Room findRoom(String id) {
         EntityManager em = getEntityManager();
         try {

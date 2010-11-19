@@ -5,6 +5,7 @@
 
 package KelolaReservasi;
 
+import AvatarEntity.Accomodation;
 import AvatarEntity.HallReservation;
 import AvatarEntity.HallReservationJpaController;
 import AvatarEntity.OtherServicesReservationJpaController;
@@ -106,5 +107,23 @@ public class MengelolaReservasiController {
             index++;
         }
         return earliestDate;
+    }
+
+    public static double getAccomodationPrice(Accomodation acc, Date entry, Date exit) {
+        double price = 0;
+        Calendar curr = Calendar.getInstance();
+        Calendar exitCal = Calendar.getInstance();
+        curr.setTime(entry); curr.set(Calendar.MILLISECOND, 0);
+        exitCal.setTime(exit); exitCal.set(Calendar.MILLISECOND, 0);
+        while (curr.before(exitCal)) {
+            curr.add(Calendar.DATE, 1);
+            if (curr.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
+                    curr.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                price += acc.getWeekendRate();
+            } else {
+                price += acc.getWeekdayRate();
+            }
+        }
+        return price;
     }
 }

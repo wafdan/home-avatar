@@ -30,7 +30,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Room.findByRoomNo", query = "SELECT r FROM Room r WHERE r.roomNo = :roomNo"),
     @NamedQuery(name = "Room.findByRoomName", query = "SELECT r FROM Room r WHERE r.roomName = :roomName"),
     @NamedQuery(name = "Room.findByFloor", query = "SELECT r FROM Room r WHERE r.floor = :floor"),
-    @NamedQuery(name = "Room.findUnused", query = "SELECT r FROM Room r WHERE r.productId.productId = :productId AND r.roomNo NOT IN (SELECT rr.roomNo.roomNo FROM RoomReservation rr WHERE (rr.entryDate <= :entryDate AND :entryDate < rr.exitDate) OR (rr.entryDate < :exitDate AND :exitDate <= rr.exitDate) OR (:entryDate <= rr.entryDate AND rr.entryDate < :exitDate) OR (:entryDate < rr.exitDate AND rr.exitDate <= :exitDate))")})
+    @NamedQuery(name = "Room.findUnused", query = "SELECT r FROM Room r WHERE r.productId.productId = :productId AND r.roomNo NOT IN (SELECT rr.roomNo.roomNo FROM RoomReservation rr WHERE (rr.entryDate <= :entryDate AND :entryDate < rr.exitDate) OR (rr.entryDate < :exitDate AND :exitDate <= rr.exitDate) OR (:entryDate <= rr.entryDate AND rr.entryDate < :exitDate) OR (:entryDate < rr.exitDate AND rr.exitDate <= :exitDate))"),
+    @NamedQuery(name = "Room.findUnusedEx", query = "SELECT r FROM Room r WHERE r.productId.productId = :productId AND r.roomNo NOT IN (SELECT rr.roomNo.roomNo FROM RoomReservation rr WHERE rr.reservationItemId <> :reservationItemId AND ((rr.entryDate <= :entryDate AND :entryDate < rr.exitDate) OR (rr.entryDate < :exitDate AND :exitDate <= rr.exitDate) OR (:entryDate <= rr.entryDate AND rr.entryDate < :exitDate) OR (:entryDate < rr.exitDate AND rr.exitDate <= :exitDate)))")})
 public class Room implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

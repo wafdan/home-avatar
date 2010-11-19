@@ -15,5 +15,5 @@ import javax.ejb.Local;
 public interface ReceiptGeneratorLocal {
 
     public String generateDocument(AvatarEntity.Reservation reservation);
-    
+
 }
