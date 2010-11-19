@@ -137,7 +137,7 @@ else if (request.getParameter("dep") != null)
                     <div id="content">
                         <h1 class="title">Add Reservation</h1>
                         <ul id="fmenu">
-                            <li id="fmenu-item1"><a href="reservation_hall_add.jsp<%= param %>">Rooms</a></li>
+                            <li id="fmenu-item1"><a href="reservation_room_add.jsp<%= param %>">Rooms</a></li>
                             <li id="fmenu-item2"><em>Meetings & Events</em></li>
                             <li id="fmenu-item3"><a href="reservation_other_add.jsp<%= param %>">Other Services</a></li>
                         </ul>
