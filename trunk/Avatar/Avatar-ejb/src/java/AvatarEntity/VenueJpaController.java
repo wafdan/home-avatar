@@ -186,7 +186,7 @@ public class VenueJpaController {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The venue with id " + id + " no longer exists.", enfe);
             }
-            List<String> illegalOrphanMessages = null;
+            /*List<String> illegalOrphanMessages = null;
             Collection<VenueLayout> venueLayoutCollectionOrphanCheck = venue.getVenueLayoutCollection();
             for (VenueLayout venueLayoutCollectionOrphanCheckVenueLayout : venueLayoutCollectionOrphanCheck) {
                 if (illegalOrphanMessages == null) {
@@ -196,7 +196,7 @@ public class VenueJpaController {
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
-            }
+            }*/
             Collection<HallReservation> hallReservationCollection = venue.getHallReservationCollection();
             for (HallReservation hallReservationCollectionHallReservation : hallReservationCollection) {
                 hallReservationCollectionHallReservation.setVenueNo(null);
