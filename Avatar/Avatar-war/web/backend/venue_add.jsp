@@ -11,11 +11,11 @@
 <%@page import="AvatarEntity.VenueLayout" %>
 <%@page import="java.util.List" %>
 <%
-LayoutJpaController ljpa = new LayoutJpaController();
-List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
+            LayoutJpaController ljpa = new LayoutJpaController();
+            List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -25,7 +25,7 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
     </head>
     <body>
         <%
-        if ((session.getAttribute("name")) != null) {
+                    if ((session.getAttribute("name")) != null) {
         %>
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
@@ -52,15 +52,15 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
                             </table>
                             <h2>Capacity per Layout</h2>
                             <table border="0">
-                                <% for (Layout lay : ljpa.findLayoutEntities()) { %>
+                                <% for (Layout lay : ljpa.findLayoutEntities()) {%>
                                 <tr>
-                                    <td><%= lay.getLayoutName() %></td><td>:</td>
+                                    <td><%= lay.getLayoutName()%></td><td>:</td>
                                     <td>
-                                        <input type="text" name="layout_<%= lay.getLayoutNo() %>"
-                                               id="layout_<%= lay.getLayoutNo() %>" size="3" maxlength="4" />
+                                        <input type="text" name="layout_<%= lay.getLayoutNo()%>"
+                                               id="layout_<%= lay.getLayoutNo()%>" size="3" maxlength="4" />
                                     </td>
                                 </tr>
-                                <% } %>
+                                <% }%>
                                 <tr>
                                     <td colspan="3" align="left">
                                         <input type="submit" name="add" id="add" value="Add" />
@@ -74,20 +74,23 @@ List<Venue> lVen = (List<Venue>) request.getAttribute("returnList");
                                     <th>Venue Name</th>
                                     <th>Description</th>
                                     <th>Capacity</th>
+                                    <th>Venue Images</th>
                                     <th>Action</th>
                                 </tr>
                                 <%
-                                for (Venue ind : lVen) {
+                                            for (Venue ind : lVen) {
                                 %>
                                 <tr>
-                                    <td><%= ind.getVenueNo() %></td>
-                                    <td><%= ind.getVenueName() %></td>
-                                    <td><%= (ind.getDescription() != null ? ind.getDescription() : "") %></td>
-                                    <td><% for (VenueLayout vl : ind.getVenueLayoutCollection()) { %>
-                                            <%= vl.getLayout().getLayoutName() %>: <%= vl.getCapacity() %><br />
-                                            <% } %></td>
-                                    <td><a href="venue_delete?venueNo=<%= ind.getVenueNo() %>">delete</a> |
-                                        <a href="venue_edit?venueNo=<%= ind.getVenueNo() %>">edit</a></td>
+                                    <td style="vertical-align: middle;"><%= ind.getVenueNo()%></td>
+                                    <td style="vertical-align: middle;"><%= ind.getVenueName()%></td>
+                                    <td style="vertical-align: middle;"><%= (ind.getDescription() != null ? ind.getDescription() : "")%></td>
+                                    <td style="vertical-align: middle;"><% for (VenueLayout vl : ind.getVenueLayoutCollection()) {%>
+                                        <%= vl.getLayout().getLayoutName()%>: <%= vl.getCapacity()%><br />
+                                        <% }%></td>
+                                    <td style="vertical-align: middle;"><img src="../<%=ind.getImage() %>" alt="<%=ind.getVenueName() %> Image" width="125" /></td>
+                                    <td style="vertical-align: middle;"> <a href="venue_delete?venueNo=<%= ind.getVenueNo()%>">delete</a> |
+                                        <a href="venue_edit?venueNo=<%= ind.getVenueNo()%>">edit</a></td>
+                                    
                                 </tr>
                                 <%}%>
                             </table>
