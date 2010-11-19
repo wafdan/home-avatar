@@ -19,7 +19,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             function confirmAction()
             {return confirm("Do you really want to delete?")}
