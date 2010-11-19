@@ -90,6 +90,7 @@ public class UpdateAkun extends HttpServlet {
                 if (!pass1.equals("")) {
                     cust.setPassword(EncMd5.MD5(pass1));
                 }
+                cust.setName(name);
                 cust.setCity(city);
                 cust.setIdentityType(identityType);
                 cust.setIdentityNumber(identityNumber);
