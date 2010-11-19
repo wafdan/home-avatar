@@ -7,7 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*" %>
 <%@ page import="java.util.List, java.util.Calendar, java.util.Iterator, java.util.Locale, AvatarEntity.Payment, AvatarEntity.Reservation, java.text.SimpleDateFormat, java.text.NumberFormat" %>
-
+<%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
+%>
 <%-- start object initialization --%>
 <%
 List<Reservation> lres = (List<Reservation>) request.getAttribute("returnList");
@@ -156,3 +158,8 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
         <!-- end page -->
     </body>
 </html>
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>

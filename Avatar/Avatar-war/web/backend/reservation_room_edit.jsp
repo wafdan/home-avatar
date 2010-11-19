@@ -29,6 +29,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
+%>
+<%
 SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
 SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 AccomodationJpaController ajpa = new AccomodationJpaController();
@@ -172,4 +175,8 @@ RoomReservation rr = rrjpa.findRoomReservation(Integer.parseInt(request.getParam
         </div>
     </body>
 </html>
-
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>

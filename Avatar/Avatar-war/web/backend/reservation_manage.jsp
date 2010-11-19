@@ -34,6 +34,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
+%>
+<%
 Locale locale = Locale.getDefault();
 SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
 SimpleDateFormat detail = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -142,4 +145,8 @@ List<Reservation> rList = jpar.findParentReservationEntities();
         <!-- end footer -->
     </body>
 </html>
-
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>
