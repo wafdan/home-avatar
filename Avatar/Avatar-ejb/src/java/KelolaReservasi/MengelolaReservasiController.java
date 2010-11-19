@@ -68,6 +68,10 @@ public class MengelolaReservasiController {
         return lres;
     }
 
+    public int getNreservationToWarn() {
+        return getReservationToWarn().size();
+    }
+
     public Reservation getReservation(Integer id) {
         return rc.findReservation(id);
     }
