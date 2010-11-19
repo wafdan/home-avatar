@@ -11,7 +11,9 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <!-- Udah ditambah validasi pake javascript-->
-
+<%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 0){
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -546,4 +548,9 @@
         <!-- end footer -->
     </body>
 </html>
-
+<%
+}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>

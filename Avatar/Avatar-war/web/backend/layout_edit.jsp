@@ -9,6 +9,9 @@
 <%@page import="AvatarEntity.LayoutJpaController" %>
 <%@page import="java.util.List" %>
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
+%>
+<%
 Layout toEdit = (Layout) request.getAttribute("toEdit");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -68,3 +71,8 @@ Layout toEdit = (Layout) request.getAttribute("toEdit");
         <%}%>
     </body>
 </html>
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>
