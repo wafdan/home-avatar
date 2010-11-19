@@ -65,7 +65,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                                 List<Hall> hList = jpah.findHallEntities();
                                 if (editIndex == -1) {
                                     %>
-                                <tr>
+                                <tr class="headertable">
                                     <th bgcolor="#262626" width="20">No.</th>
                                     <th bgcolor="#262626" width="50">Product Id</th>
                                     <th bgcolor="#262626" width="89">Product Type</th>

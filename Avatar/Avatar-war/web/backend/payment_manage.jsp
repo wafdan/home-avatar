@@ -61,7 +61,7 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                         <h1 class="title">Reservation and Payment List</h1>
                         <div class="post">
                             <table border="1" style="table-layout:fixed">
-                                <tr>
+                                <tr class="headertable">
                                     <th>Reservation Status</th>
                                     <th>Customer</th>
                                     <th>Total Bill</th>

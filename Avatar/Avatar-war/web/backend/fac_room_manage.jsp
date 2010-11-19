@@ -107,7 +107,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                                                 AccomodationJpaController jpa = new AccomodationJpaController();
                                                 List<Accomodation> accList = jpa.findAccomodationEntities();
                                                 if (editIndex == -1) {%>
-                                    <tr>
+                                    <tr class="headertable">
                                         <th bgcolor="#262626">No.</th>
                                         <th bgcolor="#262626">Product Id</th>
                                         <th bgcolor="#262626" width="89">Product Type</th>
