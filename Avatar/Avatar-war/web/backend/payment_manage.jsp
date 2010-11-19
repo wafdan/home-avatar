@@ -62,11 +62,11 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                         <div class="post">
                             <table border="1" style="table-layout:fixed">
                                 <tr class="headertable">
-                                    <th>Reservation Status</th>
-                                    <th>Customer</th>
-                                    <th>Total Bill</th>
-                                    <th>Payment Status</th>
-                                    <th>Options<th>
+                                    <th bgcolor="#262626">Reservation Status</th>
+                                    <th bgcolor="#262626">Customer</th>
+                                    <th bgcolor="#262626">Total Bill</th>
+                                    <th bgcolor="#262626">Payment Status</th>
+                                    <th bgcolor="#262626">Options<th>
                                 </tr>
                                 <%
                                 Payment pay;
@@ -139,7 +139,7 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                                 
                                 <ul>
                                     <li>PAYMENT
-                                        <ul id="fmenu">
+                                        <ul>
                                             <li id="fmenu-item1"><a href="payment_manage">All</a></li>
                                             <li id="fmenu-item2"><a href="payment_manage?mode=unconf">Unconfirmed</a></li>
                                             <li id="fmenu-item3"><a href="payment_manage?mode=unver">Unverified Confirmed</a></li>

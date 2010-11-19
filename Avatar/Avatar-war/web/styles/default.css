@@ -309,10 +309,9 @@ form .button{
 }
 
 .post h2 {
-    height: 32px;
-    padding: 8px 0 0 15px;
+    height: 48px;
     font-size: 18px;
-    color: #DADADA;
+    color: #000000;
 }
 
 .post .entry {
