@@ -269,4 +269,18 @@ public class VenueJpaController {
             em.close();
         }
     }
+
+    public List<Venue> findUnused(Date useDate, Integer layoutNo, int capacity, Integer reservationItemId) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createNamedQuery("Venue.findUnused");
+            q.setParameter("reservationItemId", reservationItemId);
+            q.setParameter("useDate", useDate);
+            q.setParameter("layoutNo", layoutNo);
+            q.setParameter("capacity", capacity);
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

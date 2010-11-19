@@ -18,21 +18,12 @@ import javax.ejb.Local;
 public interface CartControllerLocal {
 
     public String getRoomProductType(String product_id);
-
     public int getDuration(Date tanggalMulai, Date tanggalSelesai);
-
     public Double getRoomPriceWeekday(String prod_id);
-
     public Double getRoomPriceWeekend(String prod_id);
-
     double getHallPrice(String prod_id);
-
     String getHallType(String prod_id);
-
     public double countTotalBill(Date tanggalMasuk, Date tanggalKeluar, double normalRate, double weekendrate,  short totalRoom);
-
     public List<Room> generateRoomNumber(String product_id, Date entry_date, Date exit_date, int totalRoom) throws RoomNotEnoughException;
-
     String getLayoutName(int parameter);
-
 }

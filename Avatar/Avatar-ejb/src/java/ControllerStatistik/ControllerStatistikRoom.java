@@ -94,7 +94,7 @@ public class ControllerStatistikRoom implements ControllerStatistik {
                 current.add(Calendar.DATE, 1);
             }
         }
-        
+
         //bentuk series dari seluruh jenis kamar
         DateFormat dateOnly = new SimpleDateFormat("d");
         DateFormat std = new SimpleDateFormat("dd MMM yyyy");
@@ -134,7 +134,7 @@ public class ControllerStatistikRoom implements ControllerStatistik {
             }
         }
     }
-    
+
     public JFreeChart buatRekap(Date from, Date to) {
         JFreeChart chart = null;
         Hashtable<Accomodation,Double> arrayAvg = new Hashtable<Accomodation,Double>();
@@ -202,5 +202,5 @@ public class ControllerStatistikRoom implements ControllerStatistik {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    
+
 }
