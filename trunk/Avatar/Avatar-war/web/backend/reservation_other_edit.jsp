@@ -32,7 +32,7 @@
 <%
 OtherServicesJpaController osjpa = new OtherServicesJpaController();
 OtherServicesReservationJpaController osrjpa = new OtherServicesReservationJpaController();
-HallReservation osr = osrjpa.findOtherServicesReservation(Integer.parseInt(request.getParameter("item")));
+OtherServicesReservation osr = osrjpa.findOtherServicesReservation(Integer.parseInt(request.getParameter("item")));
 %>
 <html>
     <head>
@@ -96,7 +96,7 @@ HallReservation osr = osrjpa.findOtherServicesReservation(Integer.parseInt(reque
                     <div id="content">
                         <h1 class="title">Edit Reservation</h1>
                         <div class="post">
-                            <form method="post" name="addOtherForm" id="addOtherForm" action="other_reservation_add">
+                            <form method="post" name="addOtherForm" id="addOtherForm" action="other_reservation_edit">
                                 <input type="hidden" name="reservationItemId" id="reservationItemId" value="<%= osr.getReservationItemId() %>" />
                                 <label for="productId">Product</label>
                                 <select name="productId" id="productId" onchange="getUnit();">
@@ -106,7 +106,7 @@ HallReservation osr = osrjpa.findOtherServicesReservation(Integer.parseInt(reque
                                 </select><br />
 
                                 <label for="amount">Quantity</label>
-                                <input type="text" name="amount" id="amount" size="2" maxlength="3" />&nbsp;<span id="unit"></span><br />
+                                <input type="text" name="amount" id="amount" size="2" maxlength="3" value="<%= osr.getAmount() %>" />&nbsp;<span id="unit"></span><br />
 
                                 <input type="submit" name="update" id="update" value="Update" />
                             </form>
