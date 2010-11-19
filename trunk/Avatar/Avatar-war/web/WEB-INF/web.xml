@@ -124,6 +124,18 @@
         <servlet-name>AddHallReservation</servlet-name>
         <servlet-class>MengelolaReservasi.AddHallReservation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadRoomServlet</servlet-name>
+        <servlet-class>MengelolaLayanan.UploadRoomServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadServiceServlet</servlet-name>
+        <servlet-class>MengelolaLayanan.UploadServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadVenueServlet</servlet-name>
+        <servlet-class>MengelolaLayanan.UploadVenueServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -247,6 +259,18 @@
     <servlet-mapping>
         <servlet-name>AddHallReservation</servlet-name>
         <url-pattern>/backend/hall_reservation_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadRoomServlet</servlet-name>
+        <url-pattern>/backend/UploadRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadServiceServlet</servlet-name>
+        <url-pattern>/backend/UploadServiceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadVenueServlet</servlet-name>
+        <url-pattern>/backend/UploadVenueServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

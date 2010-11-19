@@ -104,7 +104,7 @@
             if(target!=""){
                 var regex=/[.jpg|.jpeg|.bmp|.png]$/;
                 if(!regex.test(target)){
-                    document.getElementById("uploadererror").innerHTML="<em> &nbsp; &nbsp;&nbsp;&nbsp; Logo only .JPG</em>";
+                    document.getElementById("uploadererror").innerHTML="<em> &nbsp; &nbsp;&nbsp;&nbsp; Logo only .jpg, .jpeg, .bmp, or .png</em>";
                     document.logouploader.logosubmit.disabled=true;
                 }
                 else{
@@ -506,7 +506,7 @@
                             <hr/>
                             <form name="logouploader" action="CommonsFileUploadServlet" enctype="multipart/form-data" method="POST">
                                 <div class="required">
-                                    <label for="file1">Logo Hotel :</label>
+                                    <label for="file1">Hotel Logo :</label>
                                     <input type="file" name="file1" class="input_text" onchange="validateLogoExtension();"/>
                                     <span id="uploadererror">
                                     </span><br/>
