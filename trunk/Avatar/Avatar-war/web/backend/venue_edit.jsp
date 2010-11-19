@@ -12,6 +12,9 @@
 <%@page import="AvatarEntity.VenueLayoutJpaController" %>
 <%@page import="java.util.List" %>
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
+%>
+<%
             LayoutJpaController ljpa = new LayoutJpaController();
             Venue toEdit = (Venue) request.getAttribute("toEdit");
 %>
@@ -117,3 +120,8 @@
         <%}%>
     </body>
 </html>
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>

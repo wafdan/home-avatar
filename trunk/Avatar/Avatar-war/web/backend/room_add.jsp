@@ -10,6 +10,9 @@
 <%@page import="AvatarEntity.Room" %>
 <%@page import="java.util.List" %>
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
+%>
+<%
             List<Room> lroom = (List<Room>) request.getAttribute("returnList");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -102,3 +105,8 @@
         <%}%>
     </body>
 </html>
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>
