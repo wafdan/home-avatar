@@ -42,7 +42,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             function confirmSendEmail()
             {return confirm("Do you want to send reminder email?")}
@@ -96,7 +96,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                             %>
                             <%--<table width="603" border="1" style="table-layout:fixed">--%>
                             <table align = "center" border = 1 width = "100%" cellpadding = "3" cellspacing = "0">
-                                <tr>
+                                <tr class="headertable">
                                     <th bgcolor="#262626" width="5%">No.</th>
                                     <th bgcolor="#262626" width="10%">Reservation Id</th>
                                     <th bgcolor="#262626" width="30%">Customer</th>

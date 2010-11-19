@@ -42,13 +42,13 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                         <h1 class="title">List of Room Reservations</h1>
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
-                                <tr>
+                                <tr class="headertable">
                                     <th bgcolor="#262626" width="29">No.</th>
                                     <th bgcolor="#262626" width="179">Username</th>
                                     <th bgcolor="#262626" width="89">No. Kamar</th>
                                     <th bgcolor="#262626" width="77">Tgl Masuk</th>
                                     <th bgcolor="#262626" width="96">Tgl Keluar</th>
-
+                                    <th bgcolor="#262626">Options</th>
                                 </tr>
 
                                 <%
@@ -91,8 +91,8 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     <td><div style="overflow:auto"><%= temp.getRoomNo().toString() %></div></td>
                                     <td> <%= temp.getEntryDate().toString() %> </td>
                                     <td> <%= temp.getExitDate().toString() %> </td>
-                                    <td><a href="?edit=<%=index%>">edit</a></td>
-                                    <td><a href="HapusRoomReservasi?delete=<%= temp.getReservationItemId() %>">delete</a></td>
+                                    <td><a href="?edit=<%=index%>">edit</a>
+                                        <a href="HapusRoomReservasi?delete=<%= temp.getReservationItemId() %>">delete</a></td>
                                 </tr>
                                 <% }
                                                 }
