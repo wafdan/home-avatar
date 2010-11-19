@@ -31,7 +31,7 @@
     </ul>
     <ul>
         <strong>NOTIFICATIONS</strong>
-        <li><a href="reservation_manage_notification.jsp">Due Payment</a></li>
+        <li><a href="reservation_manage_notification.jsp" id="menu_due">Due Payment</a></li>
     </ul>
 </div>
 <!-- end sidebar -->
