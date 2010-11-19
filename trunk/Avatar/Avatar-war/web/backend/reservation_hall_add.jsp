@@ -34,6 +34,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
+if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
+%>
+<%
 String res = request.getParameter("res");
 String dep = request.getParameter("dep");
 HallJpaController hjpa = new HallJpaController();
@@ -199,4 +202,8 @@ else if (request.getParameter("dep") != null)
         </div>
     </body>
 </html>
-
+<%}else{
+    out.println(session.getAttribute("position"));
+    response.sendRedirect(request.getContextPath() +"/backend/");
+    }
+%>
