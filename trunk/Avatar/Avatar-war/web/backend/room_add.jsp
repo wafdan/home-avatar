@@ -44,7 +44,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                         <h1 class="title">Add Individual Room</h1>
                         <form method="post" name="addIndRoom" id="addIndRoom" action="room_add">
                             <table border="0">
-                                <tr>
+                                <tr class="headertable">
                                     <th>Room No</th>
                                     <th>Room Type</th>
                                     <th>Floor</th>

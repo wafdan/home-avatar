@@ -56,7 +56,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 0){
                                 List<Customer> staffList = jpa.findCustomerEntities();
                                 if (editIndex == -1) {%>
                                 <table width="603" border="1" style="table-layout:fixed">
-                                    <tr>
+                                    <tr class="headertable">
                                         <th bgcolor="#262626" width="29">No.</th>
                                         <th bgcolor="#262626" width="179">Username</th>
                                         <th bgcolor="#262626" width="89">Name</th>

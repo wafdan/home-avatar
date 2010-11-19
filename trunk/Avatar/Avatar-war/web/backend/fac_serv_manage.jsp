@@ -83,7 +83,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                                                 List<OtherServices> hList = jpah.findOtherServicesEntities();
                                                 if (editIndex == -1) {
                                     %>
-                                    <tr>
+                                    <tr class="headertable">
                                         <th bgcolor="#262626" width="20">No.</th>
                                         <th bgcolor="#262626" width="50">Product Id</th>
                                         <th bgcolor="#262626" width="89">Product Type</th>
