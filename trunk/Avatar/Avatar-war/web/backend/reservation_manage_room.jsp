@@ -18,6 +18,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
     RoomReservationJpaController cr = new RoomReservationJpaController();
     List<RoomReservation> lr = cr.findRoomReservationEntities();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -58,7 +59,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                         RoomReservation temp = ir.next();
                                 %>
                                 <tr>
-                                    <td><%= temp.getReservationTime() %></td>
+                                    <td><%= datetime.format(temp.getReservationTime()) %></td>
                                     <td><%= temp.getReservationId().getUsername().getName() %></td>
                                     <td><%= temp.getRoomNo().getRoomNo() %><br />(<%= temp.getRoomNo().getProductId().getProductType() %>)</td>
                                     <td style="white-space: nowrap"><%= sdf.format(temp.getEntryDate()) %><br />
