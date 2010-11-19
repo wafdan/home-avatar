@@ -60,6 +60,7 @@
                                         <th bgcolor="#262626" width="89">Name</th>
                                         <th bgcolor="#262626" width="77">Identity Type</th>
                                         <th bgcolor="#262626" width="96">Identity Number</th>
+                                        <th bgcolor="#262626" >Options</th>
                                     </tr>
                                 <%l = c.findCustomerEntities();
                                     for (Iterator<Customer> i = l.iterator(); i.hasNext();) {
@@ -72,8 +73,8 @@
                                     <td><div style="overflow:auto"><%= temp.getName()%></div></td>
                                     <td> <%= temp.getIdentityType()%> </td>
                                     <td> <%= temp.getIdentityNumber()%> </td>
-                                    <td><a href="customer_manage.jsp?edit=<%=index%>">edit</a></td>
-                                    <td><a onclick="return confirmAction()" href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
+                                    <td><a href="customer_manage.jsp?edit=<%=index%>">edit</a>
+                                    <a onclick="return confirmAction()" href="HapusCustomer?delete=<%= temp.getUsername()%>">delete</a></td>
                                 </tr>
                                 <% }%>
                                 </table>

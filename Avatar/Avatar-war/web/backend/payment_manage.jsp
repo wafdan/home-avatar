@@ -58,12 +58,13 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                     <div id="content">
                         <h1 class="title">Reservation and Payment List</h1>
                         <div class="post">
-                            <table width="*" border="1" style="table-layout:fixed">
+                            <table border="1" style="table-layout:fixed">
                                 <tr>
                                     <th>Reservation Status</th>
                                     <th>Customer</th>
                                     <th>Total Bill</th>
                                     <th>Payment Status</th>
+                                    <th>Options<th>
                                 </tr>
                                 <%
                                 Payment pay;

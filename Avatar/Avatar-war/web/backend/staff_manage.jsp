@@ -64,6 +64,7 @@
                                             <th bgcolor="#262626" width="89">Name</th>
                                             <th bgcolor="#262626" width="77">ID</th>
                                             <th bgcolor="#262626" width="96">Position</th>
+                                            <th bgcolor="#262626">Options</th>
                                         </tr>
                                         <%
                                         for (Iterator<Staff> i = staffList.iterator(); i.hasNext();) {
@@ -75,8 +76,8 @@
                                     <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
                                     <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                    <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                    <td><a onclick="return confirmAction()" href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
+                                    <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a>
+                                    <a onclick="return confirmAction()" href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>
                                 </tr>
                                 <%}%>
                                 </table>
@@ -123,31 +124,14 @@
                                     <a onclick="return confirmAction()" class="button" href="HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a>
                                     <a class="button" href="staff_manage.jsp"> cancel </a>
                                 </form>
-                                <% } else {%>
-                                <%--<td><%%></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getUsername());%></div></td>
-                                <td><div style="overflow:auto"><% out.write(temp.getName());%></div></td>
-                                <td><div style="overflow:auto"> <% out.write(temp.getEmploymentId());%></div></td>
-                                <td><div style="overflow:auto"> <% out.write(s.translatePosition(temp.getPosition()));%></div></td>
-                                <td><a href="staff_manage.jsp?edit=<%out.write(Integer.toString(index));%>">edit</a></td>
-                                <td><a href="../MengelolaPengguna/HapusStaff?delete=<% out.write(temp.getUsername());%>">delete</a></td>--%>
-
-                                <%      }
+                                <% } 
+                                
                                     }
                                 }%>
-                                <!--<tr>
-                                    <td>&nbsp;</td>
-                                    <td><div style="overflow:auto"> asfasfafafa&nbsp;</div></td>
-                                    <td><div style="overflow:auto">&nbsp; knights_of_kangouw@yahoo.com</div></td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td><a href="#">edit</a></td>
-                                    <td><a href="#">delete</a></td>
-                                </tr>   --> 
+                                
                         </div>
                     </div>
-                    <!-- end content -->
-                    <!-- start sidebar -->
+                
                     <div id="sidebar">
                         <ul>
                             <li>

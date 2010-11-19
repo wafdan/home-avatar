@@ -230,6 +230,7 @@ form .button{
     color: #000000;
 }
 
+
 /*FMENU*/
 #fmenu {
     border-bottom: 1px solid #48ACDE;
@@ -266,7 +267,7 @@ form .button{
 
 
 #pagefac {
-    width: 1140px;
+    width: 1240px;
     margin: 0 auto;
     padding-top: 20px;
     background-color:#CCCCCC;
@@ -284,7 +285,7 @@ form .button{
 
 #contentfac {
     float: right;
-    width: 900px;
+    width: 1000px;
     border: 2px dotted #333333;
     margin-right: 10px;
     padding:10px;

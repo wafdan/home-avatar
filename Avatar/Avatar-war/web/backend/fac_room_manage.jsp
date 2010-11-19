@@ -23,7 +23,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>BackEnd Avatar</title>
-        <link href="../styles/backend_facilities.css" rel="stylesheet" type="text/css" />
+        <link href="../styles/default.css" rel="stylesheet" type="text/css" />
         <style>
 
         </style>
@@ -75,9 +75,9 @@
         <!-- start page -->
         <div id="wrapper">
             <div id="wrapper-btm">
-                <div id="page">
+                <div id="pagefac">
                     <!-- start content -->
-                    <div id="content">
+                    <div id="contentfac">
                         <h1 class="title">Accomodation List</h1>
                         <ul id="fmenu">
                             <li id="fmenu-item1"><a href="#">Rooms</a></li>
