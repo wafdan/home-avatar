@@ -108,11 +108,6 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                     <!-- start content -->
                     <div id="content">
                         <h1 class="title">Add Hall</h1>
-                        <ul id="fmenu">
-                            <li id="fmenu-item1"><a href="fac_room_manage.jsp">Rooms</a></li>
-                            <li id="fmenu-item2"><a href="#">Meetings & Events</a></li>
-                            <li id="fmenu-item3"><a href="fac_serv_manage.jsp">Other Services</a></li>
-                        </ul>
                         <div class="post">
                             <div class="fac1">
                                 <form action="TambahHall" method="post">
