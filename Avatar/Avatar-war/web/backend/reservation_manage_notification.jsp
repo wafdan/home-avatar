@@ -86,7 +86,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
             var time = curHour + ":" + curMin + ":" + mySecs + " " + suffix;
             document.getElementById('time').innerHTML=(time);
 
-            if(time == "00:00:00 AM") //Change this to whatever time you want
+            if(time == "0:00:00 AM") //Change this to whatever time you want
             location.reload();
 
             }
