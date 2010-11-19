@@ -96,9 +96,12 @@ RoomReservation rr = rrjpa.findRoomReservation(Integer.parseInt(request.getParam
                 room = xmlDocument.getElementsByTagName("room");
                 if (room.length > 0) {
                     selRoomNo.options.length = 0;
-                    selRoomNo.options[0] = new Option("<%= rr.getRoomNo().getRoomNo() + (rr.getRoomNo().getRoomName() == null ? "" :" - " + rr.getRoomNo().getRoomName()) %>", "<%= rr.getRoomNo().getRoomNo() %>");
                     for (i = 0; i < room.length; i++) {
-                        selRoomNo.options[i+1] = new Option(room[i].lastChild.firstChild.data, room[i].firstChild.firstChild.data);
+                        if (room[i].firstChild.firstChild.data == "<%= rr.getRoomNo().getRoomNo() %>") {
+                            selRoomNo.options[i] = new Option(room[i].lastChild.firstChild.data, room[i].firstChild.firstChild.data, true, true);
+                        } else {
+                            selRoomNo.options[i] = new Option(room[i].lastChild.firstChild.data, room[i].firstChild.firstChild.data);
+                        }
                     }
                 } else {
                     alert('No available room for selected type during these dates.');

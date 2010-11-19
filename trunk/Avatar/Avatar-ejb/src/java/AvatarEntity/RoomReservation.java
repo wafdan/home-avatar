@@ -157,4 +157,9 @@ public class RoomReservation extends ReservationItem implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return "in " + sdf.format(this.entryDate) + " out " + sdf.format(this.exitDate);
     }
+
+    @Override
+    public String getDiscriminator() {
+        return "room";
+    }
 }

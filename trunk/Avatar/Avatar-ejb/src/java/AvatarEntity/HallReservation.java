@@ -172,4 +172,9 @@ public class HallReservation extends ReservationItem implements Serializable {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return "(" + sdf.format(this.getUseDate()) + ")";
     }
+
+    @Override
+    public String getDiscriminator() {
+        return "hall";
+    }
 }
