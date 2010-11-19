@@ -49,11 +49,53 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
             function confirmDelete()
             {return confirm("Do you really want to delete?")}
         </script>
+        <style>
+            .subresv { width: 92%; padding-left: 8%; }
+            td { vertical-align: top; }
+        </style>
+        <script type="text/javascript">
+            function getCurrentTime()
+            {
+            var myDate = new Date();
+            var mySecs = myDate.getSeconds();
+            var curHour = myDate.getHours();
+            var curMin = myDate.getMinutes();
+            var suffix = "AM";
+
+            if(mySecs < 10)
+            mySecs = "0" + mySecs;
+
+            if(curMin < 10)
+            curMin = "0" + curMin;
+
+            if(curHour == 12 && curMin >= 1)
+            {
+            suffix = "PM";
+            }
+            if(curHour == 24 && curMin >= 1)
+            {
+            curHour-= 12;
+            suffix = "AM";
+            }
+            if(curHour > 12)
+            {
+            curHour-= 12;
+            suffix = "PM";
+            }
+
+            var time = curHour + ":" + curMin + ":" + mySecs + " " + suffix;
+            document.getElementById('time').innerHTML=(time);
+
+            if(time == "00:00:00 AM") //Change this to whatever time you want
+            location.reload();
+
+            }
+            </script>
     </head>
     <%
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
     %>
-    <body>
+    <body onload="setInterval('getCurrentTime()', 1000);">
         <!-- start header -->
         <jsp:include page="bheader.jsp"/>
         <!-- end header -->
@@ -85,7 +127,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     }
                                 %>
                             </div>
-                            <div class="today">Today : <%out.write(formatter.format(new Date()));%></div>
+                            Today : <%out.write(formatter.format(new Date()));%><br /><div id="time"></div>
                             <div class="fac1">
                             <%
                             MengelolaReservasiController ctrl = new MengelolaReservasiController();
