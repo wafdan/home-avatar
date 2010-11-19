@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import KelolaPengguna.MengelolaPenggunaController;
+import Support.EmailSender;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -70,6 +71,11 @@ public class TambahCustomer extends HttpServlet {
             //unexpectedfailure
             //alreadyexist
 
+
+            String body = "Welcome, " + name + "\nYour Hotel Reservation System Account has been successfully made.\n\n"
+                    + "Please take note of your username and password to access our system.\n"
+                    + "Username: " + username + "\n" + "Password: " + password + "\n";
+            EmailSender.sendEmail(email, "avatarhomeapp@gmail.com", "", "Hotel Reservation Registration", body);
         } catch (PreexistingEntityException ex) {
             response.sendRedirect("customer_add.jsp?status=alreadyexist");
         } catch (Exception ex) {
