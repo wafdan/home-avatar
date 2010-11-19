@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ReservationServlet;
 
 import AvatarEntity.VenueJpaController;
+import Support.FormValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,22 +33,29 @@ public class HallReservationAjax extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            String layout_str=request.getParameter("layout");
-            String date_str=request.getParameter("reservationdate");
-            String capacity_str=request.getParameter("capacity");
+            String layout_str = request.getParameter("layout");
+            String date_str = request.getParameter("reservationdate");
+            String capacity_str = request.getParameter("capacity");
 
-            System.out.println("AJAX request received. Layout="+layout_str+" reservation_date="+date_str+" capacity="+ capacity_str);
+            System.out.println("AJAX request received. Layout=" + layout_str + " reservation_date=" + date_str + " capacity=" + capacity_str);
 
-            int layout=Integer.parseInt(layout_str);
-            Date date=(new SimpleDateFormat("MM/dd/yyyy")).parse(date_str);
-            int capacity=Integer.parseInt(capacity_str);
+            int layout = Integer.parseInt(layout_str);
+            Date reservationDate = (new SimpleDateFormat("MM/dd/yyyy")).parse(date_str);
+            int capacity = Integer.parseInt(capacity_str);
 
-            int hallavailable=(new VenueJpaController()).findUnused(date, layout, capacity).size();
-            System.out.println("HallAvailable :"+hallavailable );
+            Date currentDate = new Date();
+
+            if(FormValidator.isBefore(reservationDate, currentDate)){
+                out.write(String.valueOf(-3));
+                return;
+            }
+
+            int hallavailable = (new VenueJpaController()).findUnused(reservationDate, layout, capacity).size();
+            System.out.println("HallAvailable :" + hallavailable);
             out.write(String.valueOf(hallavailable));
 
         } catch (ParseException ex) {
@@ -67,7 +75,7 @@ public class HallReservationAjax extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -80,7 +88,7 @@ public class HallReservationAjax extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -92,5 +100,4 @@ public class HallReservationAjax extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

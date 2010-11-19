@@ -126,9 +126,11 @@
                 }
                 else{
                     //Kalo value nya yang lain ambil kapasitas yang available secara asinkron
-                    document.syalala.capacity.disabled=false;
+                    document.syalala.capacity.disabled=true;
                     var ajaxpost = new XMLHttpRequest();
                     if(ajaxpost){
+                        document.syalala.capacity.disabled=true;
+                        document.syalala.tombol.disabled=true;
                         ajaxpost.open("POST", "HallReservationAjax");
                         ajaxpost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         ajaxpost.onreadystatechange = function() {
@@ -138,11 +140,19 @@
                                 var batasAtas=parseInt(ajaxpost.responseText);
                                 if(batasAtas==0){
                                     alert("There is no available room on requested date or capacity");
+                                    document.syalala.capacity.disabled=true;
+                                    document.syalala.tombol.disabled=true;
+                                    return;
+                                } else if (batasAtas==-3){
+                                    alert("Reservation can not occur in the past");
+                                    document.syalala.capacity.disabled=true;
+                                    document.syalala.tombol.disabled=true;
                                     return;
                                 }
                                 document.syalala.hallneeded.length=0;
                                 document.syalala.hallneeded.disabled=false;
                                 document.syalala.tombol.disabled=false;
+                                document.syalala.capacity.disabled=false;
                                 for(i=1;i<=batasAtas;i++){
                                     var optionObj=document.createElement('option');
                                     optionObj.text=i+"";
@@ -176,101 +186,106 @@
                 <h1>Hall Reservations</h1>
             </div>
         </div>
-    <%
+        <%
 
-                String step = request.getParameter("step");
-                String id = null;
-                if (request.getParameter("id") != null) {
-                    id = request.getParameter("id");
-                }
-                if (step == null) {
-                    response.sendRedirect("hallreservation.jsp?step=1");
-                } else if (step.equals("1")) {
-                    //Inisialisasi List nya
-                    List<Layout> listLayout = (new LayoutJpaController()).findLayoutEntities();
-                    List<Hall> listHall = (new HallJpaController()).findHallEntities();
+                    String step = request.getParameter("step");
+                    String id = null;
+                    if (request.getParameter("id") != null) {
+                        id = request.getParameter("id");
+                    }
+                    if (step == null) {
+                        response.sendRedirect("hallreservation.jsp?step=1");
+                    } else if (step.equals("1")) {
+                        //Inisialisasi List nya
+                        List<Layout> listLayout = (new LayoutJpaController()).findLayoutEntities();
+                        List<Hall> listHall = (new HallJpaController()).findHallEntities();
 
-                    //Inisialisasi iterator untuk masing-masing list
-                    Iterator<Layout> iLayout = listLayout.iterator();
-                    Iterator<Hall> iHall = listHall.iterator();
+                        //Inisialisasi iterator untuk masing-masing list
+                        Iterator<Layout> iLayout = listLayout.iterator();
+                        Iterator<Hall> iHall = listHall.iterator();
 
 
-    %>
-    <div class="wrapper col4">
-    <div id="container">
-    <div id="content" style="width:500px;">
-    <jsp:include page="showcart.jsp" />
-    <h1>Please fill up this form to book our facility. </h1>
-    <form method="POST" name="syalala" action="TambahKeranjang?action=addhall">
-        <ul>
-            <li>
-                <h2>HALL</h2>
-                <label>Package :</label>
-                <select name="hallpackage" onchange="validatePackage();">
-                    <option value="notchoosed">Please choose package...</option>
-                    <% // di sini buat masukkin packagenya secara dinamis
-                        while (iHall.hasNext()) {
-                            Hall temp = iHall.next(); %>
-                            <option value=<% out.write("'"+temp.getProductId()+"'"); if (id != null) {if (id.equals(temp.getProductId())) {out.write(" selected='true'");}} %>><% out.write(temp.getProductType()); %></option>
-                     <% }
-                    %>
-                </select>
-            </li
+        %>
+        <div class="wrapper col4">
+            <div id="container">
+                <div id="content" style="width:500px;">
+                    <jsp:include page="showcart.jsp" />
+                    <h1>Please fill up this form to book our facility. </h1>
+                    <form method="POST" name="syalala" action="TambahKeranjang?action=addhall">
+                        <ul>
+                            <li>
+                                <h2>HALL</h2>
+                                <label>Package :</label>
+                                <select name="hallpackage" onchange="validatePackage();">
+                                    <option value="notchoosed">Please choose package...</option>
+                                    <% // di sini buat masukkin packagenya secara dinamis
+                                        while (iHall.hasNext()) {
+                                            Hall temp = iHall.next();%>
+                                    <option value=<% out.write("'" + temp.getProductId() + "'");
+                                                        if (id != null) {
+                                                            if (id.equals(temp.getProductId())) {
+                                                                out.write(" selected='true'");
+                                                            }
+                                                        }%>><% out.write(temp.getProductType());%></option>
+                                    <% }
+                                    %>
+                                </select>
+                            </li
 
-            <li>
-                <label>Date : </label>
-                <input type="text" name="reservationdate" class="datepicker" onchange="validateDate();">
-            </li>
+                            <li>
+                                <label>Date : </label>
+                                <input type="text" name="reservationdate" class="datepicker" onchange="validateDate();">
+                            </li>
 
-            <li>
-                <label for="layout">Layout : </label>
-                <select name="layout" onchange="validateLayout();">
-                    <option value="notchoosed">Please choose layout...</option>
-                    <% // di sini buat masukkin layoutnya secara dinamis ambil dari database
-                                            while (iLayout.hasNext()) {
-                                                Layout temp = iLayout.next();
-                                                out.write("<option value=" + temp.getLayoutNo() + ">" + temp.getLayoutName() + "</option>");
-                                            }
-                    %>
-                </select>
-            </li>
+                            <li>
+                                <label for="layout">Layout : </label>
+                                <select name="layout" onchange="validateLayout();">
+                                    <option value="notchoosed">Please choose layout...</option>
+                                    <% // di sini buat masukkin layoutnya secara dinamis ambil dari database
+                                                        while (iLayout.hasNext()) {
+                                                            Layout temp = iLayout.next();
+                                                            out.write("<option value=" + temp.getLayoutNo() + ">" + temp.getLayoutName() + "</option>");
+                                                        }
+                                    %>
+                                </select>
+                            </li>
 
-            <li>
-                <label for="capacity">Attendees: </label>
-                <input name="capacity" type="text" onchange="validateCapacity();"/>person
-            </li>
+                            <li>
+                                <label for="capacity">Attendees: </label>
+                                <input name="capacity" type="text" onchange="validateCapacity();"/>person
+                            </li>
 
-            <li>
-                <label for="hallneeded">Hall needed : </label>
-                <select name="hallneeded" disabled="true">
-                    <option value="notchoosed">Please fill data above...</option>
-                    <%  %>
-                </select>
-            </li>
-        </ul>
-    <input type="submit" value="SUBMIT" disabled="true" name="tombol"/>
-    </form>
-    </div>
-    <% //endif untuk step==1
-                            }%>
-    <div id="column">
-        <div class="subnav">
-            <h2>Reservation</h2>
-            <ul>
-                <li><a href="reservation.jsp?step=1">Room Reservation</a></li>
-                <li><a href="hallreservation.jsp?step=1">Hall Reservation</a></li>
-            </ul>
+                            <li>
+                                <label for="hallneeded">Hall needed : </label>
+                                <select name="hallneeded" disabled="true">
+                                    <option value="notchoosed">Please fill data above...</option>
+                                    <%  %>
+                                </select>
+                            </li>
+                        </ul>
+                        <input type="submit" value="SUBMIT" disabled="true" name="tombol"/>
+                    </form>
+                </div>
+                <% //endif untuk step==1
+                    }%>
+                <div id="column">
+                    <div class="subnav">
+                        <h2>Reservation</h2>
+                        <ul>
+                            <li><a href="reservation.jsp?step=1">Room Reservation</a></li>
+                            <li><a href="hallreservation.jsp?step=1">Hall Reservation</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="subnav">
+                        <h2>Reservation Status</h2>
+                        <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-
-        <div class="subnav">
-            <h2>Reservation Status</h2>
-            <p>See your reservation status <a href="reservation_status.jsp" class="link_res_stat">here</a></p>
-        </div>
-        
-    </div>
-    </div>
-    <div class="clear"></div>
-     </div>
-    <jsp:include page="footer.jsp"/>
-</body>
+        <jsp:include page="footer.jsp"/>
+    </body>
 </html>

@@ -101,6 +101,11 @@
                                 alert("Date format must be in MM/dd/yyyy");
                                 document.syalala.tombol.disabled=true;
                                 selectObj.disabled=true;
+                            } else if (roomAvailable==-3){
+                            roomSuccessStatus=-3;
+                                alert("Reservation can not occur in the past");
+                                document.syalala.tombol.disabled=true;
+                                selectObj.disabled=true;
                             }
                             else{
                                 selectObj.length=0;

@@ -6,6 +6,7 @@
 package ReservationServlet;
 
 import AvatarEntity.RoomJpaController;
+import Support.FormValidator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -51,8 +52,13 @@ public class ReservationAjax extends HttpServlet {
             checkInCal.setTime(checkIn);
             checkOutCal.setTime(checkOut);
 
-            if(!checkOutCal.after(checkInCal)){
-                out.write(String.valueOf(-1));
+            Date currentDate=new Date();
+            Calendar currentDatCal=Calendar.getInstance();
+            currentDatCal.setTime(currentDate);
+            currentDatCal.add(Calendar.DAY_OF_YEAR, 1);
+
+            if(FormValidator.isBefore(checkIn, currentDate)){
+                out.write(String.valueOf(-3));
                 return;
             }
 
