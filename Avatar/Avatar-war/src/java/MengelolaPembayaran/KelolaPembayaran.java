@@ -133,7 +133,7 @@ public class KelolaPembayaran extends HttpServlet {
                         messageContent += "Your payment receipt is attached with this mail.\n\nThank you for choosing our service.\n\n\n";
                         messageContent += "Sincerely yours,\nHotel Management";
                         try {
-                            EmailSender.sendEmail(destAddress, "chrhad081@gmail.com", "", "Payment Receipt", messageContent, attfile);
+                            EmailSender.sendEmail(destAddress, "avatarhomeapp@gmail.com", "", "Payment Receipt", messageContent, attfile);
                             popup = "<script language=\"javascript\" type=\"text/javascript\">\n"
                                 + "<!--\n\twindow.alert('E-mail has been sent to "
                                 + res.getUsername().getEmail() + ".');\n//-->\n</script>";

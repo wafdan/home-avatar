@@ -36,7 +36,7 @@ public class UploadServiceServlet extends HttpServlet {
 
     private static final String TMP_DIR_PATH = "c:\\tmp";
     private File tmpDir;
-    private static final String DESTINATION_DIR_PATH = "/images/facility";
+    private static final String DESTINATION_DIR_PATH = "/images/facilities/others";
     private File destinationDir;
 
     public void init(ServletConfig config) throws ServletException {
@@ -106,7 +106,7 @@ public class UploadServiceServlet extends HttpServlet {
 
                     OtherServicesJpaController oj=new OtherServicesJpaController();
                     OtherServices o=oj.findOtherServices(kodeFacility);
-                    o.setImage("images/facility/"+namaFileBaru);
+                    o.setImage("images/facilities/others/"+namaFileBaru);
                     oj.edit(o);
 
                 }

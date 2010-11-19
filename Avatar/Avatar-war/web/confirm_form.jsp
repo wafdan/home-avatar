@@ -40,7 +40,7 @@
     <td><label for="acc_no">Account Number</label></td>
     <td><label for="bank">Bank</label></td>
     <td><label for="amount">Amount</label></td>
-    <td><label for="payment_date">Payment Date</label></td>
+    <td><label for="payment_date">Payment Date [yyyy-mm-dd]</label></td>
     </tr>
     <tr>
     <td><input type="text" id="acc_no<%= r.getReservationId() %>" name="acc_no" /></td>

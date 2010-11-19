@@ -228,8 +228,3 @@ public class TambahKeranjang extends HttpServlet {
         }
     }
 }
-/**
- * @author Deepak Kumar
- * @Web http://www.roseindia.net
- * @Email deepak@roseindia.net
- */
