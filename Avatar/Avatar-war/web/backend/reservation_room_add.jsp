@@ -95,6 +95,7 @@ else if (request.getParameter("dep") != null)
                 var selRoomNo = document.getElementById("roomNo");
                 room = xmlDocument.getElementsByTagName("room");
                 if (room.length > 0) {
+                    selRoomNo.options.length = 0;
                     for (i = 0; i < room.length; i++) {
                         selRoomNo.options[i] = new Option(room[i].lastChild.firstChild.data, room[i].firstChild.firstChild.data);
                     }

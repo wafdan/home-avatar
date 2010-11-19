@@ -136,6 +136,42 @@
         <servlet-name>UploadVenueServlet</servlet-name>
         <servlet-class>MengelolaLayanan.UploadVenueServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddOtherReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.AddOtherReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddRoomReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.AddRoomReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OtherReservationAjaxBack</servlet-name>
+        <servlet-class>MengelolaReservasi.OtherReservationAjaxBack</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RoomReservationAjaxBack</servlet-name>
+        <servlet-class>MengelolaReservasi.RoomReservationAjaxBack</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditHallReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.EditHallReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditOtherReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.EditOtherReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditRoomReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.EditRoomReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReservation</servlet-name>
+        <servlet-class>MengelolaReservasi.DeleteReservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReservationItem</servlet-name>
+        <servlet-class>MengelolaReservasi.DeleteReservationItem</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TambahAkun</servlet-name>
         <url-pattern>/MelakukanRegistrasi/TambahAkun</url-pattern>
@@ -271,6 +307,42 @@
     <servlet-mapping>
         <servlet-name>UploadVenueServlet</servlet-name>
         <url-pattern>/backend/UploadVenueServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddOtherReservation</servlet-name>
+        <url-pattern>/backend/other_reservation_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRoomReservation</servlet-name>
+        <url-pattern>/backend/room_reservation_add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OtherReservationAjaxBack</servlet-name>
+        <url-pattern>/backend/OtherReservationAjax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RoomReservationAjaxBack</servlet-name>
+        <url-pattern>/backend/RoomReservationAjax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditHallReservation</servlet-name>
+        <url-pattern>/backend/hall_reservation_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditOtherReservation</servlet-name>
+        <url-pattern>/backend/other_reservation_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditRoomReservation</servlet-name>
+        <url-pattern>/backend/room_reservation_edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReservation</servlet-name>
+        <url-pattern>/backend/reservation_delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReservationItem</servlet-name>
+        <url-pattern>/backend/reservation_item_delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

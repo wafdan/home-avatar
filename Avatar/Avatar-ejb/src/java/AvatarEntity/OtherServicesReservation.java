@@ -118,4 +118,9 @@ public class OtherServicesReservation extends ReservationItem implements Seriali
     public String getDetails() {
         return null;
     }
+
+    @Override
+    public String getDiscriminator() {
+        return "other";
+    }
 }

@@ -6,8 +6,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="AvatarEntity.Customer" %>
-<%@page import="AvatarEntity.CustomerJpaController" %>
 <%@page import="AvatarEntity.Accomodation" %>
 <%@page import="AvatarEntity.AccomodationJpaController" %>
 <%@page import="AvatarEntity.Hall" %>
@@ -34,16 +32,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
-String res = request.getParameter("res");
-String dep = request.getParameter("dep");
-HallJpaController hjpa = new HallJpaController();
-LayoutJpaController ljpa = new LayoutJpaController();
-CustomerJpaController cjpa = new CustomerJpaController();
-String param = "";
-if (request.getParameter("res") != null)
-    param += "?res=" + res;
-else if (request.getParameter("dep") != null)
-    param += "?dep=" + dep;
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+SimpleDateFormat hour = new SimpleDateFormat("HH");
+SimpleDateFormat min = new SimpleDateFormat("mm");
+HallReservationJpaController hrjpa = new HallReservationJpaController();
+HallReservation hr = hrjpa.findHallReservation(Integer.parseInt(request.getParameter("item")));
 %>
 <html>
     <head>
@@ -68,10 +61,11 @@ else if (request.getParameter("dep") != null)
             });
 
             var getDefaults = function() {
-                var hall = document.addHallForm.productId.value;
-                var layoutSelectObjValue = document.addHallForm.layout.value;
-                var useDate = document.addHallForm.useDate.value;
-                var attendees = document.addHallForm.attendees.value;
+                var hall = document.editHallForm.productId.value;
+                var layoutSelectObjValue = document.editHallForm.layout.value;
+                var useDate = document.editHallForm.useDate.value;
+                var attendees = document.editHallForm.attendees.value;
+                var item = document.editHallForm.reservationItemId.value;
                 if (layoutSelectObjValue != "" && useDate != "" && attendees != "") {
                     var ajaxpost = false;
                     if (window.XMLHttpRequest) {
@@ -88,7 +82,7 @@ else if (request.getParameter("dep") != null)
                                 process(xmlDocument);
                             }
                         }
-                        var data= "hall=" + hall + "&layout=" + layoutSelectObjValue+"&date="+useDate+"&att="+attendees;
+                        var data= "hall=" + hall + "&layout=" + layoutSelectObjValue+"&date="+useDate+"&att="+attendees+"&item="+item;
                         alert(data);
                         ajaxpost.send(data);
                     } else {
@@ -111,10 +105,10 @@ else if (request.getParameter("dep") != null)
                 } else {
                     alert('No available venue for the event.');
                 }
-                document.addHallForm.beginTimeHour.value = startHour;
-                document.addHallForm.beginTimeMin.value = startMin;
-                document.addHallForm.endTimeHour.value = endHour;
-                document.addHallForm.endTimeMin.value = endMin;
+                document.editHallForm.beginTimeHour.value = startHour;
+                document.editHallForm.beginTimeMin.value = startMin;
+                document.editHallForm.endTimeHour.value = endHour;
+                document.editHallForm.endTimeMin.value = endMin;
             }
         </script>
         <style>
@@ -132,31 +126,22 @@ else if (request.getParameter("dep") != null)
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Add Reservation</h1>
-                        <ul id="fmenu">
-                            <li id="fmenu-item1"><a href="reservation_hall_add.jsp<%= param %>">Rooms</a></li>
-                            <li id="fmenu-item2"><em>Meetings & Events</em></li>
-                            <li id="fmenu-item3"><a href="reservation_other_add.jsp<%= param %>">Other Services</a></li>
-                        </ul>
+                        <h1 class="title">Edit Reservation</h1>
                         <div class="post">
-                            <form method="post" name="addHallForm" id="addHallForm" action="hall_reservation_add">
-                                <% if (res != null) { %><input type="hidden" name="reservationId" id="reservationId" value="<%= res %>" />
-                                <% } else if (dep != null) { %><input type="hidden" name="parent" id="parent" value="<%= dep %>" />
-                                <% } else { %><label for="username">User</label>
-                                <select name="username" id="username">
-                                    <% for (Customer cust : cjpa.findCustomerEntities()) { %><option value="<%= cust.getUsername() %>"><%= cust.getName() %></option><% } %>
-                                </select><br /><% } %>
+                            <form method="post" name="editHallForm" id="editHallForm" action="hall_reservation_edit">
+                                <input type="hidden" name="reservationItemId" id="reservationItemId" value="<%= hr.getReservationItemId() %>" />
                                 <label for="productId">Hall Type</label>
-                                <select name="productId" id="productId">
+                                <div id="productId"><%= hr.getProductId().getProductType() %></div>
+                                <%--<select name="productId" id="productId">
                                     <% for (Hall hall : hjpa.findHallEntities()) { %>
-                                    <option value="<%= hall.getProductId() %>"><%= hall.getProductType() %></option>
+                                    <option value="<%= hall.getProductId() %>"<%= (hall.getProductId().equals(hr.getProductId().getProductId()) ? " selected=\"selected\"" : "") %>><%= hall.getProductType() %></option>
                                     <% } %>
-                                </select><br />
+                                </select><br />--%>
 
                                 <label for="attendees">Attendees</label>
-                                <input type="text" name="attendees" id="attendees" size="3" maxlength="3" onblur="getDefaults();" /><br />
+                                <input type="text" name="attendees" id="attendees" size="3" maxlength="3" value="<%= hr.getAttendees() %>" /><br />
                                 
-                                <label for="layout">Layout</label>
+                                <%--<label for="layout">Layout</label>
                                 <select name="layout" id="layout" onchange="getDefaults();">
                                     <option value="" selected="selected">--select layout--</option>
                                     <% for (Layout lay : ljpa.findLayoutEntities()) {%>
@@ -169,17 +154,20 @@ else if (request.getParameter("dep") != null)
                                 
                                 <label for="venue">Venue</label>
                                 <select name="venue" id="venue">
-                                </select><br />
+                                </select><br />--%>
+
+                                <label for="useDate">Date</label><div id="useDate"><%= sdf.format(hr.getUseDate()) %></div>
+                                <label for="venue">Venue</label><div id="venue"><%= hr.getVenueNo().getVenueName() %></div><br/>
 
                                 <label for="beginTimeHour">Begin</label>
-                                <input type="text" name="beginTimeHour" id="beginTimeHour" size="2" maxlength="2" value="" />:
-                                <input type="text" name="beginTimeMin" id="beginTimeMin" size="2" maxlength="2" value="" /><br />
+                                <input type="text" name="beginTimeHour" id="beginTimeHour" size="2" maxlength="2" value="<%= hour.format(hr.getBeginTime()) %>" />:
+                                <input type="text" name="beginTimeMin" id="beginTimeMin" size="2" maxlength="2" value="<%= min.format(hr.getBeginTime()) %>" /><br />
 
                                 <label for="endTimeHour">End</label>
-                                <input type="text" name="endTimeHour" id="endTimeHour" size="2" maxlength="2" value="" />:
-                                <input type="text" name="endTimeMin" id="endTimeMin" size="2" maxlength="2" value="" /><br />
+                                <input type="text" name="endTimeHour" id="endTimeHour" size="2" maxlength="2" value="<%= hour.format(hr.getEndTime()) %>" />:
+                                <input type="text" name="endTimeMin" id="endTimeMin" size="2" maxlength="2" value="<%= min.format(hr.getEndTime()) %>" /><br />
 
-                                <input type="submit" name="add" id="add" value="Add" />
+                                <input type="submit" name="update" id="update" value="Update" />
                             </form>
                         </div>
                         <!-- end content -->    

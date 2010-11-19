@@ -71,7 +71,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                             <h2>Reservation List</h2>
                             <p><a href="reservation_hall_add.jsp">Create New Reservation</a></p>
                             <% for (Reservation res : rList) { if (res.getParent() == null) { %>
-                            <p><b>Reservation #<%= res.getReservationId() %> [<%= res.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="#">delete</a>)</p>
+                            <p><b>Reservation #<%= res.getReservationId() %> [<%= res.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= res.getReservationId() %>">delete</a>)</p>
                             Customer: <%= res.getUsername().getName() %> (<%= res.getUsername().getUsername() %>)<br />
                             Payment status: <%= (res.getPayment() == null ? "not yet" + (res.getReservationPaymentLimit() == null ? "" : ", due " + dateOnly.format(res.getReservationPaymentLimit())) : "paid at " + dateOnly.format(res.getPayment().getPaymentDate())) %><br />
                             Reservation Items: (<a href="reservation_hall_add.jsp?res=<%= res.getReservationId() %>">add</a>)<br />
@@ -86,7 +86,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                                     <td><%= detail.format(item.getReservationTime()) %></td>
                                     <td><%= item.getDescription() %><% if (item.getDetails() != null) { %><br /><%= item.getDetails() %><% } %></td>
                                     <td align="right"><%= currencyFormat.format(item.getPrice()) %></td>
-                                    <td>edit | delete</td>
+                                    <td><a href="reservation_<%= item.getDiscriminator() %>_edit.jsp?item=<%= item.getReservationItemId() %>">edit</a> | <a href="reservation_item_delete?item=<%= item.getReservationItemId() %>">delete</a></td>
                                 </tr>
                                 <% } %>
                                 <tr>
@@ -97,7 +97,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                             <p><u>Related Reservations:</u> (<a href="reservation_hall_add.jsp?dep=<%= res.getReservationId() %>">add</a>)</p>
                             <div class="subresv">
                             <% for (Reservation resChild : res.getReservationCollection()) { %>
-                            <p><b>^ Reservation #<%= resChild.getReservationId() %> [<%= resChild.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="#">delete</a>)</p>
+                            <p><b>^ Reservation #<%= resChild.getReservationId() %> [<%= resChild.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= resChild.getReservationId() %>">delete</a>)</p>
                             Payment status: <%= (resChild.getPayment() == null ? "not yet" + (resChild.getReservationPaymentLimit() == null ? "" : ", due " + dateOnly.format(resChild.getReservationPaymentLimit())) : "paid at " + dateOnly.format(resChild.getPayment().getPaymentDate())) %><br />
                             Reservation Items: <br />
                             <table border = 1 cellpadding = "3" cellspacing = "0">
@@ -111,7 +111,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                                     <td><%= detail.format(item.getReservationTime()) %></td>
                                     <td><%= item.getDescription() %><% if (item.getDetails() != null) { %><br /><%= item.getDetails() %><% } %></td>
                                     <td align="right"><%= currencyFormat.format(item.getPrice()) %></td>
-                                    <td>edit | delete</td>
+                                    <td><a href="reservation_<%= item.getDiscriminator() %>_edit.jsp?item=<%= item.getReservationItemId() %>">edit</a> | <a href="reservation_item_delete?item=<%= item.getReservationItemId() %>">delete</a></td>
                                 </tr>
                                 <% } %>
                                 <tr>
