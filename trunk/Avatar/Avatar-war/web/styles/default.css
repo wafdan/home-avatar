@@ -432,3 +432,11 @@ html>body #footer {
 
 #legal a {
 }
+
+/* error_msg */
+.error_msg {
+    font-family:sans-serif;
+    font-style: italic;
+    background:red;
+    color:yellow;
+}
