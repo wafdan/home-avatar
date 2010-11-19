@@ -7,20 +7,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="AvatarEntity.RoomReservationJpaController" %>
 <%@ page import="AvatarEntity.RoomReservation" %>
-<%@ page import="AvatarEntity.CustomerJpaController" %>
-<%@ page import="AvatarEntity.Customer" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <%
 if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
-%>
-<%! RoomReservationJpaController cr = new RoomReservationJpaController();
+    RoomReservationJpaController cr = new RoomReservationJpaController();
     List<RoomReservation> lr = cr.findRoomReservationEntities();
-
-   /* CustomerJpaController sr = new CustomerJpaController();
-    List<Customer> kir = sr.findCustomerEntities(); */
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -43,95 +40,36 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                         <div class="post">
                             <table width="603" border="1" style="table-layout:fixed">
                                 <tr class="headertable">
-                                    <th bgcolor="#262626" width="29">No.</th>
-                                    <th bgcolor="#262626" width="179">Customer</th>
-                                    <th bgcolor="#262626" width="89">Kamar</th>
-                                    <th bgcolor="#262626" width="77">Tgl Masuk</th>
-                                    <th bgcolor="#262626" width="96">Tgl Keluar</th>
-                                    <th bgcolor="#262626">Resrv ID</th>
+                                    <th bgcolor="#262626">Timestamp</th>
+                                    <th bgcolor="#262626">Customer</th>
+                                    <th bgcolor="#262626">Room</th>
+                                    <th bgcolor="#262626">Entry</th>
+                                    <th bgcolor="#262626">Exit</th>
+                                    <th bgcolor="#262626">Resrv</th>
                                 </tr>
 
                                 <%
-                                            out.write("tes masuk 1");
-                                                int editIndex = 0;
-                                            try {
-                                                String Index = request.getParameter("edit");
-                                                editIndex = Integer.parseInt(Index);
-                                            } catch (NullPointerException ex) {
-                                                editIndex = -1;
-                                            } catch (NumberFormatException ex) {
-                                                editIndex = -1;
-                                            }
+                                    RoomReservationJpaController jpr = new RoomReservationJpaController();
+                                    List<RoomReservation> roomList = jpr.findRoomReservationEntities();
+                                    Iterator<RoomReservation> ur = roomList.iterator();
+                                    if (ur.hasNext()) {out.write(" has next ");} else {out.write(" no next ");}
 
-                                            int index = 0;
-                                            RoomReservationJpaController jpr = new RoomReservationJpaController();
-                                            List<RoomReservation> roomList = jpr.findRoomReservationEntities();
-
-                                         /*   CustomerJpaController jpc = new CustomerJpaController();
-                                            List<Customer> cusList = jpc.findCustomerEntities();
-                                            Iterator<Customer> cur = kir.iterator();
-                                                if (cur.hasNext()) {out.write(" cur has next ");} else {out.write(" cur no next ");}
-                                         */
-                                            if (editIndex == -1) {
-                                                out.write("tes masuk 2");
-                                                
-                                                out.write("tes masuk 3");
-
-                                                Iterator<RoomReservation> ur = roomList.iterator();
-                                                if (ur.hasNext()) {out.write(" has next ");} else {out.write(" no next ");}
-
-                                                for (Iterator<RoomReservation> ir = lr.iterator(); ir.hasNext();) {
-                                                    out.write("tes masuk 4");
-                                                    RoomReservation temp = ir.next();
-                                                    index++;
+                                    for (Iterator<RoomReservation> ir = lr.iterator(); ir.hasNext();) {
+                                        RoomReservation temp = ir.next();
                                 %>
                                 <tr>
-                                    <td><%=index %></td>
-                                    <td><div style="overflow:auto"><%= temp.getReservationItemId() %></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getRoomNo().toString() %></div></td>
-                                    <td> <%= temp.getEntryDate().toString() %> </td>
-                                    <td> <%= temp.getExitDate().toString() %> </td>
-                                    <td><a href="?edit=<%=index%>">edit</a>
-                                        <a href="HapusRoomReservasi?delete=<%= temp.getReservationItemId() %>">delete</a></td>
+                                    <td><%= temp.getReservationTime() %></td>
+                                    <td><%= temp.getReservationId().getUsername().getName() %></td>
+                                    <td><%= temp.getRoomNo().getRoomNo() %><br />(<%= temp.getRoomNo().getProductId().getProductType() %>)</td>
+                                    <td style="white-space: nowrap"><%= sdf.format(temp.getEntryDate()) %><br />
+                                        (<em><%= (temp.getActualEntry() != null ? sdf.format(temp.getActualEntry()) : "not yet") %></em>)</td>
+                                    <td style="white-space: nowrap"><%= sdf.format(temp.getExitDate()) %><br />
+                                        (<em><%= (temp.getActualExit() != null ? sdf.format(temp.getActualExit()) : "not yet") %></em>)</td>
+                                    <td><a href="reservation_manage.jsp#res<%= temp.getReservationId().getReservationId() %>"><%= temp.getReservationId().getReservationId() %></a></td>
+                                    <td><a href="reservation_<%= temp.getDiscriminator() %>_edit.jsp?item=<%= temp.getReservationItemId() %>">edit</a> | 
+                                        <a href="reservation_item_delete?item=<%= temp.getReservationItemId() %>">delete</a></td>
                                 </tr>
-                                <% }
-                                                }
-            else
-            {
-                int iterator=0;
-                for(Iterator<RoomReservation> ir = roomList.iterator(); ir.hasNext();)
-                {
-                    RoomReservation temp=ir.next();
-                    iterator++;
-
-                %>
-                <tr><td><%=iterator%></td>
-                <%
-                if(iterator==editIndex){
-                 %>
-
-                 <form action="EditCustomer" method="get">
-                     <td><input type="text" name="username" id="username" disabled="true" value="<%= temp.getReservationItemId() %>"></td>
-                     <td><input type="text" name="name" id="name" value="<%=temp.getRoomNo().toString() %>"> </td>
-                     <td><input type="text" name="itype" id="itype" value="<%=temp.getEntryDate().toString()%>"></td>
-                     <td><input type="text" name="inumber" id="inumber" value="<%=temp.getExitDate().toString() %>"></td>
-                     <td><input type="submit" value="Save" onclick="this.form.username.disabled=false;"/> </td>
-                 </form>
-                <td><a href="HapusRoomReservasi?delete=<%= temp.getReservationItemId() %>"> delete</a></td>
-                <td><a href="ManageCustomer.jsp"> cancel </a></td>
-
-
-
-                 <% }else{%>
-
-       <td><div style="overflow:auto"><%= temp.getReservationItemId()%></div></td>
-                                    <td><div style="overflow:auto"><%= temp.getRoomNo().toString() %></div></td>
-                                    <td> <%= temp.getEntryDate().toString()%> </td>
-                                    <td> <%= temp.getExitDate().toString()%> </td>
-                                    <td><a href="?edit=<%=iterator%>">edit</a></td>
-                                    <td><a href="HapusRoomReservasi?delete=<%= temp.getReservationItemId() %>">delete</a></td>
-
-           <%}}}%>
+                                <% } %>
 
                             </table>
                             <h2 class="title">&nbsp;</h2>
