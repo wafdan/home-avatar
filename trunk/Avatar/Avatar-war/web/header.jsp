@@ -51,7 +51,7 @@
         </div>
         <div id="logokanan">
         	<h1><a href="index.jsp"><%=p.getHotelName() %></a></h1>
-      		<p>The Best Luxury Hotel in Bandung</p>
+      		<p>The Best Luxury Hotel</p>
         </div>
     </div>
 

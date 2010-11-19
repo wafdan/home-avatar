@@ -34,7 +34,7 @@ public class UploadRoomServlet extends HttpServlet {
 
     private static final String TMP_DIR_PATH = "c:\\tmp";
     private File tmpDir;
-    private static final String DESTINATION_DIR_PATH = "/images/facility";
+    private static final String DESTINATION_DIR_PATH = "/images/facilities/rooms";
     private File destinationDir;
 
     public void init(ServletConfig config) throws ServletException {
@@ -104,7 +104,7 @@ public class UploadRoomServlet extends HttpServlet {
 
                     AccomodationJpaController ajc=new AccomodationJpaController();
                     Accomodation a=ajc.findAccomodation(kodeFacility);
-                    a.setImage("images/facility/"+namaFileBaru);
+                    a.setImage("images/facilities/rooms/"+namaFileBaru);
                     ajc.edit(a);
 
                 }
