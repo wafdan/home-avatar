@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 @Table(name = "room_reservation")
 @DiscriminatorValue("R")
 @NamedQueries({
-    @NamedQuery(name = "RoomReservation.findAll", query = "SELECT r FROM RoomReservation r"),
+    @NamedQuery(name = "RoomReservation.findAll", query = "SELECT r FROM RoomReservation r ORDER BY r.entryDate DESC"),
     @NamedQuery(name = "RoomReservation.findByReservationItemId", query = "SELECT r FROM RoomReservation r WHERE r.reservationItemId = :reservationItemId"),
     @NamedQuery(name = "RoomReservation.findByEntryDate", query = "SELECT r FROM RoomReservation r WHERE r.entryDate = :entryDate"),
     @NamedQuery(name = "RoomReservation.findByExitDate", query = "SELECT r FROM RoomReservation r WHERE r.exitDate = :exitDate"),

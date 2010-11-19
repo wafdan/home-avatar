@@ -102,7 +102,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                             <% for (Reservation resChild : res.getReservationCollection()) { %>
                             <p><b>^ Reservation #<%= resChild.getReservationId() %> [<%= resChild.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= resChild.getReservationId() %>">delete</a>)</p>
                             Payment status: <%= (resChild.getPayment() == null ? "not yet" + (resChild.getReservationPaymentLimit() == null ? "" : ", due " + dateOnly.format(resChild.getReservationPaymentLimit())) : "paid at " + dateOnly.format(resChild.getPayment().getPaymentDate())) %><br />
-                            Reservation Items: <br />
+                            Reservation Items: (<a href="reservation_hall_add.jsp?res=<%= resChild.getReservationId() %>">add</a>)<br />
                             <table border = 1 cellpadding = "3" cellspacing = "0">
                                 <tr>
                                     <th>Timestamp</th>

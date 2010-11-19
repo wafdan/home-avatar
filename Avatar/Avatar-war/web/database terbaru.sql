@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0.1
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2010 at 06:57
--- Server version: 5.1.37
--- PHP Version: 5.3.0
+-- Generation Time: Nov 19, 2010 at 11:07 AM
+-- Server version: 5.1.41
+-- PHP Version: 5.3.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -52,7 +52,8 @@ INSERT INTO `accomodation` (`product_id`, `product_type`, `description`, `image`
 ('AC005', 'Princess Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', 'images/facilities/rooms/AC005.jpg', 0, '00:00:00', '00:00:00', 400000, 450000, '00:00:00', '00:00:00'),
 ('AC006', 'Prince Room', 'Junior Suite Lake View, Sweet Sleeper Bed, Spacious With Sitting Area, Combined Shower/bath, Coffee/tea Maker', 'images/facilities/rooms/AC006.jpg', 0, '00:00:00', '00:00:00', 500000, 550000, '00:00:00', '00:00:00'),
 ('AC007', 'Minister Room', 'Superior Non-smoking, Sweet Sleeper Bed, Private Balcony, Combined Shower/bath', 'images/facilities/rooms/AC007.jpg', 0, '00:00:00', '00:00:00', 700000, 750000, '00:00:00', '00:00:00'),
-('AC008', 'Ambassador Room', 'Superior Lake View Non-smoking, Sweet Sleeper Bed, Spacious With Sitting Area, Comfortable Work Area, Coffee/tea Maker', 'images/facilities/rooms/AC008.gif', 0, '00:00:00', '00:00:00', 780000, 800000, '00:00:00', '00:00:00');
+('AC008', 'Ambassador Room', 'Superior Lake View Non-smoking, Sweet Sleeper Bed, Spacious With Sitting Area, Comfortable Work Area, Coffee/tea Maker', 'images/facilities/rooms/AC008.gif', 0, '00:00:00', '00:00:00', 780000, 800000, '00:00:00', '00:00:00'),
+('AC009', 'Satelite Home', 'Feel at home with our ultimate service', '', 5, '12:30:00', '11:30:00', 1350000, 1750000, '00:30:00', '00:30:00');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,9 @@ INSERT INTO `hall_reservation` (`reservation_item_id`, `product_id`, `begin_time
 (25, 'HL003', '10:00:00', '13:00:00', '2010-11-28', 300, '7603'),
 (27, 'HL004', '18:00:00', '21:00:00', '2010-11-27', 100, '7601'),
 (30, 'HL001', '08:00:00', '11:00:00', '2010-11-30', 50, '7602'),
-(33, 'HL002', '08:00:00', '18:00:00', '2010-12-03', 100, '7603');
+(33, 'HL002', '08:00:00', '18:00:00', '2010-12-03', 100, '7603'),
+(38, 'HL001', '08:30:00', '13:00:00', '2010-12-15', 25, '7603'),
+(40, 'HL001', '08:00:00', '13:00:00', '2010-12-31', 50, '7603');
 
 -- --------------------------------------------------------
 
@@ -323,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   PRIMARY KEY (`reservation_id`),
   KEY `username` (`username`),
   KEY `parent` (`parent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `reservation`
@@ -345,7 +348,9 @@ INSERT INTO `reservation` (`reservation_id`, `is_onspot`, `username`, `note`, `p
 (13, 0, 'joy123', '', NULL),
 (14, 0, 'joy123', '', NULL),
 (15, 0, 'customer', '', NULL),
-(16, 0, 'customer', 'ubah tanggal untuk tes notif', NULL);
+(16, 0, 'customer', 'ubah tanggal untuk tes notif', NULL),
+(17, 1, 'christian.h6191', 'layout: 1', NULL),
+(18, 1, 'christian.h6191', 'layout: 1', 17);
 
 -- --------------------------------------------------------
 
@@ -362,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `reservation_item` (
   PRIMARY KEY (`reservation_item_id`),
   KEY `fk_validates` (`price`),
   KEY `reservation_id` (`reservation_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `reservation_item`
@@ -404,7 +409,10 @@ INSERT INTO `reservation_item` (`reservation_item_id`, `reservation_id`, `reserv
 (33, 14, '2010-10-19 21:41:53', 60000000, 'H'),
 (34, 15, '2010-10-19 22:41:53', 1695000, 'R'),
 (35, 15, '2010-10-19 22:41:53', 1695000, 'R'),
-(36, 16, '2010-11-12 07:42:04', 545000, 'R');
+(36, 16, '2010-11-12 07:42:04', 545000, 'R'),
+(38, 17, '2010-11-18 19:00:39', 7500000, 'H'),
+(40, 18, '2010-11-18 19:02:36', 300000, 'H'),
+(41, 17, '2010-11-18 22:49:14', 545000, 'R');
 
 -- --------------------------------------------------------
 
@@ -486,7 +494,8 @@ INSERT INTO `room_reservation` (`reservation_item_id`, `room_no`, `entry_date`, 
 (32, '110', '2010-12-02', '2010-12-03', NULL, NULL),
 (34, '203', '2010-11-22', '2011-01-01', NULL, NULL),
 (35, '202', '2010-12-30', '2011-01-01', NULL, NULL),
-(36, '111', '2010-11-21', '2010-11-25', NULL, NULL);
+(36, '111', '2010-11-21', '2010-11-25', NULL, NULL),
+(41, '104', '2010-11-30', '2010-12-01', '2010-11-30 10:49:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -602,8 +611,8 @@ ALTER TABLE `other_services_reservation`
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`username`) REFERENCES `staff` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`username`) REFERENCES `staff` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `payment_ibfk_3` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reservation`
@@ -616,7 +625,7 @@ ALTER TABLE `reservation`
 -- Constraints for table `reservation_item`
 --
 ALTER TABLE `reservation_item`
-  ADD CONSTRAINT `reservation_item_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `reservation_item_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `room`

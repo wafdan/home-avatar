@@ -8,6 +8,7 @@ package AvatarEntity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,7 +66,7 @@ public class Payment implements Serializable {
     @Column(name = "amount")
     private double amount;
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Reservation reservationId;
     @JoinColumn(name = "username", referencedColumnName = "username")
     @ManyToOne
