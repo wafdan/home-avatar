@@ -156,21 +156,23 @@ else if (request.getParameter("dep") != null)
                                 <input type="submit" name="add" id="add" value="Add" />
                             </form>
                         </div>
-                        <!-- end content -->    
-                        <div style="clear: both;">&nbsp;</div>
+                        
                     </div>
                     <jsp:include page="resv_sidebar.jsp" />
+                    <!-- end content -->
+                        <div style="clear: both;">&nbsp;</div>
                     <!-- end page -->
                 </div>
             </div>
-            <!-- start footer -->
+            
+        </div>
+        <!-- start footer -->
             <div id="footer">
                 <div id="footer-wrap">
                     <p id="legal">(c)2010 AVATAR. Design by <a href="http://www.freecsstemplates.org/">Hakuna Matata</a>.</p>
                 </div>
             </div>
         <!-- end footer -->
-        </div>
     </body>
 </html>
 <%}else{

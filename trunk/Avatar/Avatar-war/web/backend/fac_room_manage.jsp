@@ -171,10 +171,6 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                                             <td><textarea id="desc" name="desc" cols=80% rows=3><%= temp.getDescription()%></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td>Image        :</td>
-                                            <td><input type="text" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
-                                        </tr>
-                                        <tr>
                                             <td>Max Pax:</td>
                                             <td><input type="text" name="max" id="max" value="<%= temp.getMaxPax()%>" maxlength="11"/><br /></td>
                                         </tr>

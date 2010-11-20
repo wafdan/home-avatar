@@ -18,17 +18,17 @@
     <%-- <label>ACCOMODATIONS</label>--%>
     <ul>
         <strong>ACCOMODATIONS</strong>
-        <li><a href="reservation_add_room.jsp">Add Reservation</a></li>
+        <li><a href="reservation_room_add.jsp">Add Reservation</a></li>
         <li><a href="reservation_manage_room.jsp">Manage Reservation</a></li>
     </ul>
     <ul>
         <strong>MEETINGS & EVENTS</strong>
-        <li><a href="reservation_add_hall.jsp">Add Reservation</a></li>
+        <li><a href="reservation_hall_add.jsp">Add Reservation</a></li>
         <li><a href="reservation_manage_hall.jsp">Manage Reservation</a></li>
     </ul>
     <ul>
         <strong>OTHER SERVICES</strong>
-        <li><a href="reservation_add_services.jsp">Add Reservation</a></li>
+        <li><a href="reservation_other_add.jsp">Add Reservation</a></li>
         <li><a href="reservation_manage_services.jsp">Manage Reservation</a></li>
     </ul>
     <%

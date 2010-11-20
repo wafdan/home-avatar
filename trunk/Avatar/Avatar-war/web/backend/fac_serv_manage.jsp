@@ -147,10 +147,6 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 2){
                                             <td><textarea id="desc" name="desc" cols=75% rows=3><%= temp.getDescription()%></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td>Image  :</td>
-                                            <td><input type="text" value= "<%= temp.getImage()%>" id="img" name="img" /></td>
-                                        </tr>
-                                        <tr>
                                             <td>Pricing Unit :</td>
                                             <td><input type="text" value= "<%= temp.getPricingUnit()%>" id="prcu" name="prcu" maxlength="10"/></td>
                                         </tr>

@@ -70,7 +70,7 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                 <div id="page">
                     <!-- start content -->
                     <div id="content">
-                        <h1 class="title">Form Konfirmasi Pembayaran</h1>
+                        <h1 class="title">Payment Confirmation Form</h1>
                         <div class="post">
                             <form method="post" name="formConfirm" id="formConfirm" action="payment_manage">
                             <table border="0">
@@ -152,7 +152,26 @@ NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(locale);
                     </div>
                     <!-- end content -->
                     <!-- start sidebar -->
-                    <jsp:include page="resv_sidebar.jsp" flush="true"/>
+                    <div id="sidebar">
+                        <ul>
+                            <li>
+                                <div id="sidebar-title">
+                                    <h2>Payment Management</h2>
+                                </div>
+
+                                <ul>
+                                    <li>PAYMENT
+                                        <ul>
+                                            <li id="fmenu-item1"><a href="payment_manage">All</a></li>
+                                            <li id="fmenu-item2"><a href="payment_manage?mode=unconf">Unconfirmed</a></li>
+                                            <li id="fmenu-item3"><a href="payment_manage?mode=unver">Unverified Confirmed</a></li>
+                                            <li id="fmenu-item4"><a href="payment_manage?mode=ver">Verified</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                     <!-- end sidebar -->
                     <div style="clear: both;">&nbsp;</div>
                 </div>

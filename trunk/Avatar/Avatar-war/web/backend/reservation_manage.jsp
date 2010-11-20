@@ -72,7 +72,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                         <div class="post">
                             <h1 class="title">Manage Reservation</h1>
                             <h2>Reservation List</h2>
-                            <p><a href="reservation_hall_add.jsp">Create New Reservation</a></p>
+                            <p><a href="reservation_room_add.jsp">Create New Reservation</a></p>
                             <% for (Reservation res : rList) { if (res.getParent() == null) { %><a name="res<%= res.getReservationId() %>"></a>
                             <p><b>Reservation #<%= res.getReservationId() %> [<%= res.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= res.getReservationId() %>">delete</a>)</p>
                             Customer: <%= res.getUsername().getName() %> (<%= res.getUsername().getUsername() %>)<br />

@@ -185,10 +185,11 @@ else if (request.getParameter("dep") != null)
                                 <input type="submit" name="add" id="add" value="Add" />
                             </form>
                         </div>
-                        <!-- end content -->    
-                        <div style="clear: both;">&nbsp;</div>
+                        
                     </div>
                     <jsp:include page="resv_sidebar.jsp" />
+                    <!-- end content -->
+                        <div style="clear: both;">&nbsp;</div>
                     <!-- end page -->
                 </div>
             </div>
