@@ -43,8 +43,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 0){
                                     <div class="required">
                                         <label><span>ID Type :</span></label>
                                         <select name="idtype" id="idtype">
-                                            <option value="KTP">KTP</option>
-                                            <option value="SIM">SIM</option>
+                                            <option value="Citizen ID">Citizen ID</option>
                                             <option value="Passport">Passport</option>
                                         </select>
                                     </div><br/>

@@ -155,6 +155,12 @@ Calendar curr = Calendar.getInstance(); curr.setTimeInMillis(0);
                 </div>
             </div>
         </div>
+        <!-- start footer -->
+            <div id="footer">
+                <div id="footer-wrap">
+                    <p id="legal">(c)2010 AVATAR. Design by <a href="http://www.freecsstemplates.org/">Hakuna Matata</a>.</p>
+                </div>
+            </div>
         <!-- end page -->
     </body>
 </html>

@@ -111,10 +111,11 @@ OtherServicesReservation osr = osrjpa.findOtherServicesReservation(Integer.parse
                                 <input type="submit" name="update" id="update" value="Update" />
                             </form>
                         </div>
-                        <!-- end content -->    
-                        <div style="clear: both;">&nbsp;</div>
+                       
                     </div>
                     <jsp:include page="resv_sidebar.jsp" />
+                     <!-- end content -->
+                        <div style="clear: both;">&nbsp;</div>
                     <!-- end page -->
                 </div>
             </div>
