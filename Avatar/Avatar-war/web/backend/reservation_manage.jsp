@@ -77,7 +77,7 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                             <p><b>Reservation #<%= res.getReservationId() %> [<%= res.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= res.getReservationId() %>">delete</a>)</p>
                             Customer: <%= res.getUsername().getName() %> (<%= res.getUsername().getUsername() %>)<br />
                             Payment status: <%= (res.getPayment() == null ? "not yet" + (res.getReservationPaymentLimit() == null ? "" : ", due " + dateOnly.format(res.getReservationPaymentLimit())) : "paid at " + dateOnly.format(res.getPayment().getPaymentDate())) %><br />
-                            Reservation Items: (<a href="reservation_hall_add.jsp?res=<%= res.getReservationId() %>">add</a>)<br />
+                            Reservation Items: (<a href="reservation_room_add.jsp?res=<%= res.getReservationId() %>">add</a>)<br />
                             <table border = 1 cellpadding = "3" cellspacing = "0">
                                 <tr>
                                     <th>Timestamp</th>
@@ -97,12 +97,12 @@ List<Reservation> rList = jpar.findParentReservationEntities();
                                     <td align="right"><%= currencyFormat.format(res.getTotalPrice()) %></td>
                                 </tr>
                             </table>
-                            <p><u>Related Reservations:</u> (<a href="reservation_hall_add.jsp?dep=<%= res.getReservationId() %>">add</a>)</p>
+                            <p><u>Related Reservations:</u> (<a href="reservation_room_add.jsp?dep=<%= res.getReservationId() %>">add</a>)</p>
                             <div class="subresv">
                             <% for (Reservation resChild : res.getReservationCollection()) { %><a name="res<%= res.getReservationId() %>"></a>
                             <p><b>^ Reservation #<%= resChild.getReservationId() %> [<%= resChild.getIsOnspot() ? "on-spot": "online" %>]</b> (<a href="reservation_delete?id=<%= resChild.getReservationId() %>">delete</a>)</p>
                             Payment status: <%= (resChild.getPayment() == null ? "not yet" + (resChild.getReservationPaymentLimit() == null ? "" : ", due " + dateOnly.format(resChild.getReservationPaymentLimit())) : "paid at " + dateOnly.format(resChild.getPayment().getPaymentDate())) %><br />
-                            Reservation Items: (<a href="reservation_hall_add.jsp?res=<%= resChild.getReservationId() %>">add</a>)<br />
+                            Reservation Items: (<a href="reservation_room_add.jsp?res=<%= resChild.getReservationId() %>">add</a>)<br />
                             <table border = 1 cellpadding = "3" cellspacing = "0">
                                 <tr>
                                     <th>Timestamp</th>

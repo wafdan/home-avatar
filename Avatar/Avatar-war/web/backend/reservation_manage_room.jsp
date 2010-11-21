@@ -46,14 +46,14 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     <th bgcolor="#262626">Room</th>
                                     <th bgcolor="#262626">Entry</th>
                                     <th bgcolor="#262626">Exit</th>
-                                    <th bgcolor="#262626">Resrv</th>
+                                    <th bgcolor="#262626">Reservation</th>
                                 </tr>
 
                                 <%
                                     RoomReservationJpaController jpr = new RoomReservationJpaController();
                                     List<RoomReservation> roomList = jpr.findRoomReservationEntities();
                                     Iterator<RoomReservation> ur = roomList.iterator();
-                                    if (ur.hasNext()) {out.write(" has next ");} else {out.write(" no next ");}
+                                    //if (ur.hasNext()) {out.write(" has next ");} else {out.write(" no next ");}
 
                                     for (Iterator<RoomReservation> ir = lr.iterator(); ir.hasNext();) {
                                         RoomReservation temp = ir.next();

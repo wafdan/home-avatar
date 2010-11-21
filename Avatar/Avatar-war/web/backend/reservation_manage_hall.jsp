@@ -46,7 +46,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     <th bgcolor="#262626">Package Type</th>
                                     <th bgcolor="#262626">Date</th>
                                     <th bgcolor="#262626">Time</th>
-                                    <th bgcolor="#262626">Resrv</th>
+                                    <th bgcolor="#262626">Reservation</th>
 
                                 </tr>
 
