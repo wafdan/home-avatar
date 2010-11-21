@@ -43,7 +43,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 1){
                                     <th bgcolor="#262626">Customer</th>
                                     <th bgcolor="#262626">Product Name</th>
                                     <th bgcolor="#262626">Quantity</th>
-                                    <th bgcolor="#262626">Resrv</th>
+                                    <th bgcolor="#262626">Reservation</th>
                                 </tr>
 
                                 <%
