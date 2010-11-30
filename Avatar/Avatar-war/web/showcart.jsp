@@ -119,7 +119,6 @@
         <td><%=i%></td>
         <td><%=(new SimpleDateFormat("dd/MM/yyyy")).format(temp.use_date)%></td>
         <td><%=temp.product_name%></td>
-        <td><%=temp.total%></td>
         <td><%=temp.layout_name%></td>
         <td><%=temp.attendees%></td>
         <td><%=temp.total%></td>
