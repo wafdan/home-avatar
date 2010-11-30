@@ -76,7 +76,7 @@ if(Integer.parseInt(session.getAttribute("position").toString()) == 0){
                                         <label><span>Position :</span></label>
                                         <select name="position" id="position">
                                             <option value="0">Administrator</option>
-                                            <option value="1">Receptionis</option>
+                                            <option value="1">Receptionist</option>
                                             <option value="2">Manager</option>
                                         </select>
                                     </div><br/>
